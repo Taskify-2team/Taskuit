@@ -1,3 +1,34 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "ignorePatterns": ["node_modules/"],
+  "rules": {
+    "react/react-in-jsx-scope": "off", //코드에 react import안하면 error off
+    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }], // 파일 확장자 .ts, .tsx로 한정
+    "no-useless-catch": "off", // 불필요한 catch 사용 off
+    "@typescript-eslint/naming-convention": "off", // 네이민 컨벤션 옵션 off
+    "no-console": "error", // console 사용하면 error
+    "react/jsx-props-no-spreading": "off" //spread사용시 error off
+  }
 }
