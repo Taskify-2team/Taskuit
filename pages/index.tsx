@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>프로젝트</div>;
+  return <div className="w-[10rem]">프로젝트</div>
 }
