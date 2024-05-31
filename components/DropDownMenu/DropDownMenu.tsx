@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
