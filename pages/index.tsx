@@ -1,5 +1,5 @@
-import DarkHeader from '@/components/darkHeader/DarkHeader';
-import LightHeader from '@/components/lighHeader/LightHeader';
+import DarkHeader from '@/components/darkHeader/DarkHeader'
+import LightHeader from '@/components/lighHeader/LightHeader'
 
 export default function Home() {
   return (
@@ -8,5 +8,5 @@ export default function Home() {
       <LightHeader />
       <DarkHeader />
     </div>
-  );
+  )
 }
