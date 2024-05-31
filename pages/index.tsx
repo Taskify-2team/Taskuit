@@ -1,3 +1,5 @@
+import BoardButton from '@/components/Buttons/BoardButton'
+import CreateBoardButton from '@/components/Buttons/CreateBoardButton'
 import DropDownMenu from '@/components/DropDownMenu/DropDownMenu'
 
 export default function Home() {
@@ -5,6 +7,8 @@ export default function Home() {
   return (
     <div className="w-[21.7rem]">
       <DropDownMenu menuList={mock} />
+      <CreateBoardButton />
+      <BoardButton />
     </div>
   )
 }
