@@ -1,6 +1,6 @@
 export default function Input() {
   return (
-    <div className="">
+    <div className="text-base">
       <label htmlFor="id" className="">
         이메일
       </label>
