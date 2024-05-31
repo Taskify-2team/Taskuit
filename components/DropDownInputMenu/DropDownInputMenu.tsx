@@ -11,12 +11,18 @@ interface DropDownInputMenuProps {
 }
 
 export default function DropDownInputMenu({ menuList, menuListIcon }: DropDownInputMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(menuList[0])
+  const [selectMenu, setSelectMenu] = useState({
+    name: '',
+    icon: '',
+  })
   const [showMenuList, setShowMenuList] = useState(false)
   const refNode = useRef<HTMLDivElement>(null)
 
   const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectMenu(e.target.value)
+    setSelectMenu({
+      ...selectMenu,
+      name: e.target.value,
+    })
   }
 
   useEffect(() => {
@@ -36,32 +42,54 @@ export default function DropDownInputMenu({ menuList, menuListIcon }: DropDownIn
     <div
       ref={refNode}
       onClick={() => setShowMenuList((prev) => !prev)}
-      className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative cursor-pointer w-full h-[4.8rem] bg-white px-2 py-6 border-solid border rounded-md text-black`}
+      className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-white px-[1.6rem] py-[1.3rem] text-black`}
     >
-      <div className="size-full flex justify-between items-center">
+      <div className="flex size-full items-center justify-between">
         <div className="col-start-2 flex gap-1 px-[0.8rem] py-[0.4rem] text-black">
-          <input value={selectMenu} onChange={changeInput} className="outline-none text-[1.2rem]" />
+          <div className="relative h-[2.6rem] w-[2.6rem]">
+            {selectMenu.icon && (
+              <Image
+                fill
+                src={selectMenu.icon}
+                alt="프로필 이미지"
+                className="rounded-full border-[0.2rem]"
+              />
+            )}
+          </div>
+          <input
+            value={selectMenu.name}
+            onChange={changeInput}
+            className="text-[1.2rem] outline-none"
+            placeholder="담당자"
+          />
         </div>
         <div>
           <Image src={arrow} alt="드롭다운 화살표" className={showMenuList ? 'rotate-180' : ''} />
         </div>
       </div>
       {showMenuList && (
-        <div className="absolute left-0 top-[5rem] py-[0.65rem] w-full border border-solid border-gray-300 rounded-md flex flex-col overflow-hidden shadow-lg animate-slideDown bg-white">
+        <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
           {menuList.map((menuItem, i) => (
             <div
               key={menuItem}
-              onClick={() => setSelectMenu(menuItem)}
-              className="relative w-full h-full px-[1.6rem] py-[0.65rem] grid grid-cols-[2.2rem_1fr] gap-1 content-center place-items-start border-solid border-1 border-blue-500 hover:bg-slate-200"
+              onClick={() => setSelectMenu({ name: menuItem, icon: menuListIcon[i] })}
+              className="relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200"
             >
-              {menuItem === selectMenu && (
+              {menuItem === selectMenu.name && (
                 <div className="col-start-1 self-center">
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="col-start-2 flex gap-1 px-2 py-1 text-black rounded-full">
-                <div>{menuListIcon[i]}</div>
-                <div>{menuItem}</div>
+              <div className="col-start-2 flex items-center gap-[0.8rem] rounded-full px-[0.8rem] py-[0.4rem] text-black">
+                <div className="relative h-[2.6rem] w-[2.6rem]">
+                  <Image
+                    fill
+                    src={menuListIcon[i]}
+                    alt="프로필 이미지"
+                    className="rounded-full border-[0.2rem]"
+                  />
+                </div>
+                <div className="text-[1.2rem]">{menuItem}</div>
               </div>
             </div>
           ))}
