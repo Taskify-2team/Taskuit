@@ -13,7 +13,7 @@ export default function DashBoardHeader({ title }: string) {
         <div className="flex gap-[1.6rem]  pr-[4rem] border-r-2 border-solid border-[#d9d9d9] my-[1.6rem]">
           <HeaderButton buttonIcon={settingicon} buttonName="관리" />
           <HeaderButton buttonIcon={inviteicon} buttonName="초대하기" />
-          {/* <ProfileList /> */}
+          <ProfileList />
         </div>
         <UserProfile profileImageUrl={testpic} nickname="test" />
       </div>

@@ -1,7 +1,7 @@
 import { UserProfile } from '../../UserInfo/UserProfile'
 
 export default function ProfileList({ data }) {
-  const memberData = data.members
+  const memberData = data?.members
   return (
     <div>
       {memberData ? (
