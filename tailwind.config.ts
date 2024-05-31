@@ -12,6 +12,15 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        slideDown: {
+          '0%': { opacity: '0', transform: 'translateY(-10%)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        slideDown: 'slideDown 0.3s ease-in-out forwards',
+      },
     },
   },
   plugins: [],
