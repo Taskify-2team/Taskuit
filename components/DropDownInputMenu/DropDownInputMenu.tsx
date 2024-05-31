@@ -1,19 +1,15 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
-
-interface MenuList {
-  id: number
-  nickname: string
-  profileImageUrl: string
-}
+import { Member } from '@/types/member'
 
 interface DropDownInputMenuProps {
-  menuList: MenuList[]
+  menuList: Member[]
 }
 
 export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) {
@@ -21,10 +17,13 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
     id: 0,
     nickname: '',
     profileImageUrl: '',
+    index: 0,
   })
-  const [foundList, setFoundList] = useState<MenuList[]>(menuList)
+  const [foundList, setFoundList] = useState<Member[]>(menuList) /** 초기값으로 프롭스 전달 */
   const [showMenuList, setShowMenuList] = useState(false)
-  const refNode = useRef<HTMLDivElement>(null)
+  const dropDownElement = useRef<HTMLDivElement>(null)
+  const refNodeList = useRef<Array<HTMLDivElement>>([])
+  const inputElement = useRef<HTMLInputElement>(null)
 
   const isKoreanFoundValue = (value: string) => {
     const koreanPattern = /[가-힣]/
@@ -36,10 +35,10 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
       id: 0,
       nickname: '',
       profileImageUrl: '',
+      index: 0,
     })
     setFoundList(menuList)
   }
-
   const findMatchingItemList = (inputValue: string) => {
     const result = menuList.filter((menuItem) => {
       return (
@@ -62,35 +61,80 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
     }
   }
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (refNode.current && !refNode.current.contains(e.target as Node)) {
-        setShowMenuList(false)
+  const handleClickOutside = (e: MouseEvent) => {
+    if (dropDownElement.current && !dropDownElement.current.contains(e.target as Node)) {
+      setShowMenuList(false)
+    }
+  }
+
+  const handleArrowDown = () => {
+    if (refNodeList.current[0]) {
+      if (selectMenu.id) {
+        const idx = selectMenu.index
+        if (refNodeList.current[idx + 1]) {
+          refNodeList.current[idx + 1].click()
+        } else {
+          refNodeList.current[0].click()
+        }
+      } else {
+        refNodeList.current[0].click()
       }
     }
+  }
 
+  const handleArrowUp = () => {
+    if (refNodeList.current[foundList.length - 1]) {
+      if (selectMenu.nickname) {
+        const idx = selectMenu.index
+        if (refNodeList.current[idx - 1]) {
+          refNodeList.current[idx - 1].click()
+        } else {
+          refNodeList.current[foundList.length - 1].click()
+        }
+      } else {
+        refNodeList.current[foundList.length - 1].click()
+      }
+    }
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+    if (e.key === 'ArrowDown') {
+      handleArrowDown()
+    }
+    if (e.key === 'ArrowUp') {
+      handleArrowUp()
+    }
+    if (e.key === 'Enter') {
+      setShowMenuList(false)
+      e.currentTarget.blur()
+    }
+  }
+
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [refNode])
+  }, [])
 
   return (
     <div
-      ref={refNode}
+      ref={dropDownElement}
       onClick={() => setShowMenuList(true)}
       className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-white px-[1.6rem] py-[1.3rem] text-black`}
     >
-      <div className="flex size-full items-center">
+      <div className="flex size-full items-center justify-between">
         <div className="grid grid-cols-[1.5rem_1fr] items-center gap-1 text-black">
           {selectMenu.profileImageUrl && (
             <>
               <button
                 type="button"
-                className="relative col-start-1 h-[1.2rem] w-[1.2rem]"
+                className="col-start-1 flex size-[1.5rem] items-center justify-center rounded-md hover:bg-slate-200"
                 onClick={initializeSelectMenu}
               >
-                <Image fill src={cancel} alt="취소 버튼" />
+                <div className="relative h-[0.8rem] w-[0.8rem]">
+                  <Image fill src={cancel} alt="취소 버튼" />
+                </div>
               </button>
               <div className="relative col-start-2 h-[2.6rem] w-[2.6rem]">
                 <Image
@@ -103,36 +147,46 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
             </>
           )}
           <input
+            ref={inputElement}
+            onKeyDown={handleKeyDown}
             value={selectMenu.nickname}
             onChange={changeInput}
             className="col-start-3 text-[1.2rem] outline-none"
             placeholder="담당자를 선택해 주세요"
           />
         </div>
-        <div>
-          <Image src={arrow} alt="드롭다운 화살표" className={showMenuList ? 'rotate-180' : ''} />
+        <div className="absolute right-[1.5rem] size-[1rem]">
+          <Image
+            fill
+            src={arrow}
+            alt="드롭다운 화살표"
+            className={showMenuList ? 'rotate-180' : ''}
+          />
         </div>
       </div>
       {showMenuList && (
         <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
-          {foundList.map((menuItem) => (
+          {foundList.map((menuItem, i) => (
             <div
               key={menuItem.id}
+              ref={(el) => (refNodeList.current[i] = el)}
               onClick={() =>
                 setSelectMenu({
+                  ...selectMenu,
                   id: menuItem.id,
                   nickname: menuItem.nickname,
                   profileImageUrl: menuItem.profileImageUrl,
+                  index: i,
                 })
               }
-              className="relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200"
+              className={`${menuItem.nickname === selectMenu.nickname ? 'bg-slate-200' : ''} relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200`}
             >
               {menuItem.nickname === selectMenu.nickname && (
                 <div className="relative col-start-1 self-center">
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="col-start-2 flex items-center gap-[0.8rem] rounded-full px-[0.8rem] py-[0.4rem] text-black">
+              <div className="col-start-2 flex items-center gap-[0.8rem] rounded-full text-black">
                 <div className="relative h-[2.6rem] w-[2.6rem]">
                   <Image
                     fill
