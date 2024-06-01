@@ -17,7 +17,7 @@ export default function Home() {
       id: 2,
       userId: 2,
       email: '',
-      nickname: '박재범',
+      nickname: '이진욱1',
       profileImageUrl: 'https://avatars.githubusercontent.com/u/810438?s=64&v=4',
       createdAt: '',
       updatedAt: '',
