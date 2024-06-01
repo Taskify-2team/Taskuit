@@ -1,10 +1,9 @@
-import DropDownMenu from '@/components/DropDownMenu/DropDownMenu'
+import AppLayout from '@/components/AppLayout/AppLayout'
 
 export default function Home() {
-  const mock = ['On Progress', 'To Do', 'Success']
   return (
-    <div className="h-screen w-full">
-      <DropDownMenu menuList={mock} />
-    </div>
+    <AppLayout>
+      <div className="flex justify-center">랜딩페이지</div>
+    </AppLayout>
   )
 }
