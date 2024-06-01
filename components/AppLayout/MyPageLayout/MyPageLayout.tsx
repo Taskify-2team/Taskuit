@@ -7,9 +7,9 @@ interface MyPageLayoutProps {
 
 export default function MyPageLayout({ EditProfile, EditPassword }: MyPageLayoutProps) {
   return (
-    <>
+    <div className="flex flex-col">
       <div>{EditProfile}</div>
       <div>{EditPassword}</div>
-    </>
+    </div>
   )
 }

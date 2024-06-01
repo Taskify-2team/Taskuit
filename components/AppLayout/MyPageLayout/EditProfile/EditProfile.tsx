@@ -1,3 +1,3 @@
 export default function EditProfile() {
-  return <div className="w-[62rem]">d</div>
+  return <div className="bg-var-white w-[62rem]">Edit Profile</div>
 }

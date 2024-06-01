@@ -8,14 +8,12 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <main>
-      <div>
-        <DashBoardHeader />
-      </div>
+    <>
+      <DashBoardHeader />
       <div className="flex">
         <SideMenu />
-        <div>{children}</div>
+        <div className="p-[2rem]">{children}</div>
       </div>
-    </main>
+    </>
   )
 }
