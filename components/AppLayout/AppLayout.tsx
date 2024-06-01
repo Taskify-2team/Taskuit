@@ -11,7 +11,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <DashBoardHeader />
       <div className="flex bg-var-gray1">
         <SideMenu />
-        <div className="p-[2rem]">{children}</div>
+        <div className="w-full p-[2rem]">{children}</div>
       </div>
     </>
   )
