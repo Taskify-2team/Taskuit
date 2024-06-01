@@ -1,12 +1,23 @@
-import AppLayout from '@/components/AppLayout/AppLayout'
-import MyPageLayout from '@/components/AppLayout/MyPageLayout/MyPageLayout'
-import EditProfile from '@/components/AppLayout/MyPageLayout/EditProfile/EditProfile'
-import EditPassword from '@/components/AppLayout/MyPageLayout/EditPassword/EditPassword'
+import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
+import { useState } from 'react'
+
+export interface ProfileBody {
+  email: string
+  nickname: string
+}
 
 export default function MyPage() {
+  const [profileBody, setProfileBody] = useState<ProfileBody>({
+    email: '',
+    nickname: '',
+  })
+
   return (
     <AppLayout>
-      <MyPageLayout EditProfile={<EditProfile />} EditPassword={<EditPassword />} />
+      <MyPageLayout
+        EditProfile={<EditProfile setProfileBody={setProfileBody} profileBody={profileBody} />}
+        EditPassword={<EditPassword />}
+      />
     </AppLayout>
   )
 }

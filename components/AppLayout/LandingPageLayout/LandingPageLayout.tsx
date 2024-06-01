@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
-import Footer from '@/components/Footer/Footer'
-import LightHeader from '@/components/Headers/LightHeader/LightHeader'
+import { Footer, LightHeader } from '@/components'
 
 interface LandingPageLayoutProps {
   children: ReactNode

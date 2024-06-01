@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
-import SideMenu from '@/components/SideMenu/SideMenu'
-import DashBoardHeader from '@/components/Headers/DashBoardHeader/DashBoardHeader'
+import { SideMenu, DashBoardHeader } from '@/components'
 
 interface AppLayoutProps {
   children: ReactNode
@@ -10,7 +9,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <DashBoardHeader />
-      <div className="bg-var-gray1 flex">
+      <div className="flex bg-var-gray1">
         <SideMenu />
         <div className="p-[2rem]">{children}</div>
       </div>
