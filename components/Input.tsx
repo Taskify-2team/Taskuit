@@ -6,5 +6,5 @@ export default function Input() {
       </label>
       <input id="id" type="text" />
     </div>
-  );
+  )
 }
