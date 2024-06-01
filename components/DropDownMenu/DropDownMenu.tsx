@@ -14,13 +14,13 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
   const [showMenuList, setShowMenuList] = useState(false)
   const refNode = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (refNode.current && !refNode.current.contains(e.target as Node)) {
-        setShowMenuList(false)
-      }
+  const handleClickOutside = (e: MouseEvent) => {
+    if (refNode.current && !refNode.current.contains(e.target as Node)) {
+      setShowMenuList(false)
     }
+  }
 
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
@@ -37,8 +37,13 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
         <div className="col-start-2 flex gap-1 rounded-full bg-purple-200 px-[0.8rem] py-[0.4rem] text-purple-900">
           <div className="text-[1.2rem]">{`• ${selectMenu}`}</div>
         </div>
-        <div>
-          <Image src={arrow} alt="드롭다운 화살표" className={showMenuList ? 'rotate-180' : ''} />
+        <div className="absolute right-[1.5rem] size-[1rem]">
+          <Image
+            fill
+            src={arrow}
+            alt="드롭다운 화살표"
+            className={showMenuList ? 'rotate-180' : ''}
+          />
         </div>
       </div>
       {showMenuList && (
@@ -47,7 +52,7 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
             <div
               key={menuItem}
               onClick={() => setSelectMenu(menuItem)}
-              className="relative grid h-full w-full grid-cols-[2.2rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200"
+              className="relative grid size-full grid-cols-[2.2rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200"
             >
               {menuItem === selectMenu && (
                 <div className="col-start-1 self-center">

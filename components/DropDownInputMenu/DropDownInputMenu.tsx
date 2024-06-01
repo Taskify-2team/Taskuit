@@ -9,17 +9,17 @@ import Image from 'next/image'
 import { Member } from '@/types/member'
 
 interface DropDownInputMenuProps {
-  menuList: Member[]
+  initMenuList: Member[]
 }
 
-export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) {
+export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
     id: 0,
     nickname: '',
     profileImageUrl: '',
     index: 0,
   })
-  const [foundList, setFoundList] = useState<Member[]>(menuList) /** 초기값으로 프롭스 전달 */
+  const [menuList, setMenuList] = useState<Member[]>(initMenuList)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
@@ -32,14 +32,14 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
       profileImageUrl: '',
       index: 0,
     })
-    setFoundList(menuList)
+    setMenuList(initMenuList)
   }
 
   const findMatchingItemList = (inputValue: string) => {
-    const result = menuList.filter((menuItem) => {
+    const result = initMenuList.filter((menuItem) => {
       return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
-    setFoundList(result)
+    setMenuList(result)
   }
 
   const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,16 +76,16 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
   }
 
   const handleArrowUp = () => {
-    if (menuElement.current[foundList.length - 1]) {
+    if (menuElement.current[menuList.length - 1]) {
       if (selectMenu.nickname) {
         const idx = selectMenu.index
         if (menuElement.current[idx - 1]) {
           menuElement.current[idx - 1].click()
         } else {
-          menuElement.current[foundList.length - 1].click()
+          menuElement.current[menuList.length - 1].click()
         }
       } else {
-        menuElement.current[foundList.length - 1].click()
+        menuElement.current[menuList.length - 1].click()
       }
     }
   }
@@ -169,7 +169,7 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
       </div>
       {showMenuList && (
         <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
-          {foundList.map((menuItem, i) => (
+          {menuList.map((menuItem, i) => (
             <div
               key={menuItem.id}
               ref={(el) => {
