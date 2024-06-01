@@ -1,4 +1,4 @@
-import { UserProfile } from '../../UserInfo/UserProfile'
+import { UserProfile } from '@/components'
 
 export default function ProfileList({ data }) {
   const memberData = data?.members

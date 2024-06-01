@@ -29,10 +29,10 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
     <div
       ref={refNode}
       onClick={() => setShowMenuList((prev) => !prev)}
-      className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} bg-var-white text-var-black3 relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid px-[1.6rem] py-[1.3rem]`}
+      className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-var-white px-[1.6rem] py-[1.3rem] text-var-black3`}
     >
       <div className="flex size-full items-center justify-between">
-        <div className="text-primary-violet bg-var-violet col-start-2 flex gap-1 rounded-full px-[0.8rem] py-[0.4rem]">
+        <div className="col-start-2 flex gap-1 rounded-full bg-var-violet px-[0.8rem] py-[0.4rem] text-primary-violet">
           <div className="text-[1.2rem]">{`• ${selectMenu}`}</div>
         </div>
         <div className="absolute right-[1.5rem] size-[1rem]">
@@ -45,19 +45,19 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
         </div>
       </div>
       {showMenuList && (
-        <div className="border-var-gray3 bg-var-white absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid py-[0.65rem] shadow-lg">
+        <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
           {menuList.map((menuItem) => (
             <div
               key={menuItem}
               onClick={() => setSelectMenu(menuItem)}
-              className={`${selectMenu === menuItem ? 'bg-var-violet' : ''} hover:bg-var-violet relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem]`}
+              className={`${selectMenu === menuItem ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
             >
               {menuItem === selectMenu && (
                 <div className="col-start-1 size-[1rem] self-center">
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="bg-var-violet text-primary-violet col-start-2 flex rounded-full px-[0.8rem] py-[0.4rem]">
+              <div className="col-start-2 flex rounded-full bg-var-violet px-[0.8rem] py-[0.4rem] text-primary-violet">
                 <div className="text-[1.2rem]">{`• ${menuItem}`}</div>
               </div>
             </div>

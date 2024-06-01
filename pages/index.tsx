@@ -1,4 +1,4 @@
-import LandingPageLayout from '@/components/AppLayout/LandingPageLayout/LandingPageLayout'
+import { LandingPageLayout } from '@/components'
 import Image from 'next/image'
 import { ReactNode } from 'react'
 
