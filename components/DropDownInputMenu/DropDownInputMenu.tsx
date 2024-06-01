@@ -22,13 +22,8 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
   const [foundList, setFoundList] = useState<Member[]>(menuList) /** 초기값으로 프롭스 전달 */
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
-  const refNodeList = useRef<Array<HTMLDivElement>>([])
+  const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
-
-  const isKoreanFoundValue = (value: string) => {
-    const koreanPattern = /[가-힣]/
-    return value.match(koreanPattern)
-  }
 
   const initializeSelectMenu = () => {
     setSelectMenu({
@@ -39,12 +34,10 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
     })
     setFoundList(menuList)
   }
+
   const findMatchingItemList = (inputValue: string) => {
     const result = menuList.filter((menuItem) => {
-      return (
-        menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase()) &&
-        isKoreanFoundValue(inputValue)
-      )
+      return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
     setFoundList(result)
   }
@@ -52,10 +45,10 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
   const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
     findMatchingItemList(e.target.value)
     if (e.target.value) {
-      setSelectMenu({
-        ...selectMenu,
+      setSelectMenu((prev) => ({
+        ...prev,
         nickname: e.target.value,
-      })
+      }))
     } else {
       initializeSelectMenu()
     }
@@ -68,45 +61,55 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
   }
 
   const handleArrowDown = () => {
-    if (refNodeList.current[0]) {
+    if (menuElement.current[0]) {
       if (selectMenu.id) {
         const idx = selectMenu.index
-        if (refNodeList.current[idx + 1]) {
-          refNodeList.current[idx + 1].click()
+        if (menuElement.current[idx + 1]) {
+          menuElement.current[idx + 1].click()
         } else {
-          refNodeList.current[0].click()
+          menuElement.current[0].click()
         }
       } else {
-        refNodeList.current[0].click()
+        menuElement.current[0].click()
       }
     }
   }
 
   const handleArrowUp = () => {
-    if (refNodeList.current[foundList.length - 1]) {
+    if (menuElement.current[foundList.length - 1]) {
       if (selectMenu.nickname) {
         const idx = selectMenu.index
-        if (refNodeList.current[idx - 1]) {
-          refNodeList.current[idx - 1].click()
+        if (menuElement.current[idx - 1]) {
+          menuElement.current[idx - 1].click()
         } else {
-          refNodeList.current[foundList.length - 1].click()
+          menuElement.current[foundList.length - 1].click()
         }
       } else {
-        refNodeList.current[foundList.length - 1].click()
+        menuElement.current[foundList.length - 1].click()
       }
     }
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
-    if (e.key === 'ArrowDown') {
-      handleArrowDown()
-    }
-    if (e.key === 'ArrowUp') {
-      handleArrowUp()
-    }
-    if (e.key === 'Enter') {
-      setShowMenuList(false)
-      e.currentTarget.blur()
+    switch (e.key) {
+      case ' ':
+        e.preventDefault()
+        break
+      case 'ArrowDown':
+        e.preventDefault()
+        handleArrowDown()
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        handleArrowUp()
+        break
+      case 'Enter':
+        e.preventDefault()
+        setShowMenuList(false)
+        e.currentTarget.blur()
+        break
+      default:
+        break
     }
   }
 
@@ -169,7 +172,9 @@ export default function DropDownInputMenu({ menuList }: DropDownInputMenuProps) 
           {foundList.map((menuItem, i) => (
             <div
               key={menuItem.id}
-              ref={(el) => (refNodeList.current[i] = el)}
+              ref={(el) => {
+                menuElement.current[i] = el as HTMLDivElement
+              }}
               onClick={() =>
                 setSelectMenu({
                   ...selectMenu,
