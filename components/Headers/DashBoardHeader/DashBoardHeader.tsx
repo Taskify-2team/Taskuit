@@ -1,6 +1,4 @@
-import UserProfile from '../UserInfo/UserInfo'
-import ProfileList from './ProfileList/ProfileList'
-import HeaderButton from './buttons/HeaderButton'
+import { UserProfile, ProfileList, HeaderButton } from '@/components'
 import inviteicon from './inviteicon.svg'
 import settingicon from './settingicon.svg'
 import testpic from './testimg.jpg'
