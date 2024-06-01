@@ -181,7 +181,7 @@ export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuPro
                   index: i,
                 })
               }
-              className={`${menuItem.nickname === selectMenu.nickname ? 'bg-var-violet' : ''} hover:bg-var-violet relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem]`}
+              className={`${menuItem.nickname === selectMenu.nickname ? 'bg-var-violet' : ''} hover:bg-var-violet relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem]`}
             >
               {menuItem.nickname === selectMenu.nickname && (
                 <div className="relative col-start-1 size-[1rem] self-center">
