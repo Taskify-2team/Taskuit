@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import Footer from '../Footer/Footer'
-import DarkHeader from '../Headers/DarkHeader/DarkHeader'
+import SideMenu from '@/components/SideMenu/SideMenu'
+import DashBoardHeader from '@/components/Headers/DashBoardHeader/DashBoardHeader'
 
 interface AppLayoutProps {
   children: ReactNode
@@ -8,10 +8,14 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <>
-      <DarkHeader />
-      {children}
-      <Footer />
-    </>
+    <main>
+      <div>
+        <DashBoardHeader />
+      </div>
+      <div className="flex">
+        <SideMenu />
+        <div>{children}</div>
+      </div>
+    </main>
   )
 }

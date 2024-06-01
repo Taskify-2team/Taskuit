@@ -1,9 +1,12 @@
-import AppLayout from '@/components/AppLayout/AppLayout'
+import LandingPageLayout from '@/components/AppLayout/LandingPageLayout/LandingPageLayout'
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <AppLayout>
-      <div className="flex justify-center">랜딩페이지</div>
-    </AppLayout>
+    <LandingPageLayout>
+      <div className="flex justify-center">
+        <Link href="/mypage">내정보수정</Link>
+      </div>
+    </LandingPageLayout>
   )
 }
