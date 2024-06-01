@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
@@ -124,15 +121,15 @@ export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuPro
     <div
       ref={dropDownElement}
       onClick={() => setShowMenuList(true)}
-      className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-white px-[1.6rem] py-[1.3rem] text-black`}
+      className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} bg-var-white text-var-black2 relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid px-[1.6rem] py-[1.3rem]`}
     >
       <div className="flex size-full items-center justify-between">
-        <div className="grid grid-cols-[1.5rem_1fr] items-center gap-1 text-black">
+        <div className="text-var-black2 grid grid-cols-[1.5rem_1fr] items-center gap-1">
           {selectMenu.profileImageUrl && (
             <>
               <button
                 type="button"
-                className="col-start-1 flex size-[1.5rem] items-center justify-center rounded-md hover:bg-slate-200"
+                className="hover:bg-var-gray2 col-start-1 flex size-[1.5rem] items-center justify-center rounded-md"
                 onClick={initializeSelectMenu}
               >
                 <div className="relative h-[0.8rem] w-[0.8rem]">
@@ -168,7 +165,7 @@ export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuPro
         </div>
       </div>
       {showMenuList && (
-        <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
+        <div className="border-var-gray3 bg-var-white absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid py-[0.65rem] shadow-lg">
           {menuList.map((menuItem, i) => (
             <div
               key={menuItem.id}
@@ -184,14 +181,14 @@ export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuPro
                   index: i,
                 })
               }
-              className={`${menuItem.nickname === selectMenu.nickname ? 'bg-slate-200' : ''} relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem] hover:bg-slate-200`}
+              className={`${menuItem.nickname === selectMenu.nickname ? 'bg-var-violet' : ''} hover:bg-var-violet relative grid h-full w-full grid-cols-[1.5rem_1fr] place-items-start content-center gap-1 px-[1.6rem] py-[0.65rem]`}
             >
               {menuItem.nickname === selectMenu.nickname && (
-                <div className="relative col-start-1 self-center">
+                <div className="relative col-start-1 size-[1rem] self-center">
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="col-start-2 flex items-center gap-[0.8rem] rounded-full text-black">
+              <div className="text-var-black2 col-start-2 flex items-center gap-[0.8rem] rounded-full">
                 <div className="relative h-[2.6rem] w-[2.6rem]">
                   <Image
                     fill

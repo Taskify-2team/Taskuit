@@ -30,10 +30,7 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
       ref={refNode}
       onClick={() => setShowMenuList((prev) => !prev)}
       className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-white px-[1.6rem] py-[1.3rem] text-black`}
-      className={`${showMenuList ? 'border-violet-500' : 'border-gray-300'} relative h-[4.8rem] w-full cursor-pointer rounded-md border border-solid bg-white px-[1.6rem] py-[1.3rem] text-black`}
     >
-      <div className="flex size-full items-center justify-between">
-        <div className="col-start-2 flex gap-1 rounded-full bg-purple-200 px-[0.8rem] py-[0.4rem] text-purple-900">
       <div className="flex size-full items-center justify-between">
         <div className="col-start-2 flex gap-1 rounded-full bg-purple-200 px-[0.8rem] py-[0.4rem] text-purple-900">
           <div className="text-[1.2rem]">{`• ${selectMenu}`}</div>
@@ -49,7 +46,6 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
       </div>
       {showMenuList && (
         <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
-        <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-gray-300 bg-white py-[0.65rem] shadow-lg">
           {menuList.map((menuItem) => (
             <div
               key={menuItem}
@@ -61,7 +57,6 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="col-start-2 flex rounded-full bg-purple-200 px-[0.8rem] py-[0.4rem] text-purple-900">
               <div className="col-start-2 flex rounded-full bg-purple-200 px-[0.8rem] py-[0.4rem] text-purple-900">
                 <div className="text-[1.2rem]">{`• ${menuItem}`}</div>
               </div>
