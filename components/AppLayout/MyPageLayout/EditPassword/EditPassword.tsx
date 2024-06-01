@@ -12,6 +12,7 @@ export default function EditPassword() {
             placeholder="현재 비밀번호 입력"
             className="border-var-gray3 rounded-[0.6rem] border-[0.1rem] pb-[1.2rem] pl-[1.6rem] pt-[1.3rem] text-[1.6rem]"
           />
+          {/** 인풋 컴포넌트 교체 예정 */}
         </label>
         <label htmlFor="nextPassword" className="flex flex-col gap-[1rem] text-[1.8rem]">
           새 비밀번호
@@ -20,6 +21,7 @@ export default function EditPassword() {
             placeholder="새 비밀번호 입력"
             className="border-var-gray3 rounded-[0.6rem] border-[0.1rem] pb-[1.2rem] pl-[1.6rem] pt-[1.3rem] text-[1.6rem]"
           />
+          {/** 인풋 컴포넌트 교체 예정 */}
         </label>
         <label htmlFor="checkNextPassword" className="flex flex-col gap-[1rem] text-[1.8rem]">
           새 비밀번호 확인
@@ -28,6 +30,7 @@ export default function EditPassword() {
             placeholder="새 비밀번호 입력"
             className="border-var-gray3 rounded-[0.6rem] border-[0.1rem] pb-[1.2rem] pl-[1.6rem] pt-[1.3rem] text-[1.6rem]"
           />
+          {/** 인풋 컴포넌트 교체 예정 */}
         </label>
       </div>
       <div className="self-end">
