@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import Footer from '@/components/Footer/Footer'
-import DarkHeader from '@/components/Headers/DarkHeader/DarkHeader'
+import LightHeader from '@/components/Headers/LightHeader/LightHeader'
 
 interface LandingPageLayoutProps {
   children: ReactNode
@@ -9,7 +9,7 @@ interface LandingPageLayoutProps {
 export default function LandingPageLayout({ children }: LandingPageLayoutProps) {
   return (
     <>
-      <DarkHeader />
+      <LightHeader />
       {children}
       <Footer />
     </>

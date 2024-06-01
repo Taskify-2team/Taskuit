@@ -7,7 +7,7 @@ import testpic from './testimg.jpg'
 
 export default function DashBoardHeader({ title }: string) {
   return (
-    <div className="flex items-center justify-between pl-[34rem] shadow">
+    <div className="sticky z-50 flex items-center justify-between pl-[34rem] shadow">
       <p className="text-[2rem] font-bold">출력문구 예시 {title}</p>
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
