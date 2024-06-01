@@ -27,9 +27,17 @@
     "react/react-in-jsx-scope": "off", //코드에 react import안하면 error off
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }], // 파일 확장자 .ts, .tsx로 한정
     "no-useless-catch": "off", // 불필요한 catch 사용 off
-    "@typescript-eslint/naming-convention": "off", // 네이민 컨벤션 옵션 off
     "no-console": "error", // console 사용하면 error
     "react/jsx-props-no-spreading": "off", //spread사용시 error off
-    "jsx-a11y/no-static-element-interactions": "off" // div에 이벤트 등록이 error off
+    "jsx-a11y/no-static-element-interactions": "off", // div에 이벤트 등록이 error off
+    "jsx-a11y/click-events-have-key-events": "off", //onClick 이벤트에 key event 포함 안하면 error off
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "function", // exported function (컴포넌트 명)
+        "format": ["PascalCase"],
+        "modifiers": ["exported"]
+      }
+    ]
   }
 }

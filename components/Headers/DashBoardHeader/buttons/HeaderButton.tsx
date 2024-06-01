@@ -9,7 +9,7 @@ export default function HeaderButton({ buttonIcon, buttonName }: ButtonItems) {
   return (
     <button
       type="button"
-      className="flex items-center px-[1.6rem] border border-solid rounded-xl border-[#d9d9d9] gap-[0.8rem]"
+      className="flex items-center gap-[0.8rem] rounded-xl border border-solid border-[#d9d9d9] px-[1.6rem]"
     >
       <Image src={buttonIcon} alt="버튼 아이콘" />
       <p className="text-[1.6rem]">{buttonName}</p>

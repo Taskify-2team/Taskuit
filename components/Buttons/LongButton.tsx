@@ -3,7 +3,7 @@ export default function LongButton() {
 
   return (
     <span
-      className={`inline-block lg:w-[52rem] w-[35rem] py-[1.4rem] ${isActive ? 'bg-[--violet-violet_5534DA]' : 'bg-[--gray-gray_9FA6B2]'} text-[1.8rem] text-[--white-white_FFFFFF] text-center rounded-[0.8rem] cursor-pointer leading-tight`}
+      className={`inline-block w-[35rem] py-[1.4rem] lg:w-[52rem] ${isActive ? 'bg-[--violet-violet_5534DA]' : 'bg-[--gray-gray_9FA6B2]'} cursor-pointer rounded-[0.8rem] text-center text-[1.8rem] leading-tight text-[--white-white_FFFFFF]`}
     >
       버튼
     </span>

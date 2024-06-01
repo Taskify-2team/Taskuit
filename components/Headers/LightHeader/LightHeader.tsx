@@ -21,7 +21,7 @@ export default function LightHeader() {
   }, [])
 
   return (
-    <div className="flex justify-between items-center h-[7rem] pr-[8rem] pl-[1.6rem] bg-white w-full">
+    <div className="flex h-[7rem] w-full items-center justify-between bg-white pl-[1.6rem] pr-[8rem]">
       <Image src={logoSrc} alt="라이트 헤더 로고" />
       <div className="flex gap-[3.6rem]">
         <p className="text-[1.6rem]">로그인</p>

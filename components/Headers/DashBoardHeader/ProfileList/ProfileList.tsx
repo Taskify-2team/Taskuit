@@ -6,7 +6,7 @@ export default function ProfileList({ data }) {
     <div>
       {memberData ? (
         <div>
-          <div className="flex items-center mr-[3.2rem]">
+          <div className="mr-[3.2rem] flex items-center">
             {memberData.members.slice(0, 3).map((member) => (
               <UserProfile
                 key={member.Id}
@@ -15,7 +15,7 @@ export default function ProfileList({ data }) {
               />
             ))}
             {memberData.totalCount > 3 && (
-              <div className="w-[3.8rem] h-[3.8rem] rounded-full border-2 border-white">
+              <div className="h-[3.8rem] w-[3.8rem] rounded-full border-2 border-white">
                 +{members.totalCount - 3}
               </div>
             )}

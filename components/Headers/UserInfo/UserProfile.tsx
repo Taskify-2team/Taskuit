@@ -12,11 +12,11 @@ export default function UserProfile({ profileImageUrl, nickname }: UserProfileIn
     <Image
       src={profileImageUrl}
       alt={`${nickname}님의 프로필 사진`}
-      className="w-[3.8rem] h-[3.8rem] rounded-full border-2 border-white"
+      className="h-[3.8rem] w-[3.8rem] rounded-full border-2 border-white"
     />
   ) : (
-    <div className="w-[3.8rem] h-[3.8rem] bg-gray-500 rounded-full flex items-center justify-center border-2 border-white">
-      <span className="text-white text-xl font-bold">{initial}</span>
+    <div className="flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-gray-500">
+      <span className="text-xl font-bold text-white">{initial}</span>
     </div>
   )
 }
