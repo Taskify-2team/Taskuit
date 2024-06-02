@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 /**
- * @param type email / password / textarea / date / tag
+ * @param type email / password / text
  */
 interface TextInputProps {
   children: ReactNode
