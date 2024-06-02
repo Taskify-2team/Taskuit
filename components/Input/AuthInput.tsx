@@ -8,7 +8,7 @@ interface AuthInputProps {
   type: string
   label: string
   placeholder: string
-  error?: object // FieldError 로 변경해야 함
+  error?: { message: string } // FieldError 로 변경해야 함
 }
 
 export default function AuthInput({ id, type, label, placeholder, error }: AuthInputProps) {
@@ -34,10 +34,7 @@ export default function AuthInput({ id, type, label, placeholder, error }: AuthI
         </button>
       )}
       {error && (
-        <p className="absolute -bottom-[2.5rem] text-[1.4rem] text-var-red">
-          {/* {error.message} 예시값 */}
-          이메일 형식으로 작성해 주세요.
-        </p>
+        <p className="absolute -bottom-[2.5rem] text-[1.4rem] text-var-red">{error.message}</p>
       )}
     </label>
   )
