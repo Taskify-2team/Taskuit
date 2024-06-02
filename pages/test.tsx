@@ -1,4 +1,5 @@
 import AuthInput from '@/components/Input/AuthInput'
+import TextInput from '@/components/Input/TextInput'
 
 export default function test() {
   const error = {
@@ -7,6 +8,7 @@ export default function test() {
 
   return (
     <div>
+      <TextInput id="0" label="dddd" placeholder="dfsdf" />
       <AuthInput id="1" label="dd" placeholder="111" type="email" />
       <AuthInput id="2" label="dd" placeholder="111" type="password" />
       <AuthInput id="3" label="dd" placeholder="111" type="email" error={error} />

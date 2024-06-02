@@ -24,13 +24,8 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
           </div>
         </button>
         <div className="flex w-full flex-col gap-[1.8rem]">
-          <TextInput
-            id="email"
-            value={profileBody.email}
-            label="이메일"
-            placeholder="johndoe@gmail.com"
-          />
-          <TextInput id="nickname" value="" label="닉네임" placeholder="배유철" />
+          <TextInput id="email" label="이메일" placeholder="johndoe@gmail.com" />
+          <TextInput id="nickname" label="닉네임" placeholder="배유철" />
         </div>
       </div>
       <div className="self-end">
