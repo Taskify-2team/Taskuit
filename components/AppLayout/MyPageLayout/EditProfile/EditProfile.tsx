@@ -3,6 +3,7 @@ import Image from 'next/image'
 import addButton from '@/public/icons/addLogo.svg'
 import { Dispatch, SetStateAction } from 'react'
 import { ProfileBody } from '@/pages/mypage'
+import TextInput from '@/components/Input/TextInput'
 
 interface EditProfileProps {
   profileBody: ProfileBody
@@ -22,26 +23,14 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
             <Image fill src={addButton} alt="이미지 추가 버튼 이미지" />
           </div>
         </button>
-        <div className="flex w-full flex-col gap-[2rem]">
-          <label htmlFor="email" className="flex flex-col gap-[1rem] text-[1.8rem]">
-            이메일
-            <input
-              id="email"
-              value={profileBody.email}
-              placeholder="johndoe@gmail.com"
-              className="rounded-[0.6rem] border-[0.1rem] border-var-gray3 pb-[1.2rem] pl-[1.6rem] pt-[1.3rem] text-[1.6rem]"
-            />
-            {/** 인풋 컴포넌트 교체 예정 */}
-          </label>
-          <label htmlFor="nickname" className="flex flex-col gap-[1rem] text-[1.8rem]">
-            닉네임
-            <input
-              id="nickname"
-              placeholder="배유철"
-              className="rounded-[0.6rem] border-[0.1rem] border-var-gray3 pb-[1.2rem] pl-[1.6rem] pt-[1.3rem] text-[1.6rem]"
-            />{' '}
-            {/** 인풋 컴포넌트 교체 예정 */}
-          </label>
+        <div className="flex w-full flex-col gap-[1.8rem]">
+          <TextInput
+            id="email"
+            value={profileBody.email}
+            label="이메일"
+            placeholder="johndoe@gmail.com"
+          />
+          <TextInput id="nickname" value="" label="닉네임" placeholder="배유철" />
         </div>
       </div>
       <div className="self-end">
