@@ -1,6 +1,8 @@
+import store from '@/store/store'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Provider } from 'react-redux'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -8,7 +10,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Taskify</title>
       </Head>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </>
   )
 }
