@@ -1,9 +1,9 @@
-import Input from "@/components/Input";
+import TextInput from '@/components/Input/TextInput'
 
 export default function test() {
   return (
     <div>
-      <Input />
+      <TextInput label="제목" placeholder="제목을 입력해 주세요." isRequired />
     </div>
   )
 }
