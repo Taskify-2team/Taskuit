@@ -9,8 +9,8 @@ export interface DashBoardListItemProps {
 }
 
 export default function DashBoardListItem({
-  color ='#d9d9d9',
-  title = '대시보드제목예시',
+  color ='',
+  title = '',
   createdByMe = true,
 }: DashBoardListItemProps) {
   return (
