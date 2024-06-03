@@ -7,3 +7,9 @@ export const postDashboard = async (params) => {
   })
   return response
 }
+
+export const getDashBoard = async (page: number, size: number = 5) => {
+  const query = `navigationMethod=pagination&page=${page}&size=${size}`
+  const response = await axios.get(`/dashboards?${query}`)
+  return response.data
+}

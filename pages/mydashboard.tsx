@@ -1,7 +1,5 @@
-import ModalPortal from '@/Portal'
 import { AppLayout } from '@/components'
 import InviteList from '@/components/InviteList/InviteList'
-import ModalLayout from '@/components/Modals/ModalLayout'
 import MyDashBoardList from '@/components/MyDashBoardList/MyDashBoardList'
 import Image from 'next/image'
 
@@ -31,9 +29,6 @@ export default function MyDashBoard() {
           )}
         </div>
       </div>
-      <ModalPortal>
-        <ModalLayout />
-      </ModalPortal>
     </AppLayout>
   )
 }
