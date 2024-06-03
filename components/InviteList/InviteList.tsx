@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import PurpleButton from '../Buttons/ShortButtons/PurpleButton'
-import WhiteButton from '../Buttons/ShortButtons/WhiteButton'
+import { PurpleButton, WhiteButton } from '@/components'
 
 export default function InviteList() {
   const mockData = [1, 2, 3, 4, 5, 6]

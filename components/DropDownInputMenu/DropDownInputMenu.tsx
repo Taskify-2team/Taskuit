@@ -59,7 +59,7 @@ export default function DropDownInputMenu({ initMenuList }: DropDownInputMenuPro
 
   const handleArrowDown = () => {
     if (menuElement.current[0]) {
-      if (selectMenu.id) {
+      if (selectMenu.nickname) {
         const idx = selectMenu.index
         if (menuElement.current[idx + 1]) {
           menuElement.current[idx + 1].click()
