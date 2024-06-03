@@ -1,16 +1,12 @@
 import React from 'react'
 import DashBoardListItem from './DashBoardListItem'
+import { DashBoardListItemProps } from './DashBoardListItem'
 
-export interface DashBoard {
-  id?: string
-  color: string
-  title: string
-  createdByMe: boolean
-}
+
 
 export interface DashBoardListProps {
   data?: {
-    dashboards?: DashBoard[]
+    dashboards?: DashBoardListItemProps[]
   }
 }
 

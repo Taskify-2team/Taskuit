@@ -1,0 +1,40 @@
+.react-datepicker__month-container .react-datepicker__current-month,
+.react-datepicker__time-container .react-datepicker-time__header {
+  @apply text-[1.3rem];
+}
+/* 
+.react-datepicker .react-datepicker__header {
+  @apply bg-var-violet;
+} */
+
+.react-datepicker__time-container .react-datepicker__header--time {
+  padding: 14px 5px 14.5px;
+}
+
+.react-datepicker__day {
+  @apply text-[1.2rem];
+}
+
+.react-datepicker__day--outside-month {
+  opacity: 0.4;
+}
+
+.react-datepicker__day-name {
+  @apply text-[1.2rem];
+}
+
+.react-datepicker__input-container::after {
+  display: block;
+  content: '';
+  background: url('../public/icons/calendar.svg') no-repeat center / contain;
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.react-datepicker__time-list-item {
+  @apply text-[1.2rem];
+}

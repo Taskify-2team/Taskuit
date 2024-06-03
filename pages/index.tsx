@@ -1,4 +1,4 @@
-import { LandingPageLayout } from '@/components'
+import { DashBoardHeader, LandingPageLayout } from '@/components'
 import Image from 'next/image'
 import { ReactNode } from 'react'
 
