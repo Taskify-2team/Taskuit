@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import darklogo from './darklogo.svg'
-import darklogosmall from './darklogosmall.svg'
+import darklogo from '@/public/icons/darklogo.svg'
+import darklogosmall from '@/public/icons/darklogosmall.svg'
 
 export default function DarkHeader() {
   const [logoSrc, setLogoSrc] = useState<string>(darklogo)

@@ -1,11 +1,19 @@
 import Image from 'next/image'
-import logoicon from './sidemenulogo.svg'
-import adddashboardicon from './adddashboardicon.svg'
-import DashBoardList, { DashBoard } from './DashBoardList/DashBoradList'
+import logoicon from '@/public/icons/sidemenulogo.svg'
+import adddashboardicon from '@/public/icons/adddashboardicon.svg'
+import DashBoardList from './DashBoardList/DashBoradList'
 
-export default function SideMenu({ title, color, createdByMe }: DashBoard) {
+
+export default function SideMenu() {
+
+/* API 에서 데이터 가져오기 
+const res = 
+프롭으로 res.color res.title res . createdByMe
+*/
+
+
   return (
-    <div className="bg-var-white flex h-[50rem] w-[30rem] flex-col gap-[5.7rem] border-r-2 pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
+    <div className="bg-var-white flex h-[50rem] w-[30rem] flex-col gap-[5.7rem] border-r-2 pl-[2.4rem] pr-[2.4rem] pt-[2rem] h-screen">
       <div>
         <Image src={logoicon} alt="Taskify 로고 아이콘" />
       </div>
@@ -15,7 +23,8 @@ export default function SideMenu({ title, color, createdByMe }: DashBoard) {
           <Image src={adddashboardicon} alt="대시보드 추가 아이콘" />
         </button>
       </div>
-      <DashBoardList color={color} title={title} createdByMe={createdByMe} />
+      {/* <DashBoardList color={color} title={title} createdByMe={createdByMe} /> */}
+      <DashBoardList />
     </div>
   )
 }

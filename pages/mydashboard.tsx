@@ -11,6 +11,7 @@ export default function MyDashBoard() {
   const [currentPage] = useState(1)
   const mockData = [1, 2, 3, 4, 5]
   const mockInvite = '1'
+ 
 
   useEffect(() => {
     setDashBoardPage(Math.ceil(mockData.length / 6))
