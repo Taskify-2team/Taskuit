@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import addButton from '@/public/icons/addLogo.svg'
-import editPencil from '@/public/icons/edit_fill.svg'
 import { ChangeEvent, useState } from 'react'
 
 interface ProfileImageInputProps {
