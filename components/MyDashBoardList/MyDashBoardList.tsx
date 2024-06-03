@@ -1,28 +1,43 @@
 import { useEffect, useState } from 'react'
 import mockData from '@/components/MyDashBoardList/mock'
+import { getDashBoard } from '@/service/dashboards'
+import { DashBoard } from '@/types/dashboard'
 import { BoardButton, CreateBoardButton, PaginationButton } from '..'
 
 export default function MyDashBoardList() {
   const [dashBoardPage, setDashBoardPage] = useState(0)
-  const [currentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [dashBoard, setDashBoard] = useState<DashBoard[]>([])
 
   useEffect(() => {
-    setDashBoardPage(Math.ceil(mockData.length / 2))
-  }, [])
+    const handleLoadList = async () => {
+      let listSize
+      if (currentPage > 1) {
+        listSize = 6
+      }
+      const data = await getDashBoard(currentPage, listSize)
+      setDashBoard(data.dashboards)
+      setDashBoardPage(Math.ceil(data.totalCount / 6))
+    }
+    handleLoadList()
+  }, [currentPage])
+
   return (
     <>
       <div className="flex w-full flex-wrap items-center gap-[1.3rem]">
         <CreateBoardButton />
-        {mockData.map((item) => (
-          <BoardButton key={item.id} board={item} />
-        ))}
+        {dashBoard && dashBoard.map((item) => <BoardButton key={item.id} board={item} />)}
       </div>
       {mockData.length > 0 && (
         <div className="flex items-center justify-end gap-[1.6rem] p-[1rem]">
           <div className="text-[1.6rem]">
             {dashBoardPage} 페이지중 {currentPage}
           </div>
-          <PaginationButton currentPage={currentPage} totalPage={dashBoardPage} />
+          <PaginationButton
+            currentPage={currentPage}
+            totalPage={dashBoardPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       )}
     </>

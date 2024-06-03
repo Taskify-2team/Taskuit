@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { PurpleButton, WhiteButton } from '@/components'
+import searchIcon from '@/public/icons/searchIcon.svg'
 
 export default function InviteList() {
   const mockData = [1, 2, 3, 4, 5, 6]
@@ -12,11 +13,11 @@ export default function InviteList() {
           className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-[--gray-gray_D9D9D9] px-[4.8rem] py-[1rem] text-[1.6rem]"
         />
         <Image
-          src="/searchIcon.svg"
+          src={searchIcon}
           alt="돋보기 아이콘"
-          width={24}
-          height={24}
-          className="absolute left-[1.6rem] top-[0.8rem]"
+          width={17}
+          height={17}
+          className="absolute left-[2rem] top-[1.2rem]"
         />
       </div>
       <div className="grid grid-cols-3 text-center">
