@@ -1,6 +1,13 @@
-import UserProfile, { UserProfileInfo } from './UserProfile'
+import UserProfile from './UserProfile'
 
-export default function UserInfo({ profileImageUrl, nickname }: UserProfileInfo) {
+export interface UserInfoProps {
+  profileImageUrl: string
+  nickname: string
+  className?: string
+}
+
+
+export default function UserInfo({ profileImageUrl, nickname }: UserInfoProps) {
   return (
     <div className="flex items-center gap-5 pl-12 pr-32">
       <UserProfile profileImageUrl={profileImageUrl} nickname={nickname} />

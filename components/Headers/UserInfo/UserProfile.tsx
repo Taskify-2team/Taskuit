@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-export interface UserProfileInfo {
+export interface UserProfileProps {
   profileImageUrl: string
   nickname: string
   className?: string
 }
 
-export default function UserProfile({ profileImageUrl, nickname, className }: UserProfileInfo) {
+export default function UserProfile({ profileImageUrl, nickname, className }: UserProfileProps) {
   const initial = nickname.charAt(0).toUpperCase()
 
   return profileImageUrl ? (

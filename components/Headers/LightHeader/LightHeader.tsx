@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import lightlogo from '@/public/icons/lightLogo.svg'
-import lightlogosmall from '@/public/icons/lightlogosmall.svg'
+import lightLogo from '@/public/icons/lightLogo.svg'
+import lightLogosmall from '@/public/icons/lightlogosmall.svg'
 
 export default function LightHeader() {
-  const [logoSrc, setLogoSrc] = useState<string>(lightlogo)
+  const [logoSrc, setLogoSrc] = useState<string>(lightLogo)
 
   useEffect(() => {
     const updateLogo = () => {
       if (window.innerWidth < 400) {
-        setLogoSrc(lightlogosmall)
+        setLogoSrc(lightLogosmall)
       } else {
-        setLogoSrc(lightlogo)
+        setLogoSrc(lightLogo)
       }
     }
     window.addEventListener('resize', updateLogo)
