@@ -1,19 +1,17 @@
 import DatePicker from 'react-datepicker'
+import { forwardRef, useState } from 'react'
+import { ko } from 'date-fns/locale'
 import InputLayout from './InputLayout'
 import { inputStyles } from './inputstyles'
-import Calendar from '@/public/icons/calendar.svg'
-import { forwardRef, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
-import { ko } from 'date-fns/locale'
 
 interface DateInputProps {
   id: string
   label: string
-  placeholder: string
   isRequired?: boolean
 }
 
-export default function DateInput({ id, label, placeholder, isRequired }: DateInputProps) {
+export default function DateInput({ id, label, isRequired }: DateInputProps) {
   const [startDate, setStartDate] = useState(new Date())
 
   const handleChange = (e: Date) => {
