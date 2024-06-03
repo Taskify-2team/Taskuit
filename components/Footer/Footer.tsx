@@ -15,14 +15,14 @@ export default function Footer() {
       </div>
       <div className="flex gap-[1.4rem]">
         <Link href="https://mail.google.com/mail" target="_blank">
-          <Image src="/icons/email_icon_dark.svg" alt="이메일 아이콘" width={22} height={22} />
+          <Image src="/icons/emailIconDark.svg" alt="이메일 아이콘" width={22} height={22} />
         </Link>
         <Link href="https://www.facebook.com/?locale=ko_KR" target="_blank">
-          <Image src="/icons/facebook_icon_dark.svg" alt="페이스북 아이콘" width={22} height={22} />
+          <Image src="/icons/facebookIconDark.svg" alt="페이스북 아이콘" width={22} height={22} />
         </Link>
         <Link href="https://www.instagram.com/" target="_blank">
           <Image
-            src="/icons/instagram_icon_dark.svg"
+            src="/icons/instagramIconDark.svg"
             alt="인스타그램 아이콘"
             width={22}
             height={22}

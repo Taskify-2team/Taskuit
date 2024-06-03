@@ -1,16 +1,18 @@
-import axios from 'axios'
+/* eslint-disable no-param-reassign */
+import axios, { InternalAxiosRequestConfig } from 'axios'
 
 const INSTANCE_URL = axios.create({
   baseURL: 'https://sp-taskify-api.vercel.app/5-2',
 })
 
 INSTANCE_URL.interceptors.request.use(
-  async (config) => {
-    if (config.headers['include-access-token']) {
-      const accessToken = localStorage.getItem('accessToken')
-      config.headers.Authorization = `Bearer ${accessToken}`
-      delete config.headers['include-access-token']
+  async (config: InternalAxiosRequestConfig) => {
+    if (config.headers['exclude-access-token']) {
+      delete config.headers['exclude-access-token']
+      return config
     }
+    const accessToken = localStorage.getItem('accessToken')
+    config.headers.Authorization = `Bearer ${accessToken}`
     return config
   },
   (error) => {

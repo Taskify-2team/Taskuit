@@ -31,7 +31,7 @@ export default function Home() {
     <LandingPageLayout>
       <div className="flex h-full w-full flex-col items-center gap-[5rem] py-[9rem]">
         <div className="relative h-[42.3rem] w-[72.2rem]">
-          <Image src="/mainImage.jpg" alt="메인 이미지" fill />
+          <Image src="/images/mainImage.jpg" alt="메인 이미지" fill />
         </div>
         <h1 className="text-[7.6rem] font-bold tracking-[-0.2rem]">
           새로운 일정 관리
@@ -59,7 +59,7 @@ export default function Home() {
               </p>
             </div>
             <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
-              <Image src="/mainSectionImage1.png" alt="대시보드 이미지" fill />
+              <Image src="/images/mainSectionImage1.png" alt="대시보드 이미지" fill />
             </div>
           </div>
           <div className="flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-[--black-black_171717] p-[5rem]">
@@ -76,19 +76,24 @@ export default function Home() {
               </p>
             </div>
             <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
-              <Image src="/mainSectionImage2.png" alt="할일 생성 이미지" fill objectFit="cover" />
+              <Image
+                src="/images/mainSectionImage2.png"
+                alt="할일 생성 이미지"
+                fill
+                objectFit="cover"
+              />
             </div>
           </div>
           <div>
             <p className="text-[2.8rem] font-bold">생산성을 높이는 다양한 설정 ⚡️</p>
             <div className="mt-[3.6rem] flex h-full w-[120rem] gap-[3.3rem]">
-              <MainSmallCard title="대시보드 설정" image="/cardImage1.png">
+              <MainSmallCard title="대시보드 설정" image="/images/cardImage1.png">
                 대시보드 사진과 이름을 변경할 수 있어요.
               </MainSmallCard>
-              <MainSmallCard title="초대" image="/cardImage2.png">
+              <MainSmallCard title="초대" image="/images/cardImage2.png">
                 새로운 팀원을 초대할 수 있어요.
               </MainSmallCard>
-              <MainSmallCard title="구성원" image="/cardImage3.png">
+              <MainSmallCard title="구성원" image="/images/cardImage3.png">
                 구성원을 초대하고 내보낼 수 있어요.
               </MainSmallCard>
             </div>
