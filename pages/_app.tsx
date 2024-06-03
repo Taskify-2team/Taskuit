@@ -1,4 +1,5 @@
-import { ModalProvider } from '@/contexts/ModalContext'
+import ModalPortal from '@/Portal'
+import { ModalLayout } from '@/components'
 import store from '@/store/store'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
@@ -12,9 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Taskify</title>
       </Head>
       <Provider store={store}>
-        <ModalProvider>
-          <Component {...pageProps} />
-        </ModalProvider>
+        <ModalPortal>
+          <ModalLayout />
+        </ModalPortal>
+        <Component {...pageProps} />
       </Provider>
     </>
   )
