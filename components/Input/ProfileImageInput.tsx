@@ -7,12 +7,13 @@ interface ProfileImageInputProps {
 }
 
 export default function ProfileImageInput({ currentImage }: ProfileImageInputProps) {
-  const [imageFile, setImageFile] = useState<FileList | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState(currentImage)
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files[0]) {
-      setImageFile(e.target.files[0])
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0]
+      setImageFile(file)
       setPreview(URL.createObjectURL(e.target.files[0]))
     }
   }
