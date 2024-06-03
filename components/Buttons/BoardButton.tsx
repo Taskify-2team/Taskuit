@@ -1,5 +1,6 @@
 import { DashBoard } from '@/types/dashboard'
 import Image from 'next/image'
+import crownIcon from '@/public/icons/crown.svg'
 
 interface BoardButtonProps {
   board: DashBoard
@@ -14,9 +15,7 @@ export default function BoardButton({ board }: BoardButtonProps) {
           style={{ backgroundColor: board.color }}
         />
         <p className="ml-[0.8rem] text-[1.6rem]">{board.title}</p>
-        {board.createdByMe && (
-          <Image src="/icons/crown.svg" alt="왕관 이미지" width={20} height={16} />
-        )}
+        {board.createdByMe && <Image src={crownIcon} alt="왕관 이미지" width={20} height={16} />}
       </div>
       <Image src="/icons/arrowForward.svg" alt="화살표 이미지" width={18} height={18} />
     </div>
