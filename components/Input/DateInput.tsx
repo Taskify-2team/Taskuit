@@ -12,10 +12,10 @@ interface DateInputProps {
 }
 
 export default function DateInput({ id, label, isRequired }: DateInputProps) {
-  const [startDate, setStartDate] = useState(new Date())
+  const [date, setDate] = useState(new Date())
 
   const handleChange = (e: Date) => {
-    setStartDate(e)
+    setDate(e)
   }
 
   const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export default function DateInput({ id, label, isRequired }: DateInputProps) {
     <InputLayout id={id} label={label} isRequired={isRequired}>
       <DatePicker
         showTimeSelect
-        selected={startDate}
+        selected={date}
         onChange={handleChange}
         locale={ko}
         dateFormat="yyyy.MM.dd HH:mm"
