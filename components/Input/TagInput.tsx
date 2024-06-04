@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import InputLayout from './InputLayout'
 import inputStyles from './inputstyles'
 import CardChip from '../Chips/CardChip'
@@ -10,13 +10,45 @@ interface TagInputProps {
 }
 
 export default function TagInput({ id, label, isRequired }: TagInputProps) {
-  const [tagList, setTagList] = useState(['프로젝트', '백앤드'])
+  const [tagList, setTagList] = useState<string[]>([])
+  const [text, setText] = useState('')
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (tagList.includes(text)) {
+      setText('')
+      return
+    }
+    setTagList((prev) => [...prev, text])
+    setText('')
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value)
+  }
+
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
-      <div className={inputStyles}>
-        {tagList?.map((tagItem) => <CardChip key={tagItem} text={tagItem} />)}
-        <input id={id} placeholder="입력 후 Enter" required={isRequired} className="outline-none" />
-      </div>
+      <form
+        className={`${inputStyles} flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]`}
+        onSubmit={handleSubmit}
+      >
+        {tagList.length > 0 && (
+          <div className="flex flex-wrap gap-[0.6rem]">
+            {tagList.map((tagItem) => (
+              <CardChip key={tagItem} text={tagItem} />
+            ))}
+          </div>
+        )}
+        <input
+          id={id}
+          value={text}
+          placeholder="입력 후 Enter"
+          onChange={handleChange}
+          required={isRequired}
+          className="outline-none"
+        />
+      </form>
     </InputLayout>
   )
 }

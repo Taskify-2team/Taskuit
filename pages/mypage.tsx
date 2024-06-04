@@ -1,4 +1,4 @@
-import { AppLayout, MyPageLayout, EditProfile, EditPassword, TagInput } from '@/components'
+import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
 import { useState } from 'react'
 
 export interface ProfileBody {
@@ -18,7 +18,6 @@ export default function MyPage() {
         EditProfile={<EditProfile setProfileBody={setProfileBody} profileBody={profileBody} />}
         EditPassword={<EditPassword />}
       />
-      <TagInput id="1" label="태그" />
     </AppLayout>
   )
 }
