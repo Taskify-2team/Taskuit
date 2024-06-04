@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import Image from 'next/image'
+import ProgressChip from '../Chips/ProgressChip'
 
 interface DropDownMenuProps {
   menuList: string[]
@@ -57,9 +58,7 @@ export default function DropDownMenu({ menuList }: DropDownMenuProps) {
                   <Image src={check} alt="체크 표시" />
                 </div>
               )}
-              <div className="col-start-2 flex rounded-full bg-var-violet px-[0.8rem] py-[0.4rem] text-primary-violet">
-                <div className="text-[1.2rem]">{`• ${menuItem}`}</div>
-              </div>
+              <ProgressChip progress={menuItem} />
             </div>
           ))}
         </div>
