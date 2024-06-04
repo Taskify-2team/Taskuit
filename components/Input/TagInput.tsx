@@ -1,5 +1,5 @@
 import InputLayout from './InputLayout'
-import { inputStyles } from './inputstyles'
+import inputStyles from './inputstyles'
 
 interface TagInputProps {
   id: string
@@ -14,4 +14,8 @@ export default function TagInput({ id, label, placeholder, isRequired }: TagInpu
       <input id={id} placeholder={placeholder} required={isRequired} className={inputStyles} />
     </InputLayout>
   )
+}
+
+TagInput.defaultProps = {
+  isRequired: false,
 }

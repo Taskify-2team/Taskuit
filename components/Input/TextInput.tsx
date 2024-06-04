@@ -1,5 +1,5 @@
 import InputLayout from './InputLayout'
-import { inputStyles } from './inputstyles'
+import inputStyles from './inputstyles'
 
 interface TextInputProps {
   id: string
@@ -14,4 +14,8 @@ export default function TextInput({ id, label, placeholder, isRequired }: TextIn
       <input id={id} placeholder={placeholder} required={isRequired} className={inputStyles} />
     </InputLayout>
   )
+}
+
+TextInput.defaultProps = {
+  isRequired: false,
 }
