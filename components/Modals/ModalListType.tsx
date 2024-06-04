@@ -1,12 +1,13 @@
 import { ReactNode } from 'react'
 import BasicModal from './ModalContents/BasicModal'
+import AddDashBoard from './ModalContents/AddDashBoard'
 
-export type ModalListType = 'basicModal' | 'anotherModal'
+export type ModalListType = 'basicModal' | 'addDashBoard'
 
 export const modalList: Map<ModalListType, (props?: any) => ReactNode> = new Map<
   ModalListType,
   (props?: any) => ReactNode
 >([
   ['basicModal', (props) => <BasicModal key="basic" {...props} />],
-  // ['anotherModal', (props) => <AnotherModal key="another" {...props} />],
+  ['addDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
 ])

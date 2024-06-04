@@ -1,6 +1,9 @@
 import { DashBoardCard, DropDownInputMenu, DropDownMenu, ProfileImageInput } from '@/components'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openModal } from '@/store/reducers/modalReducer'
 
 export default function Develop() {
+  const dispatch = useAppDispatch()
   const mock = ['In Progress', 'To Do', 'Success']
   const mockUser = [
     {
@@ -73,7 +76,16 @@ export default function Develop() {
   }
   return (
     <>
-      <div className="flex gap-[20rem]">
+      <div>
+        <button
+          className="size-[20rem] bg-var-red"
+          type="button"
+          onClick={() => dispatch(openModal({ modalName: 'addDashBoard', modalProps: {} }))}
+        >
+          새로운 대시보드
+        </button>
+      </div>
+      {/* <div className="flex gap-[20rem]">
         <div className="w-[20rem]">
           <DropDownMenu menuList={mock} />
         </div>
@@ -88,7 +100,7 @@ export default function Develop() {
         {cardListMock.cards.map((card, i) => (
           <DashBoardCard key={i} card={card} />
         ))}
-      </div>
+      </div> */}
     </>
   )
 }
