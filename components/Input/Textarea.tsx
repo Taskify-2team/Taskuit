@@ -1,5 +1,5 @@
 import InputLayout from './InputLayout'
-import { inputStyles } from './inputstyles'
+import inputStyles from './inputstyles'
 
 interface TextareaProps {
   id: string
@@ -19,4 +19,8 @@ export default function Textarea({ id, label, placeholder, isRequired }: Textare
       />
     </InputLayout>
   )
+}
+
+Textarea.defaultProps = {
+  isRequired: false,
 }
