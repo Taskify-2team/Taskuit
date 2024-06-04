@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import InputLayout from './InputLayout'
 import inputStyles from './inputstyles'
 import CardChip from '../Chips/CardChip'
@@ -13,14 +13,15 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
   const [tagList, setTagList] = useState<string[]>([])
   const [text, setText] = useState('')
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (tagList.includes(text)) {
-      setText('')
-      return
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (tagList.includes(text)) {
+        setText('')
+        return
+      }
+      setTagList((prev) => [...prev, text])
     }
-    setTagList((prev) => [...prev, text])
-    setText('')
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +30,7 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
-      <form
-        className={`${inputStyles} flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]`}
-        onSubmit={handleSubmit}
-      >
+      <div className={`${inputStyles} flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]`}>
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
             {tagList.map((tagItem) => (
@@ -47,8 +45,9 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
           onChange={handleChange}
           required={isRequired}
           className="outline-none"
+          onKeyDown={handleKeyDown}
         />
-      </form>
+      </div>
     </InputLayout>
   )
 }
