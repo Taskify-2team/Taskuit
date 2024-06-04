@@ -3,15 +3,22 @@ import searchIcon from '@/public/icons/searchIcon.svg'
 import emptyIcon from '@/public/icons/emptyDashBoard.svg'
 import { useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
-import { getInvitationList } from '@/service/invitations'
+import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
+import { useRouter } from 'next/router'
 import { ShortButton } from '..'
 
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
   const [cursorId, setCursorId] = useState<number | null>(0)
   const obsRef = useRef(null)
+  const router = useRouter()
   const { pending, requestFunction } = useAsync(getInvitationList)
+
+  const handleInvite = async (id: number, answer: boolean) => {
+    await postInvitation(id, answer)
+    router.reload()
+  }
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0]
@@ -25,7 +32,9 @@ export default function InviteList() {
     const handleLoadList = async () => {
       const data = await requestFunction(cursorId)
       setInvitationList((prev) => [...prev, ...data.invitations])
-      sessionStorage.setItem('cursorId', data.cursorId)
+      if (data.cursorId) {
+        sessionStorage.setItem('cursorId', data.cursorId)
+      }
     }
     handleLoadList()
   }, [cursorId])
@@ -67,8 +76,8 @@ export default function InviteList() {
             <p className="text-[1.6rem]">{item.dashboard.title}</p>
             <p className="text-[1.6rem]">{item.inviter.nickname}</p>
             <div className="flex justify-center gap-[1rem]">
-              <ShortButton text="수락" color="purple" onClick={() => console.log(1)} />
-              <ShortButton text="거절" color="white" onClick={() => console.log(1)} />
+              <ShortButton text="수락" color="purple" onClick={() => handleInvite(item.id, true)} />
+              <ShortButton text="거절" color="white" onClick={() => handleInvite(item.id, false)} />
             </div>
           </div>
         ))}
