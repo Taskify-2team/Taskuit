@@ -22,7 +22,6 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
       nickname: e.target.value,
     })
   }
-  const submitEditProfile = () => {}
 
   return (
     <div className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]">
@@ -45,7 +44,7 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
         </div>
       </div>
       <div className="self-end">
-        <PurpleButton text="저장" onClick={submitEditProfile} />
+        <PurpleButton text="저장" />
       </div>
     </div>
   )
