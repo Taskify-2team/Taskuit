@@ -1,3 +1,4 @@
+import { FormValueType } from '@/pages/login'
 import EyeOff from '@/public/icons/eyeOff.svg'
 import EyeOn from '@/public/icons/eyeOn.svg'
 import Image from 'next/image'
@@ -9,7 +10,7 @@ interface AuthInputProps {
   placeholder: string
   type: string
   label: string
-  field: ControllerRenderProps<FormValueType>
+  field: ControllerRenderProps<FormValueType, any>
   error: FieldError | undefined
 }
 

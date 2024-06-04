@@ -9,7 +9,7 @@ export interface FormValueType {
 }
 
 export default function LoginForm() {
-  const { handleSubmit, control } = useForm()
+  const { handleSubmit, control } = useForm<FormValueType>()
 
   const onSubmit = async () => {}
 
@@ -20,7 +20,7 @@ export default function LoginForm() {
         <div className="w-[52rem] flex-col">
           <div className="pb-[2.7rem]">
             <Controller
-              name="email"
+              name="id"
               control={control}
               rules={{
                 required: '이메일을 입력해주세요.',
