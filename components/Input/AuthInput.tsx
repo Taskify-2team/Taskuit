@@ -1,13 +1,10 @@
 import EyeOff from '@/public/icons/eyeOff.svg'
 import EyeOn from '@/public/icons/eyeOn.svg'
 import Image from 'next/image'
-import { useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 
-interface AuthInputProps {
-  id: string
-  type: string
+interface AuthInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-  placeholder: string
   error?: { message: string } // FieldError 로 변경해야 함
 }
 
@@ -29,7 +26,11 @@ export default function AuthInput({ id, type, label, placeholder, error }: AuthI
         className={`rounded-[0.8rem] ${error ? 'border-var-red' : 'border-var-gray3 focus:border-primary-violet'} border-[0.1rem] px-[1.6rem] py-[1.5rem] text-[1.6rem] outline-none`}
       />
       {type === 'password' && (
-        <button onClick={handleEyeClick} className="absolute bottom-[1.5rem] right-[1.6rem]">
+        <button
+          type="submit"
+          onClick={handleEyeClick}
+          className="absolute bottom-[1.5rem] right-[1.6rem]"
+        >
           <Image src={showPassword ? EyeOn : EyeOff} alt="" width="24" height="24" />
         </button>
       )}
@@ -38,4 +39,8 @@ export default function AuthInput({ id, type, label, placeholder, error }: AuthI
       )}
     </label>
   )
+}
+
+AuthInput.defaultProps = {
+  error: { message: '' },
 }

@@ -1,11 +1,11 @@
 import DatePicker from 'react-datepicker'
-import { forwardRef, useState } from 'react'
+import { InputHTMLAttributes, forwardRef, useState } from 'react'
 import { ko } from 'date-fns/locale'
 import InputLayout from './InputLayout'
 import inputStyles from './inputstyles'
 import 'react-datepicker/dist/react-datepicker.css'
 
-interface DateInputProps {
+interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
   label: string
   isRequired?: boolean
