@@ -9,13 +9,13 @@ import InputLayout from '../Input/InputLayout'
 interface DropDownInputMenuProps {
   label: string
   id: string
-  menuList: Member[]
+  menuList?: Member[]
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  menuList: initMenuList,
+  menuList: initMenuList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
     id: 0,
@@ -208,4 +208,8 @@ export default function DropDownInputMenu({
       </div>
     </InputLayout>
   )
+}
+
+DropDownInputMenu.defaultProps = {
+  menuList: [],
 }

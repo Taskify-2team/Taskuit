@@ -1,6 +1,6 @@
 import axios from './instance'
 
-export const postDashboard = async (params) => {
+export const postDashboard = async (params: { title: string; color: string }) => {
   const response = await axios.post(`/dashboards`, {
     title: params.title,
     color: params.color,

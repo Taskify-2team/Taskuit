@@ -21,6 +21,7 @@ export default function AddDashBoard() {
       color: colorName,
     })
   }
+  const submitAddDashBoard = () => {}
   return (
     <>
       <h3 className="text-[2.4rem] font-bold">새로운 대시보드</h3>
@@ -48,7 +49,7 @@ export default function AddDashBoard() {
       </ul>
       <div className="flex gap-[1.2rem] self-end">
         <WhiteButton text="취소" onClick={() => dispatch(closeModal())} />
-        <PurpleButton text="생성" />
+        <PurpleButton text="생성" onClick={submitAddDashBoard} />
       </div>
     </>
   )
