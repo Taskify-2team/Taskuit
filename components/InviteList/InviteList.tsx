@@ -2,20 +2,41 @@ import Image from 'next/image'
 import { PurpleButton, WhiteButton } from '@/components'
 import searchIcon from '@/public/icons/searchIcon.svg'
 import emptyIcon from '@/public/icons/emptyDashBoard.svg'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList } from '@/service/invitations'
+import useAsync from '@/hooks/useAsync'
 
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
+  const [cursorId, setCursorId] = useState<number | null>(0)
+  const obsRef = useRef(null)
+  const { pending, requestFunction } = useAsync(getInvitationList)
+
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    const target = entries[0]
+    const id = sessionStorage.getItem('cursorId')
+    if (!pending && target.isIntersecting) {
+      setCursorId(Number(id))
+    }
+  }
 
   useEffect(() => {
     const handleLoadList = async () => {
-      const data = await getInvitationList()
-      setInvitationList(data.invitations)
+      const data = await requestFunction(cursorId)
+      setInvitationList((prev) => [...prev, ...data.invitations])
+      sessionStorage.setItem('cursorId', data.cursorId)
     }
     handleLoadList()
-  }, [])
+  }, [cursorId])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
+    if (obsRef.current && !pending && !cursorId) observer.observe(obsRef.current)
+    return () => {
+      observer.disconnect()
+    }
+  }, [pending])
 
   return invitationList ? (
     <>
@@ -51,6 +72,7 @@ export default function InviteList() {
             </div>
           </div>
         ))}
+        <div ref={obsRef} />
       </div>
     </>
   ) : (
