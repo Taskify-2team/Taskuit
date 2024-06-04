@@ -1,4 +1,4 @@
-import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
+import { AppLayout, MyPageLayout, EditProfile, EditPassword, DropDownMenu } from '@/components'
 import ProgressChip from '@/components/Chips/ProgressChip'
 import { useState } from 'react'
 
@@ -19,7 +19,6 @@ export default function MyPage() {
         EditProfile={<EditProfile setProfileBody={setProfileBody} profileBody={profileBody} />}
         EditPassword={<EditPassword />}
       />
-      <ProgressChip progress="To Do" />
     </AppLayout>
   )
 }
