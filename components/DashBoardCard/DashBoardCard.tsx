@@ -1,7 +1,7 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import formatDate from '@/utils/formatDate'
-import Tag from '../Tag/Tag'
+import Tag from '../TagLabel/TagLabel'
 
 interface CardProps {
   card: Card

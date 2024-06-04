@@ -1,5 +1,4 @@
-import { DropDownInputMenu, DropDownMenu, ProfileImageInput } from '@/components'
-import DashBoardCard from '@/components/Card/Card'
+import { DashBoardCard, DropDownInputMenu, DropDownMenu, ProfileImageInput } from '@/components'
 
 export default function Develop() {
   const mock = ['In Progress', 'To Do', 'Success']
