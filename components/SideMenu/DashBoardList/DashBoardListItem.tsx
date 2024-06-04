@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import crownicon from './crownicon.svg'
+import crownicon from '@/public/icons/crownicon.svg'
 
 interface DashBoardListItemProps {
   color?: string

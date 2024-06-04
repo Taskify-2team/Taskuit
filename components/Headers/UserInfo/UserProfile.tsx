@@ -12,7 +12,9 @@ export default function UserProfile({ profileImageUrl, nickname }: UserProfileIn
     <Image
       src={profileImageUrl}
       alt={`${nickname}님의 프로필 사진`}
-      className="h-[3.8rem] w-[3.8rem] rounded-full border-2 border-white"
+      width={38}
+      height={38}
+      className="rounded-full border-2 border-white"
     />
   ) : (
     <div className="flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-gray-500">

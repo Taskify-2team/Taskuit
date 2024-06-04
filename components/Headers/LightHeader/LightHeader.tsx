@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import lightlogo from './lightLogo.svg'
-import lightlogosmall from './lightlogosmall.svg'
+import lightlogo from '@/public/icons/lightLogo.svg'
+import lightlogosmall from '@/public/icons/lightlogosmall.svg'
 
 export default function LightHeader() {
   const [logoSrc, setLogoSrc] = useState<string>(lightlogo)

@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import logoicon from './sidemenulogo.svg'
-import adddashboardicon from './adddashboardicon.svg'
+import logoicon from '@/public/icons/sidemenulogo.svg'
+import adddashboardicon from '@/public/icons/adddashboardicon.svg'
 import DashBoardList, { DashBoardListProps } from './DashBoardList/DashBoradList'
 
 export default function SideMenu({ data }: DashBoardListProps) {
