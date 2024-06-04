@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react'
 import InputLayout from './InputLayout'
-import { inputStyles } from './inputstyles'
+import inputStyles from './inputstyles'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -29,4 +29,8 @@ export default function TextInput({
       />
     </InputLayout>
   )
+}
+
+TextInput.defaultProps = {
+  isRequired: false,
 }

@@ -57,3 +57,7 @@ export default function ProfileImageInput({
     </InputLayout>
   )
 }
+
+ProfileImageInput.defaultProps = {
+  currentImage: '',
+}

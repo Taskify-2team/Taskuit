@@ -2,7 +2,7 @@ import DatePicker from 'react-datepicker'
 import { InputHTMLAttributes, forwardRef, useState } from 'react'
 import { ko } from 'date-fns/locale'
 import InputLayout from './InputLayout'
-import { inputStyles } from './inputstyles'
+import inputStyles from './inputstyles'
 import 'react-datepicker/dist/react-datepicker.css'
 
 interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,26 +11,28 @@ interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
   isRequired?: boolean
 }
 
-export default function DateInput({ id, label, isRequired, value, onChange }: DateInputProps) {
+const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>) => {
+  return (
+    <input
+      {...props}
+      ref={ref}
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder="날짜를 입력해 주세요"
+      className={`${inputStyles} w-[100%] pl-[4.6rem]`}
+    />
+  )
+})
+
+CustomInput.displayName = 'CustomInput'
+
+export default function DateInput({ id, label, isRequired }: DateInputProps) {
   const [date, setDate] = useState(new Date())
 
   const handleChange = (e: Date) => {
     setDate(e)
   }
-
-  const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>) => {
-    return (
-      <input
-        {...props}
-        ref={ref}
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder="날짜를 입력해 주세요"
-        className={`${inputStyles} w-[100%] pl-[4.6rem]`}
-      />
-    )
-  })
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
@@ -44,4 +46,8 @@ export default function DateInput({ id, label, isRequired, value, onChange }: Da
       />
     </InputLayout>
   )
+}
+
+DateInput.defaultProps = {
+  isRequired: false,
 }
