@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { SideMenu, DashBoardHeader } from '@/components'
 
+const data = {}
+
 interface AppLayoutProps {
   children: ReactNode
 }
@@ -8,9 +10,9 @@ interface AppLayoutProps {
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
-      <DashBoardHeader title="대시보드 타이틀" profileImageUrl="" />
+      <DashBoardHeader />
       <div className="flex bg-var-gray1">
-        <SideMenu color="" title="" createdByMe={false} />
+        <SideMenu data={data} />
         <div className="w-full p-[2rem]">{children}</div>
       </div>
     </>

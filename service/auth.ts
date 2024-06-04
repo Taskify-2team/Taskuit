@@ -1,11 +1,11 @@
 import axios from './instance'
 
-export const loginAccess = async (params) => {
+export default async function LoginAccess(email: string, password: string) {
   const response = await axios.post(`/auth/login`, {
     headers: { 'exclude-access-token': true },
     body: {
-      email: params.email,
-      password: params.password,
+      email,
+      password,
     },
   })
   return response

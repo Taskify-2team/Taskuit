@@ -1,12 +1,16 @@
 import React from 'react'
 import DashBoardListItem from './DashBoardListItem'
-import { DashBoardListItemProps } from './DashBoardListItem'
 
-
+interface DashBoardProps {
+  id?: string
+  color: string
+  title: string
+  createdByMe: boolean
+}
 
 export interface DashBoardListProps {
   data?: {
-    dashboards?: DashBoardListItemProps[]
+    dashboards?: DashBoardProps[]
   }
 }
 
@@ -27,4 +31,8 @@ export default function DashBoardList({ data }: DashBoardListProps) {
           ))}
     </div>
   )
+}
+
+DashBoardList.defaultProps = {
+  data: undefined,
 }
