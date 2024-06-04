@@ -1,18 +1,25 @@
+import { FormValueType } from '@/pages/login'
 import EyeOff from '@/public/icons/eyeOff.svg'
 import EyeOn from '@/public/icons/eyeOn.svg'
 import Image from 'next/image'
-import { InputHTMLAttributes, useState } from 'react'
+import { useState } from 'react'
+import { ControllerRenderProps, FieldError } from 'react-hook-form'
 
-interface AuthInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface AuthInputProps {
+  id: string
+  placeholder: string
+  type: string
   label: string
-  error?: { message: string } // FieldError 로 변경해야 함
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  field: ControllerRenderProps<FormValueType, any>
+  error: FieldError | undefined
 }
 
-export default function AuthInput({ id, type, label, placeholder, error }: AuthInputProps) {
+export default function AuthInput({ id, placeholder, label, type, field, error }: AuthInputProps) {
   const [showPassword, setShowPassword] = useState(false)
-  const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type
+  const inputType = type === 'password' && showPassword ? 'text' : type
 
-  const handleEyeClick = () => {
+  const handleEyeClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setShowPassword((prev) => !prev)
   }
 
@@ -23,11 +30,13 @@ export default function AuthInput({ id, type, label, placeholder, error }: AuthI
         id={id}
         type={inputType}
         placeholder={placeholder}
+        {...field}
         className={`rounded-[0.8rem] ${error ? 'border-var-red' : 'border-var-gray3 focus:border-primary-violet'} border-[0.1rem] px-[1.6rem] py-[1.5rem] text-[1.6rem] outline-none`}
       />
       {type === 'password' && (
         <button
-          type="submit"
+          type="button"
+          aria-label="Save"
           onClick={handleEyeClick}
           className="absolute bottom-[1.5rem] right-[1.6rem]"
         >
@@ -39,8 +48,4 @@ export default function AuthInput({ id, type, label, placeholder, error }: AuthI
       )}
     </label>
   )
-}
-
-AuthInput.defaultProps = {
-  error: { message: '' },
 }

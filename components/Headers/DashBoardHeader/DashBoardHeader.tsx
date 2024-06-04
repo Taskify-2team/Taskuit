@@ -1,40 +1,41 @@
-import { ProfileList, HeaderButton, UserInfo } from '@/components'
+import { UserProfile, ProfileList, HeaderButton } from '@/components'
 import inviteicon from '@/public/icons/inviteicon.svg'
 import settingicon from '@/public/icons/settingicon.svg'
 
-const mockData = {
-  "members": [
+const MockData = {
+  members: [
     {
-      "id": 1,
-      "userId": 1,
-      "email": "",
-      "nickname": "정지성",
-      "profileImageUrl": "",
-      "createdAt": "2024-06-03T06:35:44.219Z",
-      "updatedAt": "2024-06-03T06:35:44.219Z",
-      "isOwner": true
-    }
+      id: 0,
+      userId: 0,
+      email: 'test@test.com',
+      nickname: 'tester',
+      profileImageUrl: '',
+      createdAt: '2024-06-04T07:28:02.951Z',
+      updatedAt: '2024-06-04T07:28:02.951Z',
+      isOwner: true,
+    },
   ],
-  "totalCount": 1
+  totalCount: 0,
 }
 
-interface DashBoardMemberProps {
-  title: string
-  profileImageUrl: string;
-}
-
-export default function DashBoardHeader({ title, profileImageUrl }: DashBoardMemberProps) {
+export default function DashBoardHeader() {
+  const MockDataMembers = MockData.members
+  const MockDataCount = MockData.totalCount
   return (
-    <div className="sticky z-50 flex items-center justify-between pl-[34rem] shadow flex-nowrap">
-      <p className="text-[2rem] font-bold">{title}</p>
+    <div className="sticky z-50 flex items-center justify-between pl-[34rem] shadow">
+      <p className="text-[2rem] font-bold">출력문구 예시</p>
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
           <HeaderButton buttonIcon={settingicon} buttonName="관리" />
           <HeaderButton buttonIcon={inviteicon} buttonName="초대하기" />
-          <ProfileList data={mockData} />
+          <ProfileList members={MockDataMembers} totalCount={MockDataCount} />
         </div>
-        <UserInfo profileImageUrl={profileImageUrl} nickname="test" />
-        
+        <div className="flex items-center">
+          <UserProfile
+            profileImageUrl={MockDataMembers[0].profileImageUrl}
+            nickname={MockDataMembers[0].nickname}
+          />
+        </div>
       </div>
     </div>
   )

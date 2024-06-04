@@ -1,12 +1,11 @@
 import Image from 'next/image'
 import logoIcon from '@/public/icons/sidemenulogo.svg'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
-import DashBoardList from './DashBoardList/DashBoradList'
-import { DashBoardListItemProps } from './DashBoardList/DashBoardListItem'
+import DashBoardList, { DashBoardListProps } from './DashBoardList/DashBoradList'
 
-export default function SideMenu({ title, color, createdByMe }: DashBoardListItemProps) {
+export default function SideMenu({ data }: DashBoardListProps) {
   return (
-    <div className="flex h-[50rem] h-screen w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
+    <div className="flex h-[50rem] w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
       <div>
         <Image src={logoIcon} alt="Taskify 로고 아이콘" />
       </div>
@@ -16,7 +15,7 @@ export default function SideMenu({ title, color, createdByMe }: DashBoardListIte
           <Image src={adddashboardicon} alt="대시보드 추가 아이콘" />
         </button>
       </div>
-      <DashBoardList color={color} title={title} createdByMe={createdByMe} />
+      <DashBoardList data={data} />
     </div>
   )
 }
