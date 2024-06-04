@@ -18,7 +18,7 @@ export default function ModalLayout() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex h-auto min-h-[25rem] w-[54rem] flex-col justify-between rounded-[0.8rem] bg-var-white p-[2.8rem]"
+        className="flex h-auto min-h-[25rem] w-[54rem] flex-col justify-between gap-[2.5rem] rounded-[0.8rem] bg-var-white p-[2.8rem]"
       >
         {renderModal}
       </div>
