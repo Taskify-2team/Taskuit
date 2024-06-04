@@ -20,3 +20,7 @@ export default function InputLayout({ children, id, label, isRequired }: TextInp
     </label>
   )
 }
+
+InputLayout.defaultProps = {
+  isRequired: false,
+}

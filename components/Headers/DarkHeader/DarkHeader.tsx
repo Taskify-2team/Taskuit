@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import darklogo from '@/public/icons/darklogo.svg'
-import darklogosmall from '@/public/icons/darklogosmall.svg'
+import darkLogo from '@/public/icons/darklogo.svg'
+import darkLogosmall from '@/public/icons/darklogosmall.svg'
 
 export default function DarkHeader() {
-  const [logoSrc, setLogoSrc] = useState<string>(darklogo)
+  const [logoSrc, setLogoSrc] = useState<string>(darkLogo)
 
   useEffect(() => {
     const updateLogo = () => {
       if (window.innerWidth < 400) {
-        setLogoSrc(darklogosmall)
+        setLogoSrc(darkLogosmall)
       } else {
-        setLogoSrc(darklogo)
+        setLogoSrc(darkLogo)
       }
     }
     window.addEventListener('resize', updateLogo)

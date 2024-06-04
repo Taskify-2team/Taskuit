@@ -1,6 +1,8 @@
 import { LandingPageLayout } from '@/components'
 import Image from 'next/image'
 import { ReactNode } from 'react'
+import mainSectionImage1 from '@/public/images/mainSectionImage1.png'
+import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
 
 function MainSmallCard({
   children,
@@ -59,7 +61,7 @@ export default function Home() {
               </p>
             </div>
             <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
-              <Image src="/images/mainSectionImage1.png" alt="대시보드 이미지" fill />
+              <Image src={mainSectionImage1} alt="대시보드 이미지" fill />
             </div>
           </div>
           <div className="flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-[--black-black_171717] p-[5rem]">
@@ -76,12 +78,7 @@ export default function Home() {
               </p>
             </div>
             <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
-              <Image
-                src="/images/mainSectionImage2.png"
-                alt="할일 생성 이미지"
-                fill
-                objectFit="cover"
-              />
+              <Image src={mainSectionImage2} alt="할일 생성 이미지" fill objectFit="cover" />
             </div>
           </div>
           <div>

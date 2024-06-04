@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import emailIcon from '@/public/icons/emailIconDark.svg'
+import facebookIcon from '@/public/icons/facebookIconDark.svg'
+import instagramIcon from '@/public/icons/instagramIconDark.svg'
 
 export default function Footer() {
   return (
@@ -15,18 +18,13 @@ export default function Footer() {
       </div>
       <div className="flex gap-[1.4rem]">
         <Link href="https://mail.google.com/mail" target="_blank">
-          <Image src="/icons/emailIconDark.svg" alt="이메일 아이콘" width={22} height={22} />
+          <Image src={emailIcon} alt="이메일 아이콘" width={22} height={22} />
         </Link>
         <Link href="https://www.facebook.com/?locale=ko_KR" target="_blank">
-          <Image src="/icons/facebookIconDark.svg" alt="페이스북 아이콘" width={22} height={22} />
+          <Image src={facebookIcon} alt="페이스북 아이콘" width={22} height={22} />
         </Link>
         <Link href="https://www.instagram.com/" target="_blank">
-          <Image
-            src="/icons/instagramIconDark.svg"
-            alt="인스타그램 아이콘"
-            width={22}
-            height={22}
-          />
+          <Image src={instagramIcon} alt="인스타그램 아이콘" width={22} height={22} />
         </Link>
       </div>
     </div>
