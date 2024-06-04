@@ -1,14 +1,14 @@
-import { PurpleButton, ProfileImageInput, TextInput } from '@/components'
+import { ProfileImageInput, TextInput, ShortButton } from '@/components'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { ProfileBody } from '@/pages/mypage'
-import { Size } from '@/components/Input/ProfileImageInput'
 
 interface EditProfileProps {
+  onSubmit: () => void
   profileBody: ProfileBody
   setProfileBody: Dispatch<SetStateAction<ProfileBody>>
 }
 
-export default function EditProfile({ profileBody, setProfileBody }: EditProfileProps) {
+export default function EditProfile({ onSubmit, profileBody, setProfileBody }: EditProfileProps) {
   const handleFileInputValue = (file: File) => {
     setProfileBody({
       ...profileBody,
@@ -24,15 +24,13 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
   }
 
   return (
-    <div className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]">
+    <form
+      onSubmit={onSubmit}
+      className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
+    >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">프로필</h3>
       <div className="mb-[2rem] flex gap-[1.6rem]">
-        <ProfileImageInput
-          id="image"
-          label="이미지"
-          size={Size.m}
-          onChange={handleFileInputValue}
-        />
+        <ProfileImageInput id="image" label="이미지" size="m" onChange={handleFileInputValue} />
         <div className="flex w-full flex-col gap-[1.8rem]">
           <TextInput isReadOnly id="email" label="이메일" placeholder="johndoe@gmail.com" />
           <TextInput
@@ -44,8 +42,8 @@ export default function EditProfile({ profileBody, setProfileBody }: EditProfile
         </div>
       </div>
       <div className="self-end">
-        <PurpleButton text="저장" />
+        <ShortButton color="purple" onClick={onSubmit} text="저장" />
       </div>
-    </div>
+    </form>
   )
 }

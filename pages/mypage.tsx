@@ -32,15 +32,26 @@ export default function MyPage() {
   }
 
   const submitNewPassword = () => {
+    validateCurrentPassword()
     /** 새 비번 서브밋 보내기 */
   }
 
   return (
     <AppLayout>
       <MyPageLayout
-        EditProfile={<EditProfile profileBody={profileBody} setProfileBody={setProfileBody} />}
+        EditProfile={
+          <EditProfile
+            onSubmit={submitNewProfile}
+            profileBody={profileBody}
+            setProfileBody={setProfileBody}
+          />
+        }
         EditPassword={
-          <EditPassword passwordBody={passwordBody} setPasswordBody={setPasswordBody} />
+          <EditPassword
+            onSubmit={submitNewPassword}
+            passwordBody={passwordBody}
+            setPasswordBody={setPasswordBody}
+          />
         }
       />
     </AppLayout>

@@ -1,15 +1,20 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import { PurpleButton } from '@/components'
+import { ShortButton } from '@/components'
 import TextInput from '@/components/Input/TextInput'
 import { PasswordBody } from '@/pages/mypage'
 import { Dispatch, SetStateAction, ChangeEvent } from 'react'
 
 interface EditPasswordProps {
+  onSubmit: () => void
   passwordBody: PasswordBody
   setPasswordBody: Dispatch<SetStateAction<PasswordBody>>
 }
 
-export default function EditPassword({ passwordBody, setPasswordBody }: EditPasswordProps) {
+export default function EditPassword({
+  onSubmit,
+  passwordBody,
+  setPasswordBody,
+}: EditPasswordProps) {
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordBody({
       ...passwordBody,
@@ -18,7 +23,10 @@ export default function EditPassword({ passwordBody, setPasswordBody }: EditPass
   }
 
   return (
-    <div className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]">
+    <form
+      onSubmit={onSubmit}
+      className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
+    >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">비밀번호 변경</h3>
       <div className="mb-[2.4rem] flex flex-col gap-[2rem]">
         <TextInput
@@ -47,8 +55,8 @@ export default function EditPassword({ passwordBody, setPasswordBody }: EditPass
         />
       </div>
       <div className="self-end">
-        <PurpleButton text="변경" />
+        <ShortButton color="purple" onClick={onSubmit} text="변경" />
       </div>
-    </div>
+    </form>
   )
 }

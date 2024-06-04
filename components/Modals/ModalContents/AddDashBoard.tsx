@@ -1,12 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import PurpleButton from '@/components/Buttons/ShortButtons/PurpleButton'
-import WhiteButton from '@/components/Buttons/ShortButtons/WhiteButton'
-import TextInput from '@/components/Input/TextInput'
-import Image from 'next/image'
 import { ChangeEvent, useState } from 'react'
-import check from '@/public/icons/checkWhite.svg'
+import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
+import Image from 'next/image'
+import check from '@/public/icons/checkWhite.svg'
 
 export default function AddDashBoard() {
   const preparedColor = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea']
@@ -48,8 +46,8 @@ export default function AddDashBoard() {
         ))}
       </ul>
       <div className="flex gap-[1.2rem] self-end">
-        <WhiteButton text="취소" onClick={() => dispatch(closeModal())} />
-        <PurpleButton text="생성" onClick={submitAddDashBoard} />
+        <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
+        <ShortButton color="purple" text="생성" onClick={submitAddDashBoard} />
       </div>
     </>
   )
