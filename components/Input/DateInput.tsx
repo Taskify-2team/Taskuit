@@ -17,8 +17,6 @@ const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>
       {...props}
       ref={ref}
       type="text"
-      value={value}
-      onChange={onChange}
       placeholder="날짜를 입력해 주세요"
       className={`${inputStyles} w-[100%] pl-[4.6rem]`}
     />
