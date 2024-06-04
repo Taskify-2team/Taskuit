@@ -1,17 +1,17 @@
 import DatePicker from 'react-datepicker'
-import { forwardRef, useState } from 'react'
+import { InputHTMLAttributes, forwardRef, useState } from 'react'
 import { ko } from 'date-fns/locale'
 import InputLayout from './InputLayout'
 import { inputStyles } from './inputstyles'
 import 'react-datepicker/dist/react-datepicker.css'
 
-interface DateInputProps {
+interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
   label: string
   isRequired?: boolean
 }
 
-export default function DateInput({ id, label, isRequired }: DateInputProps) {
+export default function DateInput({ id, label, isRequired, value, onChange }: DateInputProps) {
   const [date, setDate] = useState(new Date())
 
   const handleChange = (e: Date) => {
@@ -24,6 +24,8 @@ export default function DateInput({ id, label, isRequired }: DateInputProps) {
         {...props}
         ref={ref}
         type="text"
+        value={value}
+        onChange={onChange}
         placeholder="날짜를 입력해 주세요"
         className={`${inputStyles} w-[100%] pl-[4.6rem]`}
       />

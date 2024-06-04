@@ -80,7 +80,9 @@ export default function Develop() {
         <button
           className="size-[20rem] bg-var-red"
           type="button"
-          onClick={() => dispatch(openModal({ modalName: 'addDashBoard', modalProps: {} }))}
+          onClick={() =>
+            dispatch(openModal({ modalName: 'addToDo', modalProps: { menuList: mockUser } }))
+          }
         >
           새로운 대시보드
         </button>

@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
  */
 interface TextInputProps {
   children: ReactNode
-  id: string
+  id?: string
   label: string
   isRequired?: boolean
 }
