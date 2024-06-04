@@ -1,12 +1,17 @@
 import Image from 'next/image'
 import crownicon from './crownicon.svg'
-import { DashBoard } from '../DashBoardList'
+
+interface DashBoardListItemProps {
+  color?: string
+  title?: string
+  createdByMe: boolean
+}
 
 export default function DashBoardListItem({
-  color = '컬러',
+  color = '',
   title = '대시보드제목예시',
   createdByMe = true,
-}: DashBoard) {
+}: DashBoardListItemProps) {
   return (
     <div className="flex items-center">
       <div className="mr-[1.6rem]">{color}</div>
@@ -16,4 +21,9 @@ export default function DashBoardListItem({
       </div>
     </div>
   )
+}
+
+DashBoardListItem.defaultProps = {
+  title: '',
+  color: '',
 }

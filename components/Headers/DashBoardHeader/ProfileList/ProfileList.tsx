@@ -1,28 +1,47 @@
-import { UserProfile } from '@/components'
+import UserProfile from '../../UserInfo/UserProfile'
 
-export default function ProfileList({ data }) {
-  const memberData = data?.members
+interface Member {
+  id: number
+  userId: number
+  email: string
+  nickname: string
+  profileImageUrl: string
+  createdAt: string
+  updatedAt: string
+  isOwner: boolean
+}
+
+interface ProfileListProps {
+  members?: Member[]
+  totalCount: number
+}
+
+export default function ProfileList({ members, totalCount }: ProfileListProps) {
   return (
     <div>
-      {memberData ? (
+      {members ? (
         <div>
           <div className="mr-[3.2rem] flex items-center">
-            {memberData.members.slice(0, 3).map((member) => (
+            {members.slice(0, 3).map((member) => (
               <UserProfile
-                key={member.Id}
+                key={member.id}
                 nickname={member.nickname}
                 profileImageUrl={member.profileImageUrl}
               />
             ))}
-            {memberData.totalCount > 3 && (
+            {totalCount > 3 && (
               <div className="h-[3.8rem] w-[3.8rem] rounded-full border-2 border-white">
-                +{members.totalCount - 3}
+                +{totalCount - 3}
               </div>
             )}
           </div>
-          {memberData.count > 0 && <div></div>}
+          {totalCount > 0 && <div />}
         </div>
       ) : null}
     </div>
   )
+}
+
+ProfileList.defaultProps = {
+  members: undefined,
 }

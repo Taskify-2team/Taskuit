@@ -9,15 +9,15 @@ interface AuthInputProps {
   placeholder: string
   type: string
   label: string
-  field: ControllerRenderProps<FormValueType, any>
+  field: ControllerRenderProps<FormValueType>
   error: FieldError | undefined
 }
 
 export default function AuthInput({ id, placeholder, label, type, field, error }: AuthInputProps) {
   const [showPassword, setShowPassword] = useState(false)
-  const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type
+  const inputType = type === 'password' && showPassword ? 'text' : type
 
-  const handleEyeClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleEyeClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setShowPassword((prev) => !prev)
   }
 
@@ -34,6 +34,7 @@ export default function AuthInput({ id, placeholder, label, type, field, error }
       {type === 'password' && (
         <button
           type="button"
+          aria-label="Save"
           onClick={handleEyeClick}
           className="absolute bottom-[1.5rem] right-[1.6rem]"
         >

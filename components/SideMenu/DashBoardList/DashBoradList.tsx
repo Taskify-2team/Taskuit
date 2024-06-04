@@ -1,7 +1,7 @@
 import React from 'react'
 import DashBoardListItem from './DashBoardListItem'
 
-export interface DashBoard {
+interface DashBoardProps {
   id?: string
   color: string
   title: string
@@ -10,7 +10,7 @@ export interface DashBoard {
 
 export interface DashBoardListProps {
   data?: {
-    dashboards?: DashBoard[]
+    dashboards?: DashBoardProps[]
   }
 }
 
@@ -31,4 +31,8 @@ export default function DashBoardList({ data }: DashBoardListProps) {
           ))}
     </div>
   )
+}
+
+DashBoardList.defaultProps = {
+  data: undefined,
 }

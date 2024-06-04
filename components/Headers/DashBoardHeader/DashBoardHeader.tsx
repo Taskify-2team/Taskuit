@@ -1,7 +1,7 @@
 import { UserProfile, ProfileList, HeaderButton } from '@/components'
-import inviteicon from './inviteicon.svg'
-import settingicon from './settingicon.svg'
-import testpic from './testimg.jpg'
+import inviteicon from '@/public/icons/inviteicon.svg'
+import settingicon from '@/public/icons/settingicon.svg'
+import testpic from '@/public/images/testimg.jpg'
 
 export default function DashBoardHeader({ title }: string) {
   return (

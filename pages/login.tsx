@@ -1,11 +1,7 @@
 import { AuthInput, LongButton } from '@/components'
-import loginAccess from '@/service/auth'
 import Link from 'next/link'
-import { Router, useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-// 이 부분에서 FormValueType를 정의합니다.
 export interface FormValueType {
   id: string
   password: string
@@ -14,20 +10,8 @@ export interface FormValueType {
 
 export default function LoginForm() {
   const { handleSubmit, control } = useForm()
-  const router = useRouter()
 
-  const onSubmit = (data) => {
-    const result = await loginAccess(data.email, data.password)
-    if (result) {
-      window.location.href = '/mydashboard'
-    }
-  }
-
-  useEffect(() => {
-    if (user.id) {
-      router.replace('/mydashboard')
-    }
-  }, [user.id, router])
+  const onSubmit = async () => {}
 
   return (
     <div className="flex flex-col items-center pt-[22.3rem]">
@@ -41,7 +25,7 @@ export default function LoginForm() {
               rules={{
                 required: '이메일을 입력해주세요.',
                 pattern: {
-                  value: /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/,
+                  value: /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/,
                   message: '이메일 형식으로 작성해 주세요.',
                 },
               }}
