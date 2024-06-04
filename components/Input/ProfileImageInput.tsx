@@ -36,3 +36,7 @@ export default function ProfileImageInput({ currentImage }: ProfileImageInputPro
     </div>
   )
 }
+
+ProfileImageInput.defaultProps = {
+  currentImage: '',
+}

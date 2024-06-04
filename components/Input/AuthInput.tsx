@@ -1,5 +1,5 @@
-import EyeOff from '@/public/icons/eyeOff.svg'
-import EyeOn from '@/public/icons/eyeOn.svg'
+import EyeOff from '@/public/icons/eye_off.svg'
+import EyeOn from '@/public/icons/eye_on.svg'
 import Image from 'next/image'
 import { useState } from 'react'
 
