@@ -10,6 +10,7 @@ interface AuthInputProps {
   placeholder: string
   type: string
   label: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<FormValueType, any>
   error: FieldError | undefined
 }
