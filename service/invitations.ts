@@ -1,6 +1,6 @@
 import axios from './instance'
 
-export const getInvitationList = async (cursorId?: number) => {
+export const getInvitationList = async (cursorId?: number | null) => {
   let query = ''
   if (cursorId) {
     query = `&cursorId=${cursorId}`
