@@ -1,4 +1,5 @@
 import { DropDownInputMenu, DropDownMenu, ProfileImageInput } from '@/components'
+import DashBoardCard from '@/components/Card/Card'
 
 export default function Develop() {
   const mock = ['In Progress', 'To Do', 'Success']
@@ -31,6 +32,46 @@ export default function Develop() {
       updatedAt: '',
     },
   ]
+  const cardListMock = {
+    cursorId: 1,
+    totalCount: 1,
+    cards: [
+      {
+        id: 1,
+        title: '새로운 일정 관리 Taskify',
+        description: '',
+        tags: ['백엔드', '프로젝트'],
+        dueDate: '',
+        assignee: {
+          profileImageUrl: '',
+          nickname: '',
+          id: 11,
+        },
+        imageUrl: 'https://avatars.githubusercontent.com/u/4121?s=70&v=4',
+        teamId: '',
+        columnId: 101,
+        updatedAt: '',
+        createdAt: '2024-06-04T01:56:16.625Z',
+      },
+      {
+        id: 2,
+        title: '새로운 일정 관리 Taskify',
+        description: '',
+        tags: ['일반', '프로젝트'],
+        dueDate: '',
+        assignee: {
+          profileImageUrl: '',
+          nickname: '',
+          id: 11,
+        },
+        imageUrl: '',
+        teamId: '',
+        columnId: 101,
+        updatedAt: '',
+        createdAt: '2024-06-04T01:56:16.625Z',
+      },
+    ],
+  }
   return (
     <>
       <div className="flex gap-[20rem]">
@@ -43,6 +84,11 @@ export default function Develop() {
       </div>
       <div>
         <ProfileImageInput />
+      </div>
+      <div>
+        {cardListMock.cards.map((card, i) => (
+          <DashBoardCard key={i} card={card} />
+        ))}
       </div>
     </>
   )
