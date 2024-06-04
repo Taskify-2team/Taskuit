@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import { PurpleButton, WhiteButton } from '@/components'
 import searchIcon from '@/public/icons/searchIcon.svg'
 import emptyIcon from '@/public/icons/emptyDashBoard.svg'
 import { useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
+import { ShortButton } from '..'
 
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
@@ -67,8 +67,8 @@ export default function InviteList() {
             <p className="text-[1.6rem]">{item.dashboard.title}</p>
             <p className="text-[1.6rem]">{item.inviter.nickname}</p>
             <div className="flex justify-center gap-[1rem]">
-              <PurpleButton text="수락" />
-              <WhiteButton text="거절" />
+              <ShortButton text="수락" color="purple" onClick={() => console.log(1)} />
+              <ShortButton text="거절" color="white" onClick={() => console.log(1)} />
             </div>
           </div>
         ))}
