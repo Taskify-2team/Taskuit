@@ -7,6 +7,7 @@ import {
   ProfileImageInput,
   TagInput,
   TextInput,
+  Textarea,
 } from '@/components'
 import { Size } from '@/components/Input/ProfileImageInput'
 
@@ -23,7 +24,9 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
     tags: [],
     imageUrl: [],
   })
-  const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputValue = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     setToDoBody({
       ...toDoBody,
       [e.target['name']]: e.target.value,
@@ -48,7 +51,7 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
         placeholder="제목을 입력해 주세요."
         onChange={handleInputValue}
       />
-      <TextInput
+      <Textarea
         label="설명"
         isRequired
         name="description"

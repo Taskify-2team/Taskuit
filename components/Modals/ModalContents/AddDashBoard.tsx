@@ -35,9 +35,9 @@ export default function AddDashBoard() {
         />
       </div>
       <ul className="flex gap-[1rem]">
-        {preparedColor.map((color, i) => (
+        {preparedColor.map((color) => (
           <li
-            key={i}
+            key={color}
             onClick={() => handleColor(color)}
             className="flex size-[3rem] cursor-pointer justify-center rounded-[50%]"
             style={{ backgroundColor: color }}

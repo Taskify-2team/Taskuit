@@ -1,11 +1,10 @@
-import { ReactNode } from 'react'
+import { InputHTMLAttributes, ReactNode } from 'react'
 
 /**
  * @param type email / password / text
  */
-interface TextInputProps {
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   children: ReactNode
-  id?: string
   label: string
   isRequired?: boolean
 }

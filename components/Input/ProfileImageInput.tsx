@@ -60,4 +60,5 @@ export default function ProfileImageInput({
 
 ProfileImageInput.defaultProps = {
   currentImage: '',
+  isRequired: false,
 }
