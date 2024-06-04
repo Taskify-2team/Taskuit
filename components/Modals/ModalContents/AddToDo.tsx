@@ -10,6 +10,8 @@ import {
   Textarea,
 } from '@/components'
 import { Size } from '@/components/Input/ProfileImageInput'
+import { useAppDispatch } from '@/hooks/useApp'
+import { closeModal } from '@/store/reducers/modalReducer'
 
 import { ChangeEvent, useState } from 'react'
 
@@ -22,8 +24,9 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
     description: '',
     dueDate: '',
     tags: [],
-    imageUrl: [],
+    imageUrl: {},
   })
+  const dispatch = useAppDispatch()
   const handleInputValue = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -60,12 +63,11 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
         placeholder="설명을 입력해 주세요."
         onChange={handleInputValue}
       />
-
       <DateInput label="마감일" id="dueDate" value={toDoBody.dueDate} onChange={handleInputValue} />
       <TagInput id="tag" label="태그" />
       <ProfileImageInput id="image" label="이미지" size={Size.s} onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
-        <WhiteButton text="취소" />
+        <WhiteButton text="취소" onClick={() => dispatch(closeModal())} />
         <PurpleButton text="확인" />
       </div>
     </>

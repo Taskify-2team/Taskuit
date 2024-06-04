@@ -1,10 +1,9 @@
+import { InputHTMLAttributes } from 'react'
 import InputLayout from './InputLayout'
 import inputStyles from './inputstyles'
 
-interface TagInputProps {
-  id: string
+interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-  placeholder: string
   isRequired?: boolean
 }
 
