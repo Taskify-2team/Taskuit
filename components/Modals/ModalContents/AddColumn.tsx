@@ -16,7 +16,7 @@ export default function AddColumn() {
   }
 
   return (
-    <>
+    <form onSubmit={submitAddColumn} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">새 컬럼 생성</h3>
       <TextInput
         id="columnName"
@@ -30,6 +30,6 @@ export default function AddColumn() {
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton color="purple" text="생성" onClick={submitAddColumn} />
       </div>
-    </>
+    </form>
   )
 }

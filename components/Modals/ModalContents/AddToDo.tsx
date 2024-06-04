@@ -47,7 +47,7 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
   }
 
   return (
-    <>
+    <form onSubmit={submitAddToDo} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">할 일 생성</h3>
       <DropDownInputMenu id="manager" label="담당자" menuList={menuList} />
       <TextInput
@@ -75,6 +75,6 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton color="purple" text="확인" onClick={submitAddToDo} />
       </div>
-    </>
+    </form>
   )
 }

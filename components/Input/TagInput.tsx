@@ -10,7 +10,7 @@ interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
 export default function TagInput({ id, label, placeholder, isRequired }: TagInputProps) {
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
-      <input id={id} placeholder={placeholder} required={isRequired} className={inputStyles} />
+      <input id={id} placeholder={placeholder} required={isRequired} className="input-layout" />
     </InputLayout>
   )
 }

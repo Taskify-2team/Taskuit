@@ -1,6 +1,5 @@
 import { InputHTMLAttributes } from 'react'
 import InputLayout from './InputLayout'
-import inputStyles from './inputstyles'
 
 interface TextareaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   label: string
@@ -25,7 +24,7 @@ export default function Textarea({
         onChange={onChange}
         placeholder={placeholder}
         required={isRequired}
-        className={`${inputStyles} h-[9.6rem] resize-none`}
+        className="input-layout h-[9.6rem] resize-none"
       />
     </InputLayout>
   )
