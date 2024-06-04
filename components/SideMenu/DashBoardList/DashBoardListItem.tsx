@@ -1,16 +1,15 @@
 import Image from 'next/image'
 import crownicon from '@/public/icons/crownicon.svg'
 
-export interface DashBoardListItemProps {
-  id?: string
-  color: string
-  title: string
+interface DashBoardListItemProps {
+  color?: string
+  title?: string
   createdByMe: boolean
 }
 
 export default function DashBoardListItem({
-  color ='',
-  title = '',
+  color = '',
+  title = '대시보드제목예시',
   createdByMe = true,
 }: DashBoardListItemProps) {
   return (
@@ -22,4 +21,9 @@ export default function DashBoardListItem({
       </div>
     </div>
   )
+}
+
+DashBoardListItem.defaultProps = {
+  title: '',
+  color: '',
 }

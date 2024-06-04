@@ -1,10 +1,10 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { InputHTMLAttributes } from 'react'
 import InputLayout from './InputLayout'
 import inputStyles from './inputstyles'
 import CardChip from '../Chips/CardChip'
 
-interface TagInputProps {
-  id: string
+interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
 }

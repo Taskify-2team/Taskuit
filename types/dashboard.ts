@@ -8,6 +8,17 @@ export interface DashBoard {
   userId: number
 }
 
+export interface PostToDo {
+  assigneeUserId: 0
+  dashboardId: 0
+  columnId: 0
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl: string
+}
+
 export interface CardList {
   cursorId: number
   totalCount: number

@@ -76,6 +76,7 @@ import CreateTodoButton from './Buttons/CreateTodoButton'
 import DeleteBoardButton from './Buttons/DeleteBoardButton'
 import LongButton from './Buttons/LongButton'
 import PaginationButton from './Buttons/PaginationButton'
+import ShortButton from './Buttons/ShortButton'
 
 export {
   PurpleButton,
@@ -88,6 +89,7 @@ export {
   DeleteBoardButton,
   LongButton,
   PaginationButton,
+  ShortButton,
 }
 
 /** Modal Components */
