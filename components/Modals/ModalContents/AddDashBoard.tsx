@@ -3,13 +3,9 @@ import { ChangeEvent, useState } from 'react'
 import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
-import Image from 'next/image'
-import check from '@/public/icons/checkWhite.svg'
-import useAsync from '@/hooks/useAsync'
-import { postDashboard } from '@/service/dashboards'
+import ColorSelector from '@/components/ColorSelector/ColorSelector'
 
 export default function AddDashBoard() {
-  const preparedColor = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea']
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postDashboard)
   const [dashBoardBody, setDashBoardBody] = useState({
@@ -45,18 +41,7 @@ export default function AddDashBoard() {
           placeholder="대시보드 이름"
         />
       </div>
-      <ul className="flex gap-[1rem]">
-        {preparedColor.map((color) => (
-          <li
-            key={color}
-            onClick={() => handleColor(color)}
-            className="flex size-[3rem] cursor-pointer justify-center rounded-[50%]"
-            style={{ backgroundColor: color }}
-          >
-            {dashBoardBody.color === color && <Image src={check} alt="체크 아이콘" />}
-          </li>
-        ))}
-      </ul>
+      <ColorSelector boardColor={dashBoardBody.color} handleClick={handleColor} />
       <div className="flex gap-[1.2rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton color="purple" text="생성" onClick={submitAddDashBoard} />

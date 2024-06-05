@@ -1,5 +1,5 @@
 import React from 'react'
-import DashBoardListItem from './DashBoardListItem'
+import SideMenuListItem from './SideMenuListItem'
 
 interface DashBoardProps {
   id?: string
@@ -8,13 +8,14 @@ interface DashBoardProps {
   createdByMe: boolean
 }
 
-export interface DashBoardListProps {
+export interface SideMenuListProps {
+  // eslint-disable-next-line react/require-default-props
   data?: {
     dashboards?: DashBoardProps[]
   }
 }
 
-export default function DashBoardList({ data }: DashBoardListProps) {
+export default function SideMenuList({ data }: SideMenuListProps) {
   const DashBoards = data?.dashboards || []
 
   return (
@@ -22,7 +23,7 @@ export default function DashBoardList({ data }: DashBoardListProps) {
       {DashBoards.length === 0
         ? null
         : DashBoards.map((DashBoard) => (
-            <DashBoardListItem
+            <SideMenuListItem
               key={DashBoard.id}
               color={DashBoard.color}
               title={DashBoard.title}
@@ -31,8 +32,4 @@ export default function DashBoardList({ data }: DashBoardListProps) {
           ))}
     </div>
   )
-}
-
-DashBoardList.defaultProps = {
-  data: undefined,
 }

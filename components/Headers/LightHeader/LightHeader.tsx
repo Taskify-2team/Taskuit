@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import lightLogo from '@/public/icons/lightLogo.svg'
 import lightLogosmall from '@/public/icons/lightlogosmall.svg'
+import Link from 'next/link'
 
 export default function LightHeader() {
   const [logoSrc, setLogoSrc] = useState<string>(lightLogo)
@@ -22,7 +23,9 @@ export default function LightHeader() {
 
   return (
     <div className="flex h-[7rem] w-full items-center justify-between bg-white pl-[1.6rem] pr-[8rem]">
-      <Image src={logoSrc} alt="라이트 헤더 로고" />
+      <Link href="/">
+        <Image src={logoSrc} alt="라이트 헤더 로고" />
+      </Link>
       <div className="flex gap-[3.6rem]">
         <p className="text-[1.6rem]">로그인</p>
         <p className="text-[1.6rem]">회원가입</p>

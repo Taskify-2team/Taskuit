@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import darkLogo from '@/public/icons/darklogo.svg'
 import darkLogosmall from '@/public/icons/darklogosmall.svg'
+import Link from 'next/link'
 
 export default function DarkHeader() {
   const [logoSrc, setLogoSrc] = useState<string>(darkLogo)
@@ -22,7 +23,9 @@ export default function DarkHeader() {
 
   return (
     <div className="flex h-[7rem] w-full items-center justify-between bg-black pl-[1.6rem] pr-[8rem]">
-      <Image src={logoSrc} alt="다크 헤더 로고" />
+      <Link href="/">
+        <Image src={logoSrc} alt="다크 헤더 로고" />
+      </Link>
       <div className="flex gap-[3.6rem]">
         <p className="text-[1.6rem] text-white">로그인</p>
         <p className="text-[1.6rem] text-white">회원가입</p>
