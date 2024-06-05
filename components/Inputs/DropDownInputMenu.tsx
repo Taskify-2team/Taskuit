@@ -1,20 +1,33 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
+import { PostToDo } from '@/types/dashboard'
 import InputLayout from './InputLayout'
 
 interface DropDownInputMenuProps {
   label: string
   id: string
   managerList?: Member[]
+  toDoBody: PostToDo
+  setToDoBody: Dispatch<SetStateAction<PostToDo>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
+  setToDoBody,
+  toDoBody,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -126,6 +139,13 @@ export default function DropDownInputMenu({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
+
+  useEffect(() => {
+    setToDoBody({
+      ...toDoBody,
+      assigneeUserId: selectMenu.id,
+    })
+  }, [selectMenu.id])
 
   return (
     <InputLayout id={id} label={label}>

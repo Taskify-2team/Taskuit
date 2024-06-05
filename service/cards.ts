@@ -1,6 +1,6 @@
 import axios from './instance'
 
-export const postCard = async (params) => {
+export const postDashBoardCard = async (params) => {
   const response = await axios.post(`/cards`, {
     assigneeUserId: params.assigneeUserId,
     dashboardId: params.dashboardId,

@@ -10,16 +10,22 @@ interface AddColumnProps {
 }
 
 export default function AddColumn({ dashboardId }: AddColumnProps) {
-  const [columnName, setColumnName] = useState('')
+  const [columnBody, setColumnBody] = useState({
+    title: '',
+    dashboardId,
+  })
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postColumn)
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setColumnName(e.target.value)
+    setColumnBody({
+      ...columnBody,
+      title: e.target.value,
+    })
   }
 
   const submitAddColumn = async () => {
-    const result = await requestFunction({ dashboardId, title: columnName })
+    const result = await requestFunction(columnBody)
     if (!result) return
 
     dispatch(closeModal())
@@ -33,7 +39,7 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
         id="columnName"
         label="이름"
         name="columnName"
-        value={columnName}
+        value={columnBody.title}
         onChange={handleInputValue}
         placeholder="새로운 프로젝트"
       />

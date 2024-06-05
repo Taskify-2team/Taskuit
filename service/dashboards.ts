@@ -13,3 +13,10 @@ export const getDashBoard = async (page: number, size: number = 5) => {
   const response = await axios.get(`/dashboards?${query}`)
   return response.data
 }
+
+export const inviteUser = async (params: { dashboardId: number; email: string }) => {
+  const response = await axios.post(`/dashboards/${params.dashboardId}/invitations`, {
+    email: params.email,
+  })
+  return response
+}

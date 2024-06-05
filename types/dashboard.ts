@@ -18,14 +18,14 @@ export interface Column {
 }
 
 export interface PostToDo {
-  assigneeUserId: 0
-  dashboardId: 0
-  columnId: 0
+  assigneeUserId: number
+  dashboardId: number
+  columnId: number
   title: string
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: string | null
 }
 
 export interface CardList {

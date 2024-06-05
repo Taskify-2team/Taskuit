@@ -13,3 +13,12 @@ export const getColumns = async (dashboardId: string) => {
   const response = await axios.get(`/columns${queryParam}`)
   return response
 }
+
+export const postCardImage = async (params: { columnId: number; imageFile: File | string }) => {
+  const response = await axios.post(`/columns/${params.columnId}/card-image`, params.imageFile, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return response
+}
