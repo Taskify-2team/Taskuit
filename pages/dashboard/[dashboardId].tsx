@@ -28,12 +28,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex">
-        {columns?.map((column) => (
-          <div key={column.id}>
-            {column.title}
-            <DashBoardColumn />
-          </div>
-        ))}
+        {columns?.map((column) => <DashBoardColumn key={column.id} columnTitle={column.title} />)}
       </div>
     </AppLayout>
   )

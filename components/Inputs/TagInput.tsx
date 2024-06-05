@@ -32,7 +32,7 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
             {tagList.map((tagItem) => (
-              <TagChip key={tagItem} tag={tagItem} />
+              <TagChip key={tagItem} tag={tagItem} textColor="red" bgColor="red" />
             ))}
           </div>
         )}
