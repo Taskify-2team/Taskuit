@@ -36,6 +36,11 @@ export const inviteUser = async (params: { dashboardId: number; email: string })
 
 export const getDashBoardInvitation = async (id: number, page: number) => {
   const query = `page=${page}&size=4`
-  const response = await axios.get(`/dashboards/8722/invitations?${query}`)
+  const response = await axios.get(`/dashboards/${id}/invitations?${query}`)
   return response.data
+}
+
+export const cancelInvite = async (dashboardId: number, invitationId: number) => {
+  const response = await axios.delete(`/dashboards/${dashboardId}/${invitationId}`)
+  return response
 }

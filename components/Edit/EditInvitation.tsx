@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Invitation } from '@/types/invitation'
-import { getDashBoardInvitation } from '@/service/dashboards'
+import { cancelInvite, getDashBoardInvitation } from '@/service/dashboards'
 import { useRouter } from 'next/router'
 import { PaginationButton, ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
@@ -11,6 +11,13 @@ export default function EditInvitation() {
   const [totalPage, setTotalPage] = useState(0)
   const router = useRouter()
   const { dashboardId } = router.query
+
+  const handleCancel = async (id: number) => {
+    if (dashboardId) {
+      await cancelInvite(Number(dashboardId), id)
+      alert('취소되었습니다!')
+    }
+  }
 
   useEffect(() => {
     const handleLoadList = async () => {
@@ -45,7 +52,7 @@ export default function EditInvitation() {
           <div className="flex flex-col border-b-[0.1rem]">
             {inviteList.map((item) => (
               <div key={item.id} className="flex justify-between px-0 py-[1.6rem]">
-                <ShortButton color="white" text="취소" />
+                <ShortButton color="white" text="취소" onClick={() => handleCancel(item.id)} />
               </div>
             ))}
           </div>
