@@ -22,12 +22,10 @@ import DarkHeader from './Headers/DarkHeader/DarkHeader'
 import MyDashBoardList from './MyDashBoardList/MyDashBoardList'
 import Footer from './Footer/Footer'
 import InviteList from './InviteList/InviteList'
-import DashBoardCard from './DashBoardCard/DashBoardCard'
-import TagLabel from './TagLabel/TagLabel'
+import DashBoardCard from './DashBoard/DashBoardCard'
 
 export {
   DashBoardCard,
-  TagLabel,
   SideMenu,
   DashBoardList,
   SideMenuListItem as DashBoardListItem,
@@ -43,15 +41,15 @@ export {
 }
 
 /** Input Components */
-import InputLayout from './Input/InputLayout'
-import DropDownMenu from './DropDownMenu/DropDownMenu'
-import DropDownInputMenu from './DropDownInputMenu/DropDownInputMenu'
-import AuthInput from './Input/AuthInput'
-import DateInput from './Input/DateInput'
-import ProfileImageInput from './Input/ProfileImageInput'
-import TagInput from './Input/TagInput'
-import Textarea from './Input/Textarea'
-import TextInput from './Input/TextInput'
+import InputLayout from './Inputs/InputLayout'
+import DropDownMenu from './Inputs/DropDownMenu'
+import DropDownInputMenu from './Inputs/DropDownInputMenu'
+import AuthInput from './Inputs/AuthInput'
+import DateInput from './Inputs/DateInput'
+import ProfileImageInput from './Inputs/ProfileImageInput'
+import TagInput from './Inputs/TagInput'
+import Textarea from './Inputs/Textarea'
+import TextInput from './Inputs/TextInput'
 
 export {
   InputLayout,

@@ -1,7 +1,7 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import formatDate from '@/utils/formatDate'
-import Tag from '../TagLabel/TagLabel'
+import TagChip from '../Chips/TagChip'
 
 interface CardProps {
   card: Card
@@ -16,7 +16,7 @@ export default function DashBoardCard({ card }: CardProps) {
   ]
 
   return (
-    <div className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 p-[2rem]">
+    <div className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]">
       {card.imageUrl && (
         <div className="relative mb-[1.2rem] h-[16rem]">
           <Image fill src={card.imageUrl} alt="카드 이미지" className="object-cover" />
@@ -24,11 +24,11 @@ export default function DashBoardCard({ card }: CardProps) {
       )}
       <h3 className="mb-[1rem] text-[1.6rem]">{card.title}</h3>
       <ul className="mb-[1.3rem] flex gap-[0.6rem]">
-        {card.tags.map((tag, i) => {
+        {card.tags.map((tag) => {
           const randomPick = Math.floor(Math.random() * 4)
           return (
-            <Tag
-              key={i}
+            <TagChip
+              key={tag}
               tag={tag}
               bgColor={tagColor[randomPick].bg}
               textColor={tagColor[randomPick].text}

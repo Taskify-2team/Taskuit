@@ -4,18 +4,18 @@ import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
-import InputLayout from '../Input/InputLayout'
+import InputLayout from './InputLayout'
 
 interface DropDownInputMenuProps {
   label: string
   id: string
-  menuList?: Member[]
+  managerList?: Member[]
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  menuList: initMenuList = [],
+  managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
     id: 0,
@@ -23,7 +23,7 @@ export default function DropDownInputMenu({
     profileImageUrl: '',
     index: 0,
   })
-  const [menuList, setMenuList] = useState<Member[]>(initMenuList)
+  const [menuList, setMenuList] = useState<Member[]>(initManagerList)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
@@ -36,11 +36,11 @@ export default function DropDownInputMenu({
       profileImageUrl: '',
       index: 0,
     })
-    setMenuList(initMenuList)
+    setMenuList(initManagerList)
   }
 
   const findMatchingItemList = (inputValue: string) => {
-    const result = initMenuList.filter((menuItem) => {
+    const result = initManagerList.filter((menuItem) => {
       return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
     setMenuList(result)
@@ -100,14 +100,17 @@ export default function DropDownInputMenu({
         e.preventDefault()
         break
       case 'ArrowDown':
+        e.currentTarget.focus()
         e.preventDefault()
         handleArrowDown()
         break
       case 'ArrowUp':
+        e.currentTarget.focus()
         e.preventDefault()
         handleArrowUp()
         break
       case 'Enter':
+        e.currentTarget.focus()
         e.preventDefault()
         setShowMenuList(false)
         e.currentTarget.blur()
@@ -129,7 +132,7 @@ export default function DropDownInputMenu({
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList(true)}
-        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex h-[4.8rem] w-[21.7rem] cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid bg-var-white px-[1.6rem] py-[1.3rem] text-var-black2`}
+        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex h-[4.8rem] w-full cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid bg-var-white px-[1.6rem] py-[1.3rem] text-var-black2`}
       >
         {selectMenu.profileImageUrl && (
           <>
@@ -211,5 +214,5 @@ export default function DropDownInputMenu({
 }
 
 DropDownInputMenu.defaultProps = {
-  menuList: [],
+  managerList: [],
 }
