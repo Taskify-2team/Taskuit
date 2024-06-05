@@ -1,11 +1,15 @@
 import axios from './instance'
 
-export const getInvitationList = async (cursorId?: number | null) => {
-  let query = ''
+export const getInvitationList = async (cursorId?: number | null, title?: string) => {
+  let idQuery = ''
+  let titleQuery = ''
   if (cursorId) {
-    query = `&cursorId=${cursorId}`
+    idQuery = `&cursorId=${cursorId}`
   }
-  const response = await axios.get(`/invitations?size=6${query}`)
+  if (title) {
+    titleQuery = `&title=${title}`
+  }
+  const response = await axios.get(`/invitations?size=6${idQuery}${titleQuery}`)
   return response.data
 }
 
