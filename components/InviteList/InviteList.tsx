@@ -5,7 +5,6 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
-import { useRouter } from 'next/router'
 import { ShortButton } from '..'
 
 export default function InviteList() {
@@ -14,7 +13,6 @@ export default function InviteList() {
   const [inviteTitle, setInviteTitle] = useState('')
   const obsRef = useRef(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const router = useRouter()
   const { pending, requestFunction } = useAsync(getInvitationList)
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
@@ -28,7 +26,8 @@ export default function InviteList() {
 
   const handleInvite = async (id: number, answer: boolean) => {
     await postInvitation(id, answer)
-    router.reload()
+    setInvitationList([])
+    setCursorId(0)
   }
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -58,7 +57,7 @@ export default function InviteList() {
     }
   }, [pending])
 
-  return invitationList ? (
+  return invitationList[0] ? (
     <>
       <div className="relative">
         <form onSubmit={handleSearch}>
