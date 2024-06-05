@@ -44,3 +44,8 @@ export const cancelInvite = async (dashboardId: number, invitationId: number) =>
   const response = await axios.delete(`/dashboards/${dashboardId}/${invitationId}`)
   return response
 }
+
+export const deleteDashBoard = async (dashboardId: number) => {
+  const response = await axios.delete(`dashboards/${dashboardId}`)
+  return response
+}
