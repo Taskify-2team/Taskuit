@@ -67,7 +67,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
 
   const submitAddToDo = async () => {
     await submitImageFile()
-
+    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
     const result = await requestFunction(toDoBody)
     if (!result) return
 
