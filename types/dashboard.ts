@@ -36,7 +36,7 @@ export interface Card {
     nickname: string
     id: number
   }
-  imageUrl: string
+  imageUrl?: string
   teamId: string
   columnId: number
   createdAt: string
