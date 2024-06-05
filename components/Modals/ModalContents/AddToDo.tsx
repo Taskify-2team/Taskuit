@@ -13,7 +13,7 @@ import { closeModal } from '@/store/reducers/modalReducer'
 
 import { ChangeEvent, useState } from 'react'
 
-export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuList }) {
+export default function AddToDo({ assigneeUserId, dashboardId, columnId, managerList }) {
   const [toDoBody, setToDoBody] = useState({
     assigneeUserId,
     dashboardId,
@@ -49,7 +49,7 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
   return (
     <form onSubmit={submitAddToDo} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">할 일 생성</h3>
-      <DropDownInputMenu id="manager" label="담당자" menuList={menuList} />
+      <DropDownInputMenu id="manager" label="담당자" managerList={managerList} />
       <TextInput
         label="제목"
         isRequired

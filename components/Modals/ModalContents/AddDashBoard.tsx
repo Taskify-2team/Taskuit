@@ -11,7 +11,7 @@ export default function AddDashBoard() {
   const dispatch = useAppDispatch()
   const [dashBoardBody, setDashBoardBody] = useState({
     title: '',
-    color: '',
+    color: '#7ac555',
   })
 
   const handleColor = (colorName: string) => {

@@ -24,7 +24,7 @@ const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>
 
 CustomInput.displayName = 'CustomInput'
 
-export default function DateInput({ id, label, isRequired }: DateInputProps) {
+export default function DateInput({ id, label, isRequired = false }: DateInputProps) {
   const [date, setDate] = useState(new Date())
 
   const handleChange = (e: Date) => {
@@ -43,8 +43,4 @@ export default function DateInput({ id, label, isRequired }: DateInputProps) {
       />
     </InputLayout>
   )
-}
-
-DateInput.defaultProps = {
-  isRequired: false,
 }
