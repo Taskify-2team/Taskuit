@@ -3,9 +3,7 @@ import UserProfile from './UserProfile'
 export interface UserInfoProps {
   profileImageUrl: string
   nickname: string
-  className?: string
 }
-
 
 export default function UserInfo({ profileImageUrl, nickname }: UserInfoProps) {
   return (

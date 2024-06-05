@@ -11,10 +11,10 @@ export { AppLayout, LandingPageLayout, EditPassword, EditProfile, MyPageLayout }
 
 /** UI Components  */
 import SideMenu from './SideMenu/SideMenu'
-import DashBoardList from './SideMenu/DashBoardList/DashBoradList'
-import DashBoardListItem from './SideMenu/DashBoardList/DashBoardListItem'
-import UserInfo from './Headers/UserInfo/UserInfo'
-import UserProfile from './Headers/UserInfo/UserProfile'
+import DashBoardList from './SideMenu/SideMenuList/SideMenuList'
+import SideMenuListItem from './SideMenu/SideMenuList/SideMenuListItem'
+import UserInfo from './UserInfo/UserInfo'
+import UserProfile from './UserInfo/UserProfile'
 import LightHeader from './Headers/LightHeader/LightHeader'
 import DashBoardHeader from './Headers/DashBoardHeader/DashBoardHeader'
 import ProfileList from './Headers/DashBoardHeader/ProfileList/ProfileList'
@@ -28,7 +28,7 @@ export {
   DashBoardCard,
   SideMenu,
   DashBoardList,
-  DashBoardListItem,
+  SideMenuListItem as DashBoardListItem,
   UserInfo,
   UserProfile,
   LightHeader,
