@@ -1,7 +1,7 @@
 interface ShortButtonProps {
   text: string
   color: 'white' | 'purple'
-  onClick: () => void
+  onClick: (e: any) => void
 }
 
 export default function ShortButton({ text, color, onClick }: ShortButtonProps) {
@@ -12,11 +12,12 @@ export default function ShortButton({ text, color, onClick }: ShortButtonProps) 
   }
 
   return (
-    <span
+    <button
+      type="button"
       onClick={onClick}
       className={`${colorVariants[color]} inline-block w-[8.4rem] cursor-pointer rounded-[0.4rem] py-[0.7rem] text-center text-[1.4rem] leading-tight`}
     >
       {text}
-    </span>
+    </button>
   )
 }
