@@ -1,8 +1,13 @@
 import { CreateTodoButton, DashBoardCard } from '@/components'
+import CircleChip from '../Chips/CircleChip'
 
 export default function DashBoardColumn() {
   return (
-    <section>
+    <section className="flex flex-col">
+      <div>
+        <CircleChip color="#d04040" />
+        dd
+      </div>
       <CreateTodoButton />
       <DashBoardCard
         card={{
