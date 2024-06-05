@@ -1,6 +1,8 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
-import { closeModal } from '@/store/reducers/modalReducer'
+import useAsync from '@/hooks/useAsync'
+import { updateColumn } from '@/service/columns'
+import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { Column } from '@/types/column'
 import { ChangeEvent, useState } from 'react'
 
@@ -9,25 +11,42 @@ interface EditColumnProps {
 }
 
 export default function EditColumn({ column }: EditColumnProps) {
-  const [newColumnName, setNewColumnName] = useState(column?.title)
+  const [newColumnName, setNewColumnName] = useState({
+    columnId: column?.id,
+    title: column?.title,
+  })
   const dispatch = useAppDispatch()
+  const { requestFunction: updateColumnFunction } = useAsync(updateColumn)
 
   const handelInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewColumnName(e.target.value)
+    setNewColumnName({
+      ...newColumnName,
+      title: e.target.value,
+    })
   }
 
-  const handleDeleteColumn = () => {
-    /** 칼럼 삭제 요청하기 */
+  const handleDeleteColumn = async () => {
+    dispatch(
+      openModal({
+        modalName: 'warningModal',
+        modalProps: { variant: 'deleteColumn', columnId: column.id },
+      }),
+    )
+    /** 토스트 */
   }
 
-  const submitEditColumn = () => {
-    /** 칼럼 이름 수정 요청하기 */
+  const submitEditColumn = async () => {
+    const result = await updateColumnFunction(newColumnName)
+    if (!result) return
+
+    dispatch(closeModal())
+    /** 토스트 */
   }
 
   return (
     <form onSubmit={submitEditColumn} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">칼럼 관리</h3>
-      <TextInput id="name" label="이름" value={newColumnName} onChange={handelInputValue} />
+      <TextInput id="name" label="이름" value={newColumnName.title} onChange={handelInputValue} />
       <div className="flex items-end justify-between">
         <span
           className="cursor-pointer text-[1.4rem] text-var-gray4 underline"

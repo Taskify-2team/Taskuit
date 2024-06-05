@@ -1,18 +1,35 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
+import useAsync from '@/hooks/useAsync'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'
+import { postColumn } from '@/service/columns'
 
-export default function AddColumn() {
-  const [columnName, setColumnName] = useState('')
+interface AddColumnProps {
+  dashboardId: number
+}
+
+export default function AddColumn({ dashboardId }: AddColumnProps) {
+  const [columnBody, setColumnBody] = useState({
+    title: '',
+    dashboardId,
+  })
   const dispatch = useAppDispatch()
+  const { requestFunction } = useAsync(postColumn)
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setColumnName(e.target.value)
+    setColumnBody({
+      ...columnBody,
+      title: e.target.value,
+    })
   }
 
-  const submitAddColumn = () => {
-    /** 컬럼 추가 요청 보내기 */
+  const submitAddColumn = async () => {
+    const result = await requestFunction(columnBody)
+    if (!result) return
+
+    dispatch(closeModal())
+    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
   }
 
   return (
@@ -22,13 +39,13 @@ export default function AddColumn() {
         id="columnName"
         label="이름"
         name="columnName"
-        value={columnName}
+        value={columnBody.title}
         onChange={handleInputValue}
         placeholder="새로운 프로젝트"
       />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="생성" onClick={submitAddColumn} />
+        <ShortButton color="purple" type="submit" text="생성" onClick={submitAddColumn} />
       </div>
     </form>
   )
