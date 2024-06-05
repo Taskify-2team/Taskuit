@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import {
-  PurpleButton,
-  WhiteButton,
   DropDownInputMenu,
   DateInput,
   ProfileImageInput,
   TagInput,
   TextInput,
   Textarea,
+  ShortButton,
 } from '@/components'
-import { Size } from '@/components/Input/ProfileImageInput'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 
@@ -27,6 +25,7 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
     imageUrl: {},
   })
   const dispatch = useAppDispatch()
+
   const handleInputValue = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -35,14 +34,20 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
       [e.target['name']]: e.target.value,
     })
   }
+
   const handleFileInputValue = (file: File) => {
     setToDoBody({
       ...toDoBody,
       imageUrl: file,
     })
   }
+
+  const submitAddToDo = () => {
+    /** 할일 추가 요청 보내기 */
+  }
+
   return (
-    <>
+    <form onSubmit={submitAddToDo} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">할 일 생성</h3>
       <DropDownInputMenu id="manager" label="담당자" menuList={menuList} />
       <TextInput
@@ -65,11 +70,11 @@ export default function AddToDo({ assigneeUserId, dashboardId, columnId, menuLis
       />
       <DateInput label="마감일" id="dueDate" value={toDoBody.dueDate} onChange={handleInputValue} />
       <TagInput id="tag" label="태그" />
-      <ProfileImageInput id="image" label="이미지" size={Size.s} onChange={handleFileInputValue} />
+      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
-        <WhiteButton text="취소" onClick={() => dispatch(closeModal())} />
-        <PurpleButton text="확인" />
+        <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
+        <ShortButton color="purple" text="확인" onClick={submitAddToDo} />
       </div>
-    </>
+    </form>
   )
 }

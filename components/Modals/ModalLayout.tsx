@@ -16,12 +16,7 @@ export default function ModalLayout() {
       onClick={() => dispatch(closeModal())}
       className="fixed top-0 z-50 flex h-screen w-full items-center justify-center bg-black/50"
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="flex h-auto min-h-[25rem] w-[54rem] flex-col justify-between gap-[2.5rem] rounded-[0.8rem] bg-var-white p-[2.8rem]"
-      >
-        {renderModal}
-      </div>
+      <div onClick={(e) => e.stopPropagation()}>{renderModal}</div>
     </div>
   )
 }

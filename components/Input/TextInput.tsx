@@ -1,10 +1,10 @@
 import { InputHTMLAttributes } from 'react'
 import InputLayout from './InputLayout'
-import inputStyles from './inputstyles'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
+  isReadOnly?: boolean
 }
 
 export default function TextInput({
@@ -15,6 +15,7 @@ export default function TextInput({
   onChange,
   placeholder,
   isRequired,
+  isReadOnly,
 }: TextInputProps) {
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
@@ -25,7 +26,8 @@ export default function TextInput({
         onChange={onChange}
         placeholder={placeholder}
         required={isRequired}
-        className={inputStyles}
+        className="input-layout"
+        readOnly={isReadOnly}
       />
     </InputLayout>
   )
@@ -33,4 +35,5 @@ export default function TextInput({
 
 TextInput.defaultProps = {
   isRequired: false,
+  isReadOnly: false,
 }

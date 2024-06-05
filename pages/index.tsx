@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ReactNode } from 'react'
 import mainSectionImage1 from '@/public/images/mainSectionImage1.png'
 import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
+import Link from 'next/link'
 
 function MainSmallCard({
   children,
@@ -43,9 +44,11 @@ export default function Home() {
           다양한 일정을 다양한 사람들과
           <br /> 체계적으로 관리해보세요!
         </p>
-        <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-[--violet-violet_5534DA] py-[1.4rem] text-center text-[1.8rem] leading-tight text-[--white-white_FFFFFF]">
-          로그인하기
-        </span>
+        <Link href="/login">
+          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-[--violet-violet_5534DA] py-[1.4rem] text-center text-[1.8rem] leading-tight text-[--white-white_FFFFFF]">
+            로그인하기
+          </span>
+        </Link>
         <div className="flex flex-col gap-[9rem]">
           <div className="flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] bg-[--black-black_171717] p-[5rem]">
             <div className="flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem]">
