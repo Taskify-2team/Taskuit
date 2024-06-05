@@ -1,6 +1,6 @@
 interface WhiteButtonProps {
   text: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function WhiteButton({ text, onClick }: WhiteButtonProps) {
@@ -12,4 +12,8 @@ export default function WhiteButton({ text, onClick }: WhiteButtonProps) {
       {text}
     </span>
   )
+}
+
+WhiteButton.defaultProps = {
+  onClick: false,
 }

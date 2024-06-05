@@ -4,7 +4,7 @@ import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
-import InputLayout from '../Input/InputLayout'
+import InputLayout from './InputLayout'
 
 interface DropDownInputMenuProps {
   label: string

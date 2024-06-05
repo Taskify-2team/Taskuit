@@ -1,5 +1,5 @@
 import ShortButton from '@/components/Buttons/ShortButton'
-import TextInput from '@/components/Input/TextInput'
+import TextInput from '@/components/Inputs/TextInput'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'

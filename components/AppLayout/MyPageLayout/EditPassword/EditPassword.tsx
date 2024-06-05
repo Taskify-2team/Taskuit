@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { ShortButton } from '@/components'
-import TextInput from '@/components/Input/TextInput'
+import TextInput from '@/components/Inputs/TextInput'
 import { PasswordBody } from '@/pages/mypage'
 import { Dispatch, SetStateAction, ChangeEvent } from 'react'
 
