@@ -1,6 +1,7 @@
 import { UserProfile, ProfileList, HeaderButton } from '@/components'
 import inviteicon from '@/public/icons/inviteicon.svg'
 import settingicon from '@/public/icons/settingicon.svg'
+import Link from 'next/link'
 
 const MockData = {
   members: [
@@ -26,7 +27,9 @@ export default function DashBoardHeader() {
       <p className="text-[2rem] font-bold">출력문구 예시</p>
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
-          <HeaderButton buttonIcon={settingicon} buttonName="관리" />
+          <Link href="/mypage" className="flex">
+            <HeaderButton buttonIcon={settingicon} buttonName="관리" />
+          </Link>
           <HeaderButton buttonIcon={inviteicon} buttonName="초대하기" />
           <ProfileList members={MockDataMembers} totalCount={MockDataCount} />
         </div>
