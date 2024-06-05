@@ -12,22 +12,22 @@ import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
-import { PostToDo } from '@/types/dashboard'
+import { PostCard, UpdateCard } from '@/types/dashboard'
 import InputLayout from './InputLayout'
 
 interface DropDownInputMenuProps {
   label: string
   id: string
   managerList?: Member[]
-  toDoBody: PostToDo
-  setToDoBody: Dispatch<SetStateAction<PostToDo>>
+  cardBody: PostCard | UpdateCard
+  setCardBody: Dispatch<SetStateAction<PostCard | UpdateCard>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  setToDoBody,
-  toDoBody,
+  setCardBody,
+  cardBody,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -141,8 +141,8 @@ export default function DropDownInputMenu({
   }, [])
 
   useEffect(() => {
-    setToDoBody({
-      ...toDoBody,
+    setCardBody({
+      ...cardBody,
       assigneeUserId: selectMenu.id,
     })
   }, [selectMenu.id])

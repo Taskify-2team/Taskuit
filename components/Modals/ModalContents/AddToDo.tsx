@@ -14,7 +14,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { postDashBoardCard } from '@/service/cards'
 import useAsync from '@/hooks/useAsync'
 import { Member } from '@/types/member'
-import { PostToDo } from '@/types/dashboard'
+import { PostCard } from '@/types/dashboard'
 import { postCardImage } from '@/service/columns'
 
 interface AddToDoProps {
@@ -24,7 +24,7 @@ interface AddToDoProps {
 }
 
 export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoProps) {
-  const [toDoBody, setToDoBody] = useState<PostToDo>({
+  const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId,
     columnId,
     assigneeUserId: 0,
@@ -43,8 +43,8 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   const handleInputValue = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    setToDoBody({
-      ...toDoBody,
+    setCardBody({
+      ...cardBody,
       [e.target['name']]: e.target.value,
     })
   }
@@ -58,8 +58,8 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
       const formData = new FormData()
       formData.append('image', imageFile)
       const result = await postImage({ columnId, imageFile })
-      setToDoBody({
-        ...toDoBody,
+      setCardBody({
+        ...cardBody,
         imageUrl: result?.data.imageUrl,
       })
     }
@@ -68,7 +68,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   const submitAddToDo = async () => {
     await submitImageFile()
     /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
-    const result = await requestFunction(toDoBody)
+    const result = await requestFunction(cardBody)
     if (!result) return
 
     dispatch(closeModal())
@@ -76,10 +76,10 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   }
 
   useEffect(() => {
-    if (toDoBody.columnId && toDoBody.dashboardId && toDoBody.description && toDoBody.title) {
+    if (cardBody.columnId && cardBody.dashboardId && cardBody.description && cardBody.title) {
       setIsDisabled(false)
     }
-  }, [toDoBody])
+  }, [cardBody])
 
   return (
     <form onSubmit={submitAddToDo} className="modal-layout">
@@ -88,15 +88,15 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
         id="manager"
         label="담당자"
         managerList={managerList}
-        toDoBody={toDoBody}
-        setToDoBody={setToDoBody}
+        cardBody={cardBody}
+        setCardBody={setCardBody}
       />
       <TextInput
         label="제목"
         isRequired
         name="title"
         id="title"
-        value={toDoBody.title}
+        value={cardBody.title}
         placeholder="제목을 입력해 주세요."
         onChange={handleInputValue}
       />
@@ -105,11 +105,11 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
         isRequired
         name="description"
         id="description"
-        value={toDoBody.description}
+        value={cardBody.description}
         placeholder="설명을 입력해 주세요."
         onChange={handleInputValue}
       />
-      <DateInput label="마감일" id="dueDate" value={toDoBody.dueDate} onChange={handleInputValue} />
+      <DateInput label="마감일" id="dueDate" value={cardBody.dueDate} onChange={handleInputValue} />
       <TagInput id="tag" label="태그" />
       <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">

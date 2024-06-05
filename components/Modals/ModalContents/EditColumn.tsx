@@ -12,7 +12,7 @@ interface EditColumnProps {
 
 export default function EditColumn({ column }: EditColumnProps) {
   const [newColumnName, setNewColumnName] = useState({
-    columnId: column.id,
+    columnId: column?.id,
     title: column?.title,
   })
   const dispatch = useAppDispatch()
@@ -39,7 +39,7 @@ export default function EditColumn({ column }: EditColumnProps) {
     if (!result) return
 
     dispatch(closeModal())
-    /** 칼럼 이름 수정 요청하기 */
+    /** 토스트 */
   }
 
   return (

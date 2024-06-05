@@ -14,33 +14,25 @@ import useAsync from '@/hooks/useAsync'
 import { updateDashBoardCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { Card } from '@/types/dashboard'
+import { Card, UpdateCard } from '@/types/dashboard'
 import { Member } from '@/types/member'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 interface EditToDoProps {
   columnId: number
-  dashboardId: number
   card: Card
   managerList: Member[]
   progressList: string[]
 }
 
-export default function EditToDo({
-  columnId,
-  dashboardId,
-  card,
-  managerList,
-  progressList,
-}: EditToDoProps) {
-  const [newCardBody, setNewCardBody] = useState({
+export default function EditToDo({ columnId, card, managerList, progressList }: EditToDoProps) {
+  const [newCardBody, setNewCardBody] = useState<UpdateCard>({
     title: card?.title,
     description: card?.description,
     dueDate: card?.dueDate,
     tags: card?.tags,
     imageUrl: card?.imageUrl || '',
     columnId,
-    dashboardId,
     assigneeUserId: card?.assignee?.id || 0,
   })
   const [imageFile, setImageFile] = useState<File | string>('')
@@ -83,12 +75,7 @@ export default function EditToDo({
   }
 
   useEffect(() => {
-    if (
-      newCardBody.columnId &&
-      newCardBody.dashboardId &&
-      newCardBody.description &&
-      newCardBody.title
-    ) {
+    if (newCardBody.columnId && newCardBody.description && newCardBody.title) {
       setIsDisabled(false)
     }
   }, [newCardBody])
@@ -104,8 +91,8 @@ export default function EditToDo({
           <DropDownInputMenu
             id="manager"
             label="담당자"
-            toDoBody={newCardBody}
-            setToDoBody={setNewCardBody}
+            cardBody={newCardBody}
+            setCardBody={setNewCardBody}
             managerList={managerList}
           />
         </div>

@@ -19,7 +19,7 @@ export interface Column {
 
 export interface PostCard {
   assigneeUserId: number
-  dashboardId: number
+  dashboardId?: number
   columnId: number
   title: string
   description: string
@@ -35,7 +35,7 @@ export interface UpdateCard {
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: string | null
 }
 
 export interface CardList {
