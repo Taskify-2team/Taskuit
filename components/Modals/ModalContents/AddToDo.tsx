@@ -35,7 +35,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     imageUrl: '',
   })
   const [imageFile, setImageFile] = useState<File | string>('')
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
@@ -66,6 +66,8 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   }
 
   const submitAddToDo = async () => {
+    await submitImageFile()
+
     const result = await requestFunction(toDoBody)
     if (!result) return
 
@@ -74,16 +76,10 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   }
 
   useEffect(() => {
-    if (
-      toDoBody.assigneeUserId &&
-      toDoBody.columnId &&
-      toDoBody.dashboardId &&
-      toDoBody.description &&
-      toDoBody.title
-    ) {
-      setIsDisabled(true)
+    if (toDoBody.columnId && toDoBody.dashboardId && toDoBody.description && toDoBody.title) {
+      setIsDisabled(false)
     }
-  }, [])
+  }, [toDoBody])
 
   return (
     <form onSubmit={submitAddToDo} className="modal-layout">
@@ -118,7 +114,13 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
       <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="확인" isDisabled onClick={submitAddToDo} />
+        <ShortButton
+          color="purple"
+          text="확인"
+          type="submit"
+          isDisabled={isDisabled}
+          onClick={submitAddToDo}
+        />
       </div>
     </form>
   )
