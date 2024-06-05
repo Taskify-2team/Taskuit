@@ -1,5 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, ChangeEvent, KeyboardEvent, useState } from 'react'
 import InputLayout from './InputLayout'
 import CardChip from '../Chips/CardChip'
 
@@ -29,7 +28,7 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
-      <div className={`${inputStyles} flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]`}>
+      <div className="input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]">
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
             {tagList.map((tagItem) => (
