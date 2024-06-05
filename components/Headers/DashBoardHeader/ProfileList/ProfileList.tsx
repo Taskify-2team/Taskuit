@@ -1,4 +1,4 @@
-import UserProfile from '../../UserInfo/UserProfile'
+import UserProfile from '../../../UserInfo/UserProfile'
 
 interface Member {
   id: number

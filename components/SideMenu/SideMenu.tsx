@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import logoIcon from '@/public/icons/sidemenulogo.svg'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
-import DashBoardList, { DashBoardListProps } from './DashBoardList/DashBoradList'
+import SideMenuList, { SideMenuListProps } from './SideMenuList/SideMenuList'
 
-export default function SideMenu({ data }: DashBoardListProps) {
+export default function SideMenu({ data }: SideMenuListProps) {
   return (
     <div className="flex h-[50rem] w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
       <div>
@@ -15,7 +15,7 @@ export default function SideMenu({ data }: DashBoardListProps) {
           <Image src={adddashboardicon} alt="대시보드 추가 아이콘" />
         </button>
       </div>
-      <DashBoardList data={data} />
+      <SideMenuList data={data} />
     </div>
   )
 }

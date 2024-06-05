@@ -1,17 +1,19 @@
 import Image from 'next/image'
 import crownicon from '@/public/icons/crownicon.svg'
 
-interface DashBoardListItemProps {
+interface SideMenuListItemProps {
+  // eslint-disable-next-line react/require-default-props
   color?: string
+  // eslint-disable-next-line react/require-default-props
   title?: string
   createdByMe: boolean
 }
 
-export default function DashBoardListItem({
+export default function SideMenuListItem({
   color = '',
   title = '대시보드제목예시',
   createdByMe = true,
-}: DashBoardListItemProps) {
+}: SideMenuListItemProps) {
   return (
     <div className="flex items-center">
       <div className={`mr-[1.6rem] h-[0.8rem] w-[0.8rem] rounded-full bg-[${color}]`} />
@@ -21,9 +23,4 @@ export default function DashBoardListItem({
       </div>
     </div>
   )
-}
-
-DashBoardListItem.defaultProps = {
-  title: '',
-  color: '',
 }
