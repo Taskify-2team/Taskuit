@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, Key, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
@@ -100,14 +100,17 @@ export default function DropDownInputMenu({
         e.preventDefault()
         break
       case 'ArrowDown':
+        e.currentTarget.focus()
         e.preventDefault()
         handleArrowDown()
         break
       case 'ArrowUp':
+        e.currentTarget.focus()
         e.preventDefault()
         handleArrowUp()
         break
       case 'Enter':
+        e.currentTarget.focus()
         e.preventDefault()
         setShowMenuList(false)
         e.currentTarget.blur()

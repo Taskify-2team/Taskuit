@@ -8,7 +8,7 @@ import {
   Textarea,
 } from '@/components'
 
-export default function EditToDo({ todo }) {
+export default function EditToDo({ todo, menuList }) {
   return (
     <form className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
@@ -17,7 +17,7 @@ export default function EditToDo({ todo }) {
           <DropDownMenu id="progress" label="상태" menuList={[]} />
         </div>
         <div className="flex-1">
-          <DropDownInputMenu id="manager" label="담당자" />
+          <DropDownInputMenu id="manager" label="담당자" menuList={menuList} />
         </div>
       </div>
       <TextInput
