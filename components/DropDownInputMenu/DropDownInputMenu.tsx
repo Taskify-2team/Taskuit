@@ -1,4 +1,4 @@
-import { ChangeEvent, Key, KeyboardEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
@@ -9,13 +9,13 @@ import InputLayout from '../Input/InputLayout'
 interface DropDownInputMenuProps {
   label: string
   id: string
-  menuList?: Member[]
+  managerList?: Member[]
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  menuList: initMenuList = [],
+  managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
     id: 0,
@@ -23,7 +23,7 @@ export default function DropDownInputMenu({
     profileImageUrl: '',
     index: 0,
   })
-  const [menuList, setMenuList] = useState<Member[]>(initMenuList)
+  const [menuList, setMenuList] = useState<Member[]>(initManagerList)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
@@ -36,11 +36,11 @@ export default function DropDownInputMenu({
       profileImageUrl: '',
       index: 0,
     })
-    setMenuList(initMenuList)
+    setMenuList(initManagerList)
   }
 
   const findMatchingItemList = (inputValue: string) => {
-    const result = initMenuList.filter((menuItem) => {
+    const result = initManagerList.filter((menuItem) => {
       return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
     setMenuList(result)
@@ -214,5 +214,5 @@ export default function DropDownInputMenu({
 }
 
 DropDownInputMenu.defaultProps = {
-  menuList: [],
+  managerList: [],
 }

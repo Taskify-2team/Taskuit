@@ -14,8 +14,8 @@ export default function TextInput({
   value,
   onChange,
   placeholder,
-  isRequired,
-  isReadOnly,
+  isRequired = false,
+  isReadOnly = false,
 }: TextInputProps) {
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
@@ -31,9 +31,4 @@ export default function TextInput({
       />
     </InputLayout>
   )
-}
-
-TextInput.defaultProps = {
-  isRequired: false,
-  isReadOnly: false,
 }
