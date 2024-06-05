@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getDashBoardInfo, putDashBoard } from '@/service/dashboards'
 import ColorSelector from '../ColorSelector/ColorSelector'
@@ -23,10 +23,10 @@ export default function EditName() {
     })
   }
 
-  const handleEditBoard = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleEditBoard = async () => {
     if (!editBoardBody.title && !editBoardBody.color) {
       alert('변경사항이 없습니다!')
+      return
     }
     await putDashBoard(Number(dashboardId), editBoardBody)
     alert('변경되었습니다!')
@@ -34,12 +34,13 @@ export default function EditName() {
 
   useEffect(() => {
     const handleLoadDashBoard = async () => {
-      const { title, color } = await getDashBoardInfo(Number(dashboardId))
-      setDashBoardBody({ title, color })
+      if (dashboardId) {
+        const { title, color } = await getDashBoardInfo(Number(dashboardId))
+        setDashBoardBody({ title, color })
+        setEditBoardBody({ ...editBoardBody, color })
+      }
     }
-    if (dashboardId) {
-      handleLoadDashBoard()
-    }
+    handleLoadDashBoard()
   }, [dashboardId])
 
   return (
@@ -51,7 +52,13 @@ export default function EditName() {
           handleClick={handleColor}
         />
       </div>
-      <form className="flex flex-col gap-[2.4rem]" onSubmit={handleEditBoard}>
+      <form
+        className="flex flex-col gap-[2.4rem]"
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleEditBoard()
+        }}
+      >
         <label htmlFor="name" className="flex flex-col gap-[1rem] text-[1.8rem]">
           대시보드 이름
           <input
