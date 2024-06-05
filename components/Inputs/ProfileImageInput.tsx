@@ -52,8 +52,3 @@ export default function ProfileImageInput({
     </InputLayout>
   )
 }
-
-ProfileImageInput.defaultProps = {
-  currentImage: '',
-  isRequired: false,
-}
