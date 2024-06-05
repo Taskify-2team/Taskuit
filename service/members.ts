@@ -1,7 +1,9 @@
 import axios from './instance'
 
-export const getMemberList = async (params) => {
-  const query = `?page=${params.page || 1}&size=${params.size || 20}&dashboardId=${params.dashboardId}`
+const getMemberList = async (page: number, id: number) => {
+  const query = `?page=${page || 1}&size=4&dashboardId=${id}`
   const response = await axios.get(`/members${query}`)
-  return response
+  return response.data
 }
+
+export default getMemberList
