@@ -8,6 +8,15 @@ export interface DashBoard {
   userId: number
 }
 
+export interface Column {
+  createdAt: string
+  dashboardId: number
+  id: number
+  teamId: string
+  title: string
+  updatedAt: string
+}
+
 export interface PostToDo {
   assigneeUserId: 0
   dashboardId: 0
@@ -36,7 +45,7 @@ export interface Card {
     nickname: string
     id: number
   }
-  imageUrl: string
+  imageUrl?: string
   teamId: string
   columnId: number
   createdAt: string

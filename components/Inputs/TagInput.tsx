@@ -1,6 +1,6 @@
-import { ChangeEvent, KeyboardEvent, useState, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, ChangeEvent, KeyboardEvent, useState } from 'react'
 import InputLayout from './InputLayout'
-import CardChip from '../Chips/CardChip'
+import TagChip from '../Chips/TagChip'
 
 interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -32,7 +32,7 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
             {tagList.map((tagItem) => (
-              <CardChip key={tagItem} text={tagItem} />
+              <TagChip key={tagItem} tag={tagItem} textColor="red" bgColor="red" />
             ))}
           </div>
         )}
