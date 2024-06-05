@@ -8,6 +8,15 @@ export interface DashBoard {
   userId: number
 }
 
+export interface Column {
+  createdAt: string
+  dashboardId: number
+  id: number
+  teamId: string
+  title: string
+  updatedAt: string
+}
+
 export interface PostToDo {
   assigneeUserId: 0
   dashboardId: 0

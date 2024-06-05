@@ -22,7 +22,7 @@ import DarkHeader from './Headers/DarkHeader/DarkHeader'
 import MyDashBoardList from './MyDashBoardList/MyDashBoardList'
 import Footer from './Footer/Footer'
 import InviteList from './InviteList/InviteList'
-import DashBoardCard from './DashBoardCard/DashBoardCard'
+import DashBoardCard from './DashBoard/DashBoardCard'
 
 export {
   DashBoardCard,
