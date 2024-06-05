@@ -22,3 +22,12 @@ export const postCardImage = async (params: { columnId: number; imageFile: File 
   })
   return response
 }
+
+export const deleteColumn = async (columnId: number) => {
+  return axios.delete(`/columns/${columnId}`)
+}
+
+export const updateColumn = async (params: { title: string; columnId: number }) => {
+  const response = await axios.put(`/columns/${params.columnId}`, params.title)
+  return response
+}
