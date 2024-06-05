@@ -1,18 +1,29 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
+import useAsync from '@/hooks/useAsync'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'
+import { postColumn } from '@/service/columns'
 
-export default function AddColumn() {
+interface AddColumnProps {
+  dashboardId: number
+}
+
+export default function AddColumn({ dashboardId }: AddColumnProps) {
   const [columnName, setColumnName] = useState('')
   const dispatch = useAppDispatch()
+  const { requestFunction } = useAsync(postColumn)
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setColumnName(e.target.value)
   }
 
-  const submitAddColumn = () => {
-    /** 컬럼 추가 요청 보내기 */
+  const submitAddColumn = async () => {
+    const result = await requestFunction({ dashboardId, title: columnName })
+    if (!result) return
+
+    dispatch(closeModal())
+    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
   }
 
   return (
