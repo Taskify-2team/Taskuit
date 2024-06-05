@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import searchIcon from '@/public/icons/searchIcon.svg'
 import emptyIcon from '@/public/icons/emptyDashBoard.svg'
-import { useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
@@ -11,9 +11,20 @@ import { ShortButton } from '..'
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
   const [cursorId, setCursorId] = useState<number | null>(0)
+  const [inviteTitle, setInviteTitle] = useState('')
   const obsRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const { pending, requestFunction } = useAsync(getInvitationList)
+
+  const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setInvitationList([])
+    setCursorId(0)
+    if (inputRef.current) {
+      setInviteTitle(inputRef.current.value)
+    }
+  }
 
   const handleInvite = async (id: number, answer: boolean) => {
     await postInvitation(id, answer)
@@ -30,14 +41,14 @@ export default function InviteList() {
 
   useEffect(() => {
     const handleLoadList = async () => {
-      const data = await requestFunction(cursorId)
+      const data = await requestFunction(cursorId, inviteTitle)
       setInvitationList((prev) => [...prev, ...data.invitations])
       if (data.cursorId) {
         sessionStorage.setItem('cursorId', data.cursorId)
       }
     }
     handleLoadList()
-  }, [cursorId])
+  }, [cursorId, inviteTitle])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
@@ -50,17 +61,20 @@ export default function InviteList() {
   return invitationList ? (
     <>
       <div className="relative">
-        <input
-          placeholder="검색"
-          className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-[--gray-gray_D9D9D9] px-[4.8rem] py-[1rem] text-[1.6rem]"
-        />
-        <Image
-          src={searchIcon}
-          alt="돋보기 아이콘"
-          width={17}
-          height={17}
-          className="absolute left-[2rem] top-[1.2rem]"
-        />
+        <form onSubmit={handleSearch}>
+          <input
+            placeholder="검색"
+            className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-[--gray-gray_D9D9D9] px-[4.8rem] py-[1rem] text-[1.6rem]"
+            ref={inputRef}
+          />
+          <Image
+            src={searchIcon}
+            alt="돋보기 아이콘"
+            width={17}
+            height={17}
+            className="absolute left-[2rem] top-[1.2rem]"
+          />
+        </form>
       </div>
       <div className="grid grid-cols-3 text-center">
         <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">이름</p>
