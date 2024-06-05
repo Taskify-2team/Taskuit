@@ -10,53 +10,111 @@ import {
   ShortButton,
 } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
+import useAsync from '@/hooks/useAsync'
+import { updateDashBoardCard } from '@/service/cards'
+import { postCardImage } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { ChangeEvent, useState } from 'react'
+import { Card } from '@/types/dashboard'
+import { Member } from '@/types/member'
+import { ChangeEvent, useEffect, useState } from 'react'
 
-export default function EditToDo({ todo, managerList, menuList }) {
-  const [toDoBody, setToDoBody] = useState({
-    title: todo?.title,
-    description: todo?.description,
-    dueDate: todo?.dueDate,
-    tags: todo?.tags,
-    imageUrl: todo?.imageUrl,
+interface EditToDoProps {
+  columnId: number
+  dashboardId: number
+  card: Card
+  managerList: Member[]
+  progressList: string[]
+}
+
+export default function EditToDo({
+  columnId,
+  dashboardId,
+  card,
+  managerList,
+  progressList,
+}: EditToDoProps) {
+  const [newCardBody, setNewCardBody] = useState({
+    title: card?.title,
+    description: card?.description,
+    dueDate: card?.dueDate,
+    tags: card?.tags,
+    imageUrl: card?.imageUrl || '',
+    columnId,
+    dashboardId,
+    assigneeUserId: card?.assignee?.id || 0,
   })
+  const [imageFile, setImageFile] = useState<File | string>('')
+  const [isDisabled, setIsDisabled] = useState(true)
   const dispatch = useAppDispatch()
+  const { requestFunction } = useAsync(updateDashBoardCard)
+  const { requestFunction: updateCardImage } = useAsync(postCardImage)
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setToDoBody({
-      ...toDoBody,
+    setNewCardBody({
+      ...newCardBody,
       [e.target['name']]: e.target.value,
     })
   }
 
   const handleFileInputValue = (file: File) => {
-    setToDoBody({
-      ...toDoBody,
-      imageUrl: file,
-    })
+    setImageFile(file)
   }
 
-  const submitEditToDo = () => {
-    /** 할일 수정 요청하기 */
+  const submitImageFile = async () => {
+    if (imageFile) {
+      const formData = new FormData()
+      formData.append('image', imageFile)
+      const result = await updateCardImage({ columnId, imageFile })
+      setNewCardBody({
+        ...newCardBody,
+        imageUrl: result?.data.imageUrl,
+      })
+    }
   }
+
+  const submitEditToDo = async () => {
+    await submitImageFile()
+    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
+    const result = await requestFunction({ newCardBody, cardId: card.id })
+    if (!result) return
+
+    dispatch(closeModal())
+    /** 요청 완료시 띄울 토스트나 모달 코드 */
+  }
+
+  useEffect(() => {
+    if (
+      newCardBody.columnId &&
+      newCardBody.dashboardId &&
+      newCardBody.description &&
+      newCardBody.title
+    ) {
+      setIsDisabled(false)
+    }
+  }, [newCardBody])
 
   return (
     <form className="modal-layout" onSubmit={submitEditToDo}>
       <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
       <div className="flex gap-[1rem]">
         <div className="flex-1">
-          <DropDownMenu id="progress" label="상태" menuList={menuList} />
+          <DropDownMenu id="progress" label="상태" progressList={progressList} />
         </div>
         <div className="flex-1">
-          <DropDownInputMenu id="manager" label="담당자" managerList={managerList} />
+          <DropDownInputMenu
+            id="manager"
+            label="담당자"
+            toDoBody={newCardBody}
+            setToDoBody={setNewCardBody}
+            managerList={managerList}
+          />
         </div>
       </div>
       <TextInput
         id="title"
         label="제목"
         name="title"
-        value={toDoBody?.title}
+        value={newCardBody?.title}
         onChange={handleInputValue}
         placeholder="제목을 입력해 주세요."
         isRequired
@@ -65,23 +123,29 @@ export default function EditToDo({ todo, managerList, menuList }) {
         id="description"
         label="설명"
         name="description"
-        value={toDoBody?.description}
+        value={newCardBody?.description}
         onChange={handleInputValue}
         placeholder="설명을 입력해 주세요."
         isRequired
       />
-      <DateInput id="dueDate" label="마감일" value={toDoBody?.dueDate} />
+      <DateInput id="dueDate" label="마감일" value={newCardBody?.dueDate} />
       <TagInput
         id="tag"
         label="태그"
-        value={toDoBody?.tags}
+        value={newCardBody?.tags}
         name="tag"
         onChange={handleInputValue}
       />
       <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="수정" onClick={submitEditToDo} />
+        <ShortButton
+          color="purple"
+          text="수정"
+          type="submit"
+          isDisabled={isDisabled}
+          onClick={submitEditToDo}
+        />
       </div>
     </form>
   )

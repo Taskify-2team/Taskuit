@@ -8,11 +8,11 @@ import InputLayout from './InputLayout'
 interface DropDownMenuProps {
   label: string
   id: string
-  menuList: string[]
+  progressList: string[]
 }
 
-export default function DropDownMenu({ id, label, menuList }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(menuList[0])
+export default function DropDownMenu({ id, label, progressList }: DropDownMenuProps) {
+  const [selectMenu, setSelectMenu] = useState(progressList[0])
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 
@@ -49,7 +49,7 @@ export default function DropDownMenu({ id, label, menuList }: DropDownMenuProps)
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {menuList.map((menuItem) => (
+            {progressList.map((menuItem) => (
               <div
                 key={menuItem}
                 onClick={() => setSelectMenu(menuItem)}

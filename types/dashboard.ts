@@ -17,7 +17,7 @@ export interface Column {
   updatedAt: string
 }
 
-export interface PostToDo {
+export interface PostCard {
   assigneeUserId: number
   dashboardId: number
   columnId: number
@@ -26,6 +26,16 @@ export interface PostToDo {
   dueDate: string
   tags: string[]
   imageUrl: string | null
+}
+
+export interface UpdateCard {
+  columnId: number
+  assigneeUserId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl: string
 }
 
 export interface CardList {
