@@ -3,7 +3,7 @@ import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import Image from 'next/image'
 import ProgressChip from '../Chips/ProgressChip'
-import InputLayout from '../Input/InputLayout'
+import InputLayout from './InputLayout'
 
 interface DropDownMenuProps {
   label: string
