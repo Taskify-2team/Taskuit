@@ -40,6 +40,7 @@
         "format": ["PascalCase"],
         "modifiers": ["exported"]
       }
-    ]
+    ],
+    "react/require-default-props": 0 // optional prop 유형에 해당 defaultProps값이 있는지 확인 off
   }
 }
