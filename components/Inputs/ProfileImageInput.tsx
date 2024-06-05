@@ -23,11 +23,11 @@ export default function ProfileImageInput({
   const [preview, setPreview] = useState(currentImage)
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file: File = e.target.files[0]
-      onChange(file)
-      setPreview(URL.createObjectURL(e.target.files[0]))
-    }
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setPreview(URL.createObjectURL(file))
+    onChange(file)
   }
 
   return (
@@ -51,9 +51,4 @@ export default function ProfileImageInput({
       </div>
     </InputLayout>
   )
-}
-
-ProfileImageInput.defaultProps = {
-  currentImage: '',
-  isRequired: false,
 }

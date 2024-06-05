@@ -26,3 +26,10 @@ export const putDashBoard = async (id: number, dashBoard: { title: string; color
   })
   return response
 }
+
+export const inviteUser = async (params: { dashboardId: number; email: string }) => {
+  const response = await axios.post(`/dashboards/${params.dashboardId}/invitations`, {
+    email: params.email,
+  })
+  return response
+}

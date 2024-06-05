@@ -1,20 +1,33 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
+import { PostCard, UpdateCard } from '@/types/dashboard'
 import InputLayout from './InputLayout'
 
 interface DropDownInputMenuProps {
   label: string
   id: string
   managerList?: Member[]
+  cardBody: PostCard | UpdateCard
+  setCardBody: Dispatch<SetStateAction<PostCard | UpdateCard>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
+  setCardBody,
+  cardBody,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -127,6 +140,13 @@ export default function DropDownInputMenu({
     }
   }, [])
 
+  useEffect(() => {
+    setCardBody({
+      ...cardBody,
+      assigneeUserId: selectMenu.id,
+    })
+  }, [selectMenu.id])
+
   return (
     <InputLayout id={id} label={label}>
       <div
@@ -211,8 +231,4 @@ export default function DropDownInputMenu({
       </div>
     </InputLayout>
   )
-}
-
-DropDownInputMenu.defaultProps = {
-  managerList: [],
 }

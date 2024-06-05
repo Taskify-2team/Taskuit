@@ -1,5 +1,6 @@
-import ModalPortal from '@/Portal'
+import { ModalPortal, ToastPortal } from '@/Portal'
 import { ModalLayout } from '@/components'
+import ToastLayout from '@/components/Toasts/ToastLayout'
 import store from '@/store/store'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
@@ -16,6 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <ModalPortal>
           <ModalLayout />
         </ModalPortal>
+        <ToastPortal>
+          <ToastLayout />
+        </ToastPortal>
         <Component {...pageProps} />
       </Provider>
     </>

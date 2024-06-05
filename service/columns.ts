@@ -1,12 +1,33 @@
 import axios from './instance'
 
-export const postColumn = async () => {
-  const response = await axios.post(`/columns`)
+export const postColumn = async (params: { title: string; dashboardId: number }) => {
+  const response = await axios.post(`/columns`, {
+    title: params.title,
+    dashboardId: params.dashboardId,
+  })
   return response
 }
 
 export const getColumns = async (dashboardId: string) => {
   const queryParam = `?dashboardId=${dashboardId}`
   const response = await axios.get(`/columns${queryParam}`)
+  return response
+}
+
+export const postCardImage = async (params: { columnId: number; imageFile: File | string }) => {
+  const response = await axios.post(`/columns/${params.columnId}/card-image`, params.imageFile, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return response
+}
+
+export const deleteColumn = async (columnId: number) => {
+  return axios.delete(`/columns/${columnId}`)
+}
+
+export const updateColumn = async (params: { title: string; columnId: number }) => {
+  const response = await axios.put(`/columns/${params.columnId}`, params.title)
   return response
 }

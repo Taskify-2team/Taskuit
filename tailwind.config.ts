@@ -34,6 +34,10 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(-10%)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        slideUp: {
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-10%)' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
@@ -42,11 +46,17 @@ const config: Config = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        timer: {
+          '0%': { width: '28rem' },
+          '100%': { width: '0' },
+        },
       },
       animation: {
         slideDown: 'slideDown 0.3s ease-in-out forwards',
+        slideUp: 'slideUp 0.3s ease-in-out forwards',
         fadeIn: 'fadeIn 0.3s ease-in-out forwards',
         fadeOut: 'fadeOut 0.3s ease-in-out forwards',
+        timer: 'timer 2.9s linear forwards',
       },
     },
   },
