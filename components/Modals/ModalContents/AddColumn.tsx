@@ -45,7 +45,7 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
       />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="생성" onClick={submitAddColumn} />
+        <ShortButton color="purple" type="submit" text="생성" onClick={submitAddColumn} />
       </div>
     </form>
   )

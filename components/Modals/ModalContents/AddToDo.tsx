@@ -10,7 +10,7 @@ import {
 } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { postDashBoardCard } from '@/service/cards'
 import useAsync from '@/hooks/useAsync'
 import { Member } from '@/types/member'

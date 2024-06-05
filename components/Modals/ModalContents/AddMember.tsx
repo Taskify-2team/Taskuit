@@ -40,7 +40,7 @@ export default function AddMember({ dashboardId }: AddMemberProps) {
         label="이메일"
         type="email"
         placeholder="taskify@gmail.com"
-        value={inviteBody}
+        value={inviteBody.email}
         onChange={handleInputValue}
       />
       <div className="flex gap-[1rem] self-end">

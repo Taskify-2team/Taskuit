@@ -4,6 +4,8 @@ import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 import ColorSelector from '@/components/ColorSelector/ColorSelector'
+import useAsync from '@/hooks/useAsync'
+import { postDashboard } from '@/service/dashboards'
 
 export default function AddDashBoard() {
   const dispatch = useAppDispatch()

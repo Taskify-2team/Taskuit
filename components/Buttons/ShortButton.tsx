@@ -3,10 +3,16 @@ import { ButtonHTMLAttributes } from 'react'
 interface ShortButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
   color: 'white' | 'purple'
-  onClick: (e: any) => void
+  isDisabled?: boolean
 }
 
-export default function ShortButton({ text, color, type, onClick, isDisabled }: ShortButtonProps) {
+export default function ShortButton({
+  text,
+  color,
+  type = 'button',
+  onClick,
+  isDisabled,
+}: ShortButtonProps) {
   const colorVariants = {
     white:
       'border border-solid border-[--gray-gray_D9D9D9] bg-[--white-white_FFFFFF] text-[--violet-violet_5534DA]',
@@ -15,7 +21,6 @@ export default function ShortButton({ text, color, type, onClick, isDisabled }: 
 
   return (
     <button
-      type="button"
       onClick={onClick}
       type={type}
       disabled={isDisabled}
