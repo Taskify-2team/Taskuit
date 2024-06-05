@@ -11,10 +11,14 @@ import {
 export default function EditToDo({ todo }) {
   return (
     <form className="modal-layout">
-      <h3>할 일 수정</h3>
-      <div className="flex">
-        <DropDownMenu menuList={[]} />
-        <DropDownInputMenu id="manager" label="담당자" />
+      <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
+      <div className="flex gap-[1rem]">
+        <div className="flex-1">
+          <DropDownMenu id="progress" label="상태" menuList={[]} />
+        </div>
+        <div className="flex-1">
+          <DropDownInputMenu id="manager" label="담당자" />
+        </div>
       </div>
       <TextInput
         id="title"
