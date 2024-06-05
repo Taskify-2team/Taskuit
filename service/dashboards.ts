@@ -13,3 +13,16 @@ export const getDashBoard = async (page: number, size: number = 5) => {
   const response = await axios.get(`/dashboards?${query}`)
   return response.data
 }
+
+export const getDashBoardInfo = async (id: number) => {
+  const response = await axios.get(`/dashboards/${id}`)
+  return response.data
+}
+
+export const putDashBoard = async (id: number, dashBoard: { title: string; color: string }) => {
+  const response = await axios.put(`/dashboards/${id}`, {
+    title: dashBoard.title,
+    color: dashBoard.color,
+  })
+  return response
+}
