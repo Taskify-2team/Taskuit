@@ -232,7 +232,3 @@ export default function DropDownInputMenu({
     </InputLayout>
   )
 }
-
-DropDownInputMenu.defaultProps = {
-  managerList: [],
-}

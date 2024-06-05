@@ -1,8 +1,8 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
-import { deleteColumn, updateColumn } from '@/service/columns'
-import { closeModal } from '@/store/reducers/modalReducer'
+import { updateColumn } from '@/service/columns'
+import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { Column } from '@/types/column'
 import { ChangeEvent, useState } from 'react'
 
@@ -16,7 +16,6 @@ export default function EditColumn({ column }: EditColumnProps) {
     title: column?.title,
   })
   const dispatch = useAppDispatch()
-  const { requestFunction } = useAsync(deleteColumn)
   const { requestFunction: updateColumnFunction } = useAsync(updateColumn)
 
   const handelInputValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +26,12 @@ export default function EditColumn({ column }: EditColumnProps) {
   }
 
   const handleDeleteColumn = async () => {
-    const result = await requestFunction(column.id)
-    if (!result) return
-
-    dispatch(closeModal())
+    dispatch(
+      openModal({
+        modalName: 'warningModal',
+        modalProps: { variant: 'deleteColumn', columnId: column.id },
+      }),
+    )
     /** 토스트 */
   }
 

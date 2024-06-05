@@ -71,7 +71,7 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
     if (!result) return
 
     dispatch(closeModal())
-    /** 요청 완료시 띄울 토스트나 모달 코드 */
+    /** 토스트 */
   }
 
   useEffect(() => {
