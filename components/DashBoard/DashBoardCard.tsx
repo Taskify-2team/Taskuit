@@ -21,8 +21,6 @@ export default function DashBoardCard({ card, columnTitle }: CardProps) {
     { bg: '#E7F7DB', text: '#86D549' },
   ]
 
-  console.log(columnTitle)
-
   return (
     <button
       type="button"

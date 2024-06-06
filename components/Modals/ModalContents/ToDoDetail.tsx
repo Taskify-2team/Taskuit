@@ -15,13 +15,13 @@ interface ToDoDetailProps {
 
 export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
-  console.log(card)
+  console.log(card.id)
 
   const handleKebabClick = () => {}
   console.log(columnTitle)
 
   return (
-    <form className="modal-layout max-h-[76.3rem] w-[73rem]">
+    <div className="modal-layout max-h-[76.3rem] w-[73rem]">
       <div className="absolute right-[2.8rem] top-[3.2rem] flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
@@ -45,8 +45,8 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
         {card.imageUrl && (
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
-        <CommentInput />
+        <CommentInput cardId={card.id} columnId={card.columnId} />
       </div>
-    </form>
+    </div>
   )
 }
