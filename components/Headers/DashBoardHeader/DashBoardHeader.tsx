@@ -22,7 +22,7 @@ export default function DashBoardHeader() {
   const MockDataMembers = MockData.members
   const MockDataCount = MockData.totalCount
   return (
-    <div className="sticky z-50 flex items-center justify-between pl-[34rem] shadow">
+    <div className="fixed z-50 flex w-[100vw] items-center justify-between bg-var-white pl-[34rem] shadow">
       <p className="text-[2rem] font-bold">출력문구 예시</p>
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
