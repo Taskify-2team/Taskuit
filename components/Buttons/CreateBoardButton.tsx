@@ -12,7 +12,7 @@ export default function CreateBoardButton() {
       onClick={() => dispatch(openModal({ modalName: 'AddDashBoard' }))}
     >
       <p className="text-nowrap text-[1.8rem] font-bold">새로운 대시보드</p>
-      <div className="relative h-[2.2rem] w-[2.2rem] rounded-[0.4rem] border-[--gray-gray_D9D9D9] bg-primary-violet p-[0.3rem]">
+      <div className="relative h-[2.2rem] w-[2.2rem] rounded-[0.4rem] border-[--gray-gray_D9D9D9] bg-var-violet p-[0.3rem]">
         <Image src={addLogo} alt="더하기 이미지" fill />
       </div>
     </div>
