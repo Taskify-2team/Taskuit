@@ -2,6 +2,8 @@ import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import formatDate from '@/utils/formatDate'
 import calenderIcon from '@/public/icons/calendarGray5.svg'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openModal } from '@/store/reducers/modalReducer'
 import TagChip from '../Chips/TagChip'
 import UserProfile from '../UserInfo/UserProfile'
 
@@ -10,6 +12,7 @@ interface CardProps {
 }
 
 export default function DashBoardCard({ card }: CardProps) {
+  const dispatch = useAppDispatch()
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
     { bg: '#F7DBF0', text: '#D549B6' },
@@ -17,12 +20,10 @@ export default function DashBoardCard({ card }: CardProps) {
     { bg: '#E7F7DB', text: '#86D549' },
   ]
 
-  const handleCardClick = () => {}
-
   return (
     <button
       type="button"
-      onClick={handleCardClick}
+      onClick={() => dispatch(openModal({ modalName: 'ToDoDetail' }))}
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >
       {card.imageUrl && (
