@@ -52,6 +52,7 @@ export default function DashBoardCard({ card }: CardProps) {
         <UserProfile
           profileImageUrl={card.assignee.profileImageUrl}
           nickname={card.assignee.nickname}
+          smallSize
         />
       </div>
     </button>
