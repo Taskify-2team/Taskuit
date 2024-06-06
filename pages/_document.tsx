@@ -7,8 +7,8 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <div id="toast" />
         <div id="modal" />
+        <div id="toast" />
       </body>
     </Html>
   )

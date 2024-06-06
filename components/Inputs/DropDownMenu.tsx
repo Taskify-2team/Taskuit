@@ -12,7 +12,7 @@ interface DropDownMenuProps {
 }
 
 export default function DropDownMenu({ id, label, progressList }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(progressList[0])
+  const [selectMenu, setSelectMenu] = useState(progressList?.[0])
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 

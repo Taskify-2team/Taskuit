@@ -8,24 +8,24 @@ import EditColumn from './ModalContents/EditColumn'
 import WarningModal from './ModalContents/WarningModal'
 
 export type ModalTypeList =
-  | 'addDashBoard'
-  | 'addToDo'
-  | 'addColumn'
-  | 'addMember'
-  | 'editToDo'
-  | 'editColumn'
-  | 'warningModal'
+  | 'AddDashBoard'
+  | 'AddToDo'
+  | 'AddColumn'
+  | 'AddMember'
+  | 'EditToDo'
+  | 'EditColumn'
+  | 'WarningModal'
   | null
 
 export const modalList: Map<ModalTypeList, (props?: any) => ReactNode> = new Map<
   ModalTypeList,
   (props?: any) => ReactNode
 >([
-  ['addDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
-  ['addToDo', (props) => <AddToDo key="addToDo" {...props} />],
-  ['addColumn', (props) => <AddColumn key="addColumn" {...props} />],
-  ['addMember', (props) => <AddMember key="addMember" {...props} />],
-  ['editToDo', (props) => <EditToDo key="editToDo" {...props} />],
-  ['editColumn', (props) => <EditColumn key="editColumn" {...props} />],
-  ['warningModal', (props) => <WarningModal key="warning" {...props} />],
+  ['AddDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
+  ['AddToDo', (props) => <AddToDo key="addToDo" {...props} />],
+  ['AddColumn', (props) => <AddColumn key="addColumn" {...props} />],
+  ['AddMember', (props) => <AddMember key="addMember" {...props} />],
+  ['EditToDo', (props) => <EditToDo key="editToDo" {...props} />],
+  ['EditColumn', (props) => <EditColumn key="editColumn" {...props} />],
+  ['WarningModal', (props) => <WarningModal key="warning" {...props} />],
 ])
