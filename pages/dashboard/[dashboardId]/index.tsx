@@ -4,7 +4,7 @@ import useAsync from '@/hooks/useAsync'
 import { getColumns } from '@/service/columns'
 import { Column } from '@/types/dashboard'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function Dashboard() {
   const [columns, setColumns] = useState<Column[]>()
@@ -12,18 +12,18 @@ export default function Dashboard() {
   const { dashboardId } = router.query
   const { requestFunction: getColumnsRequest } = useAsync(getColumns)
 
-  const getColumnsData = async () => {
+  const getColumnsData = useCallback(async () => {
     if (typeof dashboardId === 'string') {
       const result = await getColumnsRequest(dashboardId)
       setColumns(result?.data.data)
     }
-  }
+  }, [dashboardId, getColumnsRequest])
 
   useEffect(() => {
     if (dashboardId) {
       getColumnsData()
     }
-  }, [dashboardId])
+  }, [dashboardId, getColumnsData])
 
   return (
     <AppLayout>
