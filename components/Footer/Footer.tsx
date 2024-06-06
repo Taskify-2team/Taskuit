@@ -6,7 +6,7 @@ import instagramIcon from '@/public/icons/instagramIconDark.svg'
 
 export default function Footer() {
   return (
-    <div className="flex h-[10rem] w-full items-center justify-between bg-[--white-white_FFFFFF] px-[14rem]">
+    <div className="flex h-[10rem] w-full items-center justify-between bg-var-white px-[14rem]">
       <p className="text-[1.6rem] font-normal">@FTF-Coding</p>
       <div className="flex gap-[3.2rem]">
         <Link href="/">

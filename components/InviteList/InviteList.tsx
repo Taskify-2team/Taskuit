@@ -73,7 +73,7 @@ export default function InviteList() {
         >
           <input
             placeholder="검색"
-            className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-[--gray-gray_D9D9D9] px-[4.8rem] py-[1rem] text-[1.6rem]"
+            className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-var-gray3 px-[4.8rem] py-[1rem] text-[1.6rem]"
             ref={inputRef}
             onBlur={handleSearch}
           />
@@ -87,9 +87,9 @@ export default function InviteList() {
         </form>
       </div>
       <div className="grid grid-cols-3 text-center">
-        <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">이름</p>
-        <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">초대자</p>
-        <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">수락 여부</p>
+        <p className="text-[1.6rem] text-var-gray4">이름</p>
+        <p className="text-[1.6rem] text-var-gray4">초대자</p>
+        <p className="text-[1.6rem] text-var-gray4">수락 여부</p>
       </div>
       {invitationList[0] ? (
         <div className="max-h-[25rem] overflow-auto">
