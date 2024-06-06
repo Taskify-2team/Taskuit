@@ -28,7 +28,9 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex overflow-auto">
-        {columns?.map((column) => <DashBoardColumn key={column.id} columnTitle={column.title} />)}
+        {columns?.map((column) => (
+          <DashBoardColumn key={column.id} columnId={column.id} columnTitle={column.title} />
+        ))}
       </div>
     </AppLayout>
   )

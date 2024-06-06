@@ -15,6 +15,11 @@ export const postDashBoardCard = async (params: PostCard) => {
   return response
 }
 
+export const getDashBoardCard = async (params: number) => {
+  const response = await axios.get(`/cards?size=10&columnId=${params}`)
+  return response
+}
+
 export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; cardId: number }) => {
   const response = await axios.put(`/cards/${params.cardId}`, {
     assigneeUserId: params.newCardBody.assigneeUserId,
