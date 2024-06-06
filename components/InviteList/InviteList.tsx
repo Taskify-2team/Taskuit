@@ -32,7 +32,7 @@ export default function InviteList() {
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0]
-    const id = sessionStorage.getItem('cursorId')
+    const id = localStorage.getItem('cursorId')
     if (!pending && target.isIntersecting) {
       setCursorId(Number(id))
     }
@@ -43,7 +43,7 @@ export default function InviteList() {
       const data = await requestFunction(cursorId, inviteTitle)
       setInvitationList((prev) => [...prev, ...data.invitations])
       if (data.cursorId) {
-        sessionStorage.setItem('cursorId', data.cursorId)
+        localStorage.setItem('cursorId', data.cursorId)
       }
     }
     handleLoadList()
@@ -80,7 +80,7 @@ export default function InviteList() {
         <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">초대자</p>
         <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">수락 여부</p>
       </div>
-      <div className="max-h-[40rem] overflow-auto">
+      <div className="max-h-[25rem] overflow-auto">
         {invitationList.map((item) => (
           <div
             key={item.id}
