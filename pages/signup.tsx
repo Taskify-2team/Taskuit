@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo.png'
 import SignUpAccess from '@/service/users'
+import { openToast } from '@/store/reducers/toastReducer'
+import { useAppDispatch } from '@/hooks/useApp'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -24,11 +26,12 @@ export default function LoginForm() {
     control,
     setError,
     getValues,
-    formState: { errors, dirtyFields },
+    formState: { errors, dirtyFields, isSubmitting },
   } = useForm<FormValueType>({
     mode: 'onBlur',
   })
   const [loginError, setLoginError] = useState<string>('')
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (data: FormValueType) => {
     try {
@@ -42,6 +45,7 @@ export default function LoginForm() {
               type: 'manual',
               message: error.response.data.message,
             })
+            dispatch(openToast('emailInUse'))
           }
         } else {
           setLoginError('서버에서 오류가 발생했습니다.')
@@ -191,7 +195,8 @@ export default function LoginForm() {
               !dirtyFields.password ||
               !dirtyFields.nickname ||
               !dirtyFields.passwordConfirm ||
-              !dirtyFields.agreeTerms
+              !dirtyFields.agreeTerms ||
+              isSubmitting
             }
           >
             가입하기

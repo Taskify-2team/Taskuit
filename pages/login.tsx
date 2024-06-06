@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo.png'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -19,9 +21,12 @@ export default function LoginForm() {
     handleSubmit,
     control,
     setError,
-    formState: { errors, dirtyFields }, // dirtyFields 추가
-  } = useForm<FormValueType>()
+    formState: { errors, dirtyFields, isSubmitting },
+  } = useForm<FormValueType>({
+    mode: 'onBlur',
+  })
   const [loginError, setLoginError] = useState<string>('')
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (data: FormValueType) => {
     try {
@@ -42,6 +47,7 @@ export default function LoginForm() {
               type: 'manual',
               message: error.response.data.message,
             })
+            dispatch(openToast('wrongCurrentPassword'))
           }
         } else {
           setLoginError('서버에서 오류가 발생했습니다.')
@@ -92,6 +98,10 @@ export default function LoginForm() {
               control={control}
               rules={{
                 required: '비밀번호를 입력해주세요',
+                minLength: {
+                  value: 8,
+                  message: '8자 이상 입력해주세요.',
+                },
               }}
               render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
@@ -110,7 +120,10 @@ export default function LoginForm() {
           <div className="mb-[0.5rem] h-[2rem]">
             {loginError && <div className="text-[1.4rem] text-var-red">{loginError}</div>}
           </div>
-          <LongButton type="submit" disabled={!dirtyFields.id || !dirtyFields.password}>
+          <LongButton
+            type="submit"
+            disabled={!dirtyFields.id || !dirtyFields.password || isSubmitting}
+          >
             로그인
           </LongButton>
         </div>
