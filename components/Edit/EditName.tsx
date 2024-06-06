@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getDashBoardInfo, putDashBoard } from '@/service/dashboards'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 import ColorSelector from '../ColorSelector/ColorSelector'
 import { ShortButton } from '..'
 
@@ -13,8 +15,10 @@ export default function EditName() {
     title: '',
     color: '',
   })
+  const [reload, setReload] = useState(false)
   const router = useRouter()
   const { dashboardId } = router.query
+  const dispatch = useAppDispatch()
 
   const handleColor = (colorName: string) => {
     setEditBoardBody({
@@ -24,12 +28,13 @@ export default function EditName() {
   }
 
   const handleEditBoard = async () => {
-    if (!editBoardBody.title && !editBoardBody.color) {
-      alert('변경사항이 없습니다!')
+    if (!editBoardBody.title && editBoardBody.color === dashboardBody.color) {
+      dispatch(openToast('wrongEditBoardValue'))
       return
     }
+    dispatch(openToast('successEditBoard'))
     await putDashBoard(Number(dashboardId), editBoardBody)
-    alert('변경되었습니다!')
+    setReload(!reload)
   }
 
   useEffect(() => {
@@ -41,7 +46,7 @@ export default function EditName() {
       }
     }
     handleLoadDashBoard()
-  }, [dashboardId])
+  }, [dashboardId, reload])
 
   return (
     <div className="flex w-[62rem] flex-col gap-[3.4rem] rounded-[0.8rem] bg-var-white p-[2.8rem]">
