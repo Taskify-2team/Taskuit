@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import searchIcon from '@/public/icons/searchIcon.svg'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
@@ -15,12 +15,12 @@ export default function InviteList() {
   const inputRef = useRef<HTMLInputElement>(null)
   const { pending, requestFunction } = useAsync(getInvitationList)
 
-  const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setInvitationList([])
-    setCursorId(0)
+  const handleSearch = () => {
     if (inputRef.current) {
-      setInviteTitle(inputRef.current.value)
+      if (inviteTitle !== inputRef.current.value) {
+        setInvitationList([])
+        setInviteTitle(inputRef.current.value)
+      }
     }
   }
 
@@ -39,6 +39,7 @@ export default function InviteList() {
   }
 
   useEffect(() => {
+    localStorage.removeItem('cursorId')
     const handleLoadList = async () => {
       const data = await requestFunction(cursorId, inviteTitle)
       setInvitationList((prev) => [...prev, ...data.invitations])
@@ -47,7 +48,7 @@ export default function InviteList() {
       }
     }
     handleLoadList()
-  }, [cursorId, inviteTitle])
+  }, [cursorId, inviteTitle, requestFunction])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
@@ -57,14 +58,20 @@ export default function InviteList() {
     }
   }, [pending])
 
-  return invitationList[0] ? (
+  return (
     <>
       <div className="relative">
-        <form onSubmit={handleSearch}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleSearch()
+          }}
+        >
           <input
             placeholder="검색"
             className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-[--gray-gray_D9D9D9] px-[4.8rem] py-[1rem] text-[1.6rem]"
             ref={inputRef}
+            onBlur={handleSearch}
           />
           <Image
             src={searchIcon}
@@ -80,24 +87,34 @@ export default function InviteList() {
         <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">초대자</p>
         <p className="text-[1.6rem] text-[--gray-gray_9FA6B2]">수락 여부</p>
       </div>
-      <div className="max-h-[25rem] overflow-auto">
-        {invitationList.map((item) => (
-          <div
-            key={item.id}
-            className="grid h-[7.2rem] grid-cols-3 items-center border-b text-center"
-          >
-            <p className="text-[1.6rem]">{item.dashboard.title}</p>
-            <p className="text-[1.6rem]">{item.inviter.nickname}</p>
-            <div className="flex justify-center gap-[1rem]">
-              <ShortButton text="수락" color="purple" onClick={() => handleInvite(item.id, true)} />
-              <ShortButton text="거절" color="white" onClick={() => handleInvite(item.id, false)} />
+      {invitationList[0] ? (
+        <div className="max-h-[25rem] overflow-auto">
+          {invitationList.map((item) => (
+            <div
+              key={item.id}
+              className="grid h-[7.2rem] grid-cols-3 items-center border-b text-center"
+            >
+              <p className="text-[1.6rem]">{item.dashboard.title}</p>
+              <p className="text-[1.6rem]">{item.inviter.nickname}</p>
+              <div className="flex justify-center gap-[1rem]">
+                <ShortButton
+                  text="수락"
+                  color="purple"
+                  onClick={() => handleInvite(item.id, true)}
+                />
+                <ShortButton
+                  text="거절"
+                  color="white"
+                  onClick={() => handleInvite(item.id, false)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
-        <div ref={obsRef} />
-      </div>
+          ))}
+          <div ref={obsRef} />
+        </div>
+      ) : (
+        <EmptyInvite>초대받은 대시보드가 없습니다!</EmptyInvite>
+      )}
     </>
-  ) : (
-    <EmptyInvite>초대받은 대시보드가 없습니다!</EmptyInvite>
   )
 }
