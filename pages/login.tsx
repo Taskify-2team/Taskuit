@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo.png'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -19,9 +21,12 @@ export default function LoginForm() {
     handleSubmit,
     control,
     setError,
-    formState: { errors, dirtyFields }, // dirtyFields 추가
-  } = useForm<FormValueType>()
+    formState: { errors, dirtyFields, isSubmitting },
+  } = useForm<FormValueType>({
+    mode: 'onBlur',
+  })
   const [loginError, setLoginError] = useState<string>('')
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (data: FormValueType) => {
     try {
@@ -42,6 +47,7 @@ export default function LoginForm() {
               type: 'manual',
               message: error.response.data.message,
             })
+            dispatch(openToast('wrongCurrentPassword'))
           }
         } else {
           setLoginError('서버에서 오류가 발생했습니다.')
@@ -54,8 +60,8 @@ export default function LoginForm() {
     <div className="flex flex-col items-center pt-[10.3rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/">
-          <Image src={logo} width={210} alt="로고" />
-          <p className="ml-[-1.5rem] text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
+          <Image src={logo} width={164} alt="로고" />
+          <p className="text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
         </Link>
         <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
       </div>
@@ -72,13 +78,15 @@ export default function LoginForm() {
                   message: '이메일 형식으로 작성해 주세요.',
                 },
               }}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="email"
                   placeholder="이메일"
                   label="이메일"
                   type="text"
-                  field={field}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                   error={error || errors.id}
                 />
               )}
@@ -90,14 +98,20 @@ export default function LoginForm() {
               control={control}
               rules={{
                 required: '비밀번호를 입력해주세요',
+                minLength: {
+                  value: 8,
+                  message: '8자 이상 입력해주세요.',
+                },
               }}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="password"
                   placeholder="비밀번호"
                   label="비밀번호"
                   type="password"
-                  field={field}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                   error={error || errors.password}
                 />
               )}
@@ -106,13 +120,14 @@ export default function LoginForm() {
           <div className="mb-[0.5rem] h-[2rem]">
             {loginError && <div className="text-[1.4rem] text-var-red">{loginError}</div>}
           </div>
-          <LongButton type="submit" disabled={!dirtyFields.id || !dirtyFields.password}>
+          <LongButton
+            type="submit"
+            disabled={!dirtyFields.id || !dirtyFields.password || isSubmitting}
+          >
             로그인
-          </LongButton>{' '}
-          {/* dirtyFields를 사용하여 필드에 값이 있는지 확인 */}
+          </LongButton>
         </div>
       </form>
-
       <div className="mt-[1.6rem] flex gap-[1rem]">
         <span className="text-[1.6rem]">회원이 아니신가요?</span>
         <Link href="/signup" className="text-[1.6rem] text-primary-violet underline">
