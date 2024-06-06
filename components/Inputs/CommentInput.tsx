@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { postComment } from '@/service/comments'
+import { useRouter } from 'next/router'
 import ShortButton from '../Buttons/ShortButton'
 import InputLayout from './InputLayout'
-import { useRouter } from 'next/router'
 
 interface CommentInputProps {
   cardId: number

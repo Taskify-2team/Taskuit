@@ -7,6 +7,7 @@ import { closeModal } from '@/store/reducers/modalReducer'
 import ProgressChip from '@/components/Chips/ProgressChip'
 import TagChip from '@/components/Chips/TagChip'
 import CommentInput from '@/components/Inputs/CommentInput'
+import CardInfoChip from '@/components/Chips/CardInfoChip'
 
 interface ToDoDetailProps {
   card: Card
@@ -30,8 +31,9 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
           <Image src={closeIcon} alt="케밥" width={32} height={32} />
         </button>
       </div>
-      <div className="max-w-[45rem]">
+      <div className="relative pr-[22.4rem]">
         <h3 className="mb-[2.4rem] text-[2.4rem] font-bold">{card.title}</h3>
+        <CardInfoChip card={card} />
         <div className="mb-[1.6rem] flex items-center gap-[2rem]">
           <ProgressChip progress={columnTitle} />
           <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
