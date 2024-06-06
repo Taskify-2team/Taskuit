@@ -9,7 +9,7 @@ export const getInvitationList = async (cursorId?: number | null, title?: string
   if (title) {
     titleQuery = `&title=${title}`
   }
-  const response = await axios.get(`/invitations?size=6${idQuery}${titleQuery}`)
+  const response = await axios.get(`/invitations?size=4${idQuery}${titleQuery}`)
   return response.data
 }
 

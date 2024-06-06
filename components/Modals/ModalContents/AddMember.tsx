@@ -27,13 +27,18 @@ export default function AddMember({ dashboardId }: AddMemberProps) {
   const submitAddMember = async () => {
     const result = await requestFunction(inviteBody)
     if (!result) return
-
     dispatch(closeModal())
     /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
   }
 
   return (
-    <form onSubmit={submitAddMember} className="modal-layout">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        submitAddMember()
+      }}
+      className="modal-layout"
+    >
       <h3 className="text-[2.4rem] font-bold">초대하기</h3>
       <TextInput
         id="email"
