@@ -30,5 +30,5 @@ export const modalList: Map<ModalTypeList, (props?: any) => ReactNode> = new Map
   ['EditToDo', (props) => <EditToDo key="editToDo" {...props} />],
   ['EditColumn', (props) => <EditColumn key="editColumn" {...props} />],
   ['WarningModal', (props) => <WarningModal key="warning" {...props} />],
-  ['ToDoDetail', (props) => <ToDoDetail key="ToDoDetail" {...props} />],
+  ['ToDoDetail', (props) => <ToDoDetail key="toDoDetail" {...props} />],
 ])

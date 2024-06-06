@@ -52,6 +52,7 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
         cardList.map((cardItem) => (
           <DashBoardCard
             key={cardItem.id}
+            columnTitle={columnTitle}
             card={{
               id: cardItem.id,
               title: cardItem.title,

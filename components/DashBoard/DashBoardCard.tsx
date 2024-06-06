@@ -9,9 +9,10 @@ import UserProfile from '../UserInfo/UserProfile'
 
 interface CardProps {
   card: Card
+  columnTitle: string
 }
 
-export default function DashBoardCard({ card }: CardProps) {
+export default function DashBoardCard({ card, columnTitle }: CardProps) {
   const dispatch = useAppDispatch()
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
@@ -20,10 +21,14 @@ export default function DashBoardCard({ card }: CardProps) {
     { bg: '#E7F7DB', text: '#86D549' },
   ]
 
+  console.log(columnTitle)
+
   return (
     <button
       type="button"
-      onClick={() => dispatch(openModal({ modalName: 'ToDoDetail' }))}
+      onClick={() =>
+        dispatch(openModal({ modalName: 'ToDoDetail', modalProps: { card, columnTitle } }))
+      }
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >
       {card.imageUrl && (
