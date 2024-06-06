@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { ModalListType } from '@/components/Modals/ModalListType'
+import { ModalTypeList } from '@/components/Modals/ModalTypeList'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface initialStateType {
   modalState: boolean
-  modalName: ModalListType | null
+  modalName: ModalTypeList | null
   modalProps: Record<string, string | number | null>
 }
 

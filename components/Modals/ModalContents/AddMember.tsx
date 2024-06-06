@@ -1,18 +1,35 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
+import useAsync from '@/hooks/useAsync'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'
+import { inviteUser } from '@/service/dashboards'
 
-export default function AddMember() {
-  const [inviteBody, setInviteBody] = useState('')
+interface AddMemberProps {
+  dashboardId: number
+}
+
+export default function AddMember({ dashboardId }: AddMemberProps) {
+  const [inviteBody, setInviteBody] = useState({
+    email: '',
+    dashboardId,
+  })
   const dispatch = useAppDispatch()
+  const { requestFunction } = useAsync(inviteUser)
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setInviteBody(e.target.value)
+    setInviteBody({
+      ...inviteBody,
+      email: e.target.value,
+    })
   }
 
-  const submitAddMember = () => {
-    /** 멤버 초대 요청 보내기 */
+  const submitAddMember = async () => {
+    const result = await requestFunction(inviteBody)
+    if (!result) return
+
+    dispatch(closeModal())
+    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
   }
 
   return (
@@ -23,7 +40,7 @@ export default function AddMember() {
         label="이메일"
         type="email"
         placeholder="taskify@gmail.com"
-        value={inviteBody}
+        value={inviteBody.email}
         onChange={handleInputValue}
       />
       <div className="flex gap-[1rem] self-end">
