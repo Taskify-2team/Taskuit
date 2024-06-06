@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit'
 interface initialStateType {
   modalState: boolean
   modalName: ModalTypeList | null
-  modalProps: Record<string, string | number | null>
+  modalProps: Record<string, any>
 }
 
 const initialState: initialStateType = {

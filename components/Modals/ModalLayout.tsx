@@ -9,7 +9,7 @@ export default function ModalLayout() {
   const findModal = modalList.get(modalName)
   const renderModal = findModal ? findModal({ ...modalProps }) : ''
 
-  if (!modalState || !renderModal) return null
+  if (!modalState) return null
 
   return (
     <div
