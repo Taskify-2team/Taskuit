@@ -1,21 +1,30 @@
-import { FormValueType } from '@/pages/login'
 import EyeOff from '@/public/icons/eyeOff.svg'
 import EyeOn from '@/public/icons/eyeOn.svg'
 import Image from 'next/image'
 import { useState } from 'react'
-import { ControllerRenderProps, FieldError } from 'react-hook-form'
+import { FieldError } from 'react-hook-form'
 
 interface AuthInputProps {
   id: string
   placeholder: string
-  type: string
   label: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  field: ControllerRenderProps<FormValueType, any>
-  error: FieldError | undefined
+  type: string
+  value?: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: () => void
+  error?: FieldError | undefined
 }
 
-export default function AuthInput({ id, placeholder, label, type, field, error }: AuthInputProps) {
+export default function AuthInput({
+  id,
+  placeholder,
+  label,
+  type,
+  value,
+  onChange,
+  onBlur,
+  error,
+}: AuthInputProps) {
   const [showPassword, setShowPassword] = useState(false)
   const inputType = type === 'password' && showPassword ? 'text' : type
 
@@ -30,7 +39,9 @@ export default function AuthInput({ id, placeholder, label, type, field, error }
         id={id}
         type={inputType}
         placeholder={placeholder}
-        {...field}
+        value={value} // 수정: value prop 설정
+        onChange={onChange}
+        onBlur={onBlur}
         className={`rounded-[0.8rem] ${error ? 'border-var-red' : 'border-var-gray3 focus:border-primary-violet'} border-[0.1rem] px-[1.6rem] py-[1.5rem] text-[1.6rem] outline-none`}
       />
       {type === 'password' && (

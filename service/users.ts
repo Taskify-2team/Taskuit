@@ -1,10 +1,10 @@
 import axios from './instance'
 
-export const signupAccess = async (params) => {
+export default async function SignUpAccess(id: string, nickname: string, password: string) {
   const response = await axios.post(`/users`, {
-    email: params.email,
-    nickname: params.nickname,
-    password: params.password,
+    email: id,
+    nickname,
+    password,
   })
   return response
 }

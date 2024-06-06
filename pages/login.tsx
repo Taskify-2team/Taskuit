@@ -54,8 +54,8 @@ export default function LoginForm() {
     <div className="flex flex-col items-center pt-[10.3rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/">
-          <Image src={logo} width={210} alt="로고" />
-          <p className="ml-[-1.5rem] text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
+          <Image src={logo} width={164} alt="로고" />
+          <p className="text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
         </Link>
         <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
       </div>
@@ -72,13 +72,15 @@ export default function LoginForm() {
                   message: '이메일 형식으로 작성해 주세요.',
                 },
               }}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="email"
                   placeholder="이메일"
                   label="이메일"
                   type="text"
-                  field={field}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                   error={error || errors.id}
                 />
               )}
@@ -91,13 +93,15 @@ export default function LoginForm() {
               rules={{
                 required: '비밀번호를 입력해주세요',
               }}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="password"
                   placeholder="비밀번호"
                   label="비밀번호"
                   type="password"
-                  field={field}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                   error={error || errors.password}
                 />
               )}
@@ -108,11 +112,9 @@ export default function LoginForm() {
           </div>
           <LongButton type="submit" disabled={!dirtyFields.id || !dirtyFields.password}>
             로그인
-          </LongButton>{' '}
-          {/* dirtyFields를 사용하여 필드에 값이 있는지 확인 */}
+          </LongButton>
         </div>
       </form>
-
       <div className="mt-[1.6rem] flex gap-[1rem]">
         <span className="text-[1.6rem]">회원이 아니신가요?</span>
         <Link href="/signup" className="text-[1.6rem] text-primary-violet underline">
