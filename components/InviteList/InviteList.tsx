@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 import { ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
 
@@ -11,9 +13,11 @@ export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
   const [cursorId, setCursorId] = useState<number | null>(0)
   const [inviteTitle, setInviteTitle] = useState('')
+  const [reload, setReload] = useState(false)
   const obsRef = useRef(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const { pending, requestFunction } = useAsync(getInvitationList)
+  const dispatch = useAppDispatch()
 
   const handleSearch = () => {
     if (inputRef.current) {
@@ -27,7 +31,7 @@ export default function InviteList() {
   const handleInvite = async (id: number, answer: boolean) => {
     await postInvitation(id, answer)
     setInvitationList([])
-    setCursorId(0)
+    setReload(!reload)
   }
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -48,7 +52,7 @@ export default function InviteList() {
       }
     }
     handleLoadList()
-  }, [cursorId, inviteTitle, requestFunction])
+  }, [cursorId, inviteTitle, requestFunction, reload])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
@@ -56,7 +60,7 @@ export default function InviteList() {
     return () => {
       observer.disconnect()
     }
-  }, [pending])
+  }, [cursorId, pending])
 
   return (
     <>
@@ -100,12 +104,18 @@ export default function InviteList() {
                 <ShortButton
                   text="수락"
                   color="purple"
-                  onClick={() => handleInvite(item.id, true)}
+                  onClick={() => {
+                    dispatch(openToast('acceptInvite'))
+                    handleInvite(item.id, true)
+                  }}
                 />
                 <ShortButton
                   text="거절"
                   color="white"
-                  onClick={() => handleInvite(item.id, false)}
+                  onClick={() => {
+                    dispatch(openToast('refuseInvite'))
+                    handleInvite(item.id, false)
+                  }}
                 />
               </div>
             </div>
