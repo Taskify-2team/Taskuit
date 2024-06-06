@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import getMemberList from '@/service/members'
+import { getMemberList } from '@/service/members'
 import { useRouter } from 'next/router'
 import { Member } from '@/types/member'
 import { PaginationButton, ShortButton, UserInfo } from '..'
@@ -10,6 +10,11 @@ export default function EditMember() {
   const [totalPage, setTotalPage] = useState(0)
   const router = useRouter()
   const { dashboardId } = router.query
+
+  const deleteMember = async (id: number) => {
+    await deleteMember(id)
+    alert('삭제되었습니다!')
+  }
 
   useEffect(() => {
     const handleLoadList = async () => {
@@ -43,7 +48,7 @@ export default function EditMember() {
           {memberList.map((item) => (
             <div key={item.id} className="flex justify-between px-0 py-[1.6rem]">
               <UserInfo profileImageUrl={item.profileImageUrl} nickname={item.nickname} />
-              <ShortButton color="white" text="삭제" onClick={() => console.log(1)} />
+              <ShortButton color="white" text="삭제" onClick={() => deleteMember(item.id)} />
             </div>
           ))}
         </div>
