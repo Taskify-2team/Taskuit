@@ -19,6 +19,20 @@
   }
 }
 
+@layer utilities {
+  .button-disabled {
+    @apply cursor-default bg-var-gray3 text-var-gray4;
+  }
+
+  .button-white {
+    @apply border border-solid border-[--gray-gray_D9D9D9] bg-[--white-white_FFFFFF] text-[--violet-violet_5534DA];
+  }
+
+  .button-purple {
+    @apply bg-[--violet-violet_5534DA] text-[--white-white_FFFFFF];
+  }
+}
+
 * {
   margin: 0;
   padding: 0;

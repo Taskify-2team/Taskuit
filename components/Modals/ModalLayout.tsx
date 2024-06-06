@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { modalList } from './ModalListType'
+import { modalList } from './ModalTypeList'
 
 export default function ModalLayout() {
   const { modalName, modalProps, modalState } = useAppSelector((state) => state.modal)
@@ -9,7 +9,7 @@ export default function ModalLayout() {
   const findModal = modalList.get(modalName)
   const renderModal = findModal ? findModal({ ...modalProps }) : ''
 
-  if (!modalState || !renderModal) return null
+  if (!modalState) return null
 
   return (
     <div

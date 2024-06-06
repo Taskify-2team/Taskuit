@@ -49,7 +49,3 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
     </InputLayout>
   )
 }
-
-TagInput.defaultProps = {
-  isRequired: false,
-}
