@@ -5,7 +5,7 @@ import SideMenuList, { SideMenuListProps } from './SideMenuList/SideMenuList'
 
 export default function SideMenu({ data }: SideMenuListProps) {
   return (
-    <div className="flex h-[50rem] w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
+    <div className="flex h-screen w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
       <div>
         <Image src={logoIcon} alt="Taskify 로고 아이콘" />
       </div>

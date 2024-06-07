@@ -49,7 +49,7 @@ export default function PaginationButton({
   return (
     <div className="flex">
       <div
-        className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-l-[0.4rem] border border-solid border-[--gray-gray_D9D9D9]"
+        className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-l-[0.4rem] border border-solid border-var-gray3"
         onClick={movePrev}
       >
         <Image
@@ -60,7 +60,7 @@ export default function PaginationButton({
         />
       </div>
       <div
-        className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-r-[0.4rem] border border-solid border-[--gray-gray_D9D9D9]"
+        className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-r-[0.4rem] border border-solid border-var-gray3"
         onClick={moveNext}
       >
         <Image

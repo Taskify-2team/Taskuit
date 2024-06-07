@@ -13,7 +13,7 @@ export default function MyDashBoardList() {
     const handleLoadList = async () => {
       const data = await getDashBoard(currentPage)
       setDashBoard(data.dashboards)
-      setDashBoardPage(Math.ceil(data.totalCount / 6))
+      setDashBoardPage(Math.ceil(data.totalCount / 5))
     }
     handleLoadList()
   }, [currentPage])
