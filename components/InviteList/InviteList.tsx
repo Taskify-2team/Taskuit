@@ -13,7 +13,6 @@ export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
   const [cursorId, setCursorId] = useState<number | null>(0)
   const [inviteTitle, setInviteTitle] = useState('')
-  const [reload, setReload] = useState(false)
   const obsRef = useRef(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const { pending, requestFunction } = useAsync(getInvitationList)
@@ -30,8 +29,7 @@ export default function InviteList() {
 
   const handleInvite = async (id: number, answer: boolean) => {
     await postInvitation(id, answer)
-    setInvitationList([])
-    setReload(!reload)
+    setInvitationList(invitationList.filter((item) => item.id !== id))
   }
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -52,7 +50,7 @@ export default function InviteList() {
       }
     }
     handleLoadList()
-  }, [cursorId, inviteTitle, requestFunction, reload])
+  }, [cursorId, inviteTitle, requestFunction])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
