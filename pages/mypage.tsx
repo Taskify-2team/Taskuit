@@ -1,5 +1,6 @@
 import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
 import { useState } from 'react'
+import axios from '@/service/instance'
 
 export interface ProfileBody {
   nickname: string

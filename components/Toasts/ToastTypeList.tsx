@@ -1,6 +1,7 @@
 export type ToastTypeList =
   | 'wrongCurrentPassword'
   | 'successDeleteColumn'
+  | 'emailInUse'
   | 'acceptInvite'
   | 'refuseInvite'
   | 'wrongEditBoardValue'
