@@ -12,7 +12,7 @@ export default function Edit() {
   const handleDeleteDashboard = async () => {
     if (dashboardId) {
       await deleteDashBoard(Number(dashboardId))
-      alert('삭제되었습니다!')
+      router.replace('/mydashboard')
     }
   }
 
