@@ -11,7 +11,7 @@ export default function LongButton({ type, children, disabled }: LongButtonProps
   return (
     <button
       type={type === 'submit' ? 'submit' : 'button'}
-      className={`inline-block w-[35rem] py-[1.4rem] lg:w-[52rem] ${isActive ? 'bg-primary-violet' : 'bg-var-gray4'} cursor-pointer rounded-[0.8rem] text-center text-[1.8rem] leading-tight text-var-white`}
+      className={`inline-block w-[35rem] py-[1.4rem] lg:w-[52rem] ${isActive ? 'cursor-pointer bg-primary-violet' : 'bg-var-gray4'} rounded-[0.8rem] text-center text-[1.8rem] leading-tight text-var-white`}
       disabled={disabled}
     >
       {children}

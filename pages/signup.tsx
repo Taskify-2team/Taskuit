@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { AuthInput, LongButton } from '@/components'
-import { isAxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -33,24 +33,32 @@ export default function LoginForm() {
   const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSignUpError = (error: AxiosError<any>) => {
+    const errorMessage = error.response?.data?.message
+    if (errorMessage === '이미 사용중인 이메일입니다.') {
+      setError('id', {
+        type: 'manual',
+        message: errorMessage,
+      })
+      dispatch(openToast('emailInUse'))
+    } else {
+      setLoginError('서버에서 오류가 발생했습니다.')
+    }
+  }
+
   const onSubmit = async (data: FormValueType) => {
     try {
       await SignUpAccess(data.id, data.nickname, data.password)
       window.location.href = '/mydashboard'
     } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        if (error?.response?.data.message) {
-          if (error.response.data.message === '이미 사용중인 이메일입니다.') {
-            setError('id', {
-              type: 'manual',
-              message: error.response.data.message,
-            })
-            dispatch(openToast('emailInUse'))
-          }
-        } else {
-          setLoginError('서버에서 오류가 발생했습니다.')
-        }
+      if (!isAxiosError(error)) {
+        setLoginError('서버에서 오류가 발생했습니다.')
+        return
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const axiosError = error as AxiosError<any>
+      handleSignUpError(axiosError)
     }
   }
 
@@ -178,7 +186,7 @@ export default function LoginForm() {
                   checked={field.value}
                   onChange={field.onChange}
                 />
-                <label htmlFor="agreeTerms" className="mt-[1rem] text-[1.6rem] text-gray-600">
+                <label htmlFor="agreeTerms" className="text-[1.6rem] text-gray-600">
                   이용약관에 동의합니다.
                 </label>
               </div>

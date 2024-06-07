@@ -73,6 +73,9 @@ export default function InviteList() {
             placeholder="검색"
             className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-var-gray3 px-[4.8rem] py-[1rem] text-[1.6rem]"
             ref={inputRef}
+            onChange={() => {
+              // 검색어 state 변경
+            }}
             onBlur={handleSearch}
           />
           <Image

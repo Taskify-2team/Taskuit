@@ -1,6 +1,6 @@
 import { AuthInput, LongButton } from '@/components'
 import LoginAccess from '@/service/auth'
-import { isAxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -28,31 +28,41 @@ export default function LoginForm() {
   const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
 
+  const handleLoginSuccess = (accessToken: string) => {
+    localStorage.setItem('accessToken', accessToken)
+    window.location.href = '/mydashboard'
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleLoginError = (error: AxiosError<any>) => {
+    if (!isAxiosError(error)) {
+      setLoginError('서버에서 오류가 발생했습니다.')
+      return
+    }
+
+    const errorMessage = error.response?.data?.message
+    if (errorMessage === '존재하지 않는 유저입니다.') {
+      setError('id', {
+        type: 'manual',
+        message: errorMessage,
+      })
+    } else {
+      setError('password', {
+        type: 'manual',
+        message: errorMessage,
+      })
+      dispatch(openToast('wrongCurrentPassword'))
+    }
+  }
+
   const onSubmit = async (data: FormValueType) => {
     try {
       const response = await LoginAccess(data.id, data.password)
       const { accessToken } = response.data
-      localStorage.setItem('accessToken', accessToken)
-      window.location.href = '/mydashboard'
+      handleLoginSuccess(accessToken)
     } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        if (error?.response?.data.message) {
-          if (error.response.data.message === '존재하지 않는 유저입니다.') {
-            setError('id', {
-              type: 'manual',
-              message: error.response.data.message,
-            })
-          } else {
-            setError('password', {
-              type: 'manual',
-              message: error.response.data.message,
-            })
-            dispatch(openToast('wrongCurrentPassword'))
-          }
-        } else {
-          setLoginError('서버에서 오류가 발생했습니다.')
-        }
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      handleLoginError(error as AxiosError<any>)
     }
   }
 
@@ -122,7 +132,12 @@ export default function LoginForm() {
           </div>
           <LongButton
             type="submit"
-            disabled={!dirtyFields.id || !dirtyFields.password || isSubmitting}
+            disabled={
+              !dirtyFields.id ||
+              !dirtyFields.password ||
+              Object.keys(errors).length > 0 ||
+              isSubmitting
+            }
           >
             로그인
           </LongButton>

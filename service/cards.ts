@@ -21,6 +21,11 @@ export const postDashBoardCard = async ({
   return response
 }
 
+export const getDashBoardCard = async (param: number) => {
+  const response = await axios.get(`/cards?size=10&columnId=${param}`)
+  return response
+}
+
 export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; cardId: number }) => {
   const response = await axios.put(`/cards/${params.cardId}`, {
     assigneeUserId: params.newCardBody.assigneeUserId,
@@ -31,5 +36,10 @@ export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; car
     tags: params.newCardBody.tags,
     imageUrl: params.newCardBody.imageUrl,
   })
+  return response
+}
+
+export const deleteDashBoardCard = async (param: number) => {
+  const response = await axios.delete(`/cards/${param}`)
   return response
 }
