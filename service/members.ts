@@ -6,7 +6,7 @@ export const getMemberList = async (page: number, id: number) => {
   return response.data
 }
 
-export const deleteMember = async (id: number) => {
+export const deleteMemberList = async (id: number) => {
   const response = await axios.delete(`/members/${id}`)
   return response
 }
