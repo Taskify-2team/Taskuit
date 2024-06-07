@@ -1,4 +1,4 @@
-import { UserProfile, ProfileList, HeaderButton } from '@/components'
+import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteicon from '@/public/icons/inviteicon.svg'
 import settingicon from '@/public/icons/settingicon.svg'
 import Link from 'next/link'
@@ -34,7 +34,7 @@ export default function DashBoardHeader() {
           <ProfileList members={MockDataMembers} totalCount={MockDataCount} />
         </div>
         <div className="flex items-center">
-          <UserProfile
+          <UserInfo
             profileImageUrl={MockDataMembers[0].profileImageUrl}
             nickname={MockDataMembers[0].nickname}
           />

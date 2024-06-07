@@ -11,13 +11,9 @@ export default function MyDashBoardList() {
 
   useEffect(() => {
     const handleLoadList = async () => {
-      let listSize
-      if (currentPage > 1) {
-        listSize = 6
-      }
-      const data = await getDashBoard(currentPage, listSize)
+      const data = await getDashBoard(currentPage)
       setDashBoard(data.dashboards)
-      setDashBoardPage(Math.ceil(data.totalCount / 6))
+      setDashBoardPage(Math.ceil(data.totalCount / 5))
     }
     handleLoadList()
   }, [currentPage])

@@ -8,8 +8,8 @@ export const postDashboard = async (params: { title: string; color: string }) =>
   return response
 }
 
-export const getDashBoard = async (page: number, size: number = 5) => {
-  const query = `navigationMethod=pagination&page=${page}&size=${size}`
+export const getDashBoard = async (page: number) => {
+  const query = `navigationMethod=pagination&page=${page}&size=5`
   const response = await axios.get(`/dashboards?${query}`)
   return response.data
 }
@@ -41,7 +41,7 @@ export const getDashBoardInvitation = async (id: number, page: number) => {
 }
 
 export const cancelInvite = async (dashboardId: number, invitationId: number) => {
-  const response = await axios.delete(`/dashboards/${dashboardId}/${invitationId}`)
+  const response = await axios.delete(`/dashboards/${dashboardId}/invitations/${invitationId}`)
   return response
 }
 

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getDashBoardInfo, putDashBoard } from '@/service/dashboards'
-import ColorSelector from '../ColorSelector/ColorSelector'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 import { ShortButton } from '..'
+import ColorSelector from '../ColorSelector/ColorSelector'
 
 export default function EditName() {
   const [dashboardBody, setDashBoardBody] = useState({
@@ -15,6 +17,7 @@ export default function EditName() {
   })
   const router = useRouter()
   const { dashboardId } = router.query
+  const dispatch = useAppDispatch()
 
   const handleColor = (colorName: string) => {
     setEditBoardBody({
@@ -24,12 +27,20 @@ export default function EditName() {
   }
 
   const handleEditBoard = async () => {
-    if (!editBoardBody.title && !editBoardBody.color) {
-      alert('변경사항이 없습니다!')
+    if (
+      editBoardBody.color === dashboardBody.color &&
+      editBoardBody.title === dashboardBody.title
+    ) {
+      dispatch(openToast('wrongEditBoardValue'))
       return
     }
+    dispatch(openToast('successEditBoard'))
     await putDashBoard(Number(dashboardId), editBoardBody)
-    alert('변경되었습니다!')
+    setDashBoardBody({ ...editBoardBody })
+    setEditBoardBody({
+      ...editBoardBody,
+      title: '',
+    })
   }
 
   useEffect(() => {
@@ -37,7 +48,7 @@ export default function EditName() {
       if (dashboardId) {
         const { title, color } = await getDashBoardInfo(Number(dashboardId))
         setDashBoardBody({ title, color })
-        setEditBoardBody({ ...editBoardBody, color })
+        setEditBoardBody({ title, color })
       }
     }
     handleLoadDashBoard()
