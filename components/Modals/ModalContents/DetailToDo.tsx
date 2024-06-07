@@ -3,7 +3,7 @@ import Image from 'next/image'
 import kebabIcon from '@/public/icons/kebab.svg'
 import closeIcon from '@/public/icons/close.svg'
 import { useAppDispatch } from '@/hooks/useApp'
-import { closeModal } from '@/store/reducers/modalReducer'
+import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import ProgressChip from '@/components/Chips/ProgressChip'
 import TagChip from '@/components/Chips/TagChip'
 import CommentInput from '@/components/Inputs/CommentInput'
@@ -12,6 +12,7 @@ import CommentItem from '@/components/Inputs/CommentItem'
 import useAsync from '@/hooks/useAsync'
 import { getComments } from '@/service/comments'
 import { useCallback, useEffect, useState } from 'react'
+import KebabEditButton from '@/components/Buttons/KebabEditButton'
 
 interface ToDoDetailProps {
   card: Card
@@ -21,6 +22,7 @@ interface ToDoDetailProps {
 export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
   const [commentList, setCommentList] = useState<Comment[]>()
+  const [openKebab, setOpenKebab] = useState(false)
 
   const { requestFunction: getCommentsRequest } = useAsync(getComments)
 
@@ -45,7 +47,9 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
     setCommentList(commentList?.filter((commentItem) => deletedItem.id !== commentItem.id))
   }
 
-  const handleKebabClick = () => {}
+  const handleKebabClick = () => {
+    setOpenKebab(!openKebab)
+  }
 
   useEffect(() => {
     getCommentData()
@@ -53,10 +57,31 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
 
   return (
     <div className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto">
-      <div className="absolute right-[2.8rem] top-[3.2rem] flex items-center gap-[2.4rem]">
+      <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
         </button>
+
+        {openKebab && (
+          <div className="absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[2rem] rounded-[0.6rem] border border-var-gray3 bg-white p-[0.6rem]">
+            <KebabEditButton
+              text="수정하기"
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    modalName: 'EditToDo',
+                    modalProps: {
+                      columnId: card.columnId,
+                      card,
+                      managerList: card.assignee,
+                      progressList: card.tags,
+                    },
+                  }),
+                )
+              }
+            />
+          </div>
+        )}
         <button type="button" onClick={() => dispatch(closeModal())}>
           <Image src={closeIcon} alt="케밥" width={32} height={32} />
         </button>
