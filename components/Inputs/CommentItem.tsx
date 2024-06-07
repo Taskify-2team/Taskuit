@@ -74,7 +74,7 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
           </form>
         ) : (
           <div>
-            <p className="text-[1.4rem] text-var-black2">{comment.content}</p>
+            <p className="whitespace-pre-wrap text-[1.4rem] text-var-black2">{comment.content}</p>
             <div className="mt-[1.2rem] flex gap-[1.2rem]">
               <EditButton onClick={handleEditClick} text="수정" />
               <EditButton onClick={handleDeleteClick} text="삭제" />

@@ -73,7 +73,9 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
             ))}
           </ul>
         </div>
-        <p className="mb-[1.6rem] text-[1.4rem] leading-[2.4rem]">{card.description}</p>
+        <p className="mb-[1.6rem] whitespace-pre-wrap text-[1.4rem] leading-[2.4rem]">
+          {card.description}
+        </p>
         {card.imageUrl && (
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
