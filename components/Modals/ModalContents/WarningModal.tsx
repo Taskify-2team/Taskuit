@@ -4,7 +4,7 @@ import useAsync from '@/hooks/useAsync'
 import { deleteColumn } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
 
-export interface WarningModalProps {
+interface WarningModalProps {
   variant: string
   columnId?: number
 }

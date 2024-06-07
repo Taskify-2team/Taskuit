@@ -5,7 +5,7 @@ import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'
 import { postColumn } from '@/service/columns'
 
-export interface AddColumnProps {
+interface AddColumnProps {
   dashboardId: number
 }
 

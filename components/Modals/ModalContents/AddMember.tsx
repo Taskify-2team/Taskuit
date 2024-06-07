@@ -5,7 +5,7 @@ import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, useState } from 'react'
 import { inviteUser } from '@/service/dashboards'
 
-export interface AddMemberProps {
+interface AddMemberProps {
   dashboardId: number
 }
 
