@@ -9,7 +9,7 @@ export default function KebabEditButton({ text, onClick }: KebabEditButtonProps)
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[0.4rem] py-[0.4rem] text-[1.4rem] text-var-black2 hover:bg-var-violet"
+      className="rounded-[0.4rem] py-[0.4rem] text-[1.4rem] text-var-black2 hover:bg-var-violet hover:text-var-purple"
     >
       {text}
     </button>

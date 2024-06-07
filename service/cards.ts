@@ -32,3 +32,8 @@ export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; car
   })
   return response
 }
+
+export const deleteDashBoardCard = async (param: number) => {
+  const response = await axios.delete(`/cards/${param}`)
+  return response
+}

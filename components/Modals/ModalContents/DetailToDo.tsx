@@ -13,6 +13,8 @@ import useAsync from '@/hooks/useAsync'
 import { getComments } from '@/service/comments'
 import { useCallback, useEffect, useState } from 'react'
 import KebabEditButton from '@/components/Buttons/KebabEditButton'
+import { deleteDashBoardCard } from '@/service/cards'
+import { openToast } from '@/store/reducers/toastReducer'
 
 interface ToDoDetailProps {
   card: Card
@@ -25,11 +27,22 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const [openKebab, setOpenKebab] = useState(false)
 
   const { requestFunction: getCommentsRequest } = useAsync(getComments)
+  const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
 
   const getCommentData = useCallback(async () => {
     const result = await getCommentsRequest(card.id)
     setCommentList(result?.data.comments)
   }, [card.id, getCommentsRequest])
+
+  const deleteCardData = async () => {
+    await deleteCardRequest(card.id)
+  }
+
+  const handleDeleteCard = () => {
+    deleteCardData()
+    dispatch(closeModal())
+    dispatch(openToast('successDeleteColumn'))
+  }
 
   const handleAddComment = () => {
     getCommentData()
@@ -51,19 +64,27 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
     setOpenKebab(!openKebab)
   }
 
+  const handleKebabClose = () => {
+    if (openKebab) {
+      setOpenKebab(false)
+    }
+  }
+
   useEffect(() => {
     getCommentData()
   }, [getCommentData])
 
   return (
-    <div className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto">
+    <div
+      onClick={handleKebabClose}
+      className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto"
+    >
       <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
         </button>
-
         {openKebab && (
-          <div className="absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[2rem] rounded-[0.6rem] border border-var-gray3 bg-white p-[0.6rem]">
+          <div className="absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[0.5rem] rounded-[0.6rem] border border-var-gray3 bg-white p-[0.6rem]">
             <KebabEditButton
               text="수정하기"
               onClick={() =>
@@ -80,6 +101,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
                 )
               }
             />
+            <KebabEditButton text="삭제하기" onClick={handleDeleteCard} />
           </div>
         )}
         <button type="button" onClick={() => dispatch(closeModal())}>
