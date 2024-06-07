@@ -1,15 +1,21 @@
 import { ProfileImageInput, TextInput, ShortButton } from '@/components'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { ProfileBody } from '@/pages/mypage'
 
 interface EditProfileProps {
   onSubmit: (e: FormEvent, nickname: string) => Promise<void>
+  imageFile?: File
   setImageFile: (file: File) => void
   profileBody: ProfileBody
 }
 
-export default function EditProfile({ onSubmit, setImageFile, profileBody }: EditProfileProps) {
-  const [nickName, setNickName] = useState(profileBody.nickname)
+export default function EditProfile({
+  onSubmit,
+  imageFile,
+  setImageFile,
+  profileBody,
+}: EditProfileProps) {
+  const [nickName, setNickName] = useState('')
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value)
   }
@@ -18,9 +24,9 @@ export default function EditProfile({ onSubmit, setImageFile, profileBody }: Edi
     setImageFile(file)
   }
 
-  const handlePasswordValidate = () => {
-    // setDisabled(currentValue === profileBody)
-  }
+  useEffect(() => {
+    setNickName(profileBody.nickname)
+  }, [profileBody])
 
   return (
     <form
@@ -57,7 +63,7 @@ export default function EditProfile({ onSubmit, setImageFile, profileBody }: Edi
         <ShortButton
           color="purple"
           type="submit"
-          isDisabled={nickName === profileBody.nickname}
+          isDisabled={!imageFile && profileBody.nickname === nickName}
           onClick={(e) => onSubmit(e, nickName)}
           text="저장"
         />

@@ -82,6 +82,7 @@ export default function MyPage() {
         EditProfile={
           <EditProfile
             onSubmit={handleEditProfileSubmit}
+            imageFile={imageFile}
             setImageFile={setImageFile}
             profileBody={profileBody}
           />
