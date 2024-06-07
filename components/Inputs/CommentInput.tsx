@@ -8,9 +8,10 @@ import InputLayout from './InputLayout'
 interface CommentInputProps {
   cardId: number
   columnId: number
+  onAdd: () => void
 }
 
-export default function CommentInput({ cardId, columnId }: CommentInputProps) {
+export default function CommentInput({ cardId, columnId, onAdd }: CommentInputProps) {
   const router = useRouter()
   const { dashboardId } = router.query
 
@@ -18,15 +19,14 @@ export default function CommentInput({ cardId, columnId }: CommentInputProps) {
   const { requestFunction } = useAsync(postComment)
 
   const postCommentRequest = async () => {
-    const result = await requestFunction({
+    await requestFunction({
       content,
       cardId,
       columnId,
       dashboardId: Number(dashboardId),
     })
-    if (result) {
-      setContent('')
-    }
+    setContent('')
+    onAdd()
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

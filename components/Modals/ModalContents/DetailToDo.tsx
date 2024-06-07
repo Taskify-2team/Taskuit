@@ -29,6 +29,10 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
     setCommentList(result?.data.comments)
   }, [card.id, getCommentsRequest])
 
+  const handleAddComment = () => {
+    getCommentData()
+  }
+
   const handleUpdateComment = (updatedItem: Comment) => {
     setCommentList(
       commentList?.map((commentItem) =>
@@ -73,7 +77,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
         {card.imageUrl && (
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
-        <CommentInput cardId={card.id} columnId={card.columnId} />
+        <CommentInput onAdd={handleAddComment} cardId={card.id} columnId={card.columnId} />
         <ul className="mt-[2rem] flex flex-col gap-[1rem]">
           {commentList?.map((commentItem) => (
             <CommentItem
