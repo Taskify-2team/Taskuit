@@ -1,25 +1,50 @@
 import { Comment } from '@/types/dashboard'
 import { formatDateTime } from '@/utils/formatDate'
+import useAsync from '@/hooks/useAsync'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { deleteComment, updateComment } from '@/service/comments'
 import ShortButton from '../Buttons/ShortButton'
 import UserProfile from '../UserInfo/UserProfile'
-import { useState } from 'react'
 import EditButton from '../Buttons/EditButton'
 
 interface CommentItemProps {
   comment: Comment
+  onUpdate: (props: Comment) => void
+  onDelete: (props: Comment) => void
 }
 
-export default function CommentItem({ comment }: CommentItemProps) {
+export default function CommentItem({ comment, onUpdate, onDelete }: CommentItemProps) {
   const [isEdit, setIsEdit] = useState(false)
   const [text, setText] = useState(comment.content)
+  const { requestFunction: updateCommentRequest } = useAsync(updateComment)
+  const { requestFunction: deleteCommentRequest } = useAsync(deleteComment)
 
-  const handleSubmit = () => {}
+  const updateCommentData = async () => {
+    await updateCommentRequest({ id: comment.id, content: text })
+    setIsEdit(false)
+  }
 
-  const handleChange = () => {}
+  const deleteCommentData = async () => {
+    await deleteCommentRequest(comment.id)
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    updateCommentData()
+    onUpdate({ ...comment, content: text })
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value)
+  }
   const handleEditClick = () => {
     setIsEdit(true)
   }
-  const handleDeleteClick = () => {}
+  const handleDeleteClick = () => {
+    deleteCommentData()
+    onDelete(comment)
+  }
+
   return (
     <li className="flex gap-[1rem]">
       <UserProfile

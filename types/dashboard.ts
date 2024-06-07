@@ -81,3 +81,8 @@ export interface Comment {
     id: number
   }
 }
+
+export interface UpdateComment {
+  id: number
+  content: string
+}

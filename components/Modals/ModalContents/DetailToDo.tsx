@@ -24,16 +24,28 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
 
   const { requestFunction: getCommentsRequest } = useAsync(getComments)
 
-  const getCardsData = useCallback(async () => {
+  const getCommentData = useCallback(async () => {
     const result = await getCommentsRequest(card.id)
     setCommentList(result?.data.comments)
   }, [card.id, getCommentsRequest])
 
-  useEffect(() => {
-    getCardsData()
-  }, [getCardsData])
+  const handleUpdateComment = (updatedItem: Comment) => {
+    setCommentList(
+      commentList?.map((commentItem) =>
+        updatedItem.id === commentItem.id ? updatedItem : commentItem,
+      ),
+    )
+  }
+
+  const handleDeleteComment = (deletedItem: Comment) => {
+    setCommentList(commentList?.filter((commentItem) => deletedItem.id !== commentItem.id))
+  }
 
   const handleKebabClick = () => {}
+
+  useEffect(() => {
+    getCommentData()
+  }, [getCommentData])
 
   return (
     <div className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto">
@@ -64,7 +76,12 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
         <CommentInput cardId={card.id} columnId={card.columnId} />
         <ul className="mt-[2rem] flex flex-col gap-[1rem]">
           {commentList?.map((commentItem) => (
-            <CommentItem key={commentItem.id} comment={commentItem} />
+            <CommentItem
+              key={commentItem.id}
+              comment={commentItem}
+              onUpdate={handleUpdateComment}
+              onDelete={handleDeleteComment}
+            />
           ))}
         </ul>
       </div>
