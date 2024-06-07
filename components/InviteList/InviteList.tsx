@@ -32,29 +32,27 @@ export default function InviteList() {
     setInvitationList(invitationList.filter((item) => item.id !== id))
   }
 
-  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+  const handleObserver = async (entries: IntersectionObserverEntry[]) => {
     const target = entries[0]
-    const id = localStorage.getItem('cursorId')
     if (!pending && target.isIntersecting) {
-      setCursorId(Number(id))
+      const data = await requestFunction(cursorId, inviteTitle)
+      setInvitationList((prev) => [...prev, ...data.invitations])
+      setCursorId(data.cursorId)
     }
   }
 
   useEffect(() => {
-    localStorage.removeItem('cursorId')
     const handleLoadList = async () => {
       const data = await requestFunction(cursorId, inviteTitle)
       setInvitationList((prev) => [...prev, ...data.invitations])
-      if (data.cursorId) {
-        localStorage.setItem('cursorId', data.cursorId)
-      }
+      setCursorId(data.cursorId)
     }
     handleLoadList()
-  }, [cursorId, inviteTitle, requestFunction])
+  }, [inviteTitle, requestFunction])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
-    if (obsRef.current && !pending && !cursorId) observer.observe(obsRef.current)
+    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
     return () => {
       observer.disconnect()
     }
