@@ -66,7 +66,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     if (!result) return
 
     dispatch(closeModal())
-    dispatch(openToast('todoAdditionSuccess'))
+    dispatch(openToast('successAddCard'))
   }
 
   useEffect(() => {

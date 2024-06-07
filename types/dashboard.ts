@@ -28,13 +28,13 @@ export interface PostCard {
 }
 
 export interface UpdateCard {
-  columnId: number
   assigneeUserId: number
+  columnId: number
   title: string
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string | null
+  imageUrl?: string
 }
 
 export interface CardList {
@@ -54,7 +54,7 @@ export interface Card {
     nickname: string
     id: number
   }
-  imageUrl?: string
+  imageUrl: string
   teamId: string
   columnId: number
   createdAt: string

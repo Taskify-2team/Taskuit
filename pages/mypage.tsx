@@ -23,11 +23,11 @@ export default function MyPage() {
     email: '',
     profileImageUrl: '',
   })
-  const [imageFile, setImageFile] = useState<File>()
   const [passwordBody, setPasswordBody] = useState({
     password: '',
     newPassword: '',
   })
+  const [imageFile, setImageFile] = useState<File>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
   const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
   const { requestFunction: updateUserProfileReq } = useAsync(updateUserProfile)
@@ -47,7 +47,7 @@ export default function MyPage() {
     })
   }
 
-  const handleEditProfileSubmit = async (e: FormEvent) => {
+  const handleEditProfileSubmit = async (e: FormEvent, nickname: string) => {
     e.preventDefault()
     let profileimageUrl
 
@@ -59,12 +59,12 @@ export default function MyPage() {
     }
 
     const result = await updateUserProfileReq({
-      nickname: profileBody.nickname,
+      nickname,
       profileImageUrl: profileimageUrl,
     })
     if (!result) return
 
-    dispatch(openToast('profileUpdateSuccess'))
+    dispatch(openToast('successUpdateProfile'))
   }
 
   const submitNewPassword = async () => {
@@ -84,7 +84,6 @@ export default function MyPage() {
             onSubmit={handleEditProfileSubmit}
             setImageFile={setImageFile}
             profileBody={profileBody}
-            setProfileBody={setProfileBody}
           />
         }
         EditPassword={

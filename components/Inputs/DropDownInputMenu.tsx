@@ -26,8 +26,8 @@ interface DropDownInputMenuProps {
 export default function DropDownInputMenu({
   label,
   id,
-  setCardBody,
   cardBody,
+  setCardBody,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({

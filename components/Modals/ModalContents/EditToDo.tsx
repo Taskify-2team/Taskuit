@@ -31,11 +31,11 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
     description: card?.description,
     dueDate: card?.dueDate,
     tags: card?.tags,
-    imageUrl: card?.imageUrl || '',
+    imageUrl: card?.imageUrl,
     columnId,
     assigneeUserId: card?.assignee?.id || 0,
   })
-  const [imageFile, setImageFile] = useState<File | string>('')
+  const [imageFile, setImageFile] = useState<File>()
   const [isDisabled, setIsDisabled] = useState(true)
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
@@ -59,7 +59,7 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
       const result = await updateCardImage({ columnId, imageFile })
       setNewCardBody({
         ...newCardBody,
-        imageUrl: result?.data.imageUrl,
+        imageUrl: result.data.imageUrl,
       })
     }
   }
