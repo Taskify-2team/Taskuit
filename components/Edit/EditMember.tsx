@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { getMemberList } from '@/service/members'
+import { deleteMemberList, getMemberList } from '@/service/members'
 import { useRouter } from 'next/router'
 import { Member } from '@/types/member'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 import { PaginationButton, ShortButton, UserInfo } from '..'
 
 export default function EditMember() {
@@ -10,10 +12,12 @@ export default function EditMember() {
   const [totalPage, setTotalPage] = useState(0)
   const router = useRouter()
   const { dashboardId } = router.query
+  const dispatch = useAppDispatch()
 
   const deleteMember = async (id: number) => {
-    await deleteMember(id)
-    alert('삭제되었습니다!')
+    await deleteMemberList(id)
+    setMemberList(memberList.filter((item) => item.id !== id))
+    dispatch(openToast('successDeleteMember'))
   }
 
   useEffect(() => {
@@ -33,7 +37,7 @@ export default function EditMember() {
         <p className="text-center text-[2rem] font-bold">멤버</p>
         <div className="flex items-center justify-end gap-[1.6rem]">
           <div className="text-[1.6rem]">
-            {memberList.length} 페이지중 {currentPage}
+            {totalPage} 페이지중 {currentPage}
           </div>
           <PaginationButton
             currentPage={currentPage}
@@ -44,11 +48,13 @@ export default function EditMember() {
       </div>
       <div className="flex flex-col">
         <p className="text-[1.6rem] text-var-gray4">이름</p>
-        <div className="flex flex-col border-b-[0.1rem]">
+        <div className="flex flex-col">
           {memberList.map((item) => (
-            <div key={item.id} className="flex justify-between px-0 py-[1.6rem]">
+            <div key={item.id} className="flex justify-between border-b-[0.1rem] px-0 py-[1.6rem]">
               <UserInfo profileImageUrl={item.profileImageUrl} nickname={item.nickname} />
-              <ShortButton color="white" text="삭제" onClick={() => deleteMember(item.id)} />
+              {!item.isOwner && (
+                <ShortButton color="white" text="삭제" onClick={() => deleteMember(item.id)} />
+              )}
             </div>
           ))}
         </div>

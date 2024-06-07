@@ -12,7 +12,6 @@ export default function EditInvitation() {
   const [inviteList, setInviteList] = useState<Invitation[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
-  const [reload, setReload] = useState(false)
   const router = useRouter()
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
@@ -21,7 +20,7 @@ export default function EditInvitation() {
     if (dashboardId) {
       await cancelInvite(Number(dashboardId), id)
       dispatch(openToast('cancelInvite'))
-      setReload(!reload)
+      setInviteList(inviteList.filter((item) => item.id !== id))
     }
   }
 
@@ -37,7 +36,7 @@ export default function EditInvitation() {
       }
     }
     handleLoadList()
-  }, [currentPage, dashboardId, reload])
+  }, [currentPage, dashboardId])
 
   return (
     <div className="flex w-[62rem] flex-col gap-[2.7rem] rounded-[0.8rem] bg-var-white p-[2.8rem]">
@@ -59,9 +58,8 @@ export default function EditInvitation() {
               dispatch(
                 openModal({
                   modalName: 'AddMember',
-                  modalProps: { dashboardId, reload, setReload },
+                  modalProps: { dashboardId, inviteList, setInviteList },
                 }),
-                setReload(!reload),
               )
             }}
           />
