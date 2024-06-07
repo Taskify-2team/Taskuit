@@ -1,6 +1,6 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
-import formatDate from '@/utils/formatDate'
+import { formatDate } from '@/utils/formatDate'
 import calenderIcon from '@/public/icons/calendarGray5.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'

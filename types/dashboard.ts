@@ -68,3 +68,16 @@ export interface PostComment {
   columnId: number
   dashboardId: number
 }
+
+export interface Comment {
+  id: number
+  content: string
+  createdAt: string
+  author: {
+    updatedAt: string
+    cardId: number
+    profileImageUrl: string
+    nickname: string
+    id: number
+  }
+}

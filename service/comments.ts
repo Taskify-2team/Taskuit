@@ -11,7 +11,7 @@ export const postComment = async (params: PostComment) => {
   return response
 }
 
-export const getComments = async () => {
-  const response = await axios.post(`/comments`)
+export const getComments = async (param: number) => {
+  const response = await axios.get(`/comments?size=10&cardId=${param}`)
   return response
 }

@@ -15,8 +15,8 @@ export const postDashBoardCard = async (params: PostCard) => {
   return response
 }
 
-export const getDashBoardCard = async (params: number) => {
-  const response = await axios.get(`/cards?size=10&columnId=${params}`)
+export const getDashBoardCard = async (param: number) => {
+  const response = await axios.get(`/cards?size=10&columnId=${param}`)
   return response
 }
 

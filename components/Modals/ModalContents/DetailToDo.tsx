@@ -8,6 +8,10 @@ import ProgressChip from '@/components/Chips/ProgressChip'
 import TagChip from '@/components/Chips/TagChip'
 import CommentInput from '@/components/Inputs/CommentInput'
 import CardInfoChip from '@/components/Chips/CardInfoChip'
+import CommentItem from '@/components/Inputs/CommentItem'
+import useAsync from '@/hooks/useAsync'
+import { getComments } from '@/service/comments'
+import { useCallback, useEffect, useState } from 'react'
 
 interface ToDoDetailProps {
   card: Card
@@ -16,10 +20,20 @@ interface ToDoDetailProps {
 
 export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
-  console.log(card.id)
+  const [commentList, setCommentList] = useState()
+
+  const { requestFunction: getCommentsRequest } = useAsync(getComments)
+
+  const getCardsData = useCallback(async () => {
+    const result = await getCommentsRequest(card.id)
+    setCommentList(result?.data.comments)
+  }, [card.id, getCommentsRequest])
+
+  useEffect(() => {
+    getCardsData()
+  }, [getCardsData])
 
   const handleKebabClick = () => {}
-  console.log(columnTitle)
 
   return (
     <div className="modal-layout max-h-[76.3rem] w-[73rem]">
@@ -48,6 +62,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
         <CommentInput cardId={card.id} columnId={card.columnId} />
+        {commentList?.map((commentItem) => <CommentItem comment={commentItem} />)}
       </div>
     </div>
   )

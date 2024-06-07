@@ -1,50 +1,34 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
-import useAsync from '@/hooks/useAsync'
-import { postComment } from '@/service/comments'
-import { useRouter } from 'next/router'
+import { Comment } from '@/types/dashboard'
+import { formatDateTime } from '@/utils/formatDate'
 import ShortButton from '../Buttons/ShortButton'
-import InputLayout from './InputLayout'
+import UserProfile from '../UserInfo/UserProfile'
 
-interface CommentInputProps {
-  cardId: number
-  columnId: number
+interface CommentItemProps {
+  comment: Comment
 }
 
-export default function CommentInput({ cardId, columnId }: CommentInputProps) {
-  const router = useRouter()
-  const { dashboardId } = router.query
+export default function CommentItem({ comment }: CommentItemProps) {
+  const handleSubmit = () => {}
+  console.log(comment)
 
-  const [content, setContent] = useState('')
-  const { requestFunction } = useAsync(postComment)
-
-  const postCommentRequest = async () => {
-    const result = await requestFunction({
-      content,
-      cardId,
-      columnId,
-      dashboardId: Number(dashboardId),
-    })
-    if (result) {
-      setContent('')
-    }
-  }
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    postCommentRequest()
-  }
-
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value)
-  }
-
+  const handleChange = () => {}
   return (
-    <form onSubmit={handleSubmit}>
-      <InputLayout id="comment" label="댓글" isSmallSize>
+    <div>
+      <UserProfile
+        profileImageUrl={comment.author.profileImageUrl}
+        nickname={comment.author.nickname}
+      />
+      <div>
+        <div>
+          <h3>{comment.author.nickname}</h3>
+          <span>{formatDateTime(comment.createdAt)}</span>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit}>
         <div className="relative">
           <textarea
             id="comment"
-            value={content}
+            // value={}
             onChange={handleChange}
             placeholder="댓글 작성하기"
             className="input-layout h-[13.9rem] w-full resize-none text-[1.4rem]"
@@ -53,7 +37,7 @@ export default function CommentInput({ cardId, columnId }: CommentInputProps) {
             <ShortButton type="submit" text="입력" color="white" />
           </div>
         </div>
-      </InputLayout>
-    </form>
+      </form>
+    </div>
   )
 }
