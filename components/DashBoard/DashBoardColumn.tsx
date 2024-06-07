@@ -5,6 +5,8 @@ import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openModal } from '@/store/reducers/modalReducer'
 import CircleChip from '../Chips/CircleChip'
 
 interface DashBoardColumnProps {
@@ -13,6 +15,8 @@ interface DashBoardColumnProps {
 }
 
 export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColumnProps) {
+  const dispatch = useAppDispatch()
+
   const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest } = useAsync(getDashBoardCard)
 
@@ -22,8 +26,6 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
       setCardList(result?.data.cards)
     }
   }, [columnId, getCardsRequest])
-
-  const handleSettingButtonClick = () => {}
 
   const handleDeleteCard = (deletedCardId: number) => {
     setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
@@ -47,7 +49,12 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
             </div>
           )}
         </div>
-        <button type="button" onClick={handleSettingButtonClick}>
+        <button
+          type="button"
+          onClick={() =>
+            dispatch(openModal({ modalName: 'EditColumn', modalProps: { columnId, columnTitle } }))
+          }
+        >
           <Image src={settingIcon} alt="설정" width="24" height="24" />
         </button>
       </div>
