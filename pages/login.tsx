@@ -41,11 +41,6 @@ export default function LoginForm() {
     }
 
     const errorMessage = error.response?.data?.message
-    if (!errorMessage) {
-      setLoginError('서버에서 오류가 발생했습니다.')
-      return
-    }
-
     if (errorMessage === '존재하지 않는 유저입니다.') {
       setError('id', {
         type: 'manual',
