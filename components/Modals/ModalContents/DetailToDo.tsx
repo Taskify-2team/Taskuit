@@ -1,4 +1,4 @@
-import { Card } from '@/types/dashboard'
+import { Card, Comment } from '@/types/dashboard'
 import Image from 'next/image'
 import kebabIcon from '@/public/icons/kebab.svg'
 import closeIcon from '@/public/icons/close.svg'
@@ -20,7 +20,7 @@ interface ToDoDetailProps {
 
 export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
-  const [commentList, setCommentList] = useState()
+  const [commentList, setCommentList] = useState<Comment[]>()
 
   const { requestFunction: getCommentsRequest } = useAsync(getComments)
 
@@ -62,7 +62,9 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
         <CommentInput cardId={card.id} columnId={card.columnId} />
-        {commentList?.map((commentItem) => <CommentItem comment={commentItem} />)}
+        {commentList?.map((commentItem) => (
+          <CommentItem key={commentItem.id} comment={commentItem} />
+        ))}
       </div>
     </div>
   )
