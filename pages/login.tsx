@@ -61,7 +61,7 @@ export default function LoginForm() {
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/">
           <Image src={logo} width={164} alt="로고" />
-          <p className="text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
+          <p className="text-center text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
         </Link>
         <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
       </div>

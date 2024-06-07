@@ -3,17 +3,17 @@ import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updateColumn } from '@/service/columns'
 import { closeModal, openModal } from '@/store/reducers/modalReducer'
-import { Column } from '@/types/column'
 import { ChangeEvent, useState } from 'react'
 
 interface EditColumnProps {
-  column: Column
+  columnId: number
+  columnTitle: string
 }
 
-export default function EditColumn({ column }: EditColumnProps) {
+export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const [newColumnName, setNewColumnName] = useState({
-    columnId: column?.id,
-    title: column?.title,
+    columnId,
+    title: columnTitle,
   })
   const dispatch = useAppDispatch()
   const { requestFunction: updateColumnFunction } = useAsync(updateColumn)
@@ -29,7 +29,7 @@ export default function EditColumn({ column }: EditColumnProps) {
     dispatch(
       openModal({
         modalName: 'warningModal',
-        modalProps: { variant: 'deleteColumn', columnId: column.id },
+        modalProps: { variant: 'deleteColumn', columnId },
       }),
     )
     /** 토스트 */

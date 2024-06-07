@@ -61,3 +61,28 @@ export interface Card {
   createdAt: string
   updatedAt: string
 }
+
+export interface PostComment {
+  content: string
+  cardId: number
+  columnId: number
+  dashboardId: number
+}
+
+export interface Comment {
+  id: number
+  content: string
+  createdAt: string
+  author: {
+    updatedAt: string
+    cardId: number
+    profileImageUrl: string
+    nickname: string
+    id: number
+  }
+}
+
+export interface UpdateComment {
+  id: number
+  content: string
+}
