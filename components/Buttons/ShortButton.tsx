@@ -15,8 +15,9 @@ export default function ShortButton({
   isDisabled,
 }: ShortButtonProps) {
   const colorVariants = {
-    white: 'button-white',
-    purple: 'button-purple',
+    white:
+      'border border-solid border-[--gray-gray_D9D9D9] bg-[--white-white_FFFFFF] text-[--violet-violet_5534DA]',
+    purple: 'bg-[--violet-violet_5534DA] text-[--white-white_FFFFFF]',
   }
 
   return (
