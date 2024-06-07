@@ -36,7 +36,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const handleKebabClick = () => {}
 
   return (
-    <div className="modal-layout max-h-[76.3rem] w-[73rem]">
+    <div className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto">
       <div className="absolute right-[2.8rem] top-[3.2rem] flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
@@ -62,9 +62,11 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
           <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
         )}
         <CommentInput cardId={card.id} columnId={card.columnId} />
-        {commentList?.map((commentItem) => (
-          <CommentItem key={commentItem.id} comment={commentItem} />
-        ))}
+        <ul className="mt-[2rem] flex flex-col gap-[1rem]">
+          {commentList?.map((commentItem) => (
+            <CommentItem key={commentItem.id} comment={commentItem} />
+          ))}
+        </ul>
       </div>
     </div>
   )
