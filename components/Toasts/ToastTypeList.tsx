@@ -1,21 +1,4 @@
-export type ToastTypeList =
-  | 'wrongCurrentPassword'
-  | 'columnDeleteSuccess'
-  | 'emailInUse'
-  | 'acceptInvite'
-  | 'refuseInvite'
-  | 'wrongEditBoardValue'
-  | 'boardUpdateSuccess'
-  | 'cancelInvite'
-  | 'profileUpdateSuccess'
-  | 'cardAdditionSuccess'
-  | 'successDeleteMember'
-  | null
-
-export const toastList: Map<ToastTypeList, { text: string; warn: boolean }> = new Map<
-  ToastTypeList,
-  { text: string; warn: boolean }
->([
+const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['wrongCurrentPassword', { text: '비밀번호가 일치하지 않습니다.', warn: true }],
   ['wrongEditBoardValue', { text: '변경된 내용이 없습니다.', warn: true }],
   ['emailInUse', { text: '이미 사용중인 이메일입니다.', warn: true }],
@@ -28,3 +11,5 @@ export const toastList: Map<ToastTypeList, { text: string; warn: boolean }> = ne
   ['cardAdditionSuccess', { text: '할일 추가가 완료되었습니다.', warn: false }],
   ['successDeleteMember', { text: '삭제되었습니다', warn: false }],
 ])
+
+export default toastList

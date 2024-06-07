@@ -6,7 +6,7 @@ import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { Column } from '@/types/column'
 import { ChangeEvent, useState } from 'react'
 
-interface EditColumnProps {
+export interface EditColumnProps {
   column: Column
 }
 

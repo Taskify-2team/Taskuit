@@ -18,7 +18,7 @@ import { Card, UpdateCard } from '@/types/dashboard'
 import { Member } from '@/types/member'
 import { ChangeEvent, useEffect, useState } from 'react'
 
-interface EditToDoProps {
+export interface EditToDoProps {
   columnId: number
   card: Card
   managerList: Member[]

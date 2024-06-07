@@ -4,7 +4,7 @@ import Image from 'next/image'
 import cancel from '@/public/icons/cancel.svg'
 import check from '@/public/icons/checkWhite.svg'
 import { closeToast } from '@/store/reducers/toastReducer'
-import { toastList } from './ToastTypeList'
+import toastList from './ToastTypeList'
 
 export default function ToastLayout() {
   const [isVisible, setVisible] = useState(false)

@@ -1,9 +1,9 @@
 import { ProfileImageInput, TextInput, ShortButton } from '@/components'
-import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { ProfileBody } from '@/pages/mypage'
 
 interface EditProfileProps {
-  onSubmit: () => void
+  onSubmit: (e: FormEvent) => Promise<void>
   setImageFile: (file: File) => void
   profileBody: ProfileBody
   setProfileBody: Dispatch<SetStateAction<ProfileBody>>
@@ -15,6 +15,8 @@ export default function EditProfile({
   profileBody,
   setProfileBody,
 }: EditProfileProps) {
+  const [currentValue, setCurrentValue] = useState<ProfileBody>(profileBody)
+  const [isDisabled, setDisabled] = useState(true)
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileBody({
       ...profileBody,
@@ -24,6 +26,10 @@ export default function EditProfile({
 
   const handleFileInputValue = (file: File) => {
     setImageFile(file)
+  }
+
+  const handlePasswordValidate = () => {
+    setDisabled(currentValue === profileBody)
   }
 
   return (
@@ -46,19 +52,25 @@ export default function EditProfile({
             label="이메일"
             value={profileBody.email}
             isReadOnly
-            placeholder="johndoe@gmail.com"
+            placeholder="email@gmail.com"
           />
           <TextInput
             id="nickname"
             label="닉네임"
             value={profileBody.nickname}
             onChange={handleInputValue}
-            placeholder="배유철"
+            placeholder="닉네임을 입력하세요"
           />
         </div>
       </div>
       <div className="self-end">
-        <ShortButton color="purple" onClick={onSubmit} text="저장" />
+        <ShortButton
+          color="purple"
+          type="submit"
+          isDisabled={currentValue === profileBody}
+          onClick={onSubmit}
+          text="저장"
+        />
       </div>
     </form>
   )

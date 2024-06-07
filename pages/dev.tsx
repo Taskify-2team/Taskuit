@@ -12,7 +12,7 @@ export default function Dev() {
         <ShortButton
           color="purple"
           text="잘했어요"
-          onClick={() => dispatch(openToast('successDeleteColumn'))}
+          onClick={() => dispatch(openToast('columnDeleteSuccess'))}
         />
       </div>
       <div>
@@ -26,7 +26,9 @@ export default function Dev() {
         <ShortButton
           color="purple"
           text="컬럼추가모달 띄우기"
-          onClick={() => dispatch(openModal({ modalName: 'AddMember' }))}
+          onClick={() =>
+            dispatch(openModal({ modalName: 'AddColumn', modalProps: { dashboardId: 123 } }))
+          }
         />
       </div>
     </div>

@@ -2,7 +2,7 @@
 import { ShortButton } from '@/components'
 import TextInput from '@/components/Inputs/TextInput'
 import { PasswordBody } from '@/pages/mypage'
-import { Dispatch, SetStateAction, ChangeEvent } from 'react'
+import { Dispatch, SetStateAction, ChangeEvent, useState } from 'react'
 
 interface EditPasswordProps {
   onSubmit: () => void
@@ -15,11 +15,17 @@ export default function EditPassword({
   passwordBody,
   setPasswordBody,
 }: EditPasswordProps) {
+  const [passwordCheck, setPasswordCheck] = useState('')
+
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordBody({
       ...passwordBody,
       [e.target['name']]: e.target.value,
     })
+  }
+
+  const handlePasswordCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    setPasswordCheck(e.target.value)
   }
 
   return (
@@ -32,7 +38,7 @@ export default function EditPassword({
         <TextInput
           id="currentPassword"
           name="currentPassword"
-          value={passwordBody.currentPassword}
+          value={passwordBody.password}
           onChange={handleInputValue}
           label="현재 비밀번호"
           placeholder="현재 비밀번호 입력"
@@ -48,8 +54,8 @@ export default function EditPassword({
         <TextInput
           id="checkNextPassword"
           name="checkNewPassword"
-          value={passwordBody.checkNewPassword}
-          onChange={handleInputValue}
+          value={passwordCheck}
+          onChange={handlePasswordCheck}
           label="새 비밀번호 확인"
           placeholder="새 비밀번호 입력"
         />

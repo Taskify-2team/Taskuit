@@ -3,12 +3,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface initialStateType {
   toastState: boolean
-  toastName: null
+  toastName: string
 }
 
 const initialState: initialStateType = {
   toastState: false,
-  toastName: null,
+  toastName: '',
 }
 
 const toastSlice = createSlice({
@@ -21,7 +21,7 @@ const toastSlice = createSlice({
     },
     closeToast: (state) => {
       state.toastState = false
-      state.toastName = null
+      state.toastName = ''
     },
   },
 })

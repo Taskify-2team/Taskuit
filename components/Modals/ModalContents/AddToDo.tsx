@@ -18,7 +18,7 @@ import { PostCard } from '@/types/dashboard'
 import { postCardImage } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 
-interface AddToDoProps {
+export interface AddToDoProps {
   dashboardId: number
   columnId: number
   managerList: Member[]
