@@ -4,16 +4,19 @@ import { ProfileBody } from '@/pages/mypage'
 
 interface EditProfileProps {
   onSubmit: () => void
+  setImageFile: Dispatch<SetStateAction<File | null>>
   profileBody: ProfileBody
   setProfileBody: Dispatch<SetStateAction<ProfileBody>>
 }
 
-export default function EditProfile({ onSubmit, profileBody, setProfileBody }: EditProfileProps) {
+export default function EditProfile({
+  onSubmit,
+  setImageFile,
+  profileBody,
+  setProfileBody,
+}: EditProfileProps) {
   const handleFileInputValue = (file: File) => {
-    setProfileBody({
-      ...profileBody,
-      profileImageUrl: file,
-    })
+    setImageFile(file)
   }
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,13 +33,26 @@ export default function EditProfile({ onSubmit, profileBody, setProfileBody }: E
     >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">프로필</h3>
       <div className="mb-[2rem] flex gap-[1.6rem]">
-        <ProfileImageInput id="image" label="이미지" size="m" onChange={handleFileInputValue} />
+        <ProfileImageInput
+          id="image"
+          label="이미지"
+          size="m"
+          currentImage={profileBody.profileImageUrl}
+          onChange={handleFileInputValue}
+        />
         <div className="flex w-full flex-col gap-[1.8rem]">
-          <TextInput isReadOnly id="email" label="이메일" placeholder="johndoe@gmail.com" />
           <TextInput
-            onChange={handleInputValue}
+            id="email"
+            label="이메일"
+            value={profileBody.email}
+            isReadOnly
+            placeholder="johndoe@gmail.com"
+          />
+          <TextInput
             id="nickname"
             label="닉네임"
+            value={profileBody.nickname}
+            onChange={handleInputValue}
             placeholder="배유철"
           />
         </div>

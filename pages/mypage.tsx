@@ -1,10 +1,14 @@
 import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
-import { useState } from 'react'
-import axios from '@/service/instance'
+import { useAppDispatch } from '@/hooks/useApp'
+import useAsync from '@/hooks/useAsync'
+import { getUserInfo, postProfileImage, updateUserProfile } from '@/service/users'
+import { openToast } from '@/store/reducers/toastReducer'
+import { useEffect, useState } from 'react'
 
 export interface ProfileBody {
   nickname: string
-  profileImageUrl: File | null
+  email: string
+  profileImageUrl: string
 }
 
 export interface PasswordBody {
@@ -16,16 +20,54 @@ export interface PasswordBody {
 export default function MyPage() {
   const [profileBody, setProfileBody] = useState<ProfileBody>({
     nickname: '',
-    profileImageUrl: null,
+    email: '',
+    profileImageUrl: '',
   })
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const [passwordBody, setPasswordBody] = useState({
     currentPassword: '',
     newPassword: '',
     checkNewPassword: '',
   })
+  const { requestFunction: getUserInfoRequest } = useAsync(getUserInfo)
+  const { requestFunction: updateProfileImage } = useAsync(postProfileImage)
+  const { requestFunction: updateProfile } = useAsync(updateUserProfile)
+  const dispatch = useAppDispatch()
 
-  const submitNewProfile = () => {
-    /** 새 프로필 서브밋 보내기 */
+  const handleUserInfo = async () => {
+    const result = await getUserInfoRequest()
+    if (!result) return
+
+    const { nickname, email, profileImageUrl } = result
+    setProfileBody({
+      ...profileBody,
+      nickname,
+      email,
+      profileImageUrl,
+    })
+  }
+
+  const submitImageFile = async () => {
+    if (imageFile) {
+      const formData = new FormData()
+      formData.append('image', imageFile)
+      const result = await updateProfileImage(imageFile)
+      setProfileBody({
+        ...profileBody,
+        profileImageUrl: result?.data.imageUrl,
+      })
+    }
+  }
+
+  const submitUpdateProfile = async () => {
+    if (imageFile) await submitImageFile()
+
+    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
+    const result = await updateProfile(profileBody)
+    if (!result) return
+
+    dispatch(openToast('profileUpdateSuccess'))
+    /** 토스트 */
   }
 
   const validateCurrentPassword = () => {
@@ -37,12 +79,17 @@ export default function MyPage() {
     /** 새 비번 서브밋 보내기 */
   }
 
+  useEffect(() => {
+    handleUserInfo()
+  }, [])
+
   return (
     <AppLayout>
       <MyPageLayout
         EditProfile={
           <EditProfile
-            onSubmit={submitNewProfile}
+            onSubmit={submitUpdateProfile}
+            setImageFile={setImageFile}
             profileBody={profileBody}
             setProfileBody={setProfileBody}
           />
