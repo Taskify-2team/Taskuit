@@ -10,9 +10,10 @@ import UserProfile from '../UserInfo/UserProfile'
 interface CardProps {
   card: Card
   columnTitle: string
+  onDelete: (props: number) => void
 }
 
-export default function DashBoardCard({ card, columnTitle }: CardProps) {
+export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps) {
   const dispatch = useAppDispatch()
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
@@ -25,7 +26,9 @@ export default function DashBoardCard({ card, columnTitle }: CardProps) {
     <button
       type="button"
       onClick={() =>
-        dispatch(openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle } }))
+        dispatch(
+          openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle, onDelete } }),
+        )
       }
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >

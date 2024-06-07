@@ -25,6 +25,10 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
 
   const handleSettingButtonClick = () => {}
 
+  const handleDeleteCard = (deletedCardId: number) => {
+    setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
+  }
+
   useEffect(() => {
     if (columnId) {
       getCardsData()
@@ -65,6 +69,7 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
               createdAt: cardItem.createdAt,
               updatedAt: cardItem.updatedAt,
             }}
+            onDelete={handleDeleteCard}
           />
         ))}
     </section>

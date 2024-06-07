@@ -19,9 +19,10 @@ import { openToast } from '@/store/reducers/toastReducer'
 interface ToDoDetailProps {
   card: Card
   columnTitle: string
+  onDelete: (props: number) => void
 }
 
-export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
+export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
   const [commentList, setCommentList] = useState<Comment[]>()
   const [openKebab, setOpenKebab] = useState(false)
@@ -36,6 +37,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
 
   const deleteCardData = async () => {
     await deleteCardRequest(card.id)
+    onDelete(card.id)
   }
 
   const handleDeleteCard = () => {
