@@ -77,7 +77,7 @@ export default function MyPage() {
 
   useEffect(() => {
     handleUserInfo()
-  }, [profileBody])
+  }, [])
 
   return (
     <AppLayout>

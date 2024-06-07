@@ -49,7 +49,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     })
   }
 
-  const handleChangeFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File) => {
     setImageFile(file)
   }
 
@@ -105,7 +105,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
       />
       <DateInput label="마감일" id="dueDate" value={cardBody.dueDate} onChange={handleInputValue} />
       <TagInput id="tag" label="태그" />
-      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleChangeFileInputValue} />
+      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton
