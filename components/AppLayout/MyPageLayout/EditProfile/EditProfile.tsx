@@ -4,7 +4,7 @@ import { ProfileBody } from '@/pages/mypage'
 
 interface EditProfileProps {
   onSubmit: () => void
-  setImageFile: Dispatch<SetStateAction<File | null>>
+  setImageFile: (file: File) => void
   profileBody: ProfileBody
   setProfileBody: Dispatch<SetStateAction<ProfileBody>>
 }
@@ -15,15 +15,15 @@ export default function EditProfile({
   profileBody,
   setProfileBody,
 }: EditProfileProps) {
-  const handleFileInputValue = (file: File) => {
-    setImageFile(file)
-  }
-
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileBody({
       ...profileBody,
       nickname: e.target.value,
     })
+  }
+
+  const handleFileInputValue = (file: File) => {
+    setImageFile(file)
   }
 
   return (

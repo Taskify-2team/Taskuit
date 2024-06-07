@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import addButton from '@/public/icons/addLogo.svg'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import InputLayout from './InputLayout'
 
 interface ProfileImageInputProps {
@@ -13,11 +13,11 @@ interface ProfileImageInputProps {
 }
 
 export default function ProfileImageInput({
-  currentImage,
+  currentImage = '',
   size,
   id,
   label,
-  isRequired,
+  isRequired = false,
   onChange,
 }: ProfileImageInputProps) {
   const [preview, setPreview] = useState(currentImage)
@@ -29,6 +29,10 @@ export default function ProfileImageInput({
     setPreview(URL.createObjectURL(file))
     onChange(file)
   }
+
+  useEffect(() => {
+    setPreview(currentImage)
+  }, [currentImage])
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>

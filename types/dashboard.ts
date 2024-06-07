@@ -25,7 +25,6 @@ export interface PostCard {
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string | null
 }
 
 export interface UpdateCard {

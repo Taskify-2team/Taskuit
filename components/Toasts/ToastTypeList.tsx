@@ -8,6 +8,7 @@ export type ToastTypeList =
   | 'boardUpdateSuccess'
   | 'cancelInvite'
   | 'profileUpdateSuccess'
+  | 'cardAdditionSuccess'
   | null
 
 export const toastList: Map<ToastTypeList, { text: string; warn: boolean }> = new Map<
@@ -23,4 +24,5 @@ export const toastList: Map<ToastTypeList, { text: string; warn: boolean }> = ne
   ['refuseInvite', { text: '초대를 거절했습니다.', warn: false }],
   ['boardUpdateSuccess', { text: '대시보드가 변경되었습니다.', warn: false }],
   ['cancelInvite', { text: '초대 요청이 취소되었습니다.', warn: false }],
+  ['cardAdditionSuccess', { text: '할일 추가가 완료되었습니다.', warn: false }],
 ])

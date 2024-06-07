@@ -17,9 +17,7 @@
   .modal-layout {
     @apply flex h-auto min-h-[25rem] w-[54rem] animate-slideDown flex-col justify-between gap-[2.5rem] rounded-[0.8rem] bg-var-white p-[2.8rem];
   }
-}
 
-@layer utilities {
   .button-disabled {
     @apply cursor-default bg-var-gray3 text-var-gray4;
   }

@@ -14,9 +14,13 @@ export const getUserInfo = async () => {
   return response.data
 }
 
-export const postProfileImage = async (profileImageUrl: File) => {
-  const response = await axios.post(`/users/me/image`, profileImageUrl)
-  return response
+export const postProfileImage = async (profileImageUrl: FormData) => {
+  const response = await axios.post(`/users/me/image`, profileImageUrl, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return response.data
 }
 
 export const updateUserProfile = async (params: { nickname: string; profileImageUrl: string }) => {
@@ -24,5 +28,5 @@ export const updateUserProfile = async (params: { nickname: string; profileImage
     nickname: params.nickname,
     profileImageUrl: params.profileImageUrl,
   })
-  return response
+  return response.data
 }
