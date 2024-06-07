@@ -25,7 +25,7 @@ export default function DashBoardCard({ card, columnTitle }: CardProps) {
     <button
       type="button"
       onClick={() =>
-        dispatch(openModal({ modalName: 'ToDoDetail', modalProps: { card, columnTitle } }))
+        dispatch(openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle } }))
       }
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >
