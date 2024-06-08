@@ -10,6 +10,7 @@ const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['cancelInvite', { text: '초대 요청이 취소되었습니다.', warn: false }],
   ['cancelInvite', { text: '초대 요청이 취소되었습니다.', warn: false }],
   ['emailInUse', { text: '이미 사용중인 이메일입니다.', warn: true }],
+  ['samePassword', { text: '현재 사용중인 비밀번호와 다른 비밀번호를 입력하세요.', warn: true }],
   ['wrongEditBoardValue', { text: '변경된 내용이 없습니다.', warn: true }],
   ['wrongCurrentPassword', { text: '비밀번호가 일치하지 않습니다.', warn: true }],
 ])

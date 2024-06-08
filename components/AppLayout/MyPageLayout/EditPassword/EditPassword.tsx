@@ -1,36 +1,50 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import { ShortButton } from '@/components'
-import TextInput from '@/components/Inputs/TextInput'
+import { ShortButton, TextInput } from '@/components'
 import { PasswordBody } from '@/pages/mypage'
-import { Dispatch, SetStateAction, ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 interface EditPasswordProps {
-  onSubmit: () => void
+  onSubmit: (e: FormEvent, newPasswordBody: PasswordBody) => void
   passwordBody: PasswordBody
-  setPasswordBody: Dispatch<SetStateAction<PasswordBody>>
 }
 
-export default function EditPassword({
-  onSubmit,
-  passwordBody,
-  setPasswordBody,
-}: EditPasswordProps) {
+export default function EditPassword({ onSubmit, passwordBody }: EditPasswordProps) {
+  const [newPasswordBody, setNewPasswordBody] = useState({
+    password: '',
+    newPassword: '',
+  })
   const [passwordCheck, setPasswordCheck] = useState('')
+  const [isDisabled, setDisabled] = useState(true)
+  const { handleSubmit, control } = useForm<PasswordBody>()
 
-  const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setPasswordBody({
-      ...passwordBody,
-      [e.target['name']]: e.target.value,
+  const handleCurrentPasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPasswordBody({
+      ...newPasswordBody,
+      password: e.target.value,
     })
   }
 
-  const handlePasswordCheck = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNewPasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPasswordBody({
+      ...newPasswordBody,
+      newPassword: e.target.value,
+    })
+  }
+
+  const handlePasswordCheckValue = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordCheck(e.target.value)
   }
 
+  useEffect(() => {
+    if (newPasswordBody.password && newPasswordBody.newPassword && passwordCheck) {
+      setDisabled(newPasswordBody.newPassword !== passwordCheck)
+    }
+  }, [newPasswordBody, passwordCheck])
+
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={(e) => onSubmit(e, newPasswordBody)}
       className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
     >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">비밀번호 변경</h3>
@@ -38,16 +52,16 @@ export default function EditPassword({
         <TextInput
           id="currentPassword"
           name="currentPassword"
-          value={passwordBody.password}
-          onChange={handleInputValue}
+          value={newPasswordBody.password}
+          onChange={handleCurrentPasswordValue}
           label="현재 비밀번호"
           placeholder="현재 비밀번호 입력"
         />
         <TextInput
           id="nextPassword"
           name="newPassword"
-          value={passwordBody.newPassword}
-          onChange={handleInputValue}
+          value={newPasswordBody.newPassword}
+          onChange={handleNewPasswordValue}
           label="새 비밀번호"
           placeholder="새 비밀번호 입력"
         />
@@ -55,13 +69,13 @@ export default function EditPassword({
           id="checkNextPassword"
           name="checkNewPassword"
           value={passwordCheck}
-          onChange={handlePasswordCheck}
+          onChange={handlePasswordCheckValue}
           label="새 비밀번호 확인"
           placeholder="새 비밀번호 입력"
         />
       </div>
       <div className="self-end">
-        <ShortButton color="purple" onClick={onSubmit} text="변경" />
+        <ShortButton color="purple" type="submit" isDisabled={isDisabled} text="변경" />
       </div>
     </form>
   )

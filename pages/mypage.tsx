@@ -67,7 +67,8 @@ export default function MyPage() {
     dispatch(openToast('successUpdateProfile'))
   }
 
-  const submitNewPassword = async () => {
+  const handleUpdatePasswordSubmit = async (e: FormEvent, newPasswordBody: PasswordBody) => {
+    e.preventDefault()
     await updatePasswordReq(passwordBody)
     /** 새 비번 서브밋 보내기 */
   }
@@ -88,11 +89,7 @@ export default function MyPage() {
           />
         }
         EditPassword={
-          <EditPassword
-            onSubmit={submitNewPassword}
-            passwordBody={passwordBody}
-            setPasswordBody={setPasswordBody}
-          />
+          <EditPassword onSubmit={handleUpdatePasswordSubmit} passwordBody={passwordBody} />
         }
       />
     </AppLayout>
