@@ -28,6 +28,6 @@ export const deleteColumn = async (columnId: number) => {
 }
 
 export const updateColumn = async (params: { title: string; columnId: number }) => {
-  const response = await axios.put(`/columns/${params.columnId}`, params.title)
+  const response = await axios.put(`/columns/${params.columnId}`, { title: params.title })
   return response
 }

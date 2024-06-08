@@ -5,7 +5,7 @@ import { deleteColumn, updateColumn } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Column } from '@/types/dashboard'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
 interface EditColumnProps {
   columnId: number
@@ -37,11 +37,16 @@ export default function EditColumn({ columnId, columnTitle, setColumns }: EditCo
     dispatch(openToast('successDeleteColumn'))
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
     await updateColumnFunction(newColumnName)
-
+    setColumns((prevColumns) =>
+      prevColumns.map((prevColumn) =>
+        prevColumn.id === columnId ? { ...prevColumn, title: newColumnName.title } : prevColumn,
+      ),
+    )
     dispatch(closeModal())
-    /** 토스트 */
+    dispatch(openToast('successEditColumn'))
   }
 
   return (
