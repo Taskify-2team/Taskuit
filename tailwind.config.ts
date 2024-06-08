@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'primary-violet': '#5534da',
-        'var-violet': '#f1effd',
+        'primary-violet': '#1A57C9',
+        'var-violet': '#d3f8ff',
         'var-red': '#d6173a',
         'var-green': '#7ac555',
         'var-purple': '#760dde',
