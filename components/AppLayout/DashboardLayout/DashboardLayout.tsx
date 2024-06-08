@@ -1,5 +1,5 @@
 import { Column } from '@/types/dashboard'
-import DashBoardColumn from './components/DashBoardColumn'
+import { DashBoardColumn } from '@/components'
 
 interface DashboardLayoutProps {
   columns: Column[] | undefined

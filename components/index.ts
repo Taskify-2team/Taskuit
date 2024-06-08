@@ -24,13 +24,17 @@ import MyDashBoardList from './MyDashBoardList/MyDashBoardList'
 import Footer from './Footer/Footer'
 import InviteList from './InviteList/InviteList'
 import DashboardLayout from './AppLayout/DashboardLayout/DashboardLayout'
-import DashBoardCard from './AppLayout/DashboardLayout/components/DashBoardCard'
 import DashBoardColumn from './AppLayout/DashboardLayout/components/DashBoardColumn'
+import DashBoardColumnHeader from './AppLayout/DashboardLayout/components/DashBoardColumnHeader'
+import DashBoardCard from './AppLayout/DashboardLayout/components/DashBoardCard'
+import DashBoardCardInfo from './AppLayout/DashboardLayout/components/DashBoardCardInfo'
 
 export {
   DashboardLayout,
-  DashBoardCard,
   DashBoardColumn,
+  DashBoardColumnHeader,
+  DashBoardCard,
+  DashBoardCardInfo,
   SideMenu,
   DashBoardList,
   SideMenuListItem as DashBoardListItem,

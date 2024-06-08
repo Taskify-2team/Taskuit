@@ -1,9 +1,8 @@
-import { CreateTodoButton, DashBoardCard } from '@/components'
+import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
 import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
-import DashBoardColumnHeader from './DashBoardColumnHeader'
 
 interface DashBoardColumnProps {
   columnId: number

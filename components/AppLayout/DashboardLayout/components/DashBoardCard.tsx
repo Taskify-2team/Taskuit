@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import TagChipList from '@/components/Chips/TagChipList'
-import DashBoardCardInfo from './DashBoardCardInfo'
+import { DashBoardCardInfo } from '@/components'
 
-interface CardProps {
+interface DashBoardCardProps {
   card: Card
   columnTitle: string
   onDelete: (props: number) => void
 }
 
-export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps) {
+export default function DashBoardCard({ card, columnTitle, onDelete }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
 
   const handleOpenModal = () =>

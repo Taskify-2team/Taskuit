@@ -2,7 +2,7 @@ import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import calenderIcon from '@/public/icons/calendarGray5.svg'
 import { formatDate } from '@/utils/formatDate'
-import UserProfile from '@/components/UserInfo/UserProfile'
+import { UserProfile } from '@/components'
 
 interface DashBoardCardInfoProps {
   card: Card
