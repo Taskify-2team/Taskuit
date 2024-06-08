@@ -11,7 +11,7 @@ export const LanguageContext = createContext<LanguageContextValue>({
 })
 
 export const useLoadLanguage = () => {
-  const language = useContext(LanguageContext)
+  const { language, handleSetLanguage } = useContext(LanguageContext)
 
-  return language
+  return { language, handleSetLanguage }
 }

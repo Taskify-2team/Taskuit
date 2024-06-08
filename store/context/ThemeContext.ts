@@ -11,7 +11,7 @@ export const ThemeContext = createContext<ThemeContextValue>({
 })
 
 export const useLoadTheme = () => {
-  const theme = useContext(ThemeContext)
+  const { theme, handleSetTheme } = useContext(ThemeContext)
 
-  return theme
+  return { theme, handleSetTheme }
 }
