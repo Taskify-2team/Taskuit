@@ -7,7 +7,7 @@ import { Card, Column } from '@/types/dashboard'
 interface DashBoardColumnProps {
   columnId: number
   columnTitle: string
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>> | undefined
+  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
 }
 
 export default function DashBoardColumn({

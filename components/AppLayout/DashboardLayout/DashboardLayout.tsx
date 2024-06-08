@@ -3,7 +3,7 @@ import { DashBoardColumn } from '@/components'
 
 interface DashboardLayoutProps {
   columns: Column[] | undefined
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>> | undefined
+  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
 }
 
 export default function DashboardLayout({ columns, setColumns }: DashboardLayoutProps) {

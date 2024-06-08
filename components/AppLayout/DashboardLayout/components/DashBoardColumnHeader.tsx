@@ -9,7 +9,7 @@ interface DashBoardColumnHeaderProps {
   columnTitle: string
   columnId: number
   cardList: Card[]
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>> | undefined
+  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
 }
 
 export default function DashBoardColumnHeader({
