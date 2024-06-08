@@ -23,15 +23,15 @@ export default function MyPage() {
     email: '',
     profileImageUrl: '',
   })
-  const [passwordBody, setPasswordBody] = useState({
-    password: '',
-    newPassword: '',
-  })
   const [imageFile, setImageFile] = useState<File>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
   const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
   const { requestFunction: updateUserProfileReq } = useAsync(updateUserProfile)
-  const { requestFunction: updatePasswordReq } = useAsync(updatePassword)
+  const {
+    pending: updatePasswordPen,
+    error: updatePasswordErr,
+    requestFunction: updatePasswordReq,
+  } = useAsync(updatePassword)
   const dispatch = useAppDispatch()
 
   const handleUserInfo = async () => {
@@ -69,8 +69,8 @@ export default function MyPage() {
 
   const handleUpdatePasswordSubmit = async (e: FormEvent, newPasswordBody: PasswordBody) => {
     e.preventDefault()
-    await updatePasswordReq(passwordBody)
-    /** 새 비번 서브밋 보내기 */
+
+    await updatePasswordReq(newPasswordBody)
   }
 
   useEffect(() => {
@@ -89,7 +89,11 @@ export default function MyPage() {
           />
         }
         EditPassword={
-          <EditPassword onSubmit={handleUpdatePasswordSubmit} passwordBody={passwordBody} />
+          <EditPassword
+            pending={updatePasswordPen}
+            error={updatePasswordErr}
+            onSubmit={handleUpdatePasswordSubmit}
+          />
         }
       />
     </AppLayout>

@@ -3,18 +3,15 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import cancel from '@/public/icons/cancel.svg'
 import check from '@/public/icons/checkWhite.svg'
-import { closeToast } from '@/store/reducers/toastReducer'
-import toastList from './ToastTypeList'
+import { closeMyToast } from '@/store/reducers/myToastReducer'
 
-export default function ToastLayout() {
+export default function MyToastLayout() {
   const [isVisible, setVisible] = useState(false)
-  const { toastName } = useAppSelector((state) => state.toast)
+  const { text, warn } = useAppSelector((state) => state.myToast)
   const dispatch = useAppDispatch()
 
-  const findToast = toastList.get(toastName)
-
   const closeButtonClickHandler = () => {
-    dispatch(closeToast())
+    dispatch(closeMyToast())
     setVisible(false)
   }
 
@@ -23,7 +20,7 @@ export default function ToastLayout() {
     let timer: NodeJS.Timeout
     let visibleTimer: NodeJS.Timeout
 
-    if (toastName) {
+    if (text) {
       visibleTimer = setTimeout(() => {
         setVisible(false)
       }, 2700)
@@ -37,35 +34,35 @@ export default function ToastLayout() {
       clearTimeout(timer)
       clearTimeout(visibleTimer)
     }
-  }, [toastName])
+  }, [text])
 
-  if (!toastName) return null
+  if (!text) return null
 
   return (
     <div
       className={`${isVisible ? 'animate-slideDown' : 'animate-slideUp'} fixed right-[2.5rem] top-[9.5rem] z-20 flex h-[6rem] w-[28rem] items-center justify-between gap-[1.5rem] overflow-hidden rounded-[0.6rem] border-[0.1rem] border-var-gray2 bg-var-white px-[2rem] py-[2rem] shadow-lg`}
     >
       <div
-        className={`flex size-[3rem] items-center justify-center rounded-[0.6rem] ${findToast?.warn ? 'bg-[#F7DBF0]' : 'bg-[#E7F7DB]'}`}
+        className={`flex size-[3rem] items-center justify-center rounded-[0.6rem] ${warn ? 'bg-[#F7DBF0]' : 'bg-[#E7F7DB]'}`}
       >
         <div
-          className={`flex size-[2rem] items-center justify-center rounded-[50%] ${findToast?.warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
+          className={`flex size-[2rem] items-center justify-center rounded-[50%] ${warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
         >
           <div className="relative size-[1.2rem]">
             <Image fill src={check} alt="체크 버튼" />
           </div>
         </div>
       </div>
-      <p className="flex-1 text-[1.2rem]">{findToast?.text}</p>
+      <p className="flex-1 text-[1.2rem]">{text}</p>
       <button
         type="button"
         className="relative size-[1rem] text-var-black3"
-        onClick={() => dispatch(closeToast())}
+        onClick={() => dispatch(closeMyToast())}
       >
         <Image fill src={cancel} alt="취소 버튼" />
       </button>
       <div
-        className={`absolute left-0 top-0 h-[0.3rem] w-[28rem] animate-timer ${findToast?.warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
+        className={`absolute left-0 top-0 h-[0.3rem] w-[28rem] animate-timer ${warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
       />
     </div>
   )
