@@ -73,8 +73,6 @@ export {
 }
 
 /** Button Components */
-import PurpleButton from './Buttons/ShortButtons/PurpleButton'
-import WhiteButton from './Buttons/ShortButtons/WhiteButton'
 import BoardButton from './Buttons/BoardButton'
 import HeaderButton from './Headers/DashBoardHeader/buttons/HeaderButton'
 import CreateBoardButton from './Buttons/CreateBoardButton'
@@ -86,8 +84,6 @@ import PaginationButton from './Buttons/PaginationButton'
 import ShortButton from './Buttons/ShortButton'
 
 export {
-  PurpleButton,
-  WhiteButton,
   BoardButton,
   HeaderButton,
   CreateBoardButton,

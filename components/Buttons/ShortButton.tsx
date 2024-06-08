@@ -18,9 +18,8 @@ export default function ShortButton({
   link,
 }: ShortButtonProps) {
   const colorVariants = {
-    white:
-      'border border-solid border-[--gray-gray_D9D9D9] bg-[--white-white_FFFFFF] text-[--violet-violet_5534DA]',
-    purple: 'bg-[--violet-violet_5534DA] text-[--white-white_FFFFFF]',
+    white: 'border border-solid border-var-gray3 bg-var-white text-primary-violet',
+    purple: 'bg-primary-violet text-var-white',
   }
 
   if (link) {
