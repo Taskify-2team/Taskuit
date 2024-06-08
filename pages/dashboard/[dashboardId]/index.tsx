@@ -27,7 +27,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex overflow-auto">
-        <DashboardLayout columns={columns} />
+        <DashboardLayout columns={columns} setColumns={setColumns} />
       </div>
     </AppLayout>
   )

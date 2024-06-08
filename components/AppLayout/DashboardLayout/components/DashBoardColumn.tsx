@@ -2,14 +2,19 @@ import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/compon
 import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
-import { Card } from '@/types/dashboard'
+import { Card, Column } from '@/types/dashboard'
 
 interface DashBoardColumnProps {
   columnId: number
   columnTitle: string
+  setColumns: React.Dispatch<React.SetStateAction<Column[]>> | undefined
 }
 
-export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColumnProps) {
+export default function DashBoardColumn({
+  columnId,
+  columnTitle,
+  setColumns,
+}: DashBoardColumnProps) {
   const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest } = useAsync(getDashBoardCard)
 
@@ -32,7 +37,12 @@ export default function DashBoardColumn({ columnId, columnTitle }: DashBoardColu
 
   return (
     <section className="flex flex-col gap-[1.6rem] pr-[2rem]">
-      <DashBoardColumnHeader cardList={cardList} columnId={columnId} columnTitle={columnTitle} />
+      <DashBoardColumnHeader
+        setColumns={setColumns}
+        cardList={cardList}
+        columnId={columnId}
+        columnTitle={columnTitle}
+      />
       <CreateTodoButton />
       {cardList.length > 0 &&
         cardList.map((cardItem) => (
