@@ -3,6 +3,7 @@ import Image from 'next/image'
 import darkLogo from '@/public/icons/darklogo.svg'
 import darkLogosmall from '@/public/icons/darklogosmall.svg'
 import Link from 'next/link'
+import logo from '@/public/images/taskuitLogo.png'
 
 export default function DarkHeader() {
   const [logoSrc, setLogoSrc] = useState<string>(darkLogo)
@@ -23,12 +24,17 @@ export default function DarkHeader() {
 
   return (
     <div className="flex h-[7rem] w-full items-center justify-between bg-black pl-[1.6rem] pr-[8rem]">
-      <Link href="/">
-        <Image src={logoSrc} alt="다크 헤더 로고" />
-      </Link>
+      <div className="flex items-center gap-[1rem]">
+        <Image src={logoSrc} height={39} alt="다크 헤더 로고" />
+        <p className="text-[2.5rem] font-bold text-[#1A57C9]">Taskuit</p>
+      </div>
       <div className="flex gap-[3.6rem]">
-        <p className="text-[1.6rem] text-white">로그인</p>
-        <p className="text-[1.6rem] text-white">회원가입</p>
+        <Link href="/login">
+          <p className="text-[1.6rem] text-white">로그인</p>
+        </Link>
+        <Link href="/signup">
+          <p className="text-[1.6rem] text-white">회원가입</p>
+        </Link>
       </div>
     </div>
   )
