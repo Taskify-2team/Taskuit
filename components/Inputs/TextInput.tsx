@@ -26,7 +26,7 @@ export default function TextInput({
         onChange={onChange}
         placeholder={placeholder}
         required={isRequired}
-        className="input-layout"
+        className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''}`}
         readOnly={isReadOnly}
       />
     </InputLayout>

@@ -1,6 +1,6 @@
 import axios from './instance'
 
-export default async function LoginAccess(id: string, password: string) {
+export const LoginAccess = async (id: string, password: string) => {
   const response = await axios.post(
     `/auth/login`,
     {
@@ -12,4 +12,18 @@ export default async function LoginAccess(id: string, password: string) {
     },
   )
   return response
+}
+
+export const updatePassword = async ({
+  password,
+  newPassword,
+}: {
+  password: string
+  newPassword: string
+}) => {
+  const response = await axios.put(`/auth/password`, {
+    password,
+    newPassword,
+  })
+  return response.data
 }

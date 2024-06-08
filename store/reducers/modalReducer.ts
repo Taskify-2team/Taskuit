@@ -1,16 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { ModalTypeList } from '@/components/Modals/ModalTypeList'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface initialStateType {
-  modalState: boolean
-  modalName: ModalTypeList | null
-  modalProps: Record<string, any>
+  modalName: string
+  modalProps: Record<string, string | number | null>
 }
 
 const initialState: initialStateType = {
-  modalState: false,
-  modalName: null,
+  modalName: '',
   modalProps: {},
 }
 
@@ -19,13 +16,11 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, action) => {
-      state.modalState = true
       state.modalName = action.payload.modalName
       state.modalProps = action.payload.modalProps
     },
     closeModal: (state) => {
-      state.modalState = false
-      state.modalName = null
+      state.modalName = ''
       state.modalProps = {}
     },
   },
