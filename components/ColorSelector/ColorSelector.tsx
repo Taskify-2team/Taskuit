@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import check from '@/public/icons/checkWhite.svg'
 import plusIcon from '@/public/icons/plusIcon.svg'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ColorPicker, useColor } from 'react-color-palette'
 import 'react-color-palette/css'
 
@@ -14,6 +14,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
   const preparedColor = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea']
   const [togglePicker, setTogglePicker] = useState(false)
   const [pickColor, setPickColor] = useColor('#d9d9d9')
+  const pickerRef = useRef<HTMLDivElement>(null)
 
   const handleCustomColor = () => {
     if (togglePicker) {
@@ -23,6 +24,19 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
       setTogglePicker(true)
     }
   }
+  const handleClickOutside = (e: MouseEvent) => {
+    if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
+      handleClick(pickColor.hex)
+      setTogglePicker(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  })
 
   return (
     <ul className="relative flex gap-[1rem]">
@@ -51,7 +65,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
         )}
       </div>
       {togglePicker && (
-        <div className="absolute top-[5rem]">
+        <div className="absolute top-[5rem]" ref={pickerRef}>
           <ColorPicker
             color={pickColor}
             onChange={setPickColor}
