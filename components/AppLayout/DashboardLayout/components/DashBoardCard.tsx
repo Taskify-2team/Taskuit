@@ -14,14 +14,13 @@ interface CardProps {
 export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps) {
   const dispatch = useAppDispatch()
 
+  const handleOpenModal = () =>
+    dispatch(openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle, onDelete } }))
+
   return (
     <button
       type="button"
-      onClick={() =>
-        dispatch(
-          openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle, onDelete } }),
-        )
-      }
+      onClick={handleOpenModal}
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >
       {card.imageUrl && (
