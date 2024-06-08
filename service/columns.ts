@@ -14,13 +14,13 @@ export const getColumns = async (dashboardId: string) => {
   return response
 }
 
-export const postCardImage = async (params: { columnId: number; imageFile: File | string }) => {
+export const postCardImage = async (params: { columnId: number; imageFile: File }) => {
   const response = await axios.post(`/columns/${params.columnId}/card-image`, params.imageFile, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   })
-  return response
+  return response.data
 }
 
 export const deleteColumn = async (columnId: number) => {

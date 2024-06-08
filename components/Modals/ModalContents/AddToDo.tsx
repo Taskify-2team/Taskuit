@@ -16,6 +16,7 @@ import useAsync from '@/hooks/useAsync'
 import { Member } from '@/types/member'
 import { PostCard } from '@/types/dashboard'
 import { postCardImage } from '@/service/columns'
+import { openToast } from '@/store/reducers/toastReducer'
 
 interface AddToDoProps {
   dashboardId: number
@@ -32,12 +33,11 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     description: '',
     dueDate: '',
     tags: [],
-    imageUrl: '',
   })
-  const [imageFile, setImageFile] = useState<File | string>('')
+  const [imageFile, setImageFile] = useState<File>()
   const [isDisabled, setIsDisabled] = useState(true)
   const dispatch = useAppDispatch()
-  const { requestFunction } = useAsync(postDashBoardCard)
+  const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
 
   const handleInputValue = (
@@ -53,26 +53,20 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     setImageFile(file)
   }
 
-  const submitImageFile = async () => {
+  const submitAddToDo = async () => {
+    let imageUrl
+
     if (imageFile) {
       const formData = new FormData()
       formData.append('image', imageFile)
-      const result = await postImage({ columnId, imageFile })
-      setCardBody({
-        ...cardBody,
-        imageUrl: result?.data.imageUrl,
-      })
+      imageUrl = await postImage({ columnId, imageFile })
     }
-  }
 
-  const submitAddToDo = async () => {
-    await submitImageFile()
-    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
-    const result = await requestFunction(cardBody)
+    const result = await postToDo({ cardBody, imageUrl })
     if (!result) return
 
     dispatch(closeModal())
-    /** 요청 완료시 띄울 토스트나 모달 코드 */
+    dispatch(openToast('todoAdditionSuccess'))
   }
 
   useEffect(() => {
