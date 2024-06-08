@@ -41,7 +41,3 @@ export default function ProfileList({ members, totalCount }: ProfileListProps) {
     </div>
   )
 }
-
-ProfileList.defaultProps = {
-  members: undefined,
-}

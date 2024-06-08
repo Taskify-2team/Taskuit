@@ -13,7 +13,7 @@ export default function Textarea({
   value,
   name,
   placeholder,
-  isRequired,
+  isRequired = false,
 }: TextareaProps) {
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
@@ -28,8 +28,4 @@ export default function Textarea({
       />
     </InputLayout>
   )
-}
-
-Textarea.defaultProps = {
-  isRequired: false,
 }
