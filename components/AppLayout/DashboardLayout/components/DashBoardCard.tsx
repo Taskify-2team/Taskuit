@@ -1,11 +1,9 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
-import { formatDate } from '@/utils/formatDate'
-import calenderIcon from '@/public/icons/calendarGray5.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import UserProfile from '@/components/UserInfo/UserProfile'
 import TagChipList from '@/components/Chips/TagChipList'
+import DashBoardCardInfo from './DashBoardCardInfo'
 
 interface CardProps {
   card: Card
@@ -33,17 +31,7 @@ export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps
       )}
       <h3 className="mb-[1rem] text-start text-[1.6rem]">{card.title}</h3>
       <TagChipList tags={card.tags} />
-      <div className="flex justify-between">
-        <div className="flex items-center gap-[0.6rem] text-[1.2rem] text-var-gray5">
-          <Image src={calenderIcon} alt="날짜" width="18" height="18" />
-          {formatDate(card.createdAt)}
-        </div>
-        <UserProfile
-          profileImageUrl={card.assignee.profileImageUrl}
-          nickname={card.assignee.nickname}
-          size="s"
-        />
-      </div>
+      <DashBoardCardInfo card={card} />
     </button>
   )
 }
