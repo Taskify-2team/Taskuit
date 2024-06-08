@@ -6,6 +6,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import useEditBoard from '@/hooks/useEditBoard'
 import { ShortButton } from '..'
 import ColorSelector from '../ColorSelector/ColorSelector'
+import CircleChip from '../Chips/CircleChip'
 
 export default function EditName() {
   const [editBoardBody, setEditBoardBody] = useState({
@@ -46,8 +47,11 @@ export default function EditName() {
 
   return (
     <div className="flex w-[62rem] flex-col gap-[3.4rem] rounded-[0.8rem] bg-var-white p-[2.8rem]">
-      <div className="flex justify-between">
-        <p className="text-[2rem] font-bold">{dashboardBody.title}</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-[1rem]">
+          <CircleChip color={dashboardBody.color} />
+          <p className="text-[2rem] font-bold">{dashboardBody.title}</p>
+        </div>
         <ColorSelector
           boardColor={editBoardBody.color || dashboardBody.color}
           handleClick={handleColor}
