@@ -65,7 +65,7 @@ export default function ToastLayout() {
         <Image fill src={cancel} alt="취소 버튼" />
       </button>
       <div
-        className={`animate-timer absolute left-0 top-0 h-[0.3rem] w-[28rem] ${findToast.warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
+        className={`absolute left-0 top-0 h-[0.3rem] w-[28rem] animate-timer ${findToast.warn ? 'bg-[#D549B6]' : 'bg-var-green'}`}
       />
     </div>
   )
