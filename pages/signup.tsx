@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo.png'
-import SignUpAccess from '@/service/users'
+import { SignUpAccess } from '@/service/users'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useAppDispatch } from '@/hooks/useApp'
 

@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import searchIcon from '@/public/icons/searchIcon.svg'
-import { useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Invitation } from '@/types/invitation'
 import { getInvitationList, postInvitation } from '@/service/invitations'
 import useAsync from '@/hooks/useAsync'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
+import useDebounce from '@/hooks/useDebounce'
 import { ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
 
@@ -14,17 +15,20 @@ export default function InviteList() {
   const [cursorId, setCursorId] = useState<number | null>(0)
   const [inviteTitle, setInviteTitle] = useState('')
   const obsRef = useRef(null)
-  const inputRef = useRef<HTMLInputElement>(null)
   const { pending, requestFunction } = useAsync(getInvitationList)
   const dispatch = useAppDispatch()
+  const { deBounceValue } = useDebounce(inviteTitle, 200)
 
-  const handleSearch = () => {
-    if (inputRef.current) {
-      if (inviteTitle !== inputRef.current.value) {
-        setInvitationList([])
-        setInviteTitle(inputRef.current.value)
-      }
-    }
+  const handleLoadList = async () => {
+    const data = await requestFunction(cursorId, deBounceValue)
+    setInvitationList((prev) => [...prev, ...data.invitations])
+    setCursorId(data.cursorId)
+  }
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInvitationList([])
+    setCursorId(null)
+    setInviteTitle(e.target.value)
   }
 
   const handleInvite = async (id: number, answer: boolean) => {
@@ -34,27 +38,18 @@ export default function InviteList() {
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0]
-    const id = localStorage.getItem('cursorId')
     if (!pending && target.isIntersecting) {
-      setCursorId(Number(id))
+      handleLoadList()
     }
   }
 
   useEffect(() => {
-    localStorage.removeItem('cursorId')
-    const handleLoadList = async () => {
-      const data = await requestFunction(cursorId, inviteTitle)
-      setInvitationList((prev) => [...prev, ...data.invitations])
-      if (data.cursorId) {
-        localStorage.setItem('cursorId', data.cursorId)
-      }
-    }
     handleLoadList()
-  }, [cursorId, inviteTitle, requestFunction])
+  }, [deBounceValue])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
-    if (obsRef.current && !pending && !cursorId) observer.observe(obsRef.current)
+    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
     return () => {
       observer.disconnect()
     }
@@ -66,17 +61,14 @@ export default function InviteList() {
         <form
           onSubmit={(e) => {
             e.preventDefault()
-            handleSearch()
+            // handleSearch()
           }}
         >
           <input
             placeholder="검색"
             className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-var-gray3 px-[4.8rem] py-[1rem] text-[1.6rem]"
-            ref={inputRef}
-            onChange={() => {
-              // 검색어 state 변경
-            }}
-            onBlur={handleSearch}
+            onChange={handleInputChange}
+            // onBlur={handleSearch}
           />
           <Image
             src={searchIcon}

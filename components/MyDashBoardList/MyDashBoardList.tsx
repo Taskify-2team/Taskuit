@@ -9,6 +9,14 @@ export default function MyDashBoardList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [dashBoard, setDashBoard] = useState<DashBoard[]>([])
 
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const handlePrev = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   useEffect(() => {
     const handleLoadList = async () => {
       const data = await getDashBoard(currentPage)
@@ -32,7 +40,8 @@ export default function MyDashBoardList() {
           <PaginationButton
             currentPage={currentPage}
             totalPage={dashBoardPage}
-            setCurrentPage={setCurrentPage}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
           />
         </div>
       )}
