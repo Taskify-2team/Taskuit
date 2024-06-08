@@ -3,8 +3,8 @@
 /** Pages Layout */
 import AppLayout from './AppLayout/AppLayout'
 import LandingPageLayout from './AppLayout/LandingPageLayout/LandingPageLayout'
-import EditPassword from './AppLayout/MyPageLayout/EditPassword/EditPassword'
-import EditProfile from './AppLayout/MyPageLayout/EditProfile/EditProfile'
+import EditPassword from './AppLayout/MyPageLayout/components/EditPassword'
+import EditProfile from './AppLayout/MyPageLayout/components/EditProfile'
 import MyPageLayout from './AppLayout/MyPageLayout/MyPageLayout'
 
 export { AppLayout, LandingPageLayout, EditPassword, EditProfile, MyPageLayout }
