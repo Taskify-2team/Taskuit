@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getDashBoardInfo, putDashBoard } from '@/service/dashboards'
+import { putDashBoard } from '@/service/dashboards'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
+import useEditBoard from '@/hooks/useEditBoard'
 import { ShortButton } from '..'
 import ColorSelector from '../ColorSelector/ColorSelector'
+import CircleChip from '../Chips/CircleChip'
 
 export default function EditName() {
-  const [dashboardBody, setDashBoardBody] = useState({
-    title: '',
-    color: '',
-  })
   const [editBoardBody, setEditBoardBody] = useState({
     title: '',
     color: '',
@@ -18,6 +16,7 @@ export default function EditName() {
   const router = useRouter()
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
+  const { dashboardBody } = useEditBoard(Number(dashboardId))
 
   const handleColor = (colorName: string) => {
     setEditBoardBody({
@@ -36,7 +35,6 @@ export default function EditName() {
     }
     dispatch(openToast('successEditBoard'))
     await putDashBoard(Number(dashboardId), editBoardBody)
-    setDashBoardBody({ ...editBoardBody })
     setEditBoardBody({
       ...editBoardBody,
       title: '',
@@ -44,20 +42,16 @@ export default function EditName() {
   }
 
   useEffect(() => {
-    const handleLoadDashBoard = async () => {
-      if (dashboardId) {
-        const { title, color } = await getDashBoardInfo(Number(dashboardId))
-        setDashBoardBody({ title, color })
-        setEditBoardBody({ title, color })
-      }
-    }
-    handleLoadDashBoard()
-  }, [dashboardId])
+    setEditBoardBody({ ...dashboardBody })
+  }, [dashboardBody])
 
   return (
     <div className="flex w-[62rem] flex-col gap-[3.4rem] rounded-[0.8rem] bg-var-white p-[2.8rem]">
-      <div className="flex justify-between">
-        <p className="text-[2rem] font-bold">{dashboardBody.title}</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-[1rem]">
+          <CircleChip color={dashboardBody.color} />
+          <p className="text-[2rem] font-bold">{dashboardBody.title}</p>
+        </div>
         <ColorSelector
           boardColor={editBoardBody.color || dashboardBody.color}
           handleClick={handleColor}

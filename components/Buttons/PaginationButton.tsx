@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import arrowBack from '@/public/icons/arrowBack.svg'
 import arrowBackGrey from '@/public/icons/arrowBackGrey.svg'
 import arrowForward from '@/public/icons/arrowForward.svg'
@@ -8,28 +8,18 @@ import arrowForwardGrey from '@/public/icons/arrowForwardGrey.svg'
 interface PaginationButtonProps {
   currentPage: number
   totalPage: number
-  setCurrentPage: Dispatch<SetStateAction<number>>
+  handleNext: () => void
+  handlePrev: () => void
 }
 
 export default function PaginationButton({
   currentPage,
   totalPage,
-  setCurrentPage,
+  handleNext,
+  handlePrev,
 }: PaginationButtonProps) {
   const [next, setNext] = useState(false)
   const [prev, setPrev] = useState(false)
-
-  const moveNext = () => {
-    if (next) {
-      setCurrentPage(currentPage + 1)
-    }
-  }
-
-  const movePrev = () => {
-    if (prev) {
-      setCurrentPage(currentPage - 1)
-    }
-  }
 
   useEffect(() => {
     if (currentPage < totalPage) {
@@ -50,7 +40,11 @@ export default function PaginationButton({
     <div className="flex">
       <div
         className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-l-[0.4rem] border border-solid border-var-gray3"
-        onClick={movePrev}
+        onClick={() => {
+          if (prev) {
+            handlePrev()
+          }
+        }}
       >
         <Image
           src={prev ? arrowBack : arrowBackGrey}
@@ -61,7 +55,11 @@ export default function PaginationButton({
       </div>
       <div
         className="flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-r-[0.4rem] border border-solid border-var-gray3"
-        onClick={moveNext}
+        onClick={() => {
+          if (next) {
+            handleNext()
+          }
+        }}
       >
         <Image
           src={next ? arrowForward : arrowForwardGrey}
