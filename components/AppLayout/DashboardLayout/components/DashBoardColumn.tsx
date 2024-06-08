@@ -1,13 +1,12 @@
-import { CreateTodoButton, DashBoardCard } from '@/components'
+import { CreateTodoButton, DashBoardCard, CircleChip } from '@/components'
 import Image from 'next/image'
-import settingIcon from '@/public/icons/settingicon.svg'
+import settingIcon from '@/public/icons/settingIcon.svg'
 import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import CircleChip from '../Chips/CircleChip'
 
 interface DashBoardColumnProps {
   columnId: number

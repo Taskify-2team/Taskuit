@@ -1,13 +1,14 @@
 /* eslint-disable import/first */
 
 /** Pages Layout */
+import Dashboard from '@/pages/dashboard/[dashboardId]'
 import AppLayout from './AppLayout/AppLayout'
 import LandingPageLayout from './AppLayout/LandingPageLayout/LandingPageLayout'
 import EditPassword from './AppLayout/MyPageLayout/components/EditPassword'
 import EditProfile from './AppLayout/MyPageLayout/components/EditProfile'
 import MyPageLayout from './AppLayout/MyPageLayout/MyPageLayout'
 
-export { AppLayout, LandingPageLayout, EditPassword, EditProfile, MyPageLayout }
+export { AppLayout, LandingPageLayout, EditPassword, EditProfile, MyPageLayout, Dashboard }
 
 /** UI Components  */
 import SideMenu from './SideMenu/SideMenu'
@@ -22,10 +23,14 @@ import DarkHeader from './Headers/DarkHeader/DarkHeader'
 import MyDashBoardList from './MyDashBoardList/MyDashBoardList'
 import Footer from './Footer/Footer'
 import InviteList from './InviteList/InviteList'
-import DashBoardCard from './DashBoard/DashBoardCard'
+import DashboardLayout from './AppLayout/DashboardLayout/DashboardLayout'
+import DashBoardCard from './AppLayout/DashboardLayout/components/DashBoardCard'
+import DashBoardColumn from './AppLayout/DashboardLayout/components/DashBoardColumn'
 
 export {
+  DashboardLayout,
   DashBoardCard,
+  DashBoardColumn,
   SideMenu,
   DashBoardList,
   SideMenuListItem as DashBoardListItem,
@@ -89,6 +94,14 @@ export {
   PaginationButton,
   ShortButton,
 }
+
+/** Chip Components */
+import TagChip from './Chips/TagChip'
+import TagChipList from './Chips/TagChipList'
+import CircleChip from './Chips/CircleChip'
+import ProgressChip from './Chips/ProgressChip'
+
+export { TagChip, TagChipList, CircleChip, ProgressChip }
 
 /** Modal Components */
 import ModalLayout from './Modals/ModalLayout'

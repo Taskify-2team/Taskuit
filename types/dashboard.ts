@@ -10,7 +10,6 @@ export interface DashBoard {
 
 export interface Column {
   createdAt: string
-  dashboardId: number
   id: number
   teamId: string
   title: string

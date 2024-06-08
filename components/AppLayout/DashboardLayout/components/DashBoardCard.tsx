@@ -4,8 +4,8 @@ import { formatDate } from '@/utils/formatDate'
 import calenderIcon from '@/public/icons/calendarGray5.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import TagChip from '../Chips/TagChip'
-import UserProfile from '../UserInfo/UserProfile'
+import UserProfile from '@/components/UserInfo/UserProfile'
+import TagChipList from '@/components/Chips/TagChipList'
 
 interface CardProps {
   card: Card
@@ -15,12 +15,6 @@ interface CardProps {
 
 export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps) {
   const dispatch = useAppDispatch()
-  const tagColor = [
-    { bg: '#F9EEE3', text: '#D58D49' },
-    { bg: '#F7DBF0', text: '#D549B6' },
-    { bg: '#DBE6F7', text: '#4981D5' },
-    { bg: '#E7F7DB', text: '#86D549' },
-  ]
 
   return (
     <button
@@ -38,19 +32,7 @@ export default function DashBoardCard({ card, columnTitle, onDelete }: CardProps
         </div>
       )}
       <h3 className="mb-[1rem] text-start text-[1.6rem]">{card.title}</h3>
-      <ul className="mb-[1.3rem] flex gap-[0.6rem]">
-        {card.tags.map((tag) => {
-          const randomPick = Math.floor(Math.random() * 4)
-          return (
-            <TagChip
-              key={tag}
-              tag={tag}
-              bgColor={tagColor[randomPick].bg}
-              textColor={tagColor[randomPick].text}
-            />
-          )
-        })}
-      </ul>
+      <TagChipList tags={card.tags} />
       <div className="flex justify-between">
         <div className="flex items-center gap-[0.6rem] text-[1.2rem] text-var-gray5">
           <Image src={calenderIcon} alt="날짜" width="18" height="18" />

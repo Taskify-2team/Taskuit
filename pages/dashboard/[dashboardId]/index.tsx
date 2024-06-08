@@ -1,5 +1,4 @@
-import { AppLayout } from '@/components'
-import DashBoardColumn from '@/components/DashBoard/DashBoardColumn'
+import { AppLayout, DashboardLayout } from '@/components'
 import useAsync from '@/hooks/useAsync'
 import { getColumns } from '@/service/columns'
 import { Column } from '@/types/dashboard'
@@ -28,9 +27,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex overflow-auto">
-        {columns?.map((column) => (
-          <DashBoardColumn key={column.id} columnId={column.id} columnTitle={column.title} />
-        ))}
+        <DashboardLayout columns={columns} />
       </div>
     </AppLayout>
   )
