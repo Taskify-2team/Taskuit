@@ -28,5 +28,5 @@ export const updateUserProfile = async (params: { nickname: string; profileImage
     nickname: params.nickname,
     profileImageUrl: params.profileImageUrl,
   })
-  return response.data
+  return response
 }
