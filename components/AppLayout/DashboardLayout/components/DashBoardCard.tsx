@@ -24,9 +24,15 @@ export default function DashBoardCard({ card, columnTitle, onDelete }: DashBoard
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
     >
       {card.imageUrl && (
-        <div className="relative mb-[1.2rem] h-[16rem]">
-          <Image fill src={card.imageUrl} alt="카드 이미지" className="object-cover" />
-        </div>
+        <Image
+          layout="responsive"
+          objectFit="cover"
+          width={400}
+          height={400}
+          src={card.imageUrl}
+          alt="카드 이미지"
+          className="mb-[1.2rem] rounded-[0.6rem]"
+        />
       )}
       <h3 className="mb-[1rem] text-start text-[1.6rem]">{card.title}</h3>
       <TagChipList tags={card.tags} />
