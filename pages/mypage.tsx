@@ -1,9 +1,7 @@
 import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
-import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updatePassword } from '@/service/auth'
 import { getUserInfo, postProfileImage, updateUserProfile } from '@/service/users'
-import { openToast } from '@/store/reducers/toastReducer'
 import { FormEvent, useEffect, useState } from 'react'
 
 export interface ProfileBody {
@@ -26,19 +24,24 @@ export default function MyPage() {
   const [imageFile, setImageFile] = useState<File>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
   const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
-  const { requestFunction: updateUserProfileReq } = useAsync(updateUserProfile)
   const {
-    pending: updatePasswordPen,
-    error: updatePasswordErr,
-    requestFunction: updatePasswordReq,
+    error: updateUserProfileError,
+    pending: updateUserProfilePending,
+    result: updateUserProfileResult,
+    requestFunction: updateUserProfileRequest,
+  } = useAsync(updateUserProfile)
+  const {
+    error: updatePasswordError,
+    pending: updatePasswordPending,
+    result: updatePasswordResult,
+    requestFunction: updatePasswordRequest,
   } = useAsync(updatePassword)
-  const dispatch = useAppDispatch()
 
   const handleUserInfo = async () => {
-    const result = await getUserInfoReq()
-    if (!result) return
+    const res = await getUserInfoReq()
+    if (!res) return
 
-    const { nickname, email, profileImageUrl } = result
+    const { nickname, email, profileImageUrl } = res
     setProfileBody({
       ...profileBody,
       nickname,
@@ -54,34 +57,33 @@ export default function MyPage() {
     if (imageFile) {
       const formData = new FormData()
       formData.append('image', imageFile)
-      const result = await postProfileImageReq(formData)
-      profileimageUrl = result?.profileImageUrl
+      const res = await postProfileImageReq(formData)
+      profileimageUrl = res?.profileImageUrl
     }
 
-    const result = await updateUserProfileReq({
+    await updateUserProfileRequest({
       nickname,
       profileImageUrl: profileimageUrl,
     })
-    if (!result) return
-
-    dispatch(openToast('successUpdateProfile'))
   }
 
   const handleUpdatePasswordSubmit = async (e: FormEvent, newPasswordBody: PasswordBody) => {
     e.preventDefault()
 
-    await updatePasswordReq(newPasswordBody)
+    await updatePasswordRequest(newPasswordBody)
   }
 
   useEffect(() => {
     handleUserInfo()
-  }, [])
+  }, [updateUserProfileResult])
 
   return (
     <AppLayout>
       <MyPageLayout
         EditProfile={
           <EditProfile
+            error={updateUserProfileError}
+            pending={updateUserProfilePending}
             onSubmit={handleEditProfileSubmit}
             imageFile={imageFile}
             setImageFile={setImageFile}
@@ -90,8 +92,9 @@ export default function MyPage() {
         }
         EditPassword={
           <EditPassword
-            pending={updatePasswordPen}
-            error={updatePasswordErr}
+            error={updatePasswordError}
+            pending={updatePasswordPending}
+            result={updatePasswordResult}
             onSubmit={handleUpdatePasswordSubmit}
           />
         }

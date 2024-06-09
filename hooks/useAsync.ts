@@ -7,7 +7,7 @@ type AsyncFunction<T, A extends any[]> = (...args: A) => Promise<T>
 
 const useAsync = <T, A extends any[]>(asyncFunction: AsyncFunction<T, A>) => {
   const [pending, setPending] = useState<boolean>(false)
-  const [error, setError] = useState<AxiosError | null>(null)
+  const [error, setError] = useState<AxiosError<any> | null>(null)
   const [result, setResult] = useState<T | null>(null)
 
   const requestFunction = useCallback(

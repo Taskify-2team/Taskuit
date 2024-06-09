@@ -1,19 +1,20 @@
-/* eslint-disable @typescript-eslint/dot-notation */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { PasswordBody } from '@/pages/mypage'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { openToast } from '@/store/reducers/toastReducer'
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 interface EditPasswordProps {
-  onSubmit: (e: FormEvent, newPasswordBody: PasswordBody) => void
-  error: AxiosError | null
+  error: AxiosError<any> | null
   pending: boolean
+  result: AxiosResponse
+  onSubmit: (e: FormEvent, newPasswordBody: PasswordBody) => Promise<void>
 }
 
-export default function EditPassword({ onSubmit, error, pending }: EditPasswordProps) {
+export default function EditPassword({ error, pending, result, onSubmit }: EditPasswordProps) {
   const [newPasswordBody, setNewPasswordBody] = useState({
     password: '',
     newPassword: '',
@@ -29,6 +30,7 @@ export default function EditPassword({ onSubmit, error, pending }: EditPasswordP
       newPassword: '',
     })
     setPasswordCheck('')
+    setDisabled(true)
   }
 
   const handleCurrentPasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,12 +59,13 @@ export default function EditPassword({ onSubmit, error, pending }: EditPasswordP
 
   useEffect(() => {
     if (error) {
-      dispatch(openMyToast({ text: error?.response?.data?.message, warn: true }))
-    } else {
+      const errorMessage = error?.response?.data?.message ?? ''
+      dispatch(openMyToast({ text: errorMessage, warn: true }))
+    } else if (result?.status === 204) {
       dispatch(openToast('successUpdatePassword'))
       handleInitPasswordValue()
     }
-  }, [pending, error])
+  }, [pending, error, result])
 
   return (
     <form
