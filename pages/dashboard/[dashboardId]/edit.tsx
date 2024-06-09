@@ -5,11 +5,14 @@ import EditName from '@/components/Edit/EditName'
 import { deleteDashBoard } from '@/service/dashboards'
 import { useRouter } from 'next/router'
 import backIcon from '@/public/icons/arrowBack.svg'
+import backIconGray from '@/public/icons/arrowBackGrey.svg'
 import Image from 'next/image'
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 
 export default function Edit() {
   const router = useRouter()
   const { dashboardId } = router.query
+  const { theme } = useLoadTheme()
 
   const handleDeleteDashboard = async () => {
     if (dashboardId) {
@@ -25,8 +28,17 @@ export default function Edit() {
           className="my-[1.3rem] flex w-fit cursor-pointer gap-[0.6rem]"
           onClick={() => router.back()}
         >
-          <Image src={backIcon} alt="화살표" width={20} height={20} />
-          <p className="text-[1.6rem]">돌아가기</p>
+          <Image
+            src={theme === 'normal' ? backIcon : backIconGray}
+            alt="화살표"
+            width={20}
+            height={20}
+          />
+          <p
+            className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+          >
+            돌아가기
+          </p>
         </div>
         <EditName />
         <EditMember />

@@ -1,3 +1,4 @@
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 import UserProfile from './UserProfile'
 
 export interface UserInfoProps {
@@ -7,6 +8,8 @@ export interface UserInfoProps {
 }
 
 export default function UserInfo({ profileImageUrl, nickname, size = 'l' }: UserInfoProps) {
+  const { theme } = useLoadTheme()
+
   const SIZE = {
     m: {
       gap: { gap: '0.8rem' },
@@ -21,7 +24,12 @@ export default function UserInfo({ profileImageUrl, nickname, size = 'l' }: User
   return (
     <div className="flex items-center" style={SIZE[size].gap}>
       <UserProfile profileImageUrl={profileImageUrl} nickname={nickname} size={size} />
-      <p style={SIZE[size].fontSize}>{nickname}</p>
+      <p
+        style={SIZE[size].fontSize}
+        className={`${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+      >
+        {nickname}
+      </p>
     </div>
   )
 }

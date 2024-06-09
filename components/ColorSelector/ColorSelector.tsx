@@ -4,6 +4,7 @@ import plusIcon from '@/public/icons/plusIcon.svg'
 import { useEffect, useRef, useState } from 'react'
 import { ColorPicker, useColor } from 'react-color-palette'
 import 'react-color-palette/css'
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 
 interface ColorSelectorProps {
   boardColor: string
@@ -15,6 +16,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
   const [togglePicker, setTogglePicker] = useState(false)
   const [pickColor, setPickColor] = useColor('#d9d9d9')
   const pickerRef = useRef<HTMLDivElement>(null)
+  const { theme } = useLoadTheme()
 
   const handleCustomColor = () => {
     if (togglePicker) {
@@ -54,7 +56,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
         </li>
       ))}
       <div
-        className="flex size-[3rem] cursor-pointer items-center justify-center rounded-[50%] border border-solid border-var-gray3"
+        className={`flex size-[3rem] cursor-pointer items-center justify-center rounded-[50%] border border-solid ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black2'}`}
         onClick={() => handleCustomColor()}
         style={{ backgroundColor: pickColor.hex || boardColor }}
       >

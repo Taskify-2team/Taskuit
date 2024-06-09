@@ -20,10 +20,11 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
   const handleSetTheme = () => {
     if (theme === 'normal') {
       setTheme('dark')
+      localStorage.setItem('theme', 'dark')
     } else {
       setTheme('normal')
+      localStorage.setItem('theme', 'normal')
     }
-    localStorage.setItem('theme', theme)
   }
 
   useEffect(() => {
@@ -37,6 +38,8 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
     const data = localStorage.getItem('language')
     if (data) {
       setLanguage(data)
+    } else {
+      localStorage.setItem('language', language)
     }
   }, [])
 
@@ -44,6 +47,8 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
     const data = localStorage.getItem('theme')
     if (data) {
       setTheme(data)
+    } else {
+      localStorage.setItem('theme', 'normal')
     }
   }, [])
 
