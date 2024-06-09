@@ -10,7 +10,7 @@ import {
 } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { postDashBoardCard } from '@/service/cards'
 import useAsync from '@/hooks/useAsync'
 import { PostCard } from '@/types/dashboard'
@@ -44,13 +44,12 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const { requestFunction: postImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
 
-  const handleInputValue = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setCardBody({
       ...cardBody,
       [e.target['name']]: e.target.value,
     })
+    console.log(cardBody)
   }
 
   const getMembersRequest = useCallback(async () => {
@@ -62,7 +61,8 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     setImageFile(file)
   }
 
-  const submitAddToDo = async () => {
+  const submitAddToDo = async (e: FormEvent) => {
+    e.preventDefault()
     let imageUrl
 
     if (imageFile) {
@@ -70,8 +70,11 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       formData.append('image', imageFile)
       imageUrl = await postImage({ columnId, imageFile })
     }
+    console.log({ ...cardBody, imageUrl })
 
-    await postToDo({ cardBody, imageUrl })
+    const result = await postToDo({ ...cardBody, imageUrl })
+    console.log(result)
+
     dispatch(closeModal())
     dispatch(openToast('todoAdditionSuccess'))
   }
@@ -102,7 +105,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         id="title"
         value={cardBody.title}
         placeholder="제목을 입력해 주세요."
-        onChange={handleInputValue}
+        onChange={handleChange}
       />
       <Textarea
         label="설명"
@@ -111,9 +114,9 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         id="description"
         value={cardBody.description}
         placeholder="설명을 입력해 주세요."
-        onChange={handleInputValue}
+        onChange={handleChange}
       />
-      <DateInput label="마감일" id="dueDate" value={cardBody.dueDate} onChange={handleInputValue} />
+      <DateInput label="마감일" id="dueDate" value={cardBody.dueDate} onChange={handleChange} />
       <TagInput id="tag" label="태그" />
       <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">

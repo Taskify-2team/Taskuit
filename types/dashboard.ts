@@ -17,13 +17,14 @@ export interface Column {
 }
 
 export interface PostCard {
-  assigneeUserId: number
-  dashboardId?: number
+  assigneeUserId?: number
+  dashboardId: number
   columnId: number
   title: string
   description: string
-  dueDate: string
-  tags: string[]
+  dueDate?: string
+  tags?: string[]
+  imageUrl?: string
 }
 
 export interface UpdateCard {
