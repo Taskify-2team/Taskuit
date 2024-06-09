@@ -3,6 +3,8 @@ import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card, Column } from '@/types/dashboard'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openModal } from '@/store/reducers/modalReducer'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -15,6 +17,8 @@ export default function DashBoardColumn({
   columnTitle,
   setColumns,
 }: DashBoardColumnProps) {
+  const dispatch = useAppDispatch()
+
   const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest } = useAsync(getDashBoardCard)
 
@@ -43,7 +47,16 @@ export default function DashBoardColumn({
         columnId={columnId}
         columnTitle={columnTitle}
       />
-      <CreateTodoButton />
+      <CreateTodoButton
+        onClick={() =>
+          dispatch(
+            openModal({
+              modalName: 'AddToDo',
+              modalProps: { columnId },
+            }),
+          )
+        }
+      />
       {cardList.length > 0 &&
         cardList.map((cardItem) => (
           <DashBoardCard

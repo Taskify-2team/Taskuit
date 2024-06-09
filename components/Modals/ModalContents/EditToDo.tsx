@@ -91,7 +91,6 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
           <DropDownInputMenu
             id="manager"
             label="담당자"
-            cardBody={newCardBody}
             setCardBody={setNewCardBody}
             managerList={managerList}
           />

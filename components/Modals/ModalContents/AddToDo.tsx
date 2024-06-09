@@ -10,23 +10,26 @@ import {
 } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { postDashBoardCard } from '@/service/cards'
 import useAsync from '@/hooks/useAsync'
-import { Member } from '@/types/member'
 import { PostCard } from '@/types/dashboard'
 import { postCardImage } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
+import { useRouter } from 'next/router'
+import { getMemberList } from '@/service/members'
 
 interface AddToDoProps {
-  dashboardId: number
   columnId: number
-  managerList: Member[]
 }
 
-export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoProps) {
+export default function AddToDo({ columnId }: AddToDoProps) {
+  const router = useRouter()
+  const { dashboardId } = router.query
+  const [members, setMembers] = useState()
+
   const [cardBody, setCardBody] = useState<PostCard>({
-    dashboardId,
+    dashboardId: Number(dashboardId),
     columnId,
     assigneeUserId: 0,
     title: '',
@@ -39,6 +42,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
   const dispatch = useAppDispatch()
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
+  const { requestFunction: getMembers } = useAsync(getMemberList)
 
   const handleInputValue = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
@@ -48,6 +52,11 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
       [e.target['name']]: e.target.value,
     })
   }
+
+  const getMembersRequest = useCallback(async () => {
+    const result = await getMembers(0, Number(dashboardId))
+    setMembers(result.members)
+  }, [dashboardId, getMembers])
 
   const handleFileInputValue = (file: File) => {
     setImageFile(file)
@@ -62,9 +71,7 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
       imageUrl = await postImage({ columnId, imageFile })
     }
 
-    const result = await postToDo({ cardBody, imageUrl })
-    if (!result) return
-
+    await postToDo({ cardBody, imageUrl })
     dispatch(closeModal())
     dispatch(openToast('todoAdditionSuccess'))
   }
@@ -75,14 +82,17 @@ export default function AddToDo({ dashboardId, columnId, managerList }: AddToDoP
     }
   }, [cardBody])
 
+  useEffect(() => {
+    getMembersRequest()
+  }, [getMembersRequest])
+
   return (
     <form onSubmit={submitAddToDo} className="modal-layout">
       <h3 className="text-[2.4rem] font-bold">할 일 생성</h3>
       <DropDownInputMenu
         id="manager"
         label="담당자"
-        managerList={managerList}
-        cardBody={cardBody}
+        managerList={members}
         setCardBody={setCardBody}
       />
       <TextInput
