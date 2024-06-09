@@ -8,7 +8,7 @@ import toastList from './ToastTypeList'
 
 export default function ToastLayout() {
   const [isVisible, setVisible] = useState(false)
-  const { toastName } = useAppSelector((state) => state.toast)
+  const { toastName } = useAppSelector((state) => state.toast) || {}
   const dispatch = useAppDispatch()
 
   const findToast = toastList.get(toastName)

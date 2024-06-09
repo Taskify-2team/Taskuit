@@ -9,12 +9,11 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 interface EditPasswordProps {
   error: AxiosError<any> | null
-  pending: boolean
-  result: AxiosResponse
+  result: AxiosResponse | null
   onSubmit: (e: FormEvent, newPasswordBody: PasswordBody) => Promise<void>
 }
 
-export default function EditPassword({ error, pending, result, onSubmit }: EditPasswordProps) {
+export default function EditPassword({ error, result, onSubmit }: EditPasswordProps) {
   const [newPasswordBody, setNewPasswordBody] = useState({
     password: '',
     newPassword: '',
@@ -65,7 +64,7 @@ export default function EditPassword({ error, pending, result, onSubmit }: EditP
       dispatch(openToast('successUpdatePassword'))
       handleInitPasswordValue()
     }
-  }, [pending, error, result])
+  }, [error, result])
 
   return (
     <form

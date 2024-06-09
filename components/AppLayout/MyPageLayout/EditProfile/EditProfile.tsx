@@ -9,8 +9,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 
 interface EditProfileProps {
   error: AxiosError<any> | null
-  pending: boolean
-  result: AxiosResponse
+  result: AxiosResponse | null
   onSubmit: (e: FormEvent, nickname: string) => Promise<void>
   imageFile?: File
   setImageFile: (file: File) => void
@@ -19,7 +18,6 @@ interface EditProfileProps {
 
 export default function EditProfile({
   error,
-  pending,
   result,
   onSubmit,
   imageFile,
@@ -48,16 +46,14 @@ export default function EditProfile({
   }, [profileBody])
 
   useEffect(() => {
-    if (pending) {
-      if (error) {
-        const errorMessage = error?.response?.data?.message ?? ''
-        dispatch(openMyToast({ text: errorMessage, warn: true }))
-      } else if (pending) {
-        dispatch(openToast('successUpdateProfile'))
-        setDisabled(true)
-      }
+    if (error) {
+      const errorMessage = error?.response?.data?.message ?? ''
+      dispatch(openMyToast({ text: errorMessage, warn: true }))
+    } else if (result?.status === 200) {
+      dispatch(openToast('successUpdateProfile'))
+      setDisabled(true)
     }
-  }, [pending, error])
+  }, [result, error])
 
   return (
     <form

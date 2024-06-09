@@ -26,13 +26,11 @@ export default function MyPage() {
   const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
   const {
     error: updateUserProfileError,
-    pending: updateUserProfilePending,
     result: updateUserProfileResult,
     requestFunction: updateUserProfileRequest,
   } = useAsync(updateUserProfile)
   const {
     error: updatePasswordError,
-    pending: updatePasswordPending,
     result: updatePasswordResult,
     requestFunction: updatePasswordRequest,
   } = useAsync(updatePassword)
@@ -83,7 +81,7 @@ export default function MyPage() {
         EditProfile={
           <EditProfile
             error={updateUserProfileError}
-            pending={updateUserProfilePending}
+            result={updateUserProfileResult}
             onSubmit={handleEditProfileSubmit}
             imageFile={imageFile}
             setImageFile={setImageFile}
@@ -93,7 +91,6 @@ export default function MyPage() {
         EditPassword={
           <EditPassword
             error={updatePasswordError}
-            pending={updatePasswordPending}
             result={updatePasswordResult}
             onSubmit={handleUpdatePasswordSubmit}
           />

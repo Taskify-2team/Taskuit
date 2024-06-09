@@ -7,7 +7,7 @@ import { closeMyToast } from '@/store/reducers/myToastReducer'
 
 export default function MyToastLayout() {
   const [isVisible, setVisible] = useState(false)
-  const { text, warn } = useAppSelector((state) => state.myToast)
+  const { text, warn } = useAppSelector((state) => state.myToast) || {}
   const dispatch = useAppDispatch()
 
   const closeButtonClickHandler = () => {
