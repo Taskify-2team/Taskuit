@@ -1,7 +1,9 @@
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteicon from '@/public/icons/inviteicon.svg'
 import settingicon from '@/public/icons/settingicon.svg'
+import themeIcon from '@/public/icons/brightness_89411.svg'
 import Link from 'next/link'
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 
 const MockData = {
   members: [
@@ -22,11 +24,14 @@ const MockData = {
 export default function DashBoardHeader() {
   const MockDataMembers = MockData.members
   const MockDataCount = MockData.totalCount
+  const { handleSetTheme } = useLoadTheme()
+
   return (
     <div className="fixed z-50 flex w-[100vw] items-center justify-between bg-var-white pl-[34rem] shadow">
       <p className="text-[2rem] font-bold">출력문구 예시</p>
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
+          <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
           <HeaderButton buttonIcon={settingicon} buttonName="관리" />
           <HeaderButton buttonIcon={inviteicon} buttonName="초대하기" />
           <ProfileList members={MockDataMembers} totalCount={MockDataCount} />
