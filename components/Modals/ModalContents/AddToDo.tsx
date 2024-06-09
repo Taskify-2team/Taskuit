@@ -2,7 +2,7 @@
 import {
   DropDownInputMenu,
   DateInput,
-  ProfileImageInput,
+  ImageInput,
   TagInput,
   TextInput,
   Textarea,
@@ -26,8 +26,8 @@ interface AddToDoProps {
 export default function AddToDo({ columnId }: AddToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
-  const [members, setMembers] = useState()
 
+  const [members, setMembers] = useState()
   const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId: Number(dashboardId),
     columnId,
@@ -37,10 +37,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     dueDate: '',
     tags: [],
   })
-  const [imageFile, setImageFile] = useState<File>()
   const [isDisabled, setIsDisabled] = useState(true)
   const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
   const [dueDate, setDueDate] = useState<string | undefined>()
+  const [imageFile, setImageFile] = useState<File>()
   const dispatch = useAppDispatch()
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
@@ -64,18 +64,12 @@ export default function AddToDo({ columnId }: AddToDoProps) {
 
   const submitAddToDo = async (e: FormEvent) => {
     e.preventDefault()
-    let imageUrl
-
+    let imageResult
     if (imageFile) {
-      const formData = new FormData()
-      formData.append('image', imageFile)
-      imageUrl = await postImage({ columnId, imageFile })
-    
-
-    console.log(cardBody)
-
-    const result = await postToDo({ ...cardBody, imageUrl })
-    console.log(result)
+      imageResult = await postImage({ columnId, imageFile })
+    }
+    const { imageUrl } = imageResult
+    await postToDo({ ...cardBody, imageUrl })
 
     dispatch(closeModal())
     dispatch(openToast('todoAdditionSuccess'))
@@ -134,7 +128,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         onChange={setDueDate}
       />
       <TagInput id="tag" label="태그" />
-      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
+      <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton

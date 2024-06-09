@@ -3,7 +3,7 @@ import addButton from '@/public/icons/addLogo.svg'
 import { ChangeEvent, useEffect, useState } from 'react'
 import InputLayout from './InputLayout'
 
-interface ProfileImageInputProps {
+interface ImageInputProps {
   currentImage?: string
   id: string
   label: string
@@ -12,14 +12,14 @@ interface ProfileImageInputProps {
   onChange: (file: File) => void
 }
 
-export default function ProfileImageInput({
+export default function ImageInput({
   currentImage = '',
   size,
   id,
   label,
   isRequired = false,
   onChange,
-}: ProfileImageInputProps) {
+}: ImageInputProps) {
   const [preview, setPreview] = useState(currentImage)
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {

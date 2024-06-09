@@ -1,4 +1,4 @@
-import { ProfileImageInput, TextInput, ShortButton } from '@/components'
+import { ImageInput, TextInput, ShortButton } from '@/components'
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { ProfileBody } from '@/pages/mypage'
 
@@ -39,7 +39,7 @@ export default function EditProfile({
     >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">프로필</h3>
       <div className="mb-[2rem] flex gap-[1.6rem]">
-        <ProfileImageInput
+        <ImageInput
           id="image"
           label="이미지"
           size="m"

@@ -3,7 +3,7 @@ import {
   DropDownInputMenu,
   DropDownMenu,
   DateInput,
-  ProfileImageInput,
+  ImageInput,
   TagInput,
   TextInput,
   Textarea,
@@ -122,7 +122,7 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
         name="tag"
         onChange={handleInputValue}
       />
-      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
+      <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton

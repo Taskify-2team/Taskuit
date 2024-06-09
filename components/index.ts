@@ -55,7 +55,7 @@ import DropDownMenu from './Inputs/DropDownMenu'
 import DropDownInputMenu from './Inputs/DropDownInputMenu'
 import AuthInput from './Inputs/AuthInput'
 import DateInput from './Inputs/DateInput'
-import ProfileImageInput from './Inputs/ProfileImageInput'
+import ImageInput from './Inputs/ImageInput'
 import TagInput from './Inputs/TagInput'
 import Textarea from './Inputs/Textarea'
 import TextInput from './Inputs/TextInput'
@@ -66,7 +66,7 @@ export {
   DropDownInputMenu,
   AuthInput,
   DateInput,
-  ProfileImageInput,
+  ImageInput,
   TagInput,
   Textarea,
   TextInput,
