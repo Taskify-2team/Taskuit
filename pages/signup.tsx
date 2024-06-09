@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import logo from '@/public/images/taskuitLogo.png'
+import logo from '@/public/images/taskuitLogo_main.png'
 import { SignUpAccess } from '@/service/users'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -65,9 +65,9 @@ export default function LoginForm() {
   return (
     <div className="flex flex-col items-center pb-[17.2rem] pt-[10.3rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
-        <Link href="/">
-          <Image src={logo} width={164} alt="로고" />
-          <p className="text-[5rem] font-bold text-[#1A57C9]">Taskuit</p>
+        <Link href="/" className="flex flex-col items-center">
+          <Image src={logo} width={300} alt="로고" />
+          <p className="text-center text-[7rem] font-bold text-primary-violet">Taskuit</p>
         </Link>
         <p className="text-[2rem]">첫 방문을 환영합니다!</p>
       </div>

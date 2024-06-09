@@ -14,6 +14,14 @@ export default function EditMember() {
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
 
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const handlePrev = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   const deleteMember = async (id: number) => {
     await deleteMemberList(id)
     setMemberList(memberList.filter((item) => item.id !== id))
@@ -42,7 +50,8 @@ export default function EditMember() {
           <PaginationButton
             currentPage={currentPage}
             totalPage={totalPage}
-            setCurrentPage={setCurrentPage}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
           />
         </div>
       </div>

@@ -24,6 +24,14 @@ export default function EditInvitation() {
     }
   }
 
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const handlePrev = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   useEffect(() => {
     const handleLoadList = async () => {
       if (dashboardId) {
@@ -49,7 +57,8 @@ export default function EditInvitation() {
           <PaginationButton
             currentPage={currentPage}
             totalPage={totalPage}
-            setCurrentPage={setCurrentPage}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
           />
           <ShortButton
             text="초대하기"
