@@ -1,10 +1,11 @@
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, RefObject } from 'react'
 import InputLayout from './InputLayout'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
   isReadOnly?: boolean
+  ref?: RefObject<HTMLInputElement>
 }
 
 export default function TextInput({
@@ -14,6 +15,7 @@ export default function TextInput({
   value,
   onChange,
   placeholder,
+  ref,
   isRequired = false,
   isReadOnly = false,
 }: TextInputProps) {
@@ -28,6 +30,7 @@ export default function TextInput({
         required={isRequired}
         className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''}`}
         readOnly={isReadOnly}
+        ref={ref}
       />
     </InputLayout>
   )

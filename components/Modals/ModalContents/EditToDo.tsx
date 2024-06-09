@@ -40,6 +40,7 @@ export default function EditToDo({ columnId, card, progressList }: EditToDoProps
   })
   const [imageFile, setImageFile] = useState<File>()
   const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
+
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState<string | undefined>()
 

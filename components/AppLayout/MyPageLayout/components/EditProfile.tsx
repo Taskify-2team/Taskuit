@@ -1,40 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ImageInput, TextInput, ShortButton } from '@/components'
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { ProfileBody } from '@/pages/mypage'
+import { useAppDispatch } from '@/hooks/useApp'
+import { AxiosError, AxiosResponse } from 'axios'
+import { openMyToast } from '@/store/reducers/myToastReducer'
+import { openToast } from '@/store/reducers/toastReducer'
 
 interface EditProfileProps {
-  onSubmit: (e: FormEvent) => Promise<void>
+  error: AxiosError<any> | null
+  result: AxiosResponse | null
+  onSubmit: (e: FormEvent, nickname: string) => Promise<void>
+  imageFile?: File
   setImageFile: (file: File) => void
   profileBody: ProfileBody
-  setProfileBody: Dispatch<SetStateAction<ProfileBody>>
 }
 
 export default function EditProfile({
+  error,
+  result,
   onSubmit,
+  imageFile,
   setImageFile,
   profileBody,
-  setProfileBody,
 }: EditProfileProps) {
-  const [currentValue, setCurrentValue] = useState<ProfileBody>(profileBody)
+  const [nickName, setNickName] = useState('')
   const [isDisabled, setDisabled] = useState(true)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const dispatch = useAppDispatch()
+
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setProfileBody({
-      ...profileBody,
-      nickname: e.target.value,
-    })
+    setNickName(e.target.value)
   }
 
   const handleFileInputValue = (file: File) => {
     setImageFile(file)
   }
 
-  const handlePasswordValidate = () => {
-    setDisabled(currentValue === profileBody)
-  }
+  useEffect(() => {
+    setDisabled(!imageFile && profileBody.nickname === nickName)
+  }, [nickName, imageFile])
+
+  useEffect(() => {
+    setNickName(profileBody.nickname)
+  }, [profileBody])
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage = error?.response?.data?.message ?? ''
+      dispatch(openMyToast({ text: errorMessage, warn: true }))
+    } else if (result?.status === 200) {
+      dispatch(openToast('successUpdateProfile'))
+      setDisabled(true)
+    }
+  }, [result, error])
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={(e) => onSubmit(e, nickName)}
       className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
     >
       <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">프로필</h3>
@@ -52,25 +75,20 @@ export default function EditProfile({
             label="이메일"
             value={profileBody.email}
             isReadOnly
-            placeholder="email@gmail.com"
+            placeholder="email@gmail.com"
           />
           <TextInput
             id="nickname"
             label="닉네임"
-            value={profileBody.nickname}
+            value={nickName}
             onChange={handleInputValue}
+            ref={inputRef}
             placeholder="닉네임을 입력하세요"
           />
         </div>
       </div>
       <div className="self-end">
-        <ShortButton
-          color="purple"
-          type="submit"
-          isDisabled={currentValue === profileBody}
-          onClick={onSubmit}
-          text="저장"
-        />
+        <ShortButton color="purple" type="submit" isDisabled={isDisabled} text="저장" />
       </div>
     </form>
   )

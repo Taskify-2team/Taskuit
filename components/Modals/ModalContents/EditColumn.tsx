@@ -2,7 +2,7 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
-import { closeModal } from '@/store/reducers/modalReducer'
+import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Column } from '@/types/dashboard'
 import { ChangeEvent, FormEvent, useState } from 'react'
@@ -32,9 +32,12 @@ export default function EditColumn({ columnId, columnTitle, setColumns }: EditCo
   const handleDelete = async () => {
     await deleteColumnFunction(columnId)
     setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
-
-    dispatch(closeModal())
-    dispatch(openToast('successDeleteColumn'))
+    dispatch(
+      openModal({
+        modalName: 'WarningModal',
+        modalProps: { variant: 'deleteColumn', columnId },
+      }),
+    )
   }
 
   const handleSubmit = async (e: FormEvent) => {

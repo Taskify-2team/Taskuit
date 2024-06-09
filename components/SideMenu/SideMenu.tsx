@@ -1,11 +1,16 @@
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 import SideMenuList, { SideMenuListProps } from './SideMenuList/SideMenuList'
 
 export default function SideMenu({ data }: SideMenuListProps) {
+  const { theme } = useLoadTheme()
+
   return (
-    <div className="fixed z-40 flex h-[100vh] w-[30rem] flex-col gap-[5.7rem] border-r-2 bg-var-white pl-[2.4rem] pr-[2.4rem] pt-[2rem]">
+    <div
+      className={`fixed z-40 flex h-[100vh] w-[30rem] flex-col gap-[5.7rem] border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1'} px-[2.4rem] pt-[2rem]`}
+    >
       <div className="flex items-center gap-[1rem]">
         <Image src={logoIcon} alt="Taskify 로고 아이콘" width={40} />
         <p className="text-center text-[2.5rem] font-bold text-primary-violet">Taskuit</p>

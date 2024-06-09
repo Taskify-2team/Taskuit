@@ -25,5 +25,5 @@ export const updatePassword = async ({
     password,
     newPassword,
   })
-  return response.data
+  return response
 }

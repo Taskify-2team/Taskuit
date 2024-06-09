@@ -73,7 +73,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       await postToDo(cardBody)
     }
     dispatch(closeModal())
-    dispatch(openToast('todoAdditionSuccess'))
+    dispatch(openToast('successAddCard'))
   }
 
   useEffect(() => {
