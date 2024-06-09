@@ -12,7 +12,6 @@ import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
-import { PostCard, UpdateCard } from '@/types/dashboard'
 import InputLayout from './InputLayout'
 import UserInfo from '../UserInfo/UserInfo'
 
@@ -20,13 +19,13 @@ interface DropDownInputMenuProps {
   label: string
   id: string
   managerList: Member[] | undefined
-  setCardBody: Dispatch<SetStateAction<PostCard | UpdateCard>>
+  setManager: Dispatch<SetStateAction<number | undefined>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  setCardBody,
+  setManager,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -58,7 +57,7 @@ export default function DropDownInputMenu({
     setMenuList(result)
   }
 
-  const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     findMatchingItemList(e.target.value)
     if (e.target.value) {
       setSelectMenu((prev) => ({
@@ -70,7 +69,7 @@ export default function DropDownInputMenu({
     }
   }
 
-  const handleClickOutside = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (dropDownElement.current && !dropDownElement.current.contains(e.target as Node)) {
       setShowMenuList(false)
     }
@@ -133,18 +132,15 @@ export default function DropDownInputMenu({
   }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mousedown', handleOutsideClick)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
 
   useEffect(() => {
-    setCardBody((prevCardBody) => ({
-      ...prevCardBody,
-      assigneeUserId: selectMenu.id,
-    }))
-  }, [selectMenu.id, setCardBody])
+    setManager(selectMenu.id)
+  }, [selectMenu.id, setManager])
 
   useEffect(() => {
     setMenuList(initManagerList)
@@ -182,7 +178,7 @@ export default function DropDownInputMenu({
           ref={inputElement}
           onKeyDown={handleKeyDown}
           value={selectMenu.nickname}
-          onChange={changeInput}
+          onChange={handleInputChange}
           className="w-full text-[1.6rem] outline-none"
           placeholder="이름을 입력해 주세요"
         />
@@ -198,14 +194,14 @@ export default function DropDownInputMenu({
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
             {menuList?.map((menuItem, i) => (
               <div
-                key={menuItem.id}
+                key={menuItem.userId}
                 ref={(el) => {
                   menuElement.current[i] = el as HTMLDivElement
                 }}
                 onClick={() =>
                   setSelectMenu({
                     ...selectMenu,
-                    id: menuItem.id,
+                    id: menuItem.userId,
                     nickname: menuItem.nickname,
                     profileImageUrl: menuItem.profileImageUrl,
                     index: i,

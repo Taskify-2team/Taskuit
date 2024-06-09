@@ -39,6 +39,8 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   })
   const [imageFile, setImageFile] = useState<File>()
   const [isDisabled, setIsDisabled] = useState(true)
+  const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
+  const [dueDate, setDueDate] = useState<string | undefined>()
   const dispatch = useAppDispatch()
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
@@ -49,7 +51,6 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       ...cardBody,
       [e.target['name']]: e.target.value,
     })
-    console.log(cardBody)
   }
 
   const getMembersRequest = useCallback(async () => {
@@ -69,8 +70,9 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       const formData = new FormData()
       formData.append('image', imageFile)
       imageUrl = await postImage({ columnId, imageFile })
-    }
-    console.log({ ...cardBody, imageUrl })
+    
+
+    console.log(cardBody)
 
     const result = await postToDo({ ...cardBody, imageUrl })
     console.log(result)
@@ -86,6 +88,14 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }, [cardBody])
 
   useEffect(() => {
+    setCardBody((prevCardBody) => ({
+      ...prevCardBody,
+      assigneeUserId,
+      dueDate,
+    }))
+  }, [assigneeUserId, dueDate, setCardBody])
+
+  useEffect(() => {
     getMembersRequest()
   }, [getMembersRequest])
 
@@ -96,7 +106,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         id="manager"
         label="담당자"
         managerList={members}
-        setCardBody={setCardBody}
+        setManager={setAssigneeUserId}
       />
       <TextInput
         label="제목"
@@ -116,7 +126,13 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         placeholder="설명을 입력해 주세요."
         onChange={handleChange}
       />
-      <DateInput label="마감일" id="dueDate" value={cardBody.dueDate} onChange={handleChange} />
+      <DateInput
+        label="마감일"
+        id="dueDate"
+        name="dueDate"
+        value={cardBody.dueDate}
+        onChange={setDueDate}
+      />
       <TagInput id="tag" label="태그" />
       <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
