@@ -1,4 +1,11 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-multi-assign */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-var */
+/* eslint-disable vars-on-top */
 import mongoose from 'mongoose'
+
 declare global {
   var mongoose: any // This must be a `var` and not a `let / const`
 }
