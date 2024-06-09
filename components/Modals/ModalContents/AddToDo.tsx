@@ -64,10 +64,13 @@ export default function AddToDo({ columnId }: AddToDoProps) {
 
   const submitAddToDo = async (e: FormEvent) => {
     e.preventDefault()
+    let imageResult
     if (imageFile) {
-      const imageResult = await postImage({ columnId, imageFile })
+      imageResult = await postImage({ columnId, imageFile })
       const { imageUrl } = imageResult
       await postToDo({ ...cardBody, imageUrl })
+    } else {
+      await postToDo(cardBody)
     }
     dispatch(closeModal())
     dispatch(openToast('todoAdditionSuccess'))

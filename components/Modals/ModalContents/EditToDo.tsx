@@ -64,26 +64,20 @@ export default function EditToDo({ columnId, card, progressList }: EditToDoProps
     setImageFile(file)
   }
 
-  const submitImageFile = async () => {
-    let imageResult
-    if (imageFile) {
-      imageResult = await updateCardImage({ columnId, imageFile })
-      const { imageUrl } = imageResult
-      setNewCardBody({
-        ...newCardBody,
-        imageUrl,
-      })
-    }
-  }
-
-  console.log(newCardBody)
-
   const submitEditToDo = async (e: FormEvent) => {
     e.preventDefault()
-    await submitImageFile()
-    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
-    const result = await requestFunction({ newCardBody, cardId: card.id })
-    if (!result) return
+    if (imageFile) {
+      const imageResult = await updateCardImage({ columnId, imageFile })
+      await requestFunction({
+        newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
+        cardId: card.id,
+      })
+    } else {
+      await requestFunction({
+        newCardBody,
+        cardId: card.id,
+      })
+    }
 
     dispatch(closeModal())
     /** 토스트 */
@@ -106,7 +100,6 @@ export default function EditToDo({ columnId, card, progressList }: EditToDoProps
       assigneeUserId,
       dueDate,
     }))
-    console.log(newCardBody)
   }, [assigneeUserId, dueDate, setNewCardBody])
 
   useEffect(() => {
