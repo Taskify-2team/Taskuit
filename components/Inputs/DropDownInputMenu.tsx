@@ -12,22 +12,20 @@ import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Member } from '@/types/member'
-import { PostCard, UpdateCard } from '@/types/dashboard'
 import InputLayout from './InputLayout'
+import UserInfo from '../UserInfo/UserInfo'
 
 interface DropDownInputMenuProps {
   label: string
   id: string
-  managerList?: Member[]
-  cardBody: PostCard | UpdateCard
-  setCardBody: Dispatch<SetStateAction<PostCard | UpdateCard>>
+  managerList: Member[] | undefined
+  setManager: Dispatch<SetStateAction<number | undefined>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
-  cardBody,
-  setCardBody,
+  setManager,
   managerList: initManagerList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -36,7 +34,7 @@ export default function DropDownInputMenu({
     profileImageUrl: '',
     index: 0,
   })
-  const [menuList, setMenuList] = useState<Member[]>(initManagerList)
+  const [menuList, setMenuList] = useState<Member[]>([])
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
@@ -53,13 +51,13 @@ export default function DropDownInputMenu({
   }
 
   const findMatchingItemList = (inputValue: string) => {
-    const result = initManagerList.filter((menuItem) => {
+    const result = initManagerList?.filter((menuItem) => {
       return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
     setMenuList(result)
   }
 
-  const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     findMatchingItemList(e.target.value)
     if (e.target.value) {
       setSelectMenu((prev) => ({
@@ -71,7 +69,7 @@ export default function DropDownInputMenu({
     }
   }
 
-  const handleClickOutside = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (dropDownElement.current && !dropDownElement.current.contains(e.target as Node)) {
       setShowMenuList(false)
     }
@@ -93,7 +91,7 @@ export default function DropDownInputMenu({
   }
 
   const handleArrowUp = () => {
-    if (menuElement.current[menuList.length - 1]) {
+    if (menuList && menuElement.current[menuList.length - 1]) {
       if (selectMenu.nickname) {
         const idx = selectMenu.index
         if (menuElement.current[idx - 1]) {
@@ -134,18 +132,19 @@ export default function DropDownInputMenu({
   }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mousedown', handleOutsideClick)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
 
   useEffect(() => {
-    setCardBody({
-      ...cardBody,
-      assigneeUserId: selectMenu.id,
-    })
-  }, [selectMenu.id])
+    setManager(selectMenu.id)
+  }, [selectMenu.id, setManager])
+
+  useEffect(() => {
+    setMenuList(initManagerList)
+  }, [initManagerList])
 
   return (
     <InputLayout id={id} label={label}>
@@ -179,7 +178,7 @@ export default function DropDownInputMenu({
           ref={inputElement}
           onKeyDown={handleKeyDown}
           value={selectMenu.nickname}
-          onChange={changeInput}
+          onChange={handleInputChange}
           className="w-full text-[1.6rem] outline-none"
           placeholder="이름을 입력해 주세요"
         />
@@ -193,16 +192,16 @@ export default function DropDownInputMenu({
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {menuList.map((menuItem, i) => (
+            {menuList?.map((menuItem, i) => (
               <div
-                key={menuItem.id}
+                key={menuItem.userId}
                 ref={(el) => {
                   menuElement.current[i] = el as HTMLDivElement
                 }}
                 onClick={() =>
                   setSelectMenu({
                     ...selectMenu,
-                    id: menuItem.id,
+                    id: menuItem.userId,
                     nickname: menuItem.nickname,
                     profileImageUrl: menuItem.profileImageUrl,
                     index: i,
@@ -215,15 +214,7 @@ export default function DropDownInputMenu({
                     <Image src={check} alt="체크 표시" />
                   )}
                 </div>
-                <div className="relative h-[2.6rem] w-[2.6rem]">
-                  <Image
-                    fill
-                    src={menuItem.profileImageUrl}
-                    alt="프로필 이미지"
-                    className="rounded-full border-[0.2rem]"
-                  />
-                </div>
-                <div className="text-[1.6rem]">{menuItem.nickname}</div>
+                <UserInfo profileImageUrl={menuItem.profileImageUrl} nickname={menuItem.nickname} />
               </div>
             ))}
           </div>

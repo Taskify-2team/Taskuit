@@ -1,5 +1,6 @@
 const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['successEditBoard', { text: '대시보드가 변경되었습니다.', warn: false }],
+  ['successEditColumn', { text: '컬럼 이름이 변경되었습니다.', warn: false }],
   ['successDeleteColumn', { text: '컬럼이 삭제되었습니다.', warn: false }],
   ['successDeleteCard', { text: '카드가 삭제되었습니다.', warn: false }],
   ['successDeleteMember', { text: '삭제되었습니다.', warn: false }],

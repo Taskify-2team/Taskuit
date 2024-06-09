@@ -3,7 +3,7 @@ import {
   DropDownInputMenu,
   DropDownMenu,
   DateInput,
-  ProfileImageInput,
+  ImageInput,
   TagInput,
   TextInput,
   Textarea,
@@ -13,33 +13,46 @@ import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updateDashBoardCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
+import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
-import { Member } from '@/types/member'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 interface EditToDoProps {
   columnId: number
   card: Card
-  managerList: Member[]
   progressList: string[]
 }
 
-export default function EditToDo({ columnId, card, managerList, progressList }: EditToDoProps) {
+export default function EditToDo({ columnId, card, progressList }: EditToDoProps) {
+  const router = useRouter()
+  const { dashboardId } = router.query
+  const [members, setMembers] = useState()
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
+    columnId,
+    assigneeUserId: card?.assignee.id || 0,
     title: card?.title,
     description: card?.description,
     dueDate: card?.dueDate,
     tags: card?.tags,
-    imageUrl: card?.imageUrl,
-    columnId,
-    assigneeUserId: card?.assignee?.id || 0,
+    imageUrl: card?.imageUrl || null,
   })
   const [imageFile, setImageFile] = useState<File>()
+  const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
+
   const [isDisabled, setIsDisabled] = useState(true)
+  const [dueDate, setDueDate] = useState<string | undefined>()
+
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
+  const { requestFunction: getMembers } = useAsync(getMemberList)
+
+  const getMembersRequest = useCallback(async () => {
+    const result = await getMembers(0, Number(dashboardId))
+    setMembers(result.members)
+  }, [dashboardId, getMembers])
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewCardBody({
@@ -52,23 +65,20 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
     setImageFile(file)
   }
 
-  const submitImageFile = async () => {
+  const submitEditToDo = async (e: FormEvent) => {
+    e.preventDefault()
     if (imageFile) {
-      const formData = new FormData()
-      formData.append('image', imageFile)
-      const result = await updateCardImage({ columnId, imageFile })
-      setNewCardBody({
-        ...newCardBody,
-        imageUrl: result.data.imageUrl,
+      const imageResult = await updateCardImage({ columnId, imageFile })
+      await requestFunction({
+        newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
+        cardId: card.id,
+      })
+    } else {
+      await requestFunction({
+        newCardBody,
+        cardId: card.id,
       })
     }
-  }
-
-  const submitEditToDo = async () => {
-    await submitImageFile()
-    /** 추후 이미지 프롭스 잘 불러오는지 확인 필요 */
-    const result = await requestFunction({ newCardBody, cardId: card.id })
-    if (!result) return
 
     dispatch(closeModal())
     /** 토스트 */
@@ -79,6 +89,23 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
       setIsDisabled(false)
     }
   }, [newCardBody])
+
+  useEffect(() => {
+    setAssigneeUserId(card.assignee.id)
+    setDueDate(card.dueDate)
+  }, [card])
+
+  useEffect(() => {
+    setNewCardBody((prevCardBody) => ({
+      ...prevCardBody,
+      assigneeUserId,
+      dueDate,
+    }))
+  }, [assigneeUserId, dueDate, setNewCardBody])
+
+  useEffect(() => {
+    getMembersRequest()
+  }, [getMembersRequest])
 
   return (
     <form className="modal-layout" onSubmit={submitEditToDo}>
@@ -91,9 +118,8 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
           <DropDownInputMenu
             id="manager"
             label="담당자"
-            cardBody={newCardBody}
-            setCardBody={setNewCardBody}
-            managerList={managerList}
+            managerList={members}
+            setManager={setAssigneeUserId}
           />
         </div>
       </div>
@@ -115,7 +141,13 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
         placeholder="설명을 입력해 주세요."
         isRequired
       />
-      <DateInput id="dueDate" label="마감일" value={newCardBody?.dueDate} />
+      <DateInput
+        id="dueDate"
+        label="마감일"
+        name="dueDate"
+        value={newCardBody?.dueDate}
+        onChange={setDueDate}
+      />
       <TagInput
         id="tag"
         label="태그"
@@ -123,7 +155,7 @@ export default function EditToDo({ columnId, card, managerList, progressList }: 
         name="tag"
         onChange={handleInputValue}
       />
-      <ProfileImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
+      <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton

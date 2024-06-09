@@ -1,6 +1,6 @@
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
-import inviteicon from '@/public/icons/inviteicon.svg'
-import settingicon from '@/public/icons/settingicon.svg'
+import inviteIcon from '@/public/icons/inviteIcon.svg'
+import settingIcon from '@/public/icons/settingIcon.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
 import Link from 'next/link'
 import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
@@ -32,8 +32,8 @@ export default function DashBoardHeader() {
       <div className="flex">
         <div className="my-[1.6rem] flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
           <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
-          <HeaderButton buttonIcon={settingicon} buttonName="관리" />
-          <HeaderButton buttonIcon={inviteicon} buttonName="초대하기" />
+          <HeaderButton buttonIcon={settingIcon} buttonName="관리" />
+          <HeaderButton buttonIcon={inviteIcon} buttonName="초대하기" />
           <ProfileList members={MockDataMembers} totalCount={MockDataCount} />
         </div>
         <div className="flex items-center">
