@@ -28,7 +28,7 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const handleDeleteColumn = async () => {
     dispatch(
       openModal({
-        modalName: 'warningModal',
+        modalName: 'WarningModal',
         modalProps: { variant: 'deleteColumn', columnId },
       }),
     )
