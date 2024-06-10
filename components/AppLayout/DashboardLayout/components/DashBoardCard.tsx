@@ -7,14 +7,14 @@ import { DashBoardCardInfo } from '@/components'
 
 interface DashBoardCardProps {
   card: Card
-  progressList: Column[]
+  columnList: Column[]
   columnTitle: string
   onDelete: (props: number) => void
 }
 
 export default function DashBoardCard({
   card,
-  progressList,
+  columnList,
   columnTitle,
   onDelete,
 }: DashBoardCardProps) {
@@ -24,7 +24,7 @@ export default function DashBoardCard({
     dispatch(
       openModal({
         modalName: 'DetailToDo',
-        modalProps: { card, progressList, columnTitle, onDelete },
+        modalProps: { card, columnList, columnTitle, onDelete },
       }),
     )
 

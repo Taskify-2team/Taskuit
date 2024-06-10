@@ -11,6 +11,7 @@ import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
+import { Assignee } from '@/types/dashboard'
 import { Member } from '@/types/member'
 import InputLayout from './InputLayout'
 import UserInfo from '../UserInfo/UserInfo'
@@ -18,20 +19,22 @@ import UserInfo from '../UserInfo/UserInfo'
 interface DropDownInputMenuProps {
   label: string
   id: string
-  managerList: Member[] | undefined
-  setManager: Dispatch<SetStateAction<number | undefined>>
+  currentManager?: Assignee
+  memberList: Member[]
+  setManager: Dispatch<SetStateAction<number>>
 }
 
 export default function DropDownInputMenu({
   label,
   id,
   setManager,
-  managerList: initManagerList = [],
+  currentManager,
+  memberList: initMemberList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
-    id: 0,
-    nickname: '',
-    profileImageUrl: '',
+    id: currentManager?.id,
+    nickname: currentManager?.nickname,
+    profileImageUrl: currentManager?.profileImageUrl,
     index: 0,
   })
   const [menuList, setMenuList] = useState<Member[]>([])
@@ -47,12 +50,12 @@ export default function DropDownInputMenu({
       profileImageUrl: '',
       index: 0,
     })
-    setMenuList(initManagerList)
+    setMenuList(initMemberList)
   }
 
   const findMatchingItemList = (inputValue: string) => {
-    const result = initManagerList?.filter((menuItem) => {
-      return menuItem.nickname.toLowerCase().includes(inputValue.toLowerCase())
+    const result = initMemberList?.filter((member) => {
+      return member.nickname.toLowerCase().includes(inputValue.toLowerCase())
     })
     setMenuList(result)
   }
@@ -139,12 +142,14 @@ export default function DropDownInputMenu({
   }, [])
 
   useEffect(() => {
-    setManager(selectMenu.id)
+    if (selectMenu.id) {
+      setManager(selectMenu.id)
+    }
   }, [selectMenu.id, setManager])
 
   useEffect(() => {
-    setMenuList(initManagerList)
-  }, [initManagerList])
+    setMenuList(initMemberList)
+  }, [initMemberList])
 
   return (
     <InputLayout id={id} label={label}>

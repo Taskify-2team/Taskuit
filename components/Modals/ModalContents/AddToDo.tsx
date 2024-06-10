@@ -19,7 +19,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
 
-interface AddToDoProps {
+export interface AddToDoProps {
   columnId: number
 }
 
@@ -27,7 +27,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
 
-  const [members, setMembers] = useState()
+  const [members, setMembers] = useState([])
   const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId: Number(dashboardId),
     columnId,
@@ -38,8 +38,8 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     tags: [],
   })
   const [isDisabled, setIsDisabled] = useState(true)
-  const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
-  const [dueDate, setDueDate] = useState<string | undefined>()
+  const [assigneeUserId, setAssigneeUserId] = useState(0)
+  const [dueDate, setDueDate] = useState('')
   const [imageFile, setImageFile] = useState<File>()
   const dispatch = useAppDispatch()
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
@@ -100,7 +100,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       <DropDownInputMenu
         id="manager"
         label="담당자"
-        managerList={members}
+        memberList={members}
         setManager={setAssigneeUserId}
       />
       <TextInput

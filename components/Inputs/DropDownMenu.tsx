@@ -9,12 +9,19 @@ import InputLayout from './InputLayout'
 interface DropDownMenuProps {
   label: string
   id: string
-  progressList: Column[]
+  columnTitle: string
+  columnList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
-export default function DropDownMenu({ progressList, onChange, id, label }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(progressList?.[0]?.title)
+export default function DropDownMenu({
+  columnList,
+  columnTitle,
+  onChange,
+  id,
+  label,
+}: DropDownMenuProps) {
+  const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 
@@ -24,12 +31,12 @@ export default function DropDownMenu({ progressList, onChange, id, label }: Drop
     }
   }
 
-  const handleChangeProgress = (progress: Column) => {
+  const handleChangeProgress = (nextColumn: Column) => {
     onChange((prev) => ({
       ...prev,
-      columnId: progress.id,
+      columnId: nextColumn.id,
     }))
-    setSelectMenu(progress.title)
+    setSelectMenu(nextColumn.title)
   }
 
   useEffect(() => {
@@ -59,18 +66,18 @@ export default function DropDownMenu({ progressList, onChange, id, label }: Drop
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {progressList.map((progress) => (
+            {columnList.map((column) => (
               <div
-                key={progress.id}
-                onClick={() => handleChangeProgress(progress)}
-                className={`${selectMenu === progress.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                key={column.id}
+                onClick={() => handleChangeProgress(column)}
+                className={`${selectMenu === column.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
               >
-                {progress.title === selectMenu && (
+                {column.title === selectMenu && (
                   <div className="col-start-1 size-[1rem] self-center">
                     <Image src={check} alt="체크 표시" />
                   </div>
                 )}
-                <ProgressChip progress={progress.title} />
+                <ProgressChip progress={column.title} />
               </div>
             ))}
           </div>
