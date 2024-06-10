@@ -23,11 +23,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         break
       }
 
-      case 'DELETE': {
-        await Tag.findByIdAndDelete(cardId)
-        res.status(204).end()
-        break
-      }
+      // case 'DELETE': {
+      //   const foundTag = await Tag.findById(id)
+      //   await Tag.findByIdAndDelete(foundTag.__id)
+      //   res.status(204).end()
+      //   break
+      // }
 
       default: {
         res.status(404).send('Not Found')
