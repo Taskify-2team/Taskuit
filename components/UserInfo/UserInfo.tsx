@@ -1,4 +1,4 @@
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import UserProfile from './UserProfile'
 
 export interface UserInfoProps {

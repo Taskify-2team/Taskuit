@@ -1,4 +1,4 @@
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ButtonHTMLAttributes } from 'react'
 
 interface DeleteButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}

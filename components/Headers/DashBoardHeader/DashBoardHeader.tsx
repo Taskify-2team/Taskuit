@@ -3,7 +3,7 @@ import inviteIcon from '@/public/icons/inviteIcon.svg'
 import settingIcon from '@/public/icons/settingIcon.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
 import Link from 'next/link'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 const MockData = {
   members: [

@@ -4,7 +4,7 @@ import arrowBack from '@/public/icons/arrowBack.svg'
 import arrowBackGrey from '@/public/icons/arrowBackGrey.svg'
 import arrowForward from '@/public/icons/arrowForward.svg'
 import arrowForwardGrey from '@/public/icons/arrowForwardGrey.svg'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface PaginationButtonProps {
   currentPage: number

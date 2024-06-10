@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import SideMenuList, { SideMenuListProps } from './SideMenuList/SideMenuList'
 
 export default function SideMenu({ data }: SideMenuListProps) {

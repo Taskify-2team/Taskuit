@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { SideMenu, DashBoardHeader } from '@/components'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 const data = {}
 
