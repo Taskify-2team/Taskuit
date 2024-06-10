@@ -1,6 +1,7 @@
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
-import inviteicon from '@/public/icons/inviteicon.svg'
-import settingicon from '@/public/icons/settingicon.svg'
+import inviteIcon from '@/public/icons/inviteIcon.svg'
+import settingIcon from '@/public/icons/settingIcon.svg'
+import themeIcon from '@/public/icons/brightness_89411.svg'
 import { getDashBoardInfo } from '@/service/dashboards'
 import { getMemberList } from '@/service/members'
 import { getUserInfo } from '@/service/users'
@@ -11,6 +12,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import crownIcon from '@/public/icons/crownicon.svg'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useDispatch } from 'react-redux'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface UserInfoData {
   profileImageUrl: string
@@ -29,6 +31,7 @@ export default function DashBoardHeader() {
   const [members, setMembers] = useState<any[]>([])
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
   const dispatch = useDispatch()
+  const { handleSetTheme, theme } = useLoadTheme()
 
   const fetchData = useCallback(async () => {
     try {
@@ -103,23 +106,26 @@ export default function DashBoardHeader() {
   }, [fetchData])
 
   return (
-    <div className="fixed z-50 flex w-[100vw] items-center justify-between bg-var-white py-[1.6rem] pl-[34rem] shadow">
+    <div
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} py-[1.6rem] pl-[34rem] shadow`}
+    >
       <div className="flex items-center gap-[1rem]">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
         {createdByMe && (
           <Image src={crownIcon} alt="대시보드 생성자 아이콘" className="h-[2rem] w-[2rem]" />
         )}
       </div>
-      <div className="flex">
+      <div className="flex gap-[1.6rem]">
+        <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         {isButtonVisible && (
-          <div className="flex gap-[1.6rem] border-r-2 border-solid border-[#d9d9d9] pr-[4rem]">
+          <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
             <Link href="/mypage" passHref className="flex">
-              <HeaderButton buttonIcon={settingicon} buttonName="관리" />
+              <HeaderButton buttonIcon={settingIcon} buttonName="관리" />
             </Link>
             <HeaderButton
-              buttonIcon={inviteicon}
+              buttonIcon={inviteIcon}
               buttonName="초대하기"
-              onClick={() =>
+              handleOnClick={() =>
                 dispatch(
                   openModal({
                     modalName: 'AddMember',
@@ -138,7 +144,7 @@ export default function DashBoardHeader() {
           {isDropdownOpen && (
             <div
               ref={dropdownRef}
-              className="absolute left-[7rem] top-[4rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white shadow-lg"
+              className={`absolute left-[7rem] top-[4rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} shadow-lg`}
             >
               <Link href="/mypage">
                 <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-gray-100">

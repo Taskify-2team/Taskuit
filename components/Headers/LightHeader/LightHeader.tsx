@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/public/images/taskuitLogo_main.png'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export default function LightHeader() {
   const [isLogoFontVisible, setIsLogoFontVisible] = useState(true)
+  const { theme } = useLoadTheme()
 
   useEffect(() => {
     const updateLogoFont = () => {
@@ -21,11 +23,15 @@ export default function LightHeader() {
   }, [])
 
   return (
-    <div className="flex h-[7rem] w-full items-center justify-between bg-white pl-[1.6rem] pr-[8rem]">
+    <div
+      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1 text-white'} pl-[1.6rem] pr-[8rem]`}
+    >
       <Link href="/">
         <div className="flex items-center gap-[1rem]">
           <Image src={logo} height={39} alt="라이트 헤더 로고" />
-          {isLogoFontVisible && <p className="text-[2.5rem] font-bold text-[#1A57C9]">Taskuit</p>}
+          {isLogoFontVisible && (
+            <p className="text-[2.5rem] font-bold text-primary-violet">Taskuit</p>
+          )}
         </div>
       </Link>
       <div className="flex gap-[3.6rem]">

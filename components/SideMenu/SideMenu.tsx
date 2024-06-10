@@ -41,14 +41,18 @@ export default function SideMenu() {
 
   return (
     <div
-      className={`fixed z-40 flex h-[100vh] w-[30rem] flex-col gap-[5.7rem] border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1'} px-[2.4rem] pt-[2rem]`}
+      className={`fixed z-40 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} px-[2.4rem] pt-[2rem]`}
     >
       <div className="flex items-center gap-[1rem]">
         <Image src={logoIcon} alt="Taskify 로고 아이콘" width={40} />
         <p className="text-center text-[2.5rem] font-bold text-primary-violet">Taskuit</p>
       </div>
-      <div className="mb-[1.5rem] flex justify-between">
-        <p className="text-[1.2rem] font-bold text-[#787486]">Dash Boards</p>
+      <div className="mt-[4rem] flex justify-between">
+        <p
+          className={`text-[1.5rem] font-bold ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
+        >
+          Dash Boards
+        </p>
         <button
           type="button"
           onClick={() =>
