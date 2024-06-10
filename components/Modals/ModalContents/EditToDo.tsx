@@ -160,7 +160,13 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
         name="tag"
         onChange={handleInputValue}
       />
-      <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
+      <ImageInput
+        id="image"
+        label="이미지"
+        size="s"
+        currentImage={card.imageUrl}
+        onChange={handleFileInputValue}
+      />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton color="purple" text="수정" type="submit" isDisabled={isDisabled} />
