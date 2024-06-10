@@ -1,0 +1,14 @@
+POST http://localhost:3000/api/tag
+Content-Type: application/json
+
+{
+  "cardId": 7672,
+  "content": "안녕하세요",
+  "backgroundColor": "#000000",
+  "textColor": "#ffffff"
+}
+
+###
+
+GET http://localhost:3000/api/tag/6665c83732d10f550a143996
+
