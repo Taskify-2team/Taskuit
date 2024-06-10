@@ -10,12 +10,14 @@ interface DashBoardColumnProps {
   columnId: number
   columnTitle: string
   setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
+  progressList: Column[]
 }
 
 export default function DashBoardColumn({
   columnId,
   columnTitle,
   setColumns,
+  progressList,
 }: DashBoardColumnProps) {
   const dispatch = useAppDispatch()
 
@@ -61,6 +63,7 @@ export default function DashBoardColumn({
         cardList.map((cardItem) => (
           <DashBoardCard
             key={cardItem.id}
+            progressList={progressList}
             columnTitle={columnTitle}
             card={cardItem}
             onDelete={handleDeleteCard}

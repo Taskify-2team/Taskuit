@@ -1,4 +1,4 @@
-import { Card, Comment } from '@/types/dashboard'
+import { Card, Column, Comment } from '@/types/dashboard'
 import Image from 'next/image'
 import kebabIcon from '@/public/icons/kebab.svg'
 import closeIcon from '@/public/icons/close.svg'
@@ -20,9 +20,10 @@ interface ToDoDetailProps {
   card: Card
   columnTitle: string
   onDelete: (props: number) => void
+  progressList: Column[]
 }
 
-export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailProps) {
+export default function ToDoDetail({ card, progressList, columnTitle, onDelete }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
   const [commentList, setCommentList] = useState<Comment[]>()
   const [openKebab, setOpenKebab] = useState(false)
@@ -97,7 +98,7 @@ export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailPr
                       columnId: card.columnId,
                       card,
                       managerList: card.assignee,
-                      progressList: card.tags,
+                      progressList,
                     },
                   }),
                 )
