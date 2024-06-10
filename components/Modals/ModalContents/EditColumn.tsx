@@ -31,11 +31,10 @@ export default function EditColumn({ columnId, columnTitle, setColumns }: EditCo
 
   const handleDelete = async () => {
     await deleteColumnFunction(columnId)
-    setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
     dispatch(
       openModal({
         modalName: 'WarningModal',
-        modalProps: { variant: 'deleteColumn', columnId },
+        modalProps: { variant: 'deleteColumn', columnId, setColumns },
       }),
     )
   }
