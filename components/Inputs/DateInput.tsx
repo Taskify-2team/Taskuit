@@ -9,7 +9,7 @@ interface DateInputProps {
   id: string
   label: string
   isRequired?: boolean
-  onChange: Dispatch<SetStateAction<string | undefined>>
+  onChange: Dispatch<SetStateAction<string>>
   name: string
   value: string | undefined
 }

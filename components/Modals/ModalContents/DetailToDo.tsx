@@ -16,7 +16,7 @@ import KebabEditButton from '@/components/Buttons/KebabEditButton'
 import { deleteDashBoardCard } from '@/service/cards'
 import { openToast } from '@/store/reducers/toastReducer'
 
-interface ToDoDetailProps {
+export interface ToDoDetailProps {
   card: Card
   columnTitle: string
   onDelete: (props: number) => void

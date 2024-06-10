@@ -7,7 +7,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { Column } from '@/types/dashboard'
 import { ChangeEvent, FormEvent, useState } from 'react'
 
-interface EditColumnProps {
+export interface EditColumnProps {
   columnId: number
   columnTitle: string
   setColumns: React.Dispatch<React.SetStateAction<Column[]>>

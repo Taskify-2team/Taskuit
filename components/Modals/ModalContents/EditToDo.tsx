@@ -19,18 +19,17 @@ import { Card, Column, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
-interface EditToDoProps {
-  columnId: number
+export interface EditToDoProps {
   card: Card
   progressList: Column[]
 }
 
-export default function EditToDo({ progressList, columnId, card }: EditToDoProps) {
+export default function EditToDo({ progressList, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState()
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
-    columnId,
+    columnId: card?.columnId,
     assigneeUserId: card?.assignee.id || 0,
     title: card?.title,
     description: card?.description,
@@ -39,11 +38,9 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
     imageUrl: card?.imageUrl || null,
   })
   const [imageFile, setImageFile] = useState<File>()
-  const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
-
+  const [assigneeUserId, setAssigneeUserId] = useState<number>()
   const [isDisabled, setIsDisabled] = useState(true)
-  const [dueDate, setDueDate] = useState<string | undefined>()
-
+  const [dueDate, setDueDate] = useState('')
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
@@ -65,7 +62,7 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
     setImageFile(file)
   }
 
-  const submitEditToDo = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (imageFile) {
       const imageResult = await updateCardImage({ columnId, imageFile })
@@ -108,7 +105,7 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
   }, [getMembersRequest])
 
   return (
-    <form className="modal-layout" onSubmit={submitEditToDo}>
+    <form className="modal-layout" onSubmit={handleSubmit}>
       <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
       <div className="flex gap-[1rem]">
         <div className="flex-1">
@@ -163,13 +160,7 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
       <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton
-          color="purple"
-          text="수정"
-          type="submit"
-          isDisabled={isDisabled}
-          onClick={submitEditToDo}
-        />
+        <ShortButton color="purple" text="수정" type="submit" isDisabled={isDisabled} />
       </div>
     </form>
   )

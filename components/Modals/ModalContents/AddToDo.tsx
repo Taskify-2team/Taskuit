@@ -19,7 +19,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
 
-interface AddToDoProps {
+export interface AddToDoProps {
   columnId: number
 }
 
