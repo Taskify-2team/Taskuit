@@ -9,19 +9,19 @@ import InputLayout from './InputLayout'
 interface DropDownMenuProps {
   label: string
   id: string
-  value: number
+  progress: string
   progressList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
 export default function DropDownMenu({
   progressList,
-  value,
+  progress,
   onChange,
   id,
   label,
 }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(progressList?.[0]?.title)
+  const [selectMenu, setSelectMenu] = useState(progress)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 
@@ -31,12 +31,12 @@ export default function DropDownMenu({
     }
   }
 
-  const handleChangeProgress = (progress: Column) => {
+  const handleChangeProgress = (nextProgress: Column) => {
     onChange((prev) => ({
       ...prev,
-      columnId: progress.id,
+      columnId: nextProgress.id,
     }))
-    setSelectMenu(progress.title)
+    setSelectMenu(nextProgress.title)
   }
 
   useEffect(() => {

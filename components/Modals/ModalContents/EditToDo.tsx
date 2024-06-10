@@ -21,10 +21,11 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 export interface EditToDoProps {
   card: Card
+  progress: string
   progressList: Column[]
 }
 
-export default function EditToDo({ progressList, card }: EditToDoProps) {
+export default function EditToDo({ progressList, progress, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
@@ -112,8 +113,8 @@ export default function EditToDo({ progressList, card }: EditToDoProps) {
           <DropDownMenu
             id="progress"
             label="상태"
-            value={newCardBody?.columnId}
             onChange={setNewCardBody}
+            progress={progress}
             progressList={progressList}
           />
         </div>

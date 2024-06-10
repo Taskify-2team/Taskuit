@@ -99,6 +99,7 @@ export default function ToDoDetail({ card, progressList, columnTitle, onDelete }
                       card,
                       managerList: card.assignee,
                       progressList,
+                      progress: columnTitle,
                     },
                   }),
                 )
