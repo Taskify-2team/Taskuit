@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Footer, LightHeader } from '@/components'
+import { Footer, LandingHeader } from '@/components'
 
 interface LandingPageLayoutProps {
   children: ReactNode
@@ -8,7 +8,7 @@ interface LandingPageLayoutProps {
 export default function LandingPageLayout({ children }: LandingPageLayoutProps) {
   return (
     <>
-      <LightHeader />
+      <LandingHeader />
       {children}
       <Footer />
     </>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import themeIcon from '@/public/icons/brightness_89411.svg'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import HeaderButton from '../DashBoardHeader/buttons/HeaderButton'
 
 export default function LightHeader() {
   const [isLogoFontVisible, setIsLogoFontVisible] = useState(true)
-  const { theme } = useLoadTheme()
+  const { handleSetTheme, theme } = useLoadTheme()
 
   useEffect(() => {
     const updateLogoFont = () => {
@@ -35,6 +37,7 @@ export default function LightHeader() {
         </div>
       </Link>
       <div className="flex gap-[3.6rem]">
+        <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         <Link href="/login">
           <p className="text-[1.6rem]">로그인</p>
         </Link>

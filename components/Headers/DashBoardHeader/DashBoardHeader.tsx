@@ -144,16 +144,16 @@ export default function DashBoardHeader() {
           {isDropdownOpen && (
             <div
               ref={dropdownRef}
-              className={`absolute left-[7rem] top-[4rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} shadow-lg`}
+              className={`absolute left-[7rem] top-[4rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid text-center ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1 text-white'} shadow-lg`}
             >
               <Link href="/mypage">
-                <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-gray-100">
+                <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4">
                   내 정보
                 </p>
               </Link>
               <button
                 type="button"
-                className="border-t- block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-gray-100"
+                className="border-t- block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4"
                 onClick={handleLogout}
               >
                 로그아웃
