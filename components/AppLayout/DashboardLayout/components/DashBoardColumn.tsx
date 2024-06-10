@@ -11,6 +11,9 @@ interface DashBoardColumnProps {
   columnTitle: string
   setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
   columnList: Column[]
+  dragStart: (card: Card, id: number) => void
+  dragEnter: (id: number) => void
+  drop: () => void
 }
 
 export default function DashBoardColumn({
@@ -18,6 +21,9 @@ export default function DashBoardColumn({
   columnTitle,
   setColumns,
   columnList,
+  dragStart,
+  dragEnter,
+  drop,
 }: DashBoardColumnProps) {
   const dispatch = useAppDispatch()
 
@@ -42,7 +48,10 @@ export default function DashBoardColumn({
   }, [columnId, getCardsData])
 
   return (
-    <section className="flex flex-col gap-[1.6rem] pr-[2rem]">
+    <section
+      className="flex flex-col gap-[1.6rem] pr-[2rem]"
+      onDragEnter={() => dragEnter(columnId)}
+    >
       <DashBoardColumnHeader
         setColumns={setColumns}
         cardList={cardList}
@@ -65,8 +74,11 @@ export default function DashBoardColumn({
             key={cardItem.id}
             columnList={columnList}
             columnTitle={columnTitle}
+            columnId={columnId}
             card={cardItem}
             onDelete={handleDeleteCard}
+            dragStart={dragStart}
+            drop={drop}
           />
         ))}
     </section>
