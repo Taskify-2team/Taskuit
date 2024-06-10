@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getDashBoard } from '@/service/dashboards'
 import { DashBoard } from '@/types/dashboard'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { BoardButton, CreateBoardButton, PaginationButton } from '..'
 
 export default function MyDashBoardList() {

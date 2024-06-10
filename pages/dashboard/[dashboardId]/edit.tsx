@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import backIcon from '@/public/icons/arrowBack.svg'
 import backIconGray from '@/public/icons/arrowBackGrey.svg'
 import Image from 'next/image'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export default function Edit() {
   const router = useRouter()

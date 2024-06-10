@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Member } from '@/types/member'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { PaginationButton, ShortButton, UserInfo } from '..'
 
 export default function EditMember() {
