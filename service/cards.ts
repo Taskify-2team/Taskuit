@@ -8,7 +8,7 @@ export const postDashBoardCard = async (props: PostCard) => {
 
 export const getDashBoardCard = async (params: { cursorId?: number | null; columnId: number }) => {
   const cursorIdParam = params.cursorId ? `&cursorId=${params.cursorId}` : ''
-  const response = await axios.get(`/cards?size=5&columnId=${params.columnId}${cursorIdParam}`)
+  const response = await axios.get(`/cards?size=6&columnId=${params.columnId}${cursorIdParam}`)
   return response
 }
 

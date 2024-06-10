@@ -28,9 +28,10 @@ export default function DashBoardColumn({
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
       const result = await getCardsRequest({ columnId, cursorId })
-      console.log(result)
-      if (result) setCardList((prev) => [...prev, ...result.data.cards])
-      setCursorId(result?.data.cursorId)
+      if (result) {
+        setCardList((prev) => [...prev, ...result.data.cards])
+        setCursorId(result.data.cursorId)
+      }
     }
   }, [columnId, getCardsRequest, cursorId])
 
@@ -38,17 +39,19 @@ export default function DashBoardColumn({
     setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
   }
 
-  const handleObserver = (entries: IntersectionObserverEntry[]) => {
-    console.log('dd')
-
-    const target = entries[0]
-    if (!pending && target.isIntersecting) {
-      getCardsData()
-    }
-  }
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const target = entries[0]
+      if (!pending && target.isIntersecting) {
+        getCardsData()
+      }
+    },
+    [getCardsData, pending],
+  )
 
   useEffect(() => {
     getCardsData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export default function DashBoardColumn({
     return () => {
       observer.disconnect()
     }
-  }, [cursorId, pending])
+  }, [cursorId, pending, handleObserver])
 
   return (
     <section className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]">
@@ -77,17 +80,21 @@ export default function DashBoardColumn({
           )
         }
       />
-      {cardList.length > 0 &&
-        cardList.map((cardItem) => (
-          <DashBoardCard
-            key={cardItem.id}
-            columnList={columnList}
-            columnTitle={columnTitle}
-            card={cardItem}
-            onDelete={handleDeleteCard}
-          />
-        ))}
-      <div ref={obsRef} />
+      {cardList && (
+        <div className="flex flex-col gap-[1.6rem]">
+          {cardList.length > 0 &&
+            cardList.map((cardItem) => (
+              <DashBoardCard
+                key={cardItem.id}
+                columnList={columnList}
+                columnTitle={columnTitle}
+                card={cardItem}
+                onDelete={handleDeleteCard}
+              />
+            ))}
+          <div ref={obsRef} />
+        </div>
+      )}
     </section>
   )
 }
