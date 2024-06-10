@@ -4,6 +4,7 @@ import {
   KeyboardEvent,
   SetStateAction,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -39,6 +40,8 @@ export default function DropDownInputMenu({
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
+
+  const memoizedInitManagerList = useMemo(() => initManagerList, [initManagerList])
 
   const initializeSelectMenu = () => {
     setSelectMenu({
@@ -143,8 +146,8 @@ export default function DropDownInputMenu({
   }, [selectMenu.id, setManager])
 
   useEffect(() => {
-    setMenuList(initManagerList)
-  }, [initManagerList])
+    setMenuList(memoizedInitManagerList)
+  }, [memoizedInitManagerList])
 
   return (
     <InputLayout id={id} label={label}>

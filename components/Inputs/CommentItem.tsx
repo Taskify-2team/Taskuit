@@ -46,7 +46,7 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
   }
 
   return (
-    <li className="flex gap-[1rem]">
+    <li className="flex items-start gap-[1rem]">
       <UserProfile
         size="m"
         profileImageUrl={comment.author.profileImageUrl}
