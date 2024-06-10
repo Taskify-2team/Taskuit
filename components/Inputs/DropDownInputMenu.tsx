@@ -19,7 +19,7 @@ import UserInfo from '../UserInfo/UserInfo'
 interface DropDownInputMenuProps {
   label: string
   id: string
-  currentManager: Assignee
+  currentManager?: Assignee
   memberList: Member[]
   setManager: Dispatch<SetStateAction<number>>
 }
@@ -32,9 +32,9 @@ export default function DropDownInputMenu({
   memberList: initMemberList = [],
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
-    id: currentManager.id,
-    nickname: currentManager.nickname,
-    profileImageUrl: currentManager.profileImageUrl,
+    id: currentManager?.id,
+    nickname: currentManager?.nickname,
+    profileImageUrl: currentManager?.profileImageUrl,
     index: 0,
   })
   const [menuList, setMenuList] = useState<Member[]>([])
@@ -142,7 +142,9 @@ export default function DropDownInputMenu({
   }, [])
 
   useEffect(() => {
-    setManager(selectMenu.id)
+    if (selectMenu.id) {
+      setManager(selectMenu.id)
+    }
   }, [selectMenu.id, setManager])
 
   useEffect(() => {
