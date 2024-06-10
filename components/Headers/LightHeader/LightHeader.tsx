@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import logo from '@/public/images/taskuitLogo.png'
-import lightLogo from '@/public/icons/lightLogo.svg'
-import lightLogosmall from '@/public/icons/lightlogosmall.svg'
 import Link from 'next/link'
 
 export default function LightHeader() {
-  const [logoSrc, setLogoSrc] = useState<string>(lightLogo)
+  const [isLogoFontVisible, setIsLogoFontVisible] = useState(true)
 
   useEffect(() => {
-    const updateLogo = () => {
+    const updateLogoFont = () => {
       if (window.innerWidth < 400) {
-        setLogoSrc(lightLogosmall)
+        setIsLogoFontVisible(false)
       } else {
-        setLogoSrc(lightLogo)
+        setIsLogoFontVisible(true)
       }
     }
-    window.addEventListener('resize', updateLogo)
-    updateLogo()
+    window.addEventListener('resize', updateLogoFont)
+    updateLogoFont()
 
-    return () => window.removeEventListener('resize', updateLogo)
+    return () => window.removeEventListener('resize', updateLogoFont)
   }, [])
 
   return (
@@ -27,7 +25,7 @@ export default function LightHeader() {
       <Link href="/">
         <div className="flex items-center gap-[1rem]">
           <Image src={logo} height={39} alt="라이트 헤더 로고" />
-          <p className="text-[2.5rem] font-bold text-[#1A57C9]">Taskuit</p>
+          {isLogoFontVisible && <p className="text-[2.5rem] font-bold text-[#1A57C9]">Taskuit</p>}
         </div>
       </Link>
       <div className="flex gap-[3.6rem]">

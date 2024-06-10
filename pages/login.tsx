@@ -1,5 +1,5 @@
 import { AuthInput, LongButton } from '@/components'
-import LoginAccess from '@/service/auth'
+import { LoginAccess } from '@/service/auth'
 import { AxiosError, isAxiosError } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
