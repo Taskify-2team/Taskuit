@@ -30,12 +30,12 @@ export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: U
       alt={`${nickname}님의 프로필 사진`}
       width={SIZE[size].imageSize}
       height={SIZE[size].imageSize}
-      className="rounded-full border-2 border-white"
+      className="rounded-full border border-gray-300 shadow-md"
       style={{ width: SIZE[size].imageSize, height: SIZE[size].imageSize, objectFit: 'cover' }}
     />
   ) : (
     <div
-      className="flex items-center justify-center rounded-full border-2 border-white bg-gray-500 font-bold text-white"
+      className="flex items-center justify-center rounded-full border-2 border-white bg-gray-500 font-bold text-white shadow-md"
       style={SIZE[size].textStyle}
     >
       {initial}
