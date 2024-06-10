@@ -16,10 +16,9 @@ import DashBoardList from './SideMenu/SideMenuList/SideMenuList'
 import SideMenuListItem from './SideMenu/SideMenuList/SideMenuListItem'
 import UserInfo from './UserInfo/UserInfo'
 import UserProfile from './UserInfo/UserProfile'
-import LightHeader from './Headers/LightHeader/LightHeader'
+import LandingHeader from './Headers/LandingHeader/LandingHeader'
 import DashBoardHeader from './Headers/DashBoardHeader/DashBoardHeader'
 import ProfileList from './Headers/DashBoardHeader/ProfileList/ProfileList'
-import DarkHeader from './Headers/DarkHeader/DarkHeader'
 import MyDashBoardList from './MyDashBoardList/MyDashBoardList'
 import Footer from './Footer/Footer'
 import InviteList from './InviteList/InviteList'
@@ -40,10 +39,9 @@ export {
   SideMenuListItem as DashBoardListItem,
   UserInfo,
   UserProfile,
-  LightHeader,
+  LandingHeader,
   DashBoardHeader,
   ProfileList,
-  DarkHeader,
   MyDashBoardList,
   Footer,
   InviteList,

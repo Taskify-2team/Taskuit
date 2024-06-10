@@ -1,8 +1,8 @@
 import React from 'react'
 import SideMenuListItem from './SideMenuListItem'
 
-interface DashBoardProps {
-  id?: string
+export interface DashBoardProps {
+  id: number
   color: string
   title: string
   createdByMe: boolean
@@ -10,26 +10,27 @@ interface DashBoardProps {
 
 export interface SideMenuListProps {
   // eslint-disable-next-line react/require-default-props
-  data?: {
-    dashboards?: DashBoardProps[]
-  }
+  data: DashBoardProps[] | undefined
 }
 
 export default function SideMenuList({ data }: SideMenuListProps) {
-  const DashBoards = data?.dashboards || []
+  const dashBoards = data || [] // 데이터가 없을 경우를 대비하여 기본값으로 빈 배열을 설정
 
   return (
     <div>
-      {DashBoards.length === 0
-        ? null
-        : DashBoards.map((DashBoard) => (
-            <SideMenuListItem
-              key={DashBoard.id}
-              color={DashBoard.color}
-              title={DashBoard.title}
-              createdByMe={DashBoard.createdByMe}
-            />
-          ))}
+      {dashBoards.length === 0 ? (
+        <p>No dashboards available</p>
+      ) : (
+        dashBoards.map((dashBoard) => (
+          <SideMenuListItem
+            key={dashBoard.id}
+            id={dashBoard.id}
+            color={dashBoard.color}
+            title={dashBoard.title}
+            createdByMe={dashBoard.createdByMe}
+          />
+        ))
+      )}
     </div>
   )
 }
