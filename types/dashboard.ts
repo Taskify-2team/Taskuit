@@ -8,6 +8,10 @@ export interface DashBoard {
   userId: number
 }
 
+export interface ColumnList {
+  result: string
+  data: Column[]
+}
 export interface Column {
   createdAt: string
   id: number
