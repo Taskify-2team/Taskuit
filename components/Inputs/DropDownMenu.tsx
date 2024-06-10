@@ -9,11 +9,18 @@ import InputLayout from './InputLayout'
 interface DropDownMenuProps {
   label: string
   id: string
+  value: number
   progressList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
-export default function DropDownMenu({ progressList, onChange, id, label }: DropDownMenuProps) {
+export default function DropDownMenu({
+  progressList,
+  value,
+  onChange,
+  id,
+  label,
+}: DropDownMenuProps) {
   const [selectMenu, setSelectMenu] = useState(progressList?.[0]?.title)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)

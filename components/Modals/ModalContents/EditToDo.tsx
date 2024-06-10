@@ -27,7 +27,7 @@ export interface EditToDoProps {
 export default function EditToDo({ progressList, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
-  const [members, setMembers] = useState()
+  const [members, setMembers] = useState([])
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
     columnId: card?.columnId,
     assigneeUserId: card?.assignee.id || 0,
@@ -112,6 +112,7 @@ export default function EditToDo({ progressList, card }: EditToDoProps) {
           <DropDownMenu
             id="progress"
             label="상태"
+            value={newCardBody?.columnId}
             onChange={setNewCardBody}
             progressList={progressList}
           />
