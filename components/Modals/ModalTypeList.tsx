@@ -12,7 +12,7 @@ import ToDoDetail from './ModalContents/DetailToDo'
 const modalList: Map<string, (props?: any) => ReactNode> = new Map([
   ['AddDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
   ['AddToDo', (props) => <AddToDo key="addToDo" {...props} />],
-  ['AddColumn', (props) => <AddColumn key="addColumn" {...props} />],
+  ['AddColumn', (props) => <AddColumn key="addColumn" {...props} />],
   ['AddMember', (props) => <AddMember key="addMember" {...props} />],
   ['EditToDo', (props) => <EditToDo key="editToDo" {...props} />],
   ['EditColumn', (props) => <EditColumn key="editColumn" {...props} />],

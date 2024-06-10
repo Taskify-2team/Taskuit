@@ -17,7 +17,7 @@ import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 interface EditToDoProps {
   columnId: number
@@ -65,8 +65,7 @@ export default function EditToDo({ columnId, card, progressList }: EditToDoProps
     setImageFile(file)
   }
 
-  const submitEditToDo = async (e: FormEvent) => {
-    e.preventDefault()
+  const submitEditToDo = async () => {
     if (imageFile) {
       const imageResult = await updateCardImage({ columnId, imageFile })
       await requestFunction({

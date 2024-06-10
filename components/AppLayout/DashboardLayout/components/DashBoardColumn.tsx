@@ -40,7 +40,7 @@ export default function DashBoardColumn({
   }, [columnId, getCardsData])
 
   return (
-    <section className="flex flex-col gap-[1.6rem] pr-[2rem]">
+    <section className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]">
       <DashBoardColumnHeader
         setColumns={setColumns}
         cardList={cardList}
