@@ -39,7 +39,7 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
     imageUrl: card?.imageUrl || null,
   })
   const [imageFile, setImageFile] = useState<File>()
-  const [assigneeUserId, setAssigneeUserId] = useState<number>()
+  const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
   const dispatch = useAppDispatch()
@@ -122,7 +122,8 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
           <DropDownInputMenu
             id="manager"
             label="담당자"
-            managerList={members}
+            currentManager={card.assignee}
+            memberList={members}
             setManager={setAssigneeUserId}
           />
         </div>

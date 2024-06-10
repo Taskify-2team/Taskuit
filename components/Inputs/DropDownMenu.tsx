@@ -31,12 +31,12 @@ export default function DropDownMenu({
     }
   }
 
-  const handleChangeProgress = (nextProgress: Column) => {
+  const handleChangeProgress = (nextColumn: Column) => {
     onChange((prev) => ({
       ...prev,
-      columnId: nextProgress.id,
+      columnId: nextColumn.id,
     }))
-    setSelectMenu(nextProgress.title)
+    setSelectMenu(nextColumn.title)
   }
 
   useEffect(() => {
@@ -66,18 +66,18 @@ export default function DropDownMenu({
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {columnList.map((progress) => (
+            {columnList.map((column) => (
               <div
-                key={progress.id}
-                onClick={() => handleChangeProgress(progress)}
-                className={`${selectMenu === progress.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                key={column.id}
+                onClick={() => handleChangeProgress(column)}
+                className={`${selectMenu === column.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
               >
-                {progress.title === selectMenu && (
+                {column.title === selectMenu && (
                   <div className="col-start-1 size-[1rem] self-center">
                     <Image src={check} alt="체크 표시" />
                   </div>
                 )}
-                <ProgressChip progress={progress.title} />
+                <ProgressChip progress={column.title} />
               </div>
             ))}
           </div>
