@@ -11,7 +11,7 @@ import CardInfoChip from '@/components/Chips/CardInfoChip'
 import CommentItem from '@/components/Inputs/CommentItem'
 import useAsync from '@/hooks/useAsync'
 import { getComments } from '@/service/comments'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import KebabEditButton from '@/components/Buttons/KebabEditButton'
 import { deleteDashBoardCard } from '@/service/cards'
 import { openToast } from '@/store/reducers/toastReducer'
@@ -24,17 +24,22 @@ export interface ToDoDetailProps {
 }
 
 export default function ToDoDetail({ card, columnList, columnTitle, onDelete }: ToDoDetailProps) {
+  const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const [commentList, setCommentList] = useState<Comment[]>()
+  const [cursorId, setCursorId] = useState<number | null>(0)
+  const [commentList, setCommentList] = useState<Comment[]>([])
   const [openKebab, setOpenKebab] = useState(false)
 
-  const { requestFunction: getCommentsRequest } = useAsync(getComments)
+  const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
 
   const getCommentData = useCallback(async () => {
-    const result = await getCommentsRequest(card.id)
-    setCommentList(result?.data.comments)
-  }, [card.id, getCommentsRequest])
+    const result = await getCommentsRequest({ cardId: card.id, cursorId })
+    if (result) {
+      setCommentList((prev) => [...prev, ...result.data.comments])
+      setCursorId(result.data.cursorId)
+    }
+  }, [card.id, getCommentsRequest, cursorId])
 
   const deleteCardData = async () => {
     await deleteCardRequest(card.id)
@@ -73,15 +78,31 @@ export default function ToDoDetail({ card, columnList, columnTitle, onDelete }: 
     }
   }
 
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const target = entries[0]
+      if (!pending && target.isIntersecting) {
+        getCommentData()
+      }
+    },
+    [getCommentData, pending],
+  )
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
+    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
+    return () => {
+      observer.disconnect()
+    }
+  }, [cursorId, pending, handleObserver])
+
   useEffect(() => {
     getCommentData()
-  }, [getCommentData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <div
-      onClick={handleKebabClose}
-      className="modal-layout max-h-[76.3rem] w-[73rem] overflow-auto"
-    >
+    <div onClick={handleKebabClose} className="modal-layout max-h-[90vh] w-[73rem] overflow-auto">
       <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
@@ -148,6 +169,7 @@ export default function ToDoDetail({ card, columnList, columnTitle, onDelete }: 
               onDelete={handleDeleteComment}
             />
           ))}
+          <div ref={obsRef} />
         </ul>
       </div>
     </div>

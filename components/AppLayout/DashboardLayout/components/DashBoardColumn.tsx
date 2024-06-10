@@ -1,6 +1,6 @@
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
 import { getDashBoardCard } from '@/service/cards'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card, Column } from '@/types/dashboard'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -25,31 +25,52 @@ export default function DashBoardColumn({
   dragEnter,
   drop,
 }: DashBoardColumnProps) {
+  const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-
+  const [cursorId, setCursorId] = useState<number | null>(0)
   const [cardList, setCardList] = useState<Card[]>([])
-  const { requestFunction: getCardsRequest } = useAsync(getDashBoardCard)
+  const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
-      const result = await getCardsRequest(columnId)
-      setCardList(result?.data.cards)
+      const result = await getCardsRequest({ columnId, cursorId })
+      if (result) {
+        setCardList((prev) => [...prev, ...result.data.cards])
+        setCursorId(result.data.cursorId)
+      }
     }
-  }, [columnId, getCardsRequest])
+  }, [columnId, getCardsRequest, cursorId])
 
   const handleDeleteCard = (deletedCardId: number) => {
     setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
   }
 
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const target = entries[0]
+      if (!pending && target.isIntersecting) {
+        getCardsData()
+      }
+    },
+    [getCardsData, pending],
+  )
+
   useEffect(() => {
-    if (columnId) {
-      getCardsData()
+    getCardsData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
+    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
+    return () => {
+      observer.disconnect()
     }
-  }, [columnId, getCardsData])
+  }, [cursorId, pending, handleObserver])
 
   return (
     <section
-      className="flex flex-col gap-[1.6rem] pr-[2rem]"
+      className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]"
       onDragEnter={() => dragEnter(columnId)}
     >
       <DashBoardColumnHeader
@@ -68,19 +89,24 @@ export default function DashBoardColumn({
           )
         }
       />
-      {cardList.length > 0 &&
-        cardList.map((cardItem) => (
-          <DashBoardCard
-            key={cardItem.id}
-            columnList={columnList}
-            columnTitle={columnTitle}
-            columnId={columnId}
-            card={cardItem}
-            onDelete={handleDeleteCard}
-            dragStart={dragStart}
-            drop={drop}
-          />
-        ))}
+      {cardList && (
+        <div className="flex flex-col gap-[1.6rem]">
+          {cardList.length > 0 &&
+            cardList.map((cardItem) => (
+              <DashBoardCard
+                key={cardItem.id}
+                columnList={columnList}
+                columnTitle={columnTitle}
+                card={cardItem}
+                columnId={columnId}
+                onDelete={handleDeleteCard}
+                dragStart={dragStart}
+                drop={drop}
+              />
+            ))}
+          <div ref={obsRef} />
+        </div>
+      )}
     </section>
   )
 }

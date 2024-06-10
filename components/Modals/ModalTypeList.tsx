@@ -15,7 +15,7 @@ const modalList: Map<string, (props: any) => ReactNode> = new Map<
 >([
   ['AddDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
   ['AddToDo', (props: AddToDoProps) => <AddToDo key="addToDo" {...props} />],
-  ['AddColumn', (props: AddColumnProps) => <AddColumn key="addColumn" {...props} />],
+  ['AddColumn', (props: AddColumnProps) => <AddColumn key="addColumn" {...props} />],
   ['AddMember', (props: AddMemberProps) => <AddMember key="addMember" {...props} />],
   ['EditToDo', (props: EditToDoProps) => <EditToDo key="editToDo" {...props} />],
   ['EditColumn', (props: EditColumnProps) => <EditColumn key="editColumn" {...props} />],

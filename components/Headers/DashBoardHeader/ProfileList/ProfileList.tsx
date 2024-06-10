@@ -21,7 +21,7 @@ export default function ProfileList({ members, totalCount }: ProfileListProps) {
     <div>
       {members ? (
         <div>
-          <div className="mr-[3.2rem] flex items-center">
+          <div className="ml-[4rem] mr-[3.2rem] flex items-center">
             {members.slice(0, 3).map((member) => (
               <UserProfile
                 key={member.id}
