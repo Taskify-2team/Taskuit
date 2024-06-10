@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import logo from '@/public/images/taskuitLogo.png'
+import logo from '@/public/images/taskuitLogo_main.png'
 
 export default function DarkHeader() {
   const [isLogoFontVisible, setIsLogoFontVisible] = useState(true)

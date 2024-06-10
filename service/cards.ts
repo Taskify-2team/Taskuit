@@ -1,23 +1,8 @@
 import { PostCard, UpdateCard } from '@/types/dashboard'
 import axios from './instance'
 
-export const postDashBoardCard = async ({
-  cardBody: { assigneeUserId, dashboardId, columnId, title, description, dueDate, tags },
-  imageUrl,
-}: {
-  cardBody: PostCard
-  imageUrl: string
-}) => {
-  const response = await axios.post(`/cards`, {
-    assigneeUserId,
-    dashboardId,
-    columnId,
-    title,
-    description,
-    dueDate,
-    tags,
-    imageUrl,
-  })
+export const postDashBoardCard = async (props: PostCard) => {
+  const response = await axios.post(`/cards`, props)
   return response
 }
 
@@ -41,5 +26,22 @@ export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; car
 
 export const deleteDashBoardCard = async (param: number) => {
   const response = await axios.delete(`/cards/${param}`)
+  return response
+}
+
+export interface TagBody {
+  cardId: number
+  content: string
+  backgroundColor: string
+  textColor: string
+}
+
+export const postTag = async (cardId: number, tagBody: TagBody) => {
+  const response = await axios.post(`/api/tag/${cardId}`, { tagBody })
+  return response
+}
+
+export const getTags = async (cardId: number) => {
+  const response = await axios.get(`/api/tag/${cardId}`)
   return response
 }

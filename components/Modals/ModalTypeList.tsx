@@ -8,6 +8,7 @@ import EditColumn from './ModalContents/EditColumn'
 import WarningModal from './ModalContents/WarningModal'
 import ToDoDetail from './ModalContents/DetailToDo'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const modalList: Map<string, (props?: any) => ReactNode> = new Map([
   ['AddDashBoard', (props) => <AddDashBoard key="addDash" {...props} />],
   ['AddToDo', (props) => <AddToDo key="addToDo" {...props} />],

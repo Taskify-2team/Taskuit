@@ -3,13 +3,15 @@ import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
+import { Column } from '@/types/dashboard'
 
 interface WarningModalProps {
   variant: string
   columnId?: number
+  setColumns: React.Dispatch<React.SetStateAction<Column[]>>
 }
 
-export default function WarningModal({ variant, columnId }: WarningModalProps) {
+export default function WarningModal({ setColumns, variant, columnId }: WarningModalProps) {
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(deleteColumn)
 
@@ -22,6 +24,7 @@ export default function WarningModal({ variant, columnId }: WarningModalProps) {
       await requestFunction(columnId)
     }
     dispatch(closeModal())
+    setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
     /** 콜럼 삭제 요청하기 */
   }
 

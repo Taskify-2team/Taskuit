@@ -15,11 +15,9 @@ export const getColumns = async (dashboardId: string) => {
 }
 
 export const postCardImage = async (params: { columnId: number; imageFile: File }) => {
-  const response = await axios.post(`/columns/${params.columnId}/card-image`, params.imageFile, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
+  const formData = new FormData()
+  formData.append('image', params.imageFile)
+  const response = await axios.post(`/columns/${params.columnId}/card-image`, formData)
   return response.data
 }
 
@@ -28,6 +26,6 @@ export const deleteColumn = async (columnId: number) => {
 }
 
 export const updateColumn = async (params: { title: string; columnId: number }) => {
-  const response = await axios.put(`/columns/${params.columnId}`, params.title)
+  const response = await axios.put(`/columns/${params.columnId}`, { title: params.title })
   return response
 }
