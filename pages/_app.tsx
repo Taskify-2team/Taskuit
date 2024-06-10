@@ -16,16 +16,16 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Taskify</title>
       </Head>
       <Provider store={store}>
-        <ModalPortal>
-          <ModalLayout />
-        </ModalPortal>
-        <ToastPortal>
-          <MyToastLayout />
-        </ToastPortal>
-        <ToastPortal>
-          <ToastLayout />
-        </ToastPortal>
         <TotalProvider>
+          <ModalPortal>
+            <ModalLayout />
+          </ModalPortal>
+          <ToastPortal>
+            <MyToastLayout />
+          </ToastPortal>
+          <ToastPortal>
+            <ToastLayout />
+          </ToastPortal>
           <Component {...pageProps} />
         </TotalProvider>
       </Provider>

@@ -1,6 +1,6 @@
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
 import { getDashBoardCard } from '@/service/cards'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card, Column } from '@/types/dashboard'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -19,27 +19,45 @@ export default function DashBoardColumn({
   setColumns,
   progressList,
 }: DashBoardColumnProps) {
+  const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-
+  const [cursorId, setCursorId] = useState<number | null>(0)
   const [cardList, setCardList] = useState<Card[]>([])
-  const { requestFunction: getCardsRequest } = useAsync(getDashBoardCard)
+  const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
-      const result = await getCardsRequest(columnId)
-      setCardList(result?.data.cards)
+      const result = await getCardsRequest({ columnId, cursorId })
+      console.log(result)
+      if (result) setCardList((prev) => [...prev, ...result.data.cards])
+      setCursorId(result?.data.cursorId)
     }
-  }, [columnId, getCardsRequest])
+  }, [columnId, getCardsRequest, cursorId])
 
   const handleDeleteCard = (deletedCardId: number) => {
     setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
   }
 
-  useEffect(() => {
-    if (columnId) {
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    console.log('dd')
+
+    const target = entries[0]
+    if (!pending && target.isIntersecting) {
       getCardsData()
     }
-  }, [columnId, getCardsData])
+  }
+
+  useEffect(() => {
+    getCardsData()
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
+    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
+    return () => {
+      observer.disconnect()
+    }
+  }, [cursorId, pending])
 
   return (
     <section className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]">
@@ -69,6 +87,7 @@ export default function DashBoardColumn({
             onDelete={handleDeleteCard}
           />
         ))}
+      <div ref={obsRef} />
     </section>
   )
 }
