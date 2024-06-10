@@ -74,7 +74,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
             height={100}
             // eslint-disable-next-line react/jsx-boolean-value
             hideAlpha={true}
-            hideInput={['rgb', 'hsv', 'rgb']}
+            hideInput={['rgb', 'hsv']}
           />
         </div>
       )}
