@@ -1,21 +1,16 @@
-import { Card, Column } from '@/types/dashboard'
+import { Card } from '@/types/dashboard'
 import { CreateColumnButton, DashBoardColumn } from '@/components'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useRef } from 'react'
 import { updateDashBoardCard } from '@/service/cards'
 
 interface DashboardLayoutProps {
-  columns: Column[] | undefined
-  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
   dashboardId: number
 }
 
-export default function DashboardLayout({
-  columns,
-  setColumns,
-  dashboardId,
-}: DashboardLayoutProps) {
+export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
+  const { data: columnList } = useAppSelector((state) => state.column.columnList)
   const dispatch = useAppDispatch()
   const dragItem = useRef({ id: 0 })
   const baseColumn = useRef(0)
@@ -41,13 +36,11 @@ export default function DashboardLayout({
 
   return (
     <div className="flex overflow-auto">
-      {columns?.map((column) => (
+      {columnList?.map((column) => (
         <DashBoardColumn
           key={column.id}
           columnId={column.id}
           columnTitle={column.title}
-          columnList={columns}
-          setColumns={setColumns}
           dragStart={dragStart}
           dragEnter={dragEnter}
           drop={drop}

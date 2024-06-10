@@ -2,15 +2,13 @@ import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/compon
 import { getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
-import { Card, Column } from '@/types/dashboard'
+import { Card } from '@/types/dashboard'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 
 interface DashBoardColumnProps {
   columnId: number
   columnTitle: string
-  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
-  columnList: Column[]
   dragStart: (card: Card, id: number) => void
   dragEnter: (id: number) => void
   drop: () => void
@@ -19,8 +17,6 @@ interface DashBoardColumnProps {
 export default function DashBoardColumn({
   columnId,
   columnTitle,
-  setColumns,
-  columnList,
   dragStart,
   dragEnter,
   drop,
@@ -73,12 +69,7 @@ export default function DashBoardColumn({
       className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]"
       onDragEnter={() => dragEnter(columnId)}
     >
-      <DashBoardColumnHeader
-        setColumns={setColumns}
-        cardList={cardList}
-        columnId={columnId}
-        columnTitle={columnTitle}
-      />
+      <DashBoardColumnHeader cardList={cardList} columnId={columnId} columnTitle={columnTitle} />
       <CreateTodoButton
         onClick={() =>
           dispatch(
@@ -95,7 +86,6 @@ export default function DashBoardColumn({
             cardList.map((cardItem) => (
               <DashBoardCard
                 key={cardItem.id}
-                columnList={columnList}
                 columnTitle={columnTitle}
                 card={cardItem}
                 columnId={columnId}

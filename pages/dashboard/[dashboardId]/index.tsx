@@ -1,22 +1,19 @@
 import { AppLayout, DashboardLayout } from '@/components'
-import useAsync from '@/hooks/useAsync'
-import { getColumns } from '@/service/columns'
-import { Column } from '@/types/dashboard'
+import { useAppDispatch } from '@/hooks/useApp'
+import { getColumnList } from '@/service/columns'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 
 export default function Dashboard() {
-  const [columns, setColumns] = useState<Column[]>()
+  const dispatch = useAppDispatch()
   const router = useRouter()
   const { dashboardId } = router.query
-  const { requestFunction: getColumnsRequest } = useAsync(getColumns)
 
   const getColumnsData = useCallback(async () => {
     if (typeof dashboardId === 'string') {
-      const result = await getColumnsRequest(dashboardId)
-      setColumns(result?.data.data)
+      await dispatch(getColumnList(dashboardId))
     }
-  }, [dashboardId, getColumnsRequest])
+  }, [dashboardId])
 
   useEffect(() => {
     if (dashboardId) {
@@ -27,11 +24,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex overflow-auto">
-        <DashboardLayout
-          columns={columns}
-          setColumns={setColumns}
-          dashboardId={Number(dashboardId)}
-        />
+        <DashboardLayout dashboardId={Number(dashboardId)} />
       </div>
     </AppLayout>
   )

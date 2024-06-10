@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { ColumnList } from '@/types/dashboard'
 import axios from './instance'
 
 export const postColumn = async (params: { title: string; dashboardId: number }) => {
@@ -16,12 +15,12 @@ export const postColumn = async (params: { title: string; dashboardId: number })
 //   return response
 // }
 
-export const getColumnList = createAsyncThunk<ColumnList, string>(
+export const getColumnList = createAsyncThunk(
   'column/getColumnList',
-  async (dashboardId) => {
+  async (dashboardId: string) => {
     const queryParam = `?dashboardId=${dashboardId}`
     const response = await axios.get(`/columns${queryParam}`)
-    return response
+    return response.data
   },
 )
 

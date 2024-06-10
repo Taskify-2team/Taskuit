@@ -2,16 +2,15 @@ import ShortButton from '@/components/Buttons/ShortButton'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn } from '@/service/columns'
+import { deleteColumn as deleteColumnReducer } from '@/store/reducers/columnReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { Column } from '@/types/dashboard'
 
 export interface WarningModalProps {
   variant: string
   columnId?: number
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>>
 }
 
-export default function WarningModal({ setColumns, variant, columnId }: WarningModalProps) {
+export default function WarningModal({ variant, columnId }: WarningModalProps) {
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(deleteColumn)
 
@@ -24,8 +23,8 @@ export default function WarningModal({ setColumns, variant, columnId }: WarningM
       await requestFunction(columnId)
     }
     dispatch(closeModal())
-    setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
-    /** 콜럼 삭제 요청하기 */
+    // setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
+    dispatch(deleteColumnReducer({ columnId }))
   }
 
   return (

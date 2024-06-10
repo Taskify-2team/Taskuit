@@ -2,18 +2,17 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
+import { addColumn } from '@/store/reducers/columnReducer'
 import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
-import { Column } from '@/types/dashboard'
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 export interface EditColumnProps {
   columnId: number
   columnTitle: string
-  setColumns: React.Dispatch<React.SetStateAction<Column[]>>
 }
 
-export default function EditColumn({ columnId, columnTitle, setColumns }: EditColumnProps) {
+export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const [newColumnName, setNewColumnName] = useState({
     columnId,
     title: columnTitle,
@@ -34,7 +33,7 @@ export default function EditColumn({ columnId, columnTitle, setColumns }: EditCo
     dispatch(
       openModal({
         modalName: 'WarningModal',
-        modalProps: { variant: 'deleteColumn', columnId, setColumns },
+        modalProps: { variant: 'deleteColumn', columnId },
       }),
     )
   }
@@ -42,11 +41,12 @@ export default function EditColumn({ columnId, columnTitle, setColumns }: EditCo
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await updateColumnFunction(newColumnName)
-    setColumns((prevColumns) =>
-      prevColumns.map((prevColumn) =>
-        prevColumn.id === columnId ? { ...prevColumn, title: newColumnName.title } : prevColumn,
-      ),
-    )
+    // setColumns((prevColumns) =>
+    //   prevColumns.map((prevColumn) =>
+    //     prevColumn.id === columnId ? { ...prevColumn, title: newColumnName.title } : prevColumn,
+    //   ),
+    // )
+    dispatch(addColumn({ newColumnName }))
     dispatch(closeModal())
     dispatch(openToast('successEditColumn'))
   }

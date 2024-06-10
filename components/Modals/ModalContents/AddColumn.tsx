@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { postColumn } from '@/service/columns'
+import { getColumnList, postColumn } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 
 export interface AddColumnProps {
@@ -32,8 +32,8 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
 
     dispatch(closeModal())
 
-    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
     dispatch(openToast('successAddColumn'))
+    await dispatch(getColumnList(String(dashboardId)))
   }
 
   return (

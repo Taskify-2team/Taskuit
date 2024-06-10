@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { getColumnList } from '@/service/columns'
 import { ColumnList } from '@/types/dashboard'
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -15,10 +16,23 @@ const initialState: initialStateType = {
   columnListStatus: '',
 }
 
-const dataSlice = createSlice({
-  name: 'data',
+const columnSlice = createSlice({
+  name: 'column',
   initialState,
-  reducers: {},
+  reducers: {
+    addColumn: (state, action) => {
+      state.columnList.data = state.columnList.data.map((column) =>
+        column.id === action.payload.newColumnName.columnId
+          ? { ...column, title: action.payload.newColumnName.title }
+          : column,
+      )
+    },
+    deleteColumn: (state, action) => {
+      state.columnList.data = state.columnList.data.filter(
+        (prevColumn) => prevColumn.id !== action.payload.columnId,
+      )
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getColumnList.pending, (state) => {
@@ -34,6 +48,6 @@ const dataSlice = createSlice({
   },
 })
 
-// export const {} = dataSlice.actions
+export const { addColumn, deleteColumn } = columnSlice.actions
 
-export default dataSlice.reducer
+export default columnSlice.reducer

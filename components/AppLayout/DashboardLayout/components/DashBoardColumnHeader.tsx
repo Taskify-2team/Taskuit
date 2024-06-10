@@ -3,20 +3,18 @@ import { openModal } from '@/store/reducers/modalReducer'
 import Image from 'next/image'
 import settingIcon from '@/public/icons/settingIcon.svg'
 import { useAppDispatch } from '@/hooks/useApp'
-import { Card, Column } from '@/types/dashboard'
+import { Card } from '@/types/dashboard'
 
 interface DashBoardColumnHeaderProps {
   columnTitle: string
   columnId: number
   cardList: Card[]
-  setColumns: React.Dispatch<React.SetStateAction<Column[] | undefined>> | undefined
 }
 
 export default function DashBoardColumnHeader({
   columnTitle,
   columnId,
   cardList,
-  setColumns,
 }: DashBoardColumnHeaderProps) {
   const dispatch = useAppDispatch()
 
@@ -37,7 +35,7 @@ export default function DashBoardColumnHeader({
           dispatch(
             openModal({
               modalName: 'EditColumn',
-              modalProps: { columnId, columnTitle, setColumns },
+              modalProps: { columnId, columnTitle },
             }),
           )
         }
