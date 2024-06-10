@@ -31,6 +31,7 @@ export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: U
       width={SIZE[size].imageSize}
       height={SIZE[size].imageSize}
       className="rounded-full border border-gray-300 shadow-md"
+      style={{ width: SIZE[size].imageSize, height: SIZE[size].imageSize, objectFit: 'cover' }}
     />
   ) : (
     <div

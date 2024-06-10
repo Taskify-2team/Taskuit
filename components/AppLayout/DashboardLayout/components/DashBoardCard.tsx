@@ -36,13 +36,12 @@ export default function DashBoardCard({
     >
       {card.imageUrl && (
         <Image
-          layout="responsive"
-          objectFit="cover"
           width={400}
           height={400}
           src={card.imageUrl}
           alt="카드 이미지"
-          className="mb-[1.2rem] rounded-[0.6rem]"
+          className="mb-[1.2rem] rounded-[0.6rem] object-cover"
+          priority
         />
       )}
       <h3 className="mb-[1rem] text-start text-[1.6rem]">{card.title}</h3>

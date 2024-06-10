@@ -11,8 +11,9 @@ export const postComment = async (params: PostComment) => {
   return response
 }
 
-export const getComments = async (param: number) => {
-  const response = await axios.get(`/comments?size=10&cardId=${param}`)
+export const getComments = async (params: { cardId: number; cursorId: number | null }) => {
+  const cursorIdParam = params.cursorId ? `&cursorId=${params.cursorId}` : ''
+  const response = await axios.get(`/comments?size=3&cardId=${params.cardId}${cursorIdParam}`)
   return response
 }
 
