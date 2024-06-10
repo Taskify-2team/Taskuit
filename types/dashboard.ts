@@ -43,17 +43,18 @@ export interface CardList {
   cards: Card[]
 }
 
+export interface Assignee {
+  profileImageUrl: string
+  nickname: string
+  id: number
+}
 export interface Card {
   id: number
   title: string
   description: string
   tags: string[]
   dueDate: string
-  assignee: {
-    profileImageUrl: string
-    nickname: string
-    id: number
-  }
+  assignee: Assignee
   imageUrl: string
   teamId: string
   columnId: number

@@ -19,18 +19,18 @@ import { Card, Column, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
-interface EditToDoProps {
-  columnId: number
+export interface EditToDoProps {
   card: Card
-  progressList: Column[]
+  columnTitle: string
+  columnList: Column[]
 }
 
-export default function EditToDo({ progressList, columnId, card }: EditToDoProps) {
+export default function EditToDo({ columnList, columnTitle, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
-  const [members, setMembers] = useState()
+  const [members, setMembers] = useState([])
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
-    columnId,
+    columnId: card?.columnId,
     assigneeUserId: card?.assignee.id || 0,
     title: card?.title,
     description: card?.description,
@@ -39,11 +39,9 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
     imageUrl: card?.imageUrl || null,
   })
   const [imageFile, setImageFile] = useState<File>()
-  const [assigneeUserId, setAssigneeUserId] = useState<number | undefined>()
-
+  const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
-  const [dueDate, setDueDate] = useState<string | undefined>()
-
+  const [dueDate, setDueDate] = useState('')
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
@@ -65,10 +63,10 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
     setImageFile(file)
   }
 
-  const submitEditToDo = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (imageFile) {
-      const imageResult = await updateCardImage({ columnId, imageFile })
+    if (imageFile && newCardBody.columnId) {
+      const imageResult = await updateCardImage({ columnId: newCardBody?.columnId, imageFile })
       await requestFunction({
         newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
         cardId: card.id,
@@ -108,7 +106,7 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
   }, [getMembersRequest])
 
   return (
-    <form className="modal-layout" onSubmit={submitEditToDo}>
+    <form className="modal-layout" onSubmit={handleSubmit}>
       <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
       <div className="flex gap-[1rem]">
         <div className="flex-1">
@@ -116,14 +114,16 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
             id="progress"
             label="상태"
             onChange={setNewCardBody}
-            progressList={progressList}
+            columnTitle={columnTitle}
+            columnList={columnList}
           />
         </div>
         <div className="flex-1">
           <DropDownInputMenu
             id="manager"
             label="담당자"
-            managerList={members}
+            currentManager={card.assignee}
+            memberList={members}
             setManager={setAssigneeUserId}
           />
         </div>
@@ -160,16 +160,16 @@ export default function EditToDo({ progressList, columnId, card }: EditToDoProps
         name="tag"
         onChange={handleInputValue}
       />
-      <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
+      <ImageInput
+        id="image"
+        label="이미지"
+        size="s"
+        currentImage={card.imageUrl}
+        onChange={handleFileInputValue}
+      />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton
-          color="purple"
-          text="수정"
-          type="submit"
-          isDisabled={isDisabled}
-          onClick={submitEditToDo}
-        />
+        <ShortButton color="purple" text="수정" type="submit" isDisabled={isDisabled} />
       </div>
     </form>
   )
