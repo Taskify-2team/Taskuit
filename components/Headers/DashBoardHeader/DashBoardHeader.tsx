@@ -7,7 +7,7 @@ import { getUserInfo } from '@/service/users'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import crownIcon from '@/public/icons/crownicon.svg'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useDispatch } from 'react-redux'
@@ -30,7 +30,7 @@ export default function DashBoardHeader() {
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
   const dispatch = useDispatch()
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const accessToken = localStorage.getItem('accessToken')
       let currentTitle = title
@@ -68,7 +68,16 @@ export default function DashBoardHeader() {
     } catch (error) {
       alert('데이터를 가져오는 중 오류가 발생했습니다.')
     }
-  }
+  }, [
+    title,
+    router,
+    setIsButtonVisible,
+    setTitle,
+    setCreatedByMe,
+    setUserData,
+    setMembers,
+    setTotalCount,
+  ])
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
@@ -91,7 +100,7 @@ export default function DashBoardHeader() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [router])
+  }, [fetchData])
 
   return (
     <div className="fixed z-50 flex w-[100vw] items-center justify-between bg-var-white py-[1.6rem] pl-[34rem] shadow">
