@@ -20,10 +20,10 @@ export interface ToDoDetailProps {
   card: Card
   columnTitle: string
   onDelete: (props: number) => void
-  progressList: Column[]
+  columnList: Column[]
 }
 
-export default function ToDoDetail({ card, progressList, columnTitle, onDelete }: ToDoDetailProps) {
+export default function ToDoDetail({ card, columnList, columnTitle, onDelete }: ToDoDetailProps) {
   const dispatch = useAppDispatch()
   const [commentList, setCommentList] = useState<Comment[]>()
   const [openKebab, setOpenKebab] = useState(false)
@@ -98,8 +98,8 @@ export default function ToDoDetail({ card, progressList, columnTitle, onDelete }
                       columnId: card.columnId,
                       card,
                       managerList: card.assignee,
-                      progressList,
-                      progress: columnTitle,
+                      columnList,
+                      columnTitle,
                     },
                   }),
                 )

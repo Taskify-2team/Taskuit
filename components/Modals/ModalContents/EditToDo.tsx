@@ -21,11 +21,11 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 export interface EditToDoProps {
   card: Card
-  progress: string
-  progressList: Column[]
+  columnTitle: string
+  columnList: Column[]
 }
 
-export default function EditToDo({ progressList, progress, card }: EditToDoProps) {
+export default function EditToDo({ columnList, columnTitle, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
@@ -65,8 +65,8 @@ export default function EditToDo({ progressList, progress, card }: EditToDoProps
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (imageFile) {
-      const imageResult = await updateCardImage({ columnId, imageFile })
+    if (imageFile && newCardBody.columnId) {
+      const imageResult = await updateCardImage({ columnId: newCardBody?.columnId, imageFile })
       await requestFunction({
         newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
         cardId: card.id,
@@ -114,8 +114,8 @@ export default function EditToDo({ progressList, progress, card }: EditToDoProps
             id="progress"
             label="상태"
             onChange={setNewCardBody}
-            progress={progress}
-            progressList={progressList}
+            columnTitle={columnTitle}
+            columnList={columnList}
           />
         </div>
         <div className="flex-1">

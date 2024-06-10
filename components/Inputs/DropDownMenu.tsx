@@ -9,19 +9,19 @@ import InputLayout from './InputLayout'
 interface DropDownMenuProps {
   label: string
   id: string
-  progress: string
-  progressList: Column[]
+  columnTitle: string
+  columnList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
 export default function DropDownMenu({
-  progressList,
-  progress,
+  columnList,
+  columnTitle,
   onChange,
   id,
   label,
 }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(progress)
+  const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 
@@ -66,7 +66,7 @@ export default function DropDownMenu({
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {progressList.map((progress) => (
+            {columnList.map((progress) => (
               <div
                 key={progress.id}
                 onClick={() => handleChangeProgress(progress)}
