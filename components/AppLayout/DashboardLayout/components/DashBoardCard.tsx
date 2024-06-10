@@ -9,14 +9,20 @@ interface DashBoardCardProps {
   card: Card
   columnList: Column[]
   columnTitle: string
+  columnId: number
   onDelete: (props: number) => void
+  dragStart: (card: Card, id: number) => void
+  drop: () => void
 }
 
 export default function DashBoardCard({
   card,
   columnList,
   columnTitle,
+  columnId,
   onDelete,
+  dragStart,
+  drop,
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
 
@@ -33,6 +39,9 @@ export default function DashBoardCard({
       type="button"
       onClick={handleOpenModal}
       className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
+      draggable
+      onDragStart={() => dragStart(card, columnId)}
+      onDragEnd={drop}
     >
       {card.imageUrl && (
         <Image
