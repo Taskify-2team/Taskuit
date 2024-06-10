@@ -1,7 +1,7 @@
 import { AppLayout } from '@/components'
 import InviteList from '@/components/InviteList/InviteList'
 import MyDashBoardList from '@/components/MyDashBoardList/MyDashBoardList'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export default function MyDashBoard() {
   const { theme } = useLoadTheme()

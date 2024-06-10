@@ -3,7 +3,7 @@ import Image from 'next/image'
 import crownIcon from '@/public/icons/crown.svg'
 import arrowForwardIcon from '@/public/icons/arrowForward.svg'
 import Link from 'next/link'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import CircleChip from '../Chips/CircleChip'
 
 interface BoardButtonProps {

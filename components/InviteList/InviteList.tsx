@@ -7,7 +7,7 @@ import useAsync from '@/hooks/useAsync'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
 import useDebounce from '@/hooks/useDebounce'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
 

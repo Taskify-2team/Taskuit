@@ -2,7 +2,7 @@ import Image from 'next/image'
 import addLogo from '@/public/icons/addLogo.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export default function CreateBoardButton() {
   const dispatch = useAppDispatch()

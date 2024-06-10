@@ -4,7 +4,7 @@ import plusIcon from '@/public/icons/plusIcon.svg'
 import { useEffect, useRef, useState } from 'react'
 import { ColorPicker, useColor } from 'react-color-palette'
 import 'react-color-palette/css'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface ColorSelectorProps {
   boardColor: string

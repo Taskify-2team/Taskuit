@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { PaginationButton, ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
 
