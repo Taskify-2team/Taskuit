@@ -10,7 +10,6 @@ export interface DashBoard {
 
 export interface Column {
   createdAt: string
-  dashboardId: number
   id: number
   teamId: string
   title: string
@@ -18,23 +17,24 @@ export interface Column {
 }
 
 export interface PostCard {
-  assigneeUserId: number
-  dashboardId?: number
+  assigneeUserId?: number
+  dashboardId: number
   columnId: number
   title: string
   description: string
-  dueDate: string
-  tags: string[]
+  dueDate?: string
+  tags?: string[]
+  imageUrl?: string
 }
 
 export interface UpdateCard {
-  assigneeUserId: number
-  columnId: number
-  title: string
-  description: string
-  dueDate: string
-  tags: string[]
-  imageUrl?: string
+  columnId?: number
+  assigneeUserId?: number
+  title?: string
+  description?: string
+  dueDate?: string
+  tags?: string[]
+  imageUrl?: string | null
 }
 
 export interface CardList {

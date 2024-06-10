@@ -1,23 +1,8 @@
 import { PostCard, UpdateCard } from '@/types/dashboard'
 import axios from './instance'
 
-export const postDashBoardCard = async ({
-  cardBody: { assigneeUserId, dashboardId, columnId, title, description, dueDate, tags },
-  imageUrl,
-}: {
-  cardBody: PostCard
-  imageUrl: string
-}) => {
-  const response = await axios.post(`/cards`, {
-    assigneeUserId,
-    dashboardId,
-    columnId,
-    title,
-    description,
-    dueDate,
-    tags,
-    imageUrl,
-  })
+export const postDashBoardCard = async (props: PostCard) => {
+  const response = await axios.post(`/cards`, props)
   return response
 }
 

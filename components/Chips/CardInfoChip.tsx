@@ -1,4 +1,5 @@
 import { Card } from '@/types/dashboard'
+import { formatDateTimeDot } from '@/utils/formatDate'
 import UserInfo from '../UserInfo/UserInfo'
 
 interface CardInfoChipProps {
@@ -18,7 +19,7 @@ export default function CardInfoChip({ card }: CardInfoChipProps) {
       </div>
       <div className="flex flex-col gap-[0.6rem]">
         <h4 className="text-[1.2rem] font-[600] leading-[2rem]">마감일</h4>
-        <p className="text-[1.4rem] text-var-black2">{card.dueDate}</p>
+        <p className="text-[1.4rem] text-var-black2">{formatDateTimeDot(card.dueDate)}</p>
       </div>
     </div>
   )

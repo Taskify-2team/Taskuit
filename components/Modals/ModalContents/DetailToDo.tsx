@@ -126,7 +126,15 @@ export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailPr
           {card.description}
         </p>
         {card.imageUrl && (
-          <Image className="mb-[2.4rem] w-full rounded-[0.6rem]" src={card.imageUrl} alt="이미지" />
+          <Image
+            className="mb-[2.4rem] w-full rounded-[0.6rem]"
+            src={card.imageUrl}
+            alt="이미지"
+            width={450}
+            height={500}
+            objectFit="cover"
+            layout="responsive"
+          />
         )}
         <CommentInput onAdd={handleAddComment} cardId={card.id} columnId={card.columnId} />
         <ul className="mt-[2rem] flex flex-col gap-[1rem]">

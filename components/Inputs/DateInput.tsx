@@ -1,13 +1,17 @@
 import DatePicker from 'react-datepicker'
-import { InputHTMLAttributes, forwardRef, useState } from 'react'
+import { Dispatch, SetStateAction, forwardRef, useEffect, useState } from 'react'
 import { ko } from 'date-fns/locale'
+import { formatDatePicker, parseDatePicker } from '@/utils/formatDate'
 import InputLayout from './InputLayout'
 import 'react-datepicker/dist/react-datepicker.css'
 
-interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface DateInputProps {
   id: string
   label: string
   isRequired?: boolean
+  onChange: Dispatch<SetStateAction<string | undefined>>
+  name: string
+  value: string | undefined
 }
 
 const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>) => {
@@ -24,19 +28,32 @@ const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>
 
 CustomInput.displayName = 'CustomInput'
 
-export default function DateInput({ id, label, isRequired = false }: DateInputProps) {
-  const [date, setDate] = useState(new Date())
+export default function DateInput({
+  id,
+  label,
+  isRequired = false,
+  onChange,
+  name,
+  value,
+}: DateInputProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    value ? parseDatePicker(value) : null,
+  )
 
-  const handleChange = (e: Date) => {
-    setDate(e)
-  }
+  useEffect(() => {
+    if (selectedDate) {
+      const newDate = formatDatePicker(selectedDate)
+      onChange(newDate)
+    }
+  }, [selectedDate, onChange])
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
       <DatePicker
         showTimeSelect
-        selected={date}
-        onChange={handleChange}
+        selected={selectedDate}
+        onChange={(date: Date | null) => setSelectedDate(date)}
+        name={name}
         locale={ko}
         dateFormat="yyyy.MM.dd HH:mm"
         customInput={<CustomInput />}
