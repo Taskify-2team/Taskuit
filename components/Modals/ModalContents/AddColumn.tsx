@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { postColumn } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 
-interface AddColumnProps {
+export interface AddColumnProps {
   dashboardId: number
 }
 

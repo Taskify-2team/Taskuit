@@ -22,7 +22,7 @@ export default function DashboardLayout({
           key={column.id}
           columnId={column.id}
           columnTitle={column.title}
-          progressList={columns}
+          columnList={columns}
           setColumns={setColumns}
         />
       ))}

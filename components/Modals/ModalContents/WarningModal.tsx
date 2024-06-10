@@ -5,7 +5,7 @@ import { deleteColumn } from '@/service/columns'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { Column } from '@/types/dashboard'
 
-interface WarningModalProps {
+export interface WarningModalProps {
   variant: string
   columnId?: number
   setColumns: React.Dispatch<React.SetStateAction<Column[]>>
