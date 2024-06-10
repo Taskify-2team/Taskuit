@@ -1,4 +1,4 @@
-import { Card } from '@/types/dashboard'
+import { Card, Column } from '@/types/dashboard'
 import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
@@ -7,15 +7,26 @@ import { DashBoardCardInfo } from '@/components'
 
 interface DashBoardCardProps {
   card: Card
+  progressList: Column[]
   columnTitle: string
   onDelete: (props: number) => void
 }
 
-export default function DashBoardCard({ card, columnTitle, onDelete }: DashBoardCardProps) {
+export default function DashBoardCard({
+  card,
+  progressList,
+  columnTitle,
+  onDelete,
+}: DashBoardCardProps) {
   const dispatch = useAppDispatch()
 
   const handleOpenModal = () =>
-    dispatch(openModal({ modalName: 'DetailToDo', modalProps: { card, columnTitle, onDelete } }))
+    dispatch(
+      openModal({
+        modalName: 'DetailToDo',
+        modalProps: { card, progressList, columnTitle, onDelete },
+      }),
+    )
 
   return (
     <button

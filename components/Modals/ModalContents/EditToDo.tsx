@@ -15,17 +15,17 @@ import { updateDashBoardCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { Card, UpdateCard } from '@/types/dashboard'
+import { Card, Column, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 interface EditToDoProps {
   columnId: number
   card: Card
-  progressList: string[]
+  progressList: Column[]
 }
 
-export default function EditToDo({ columnId, card, progressList }: EditToDoProps) {
+export default function EditToDo({ progressList, columnId, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState()
@@ -111,7 +111,12 @@ export default function EditToDo({ columnId, card, progressList }: EditToDoProps
       <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
       <div className="flex gap-[1rem]">
         <div className="flex-1">
-          <DropDownMenu id="progress" label="상태" progressList={progressList} />
+          <DropDownMenu
+            id="progress"
+            label="상태"
+            onChange={setNewCardBody}
+            progressList={progressList}
+          />
         </div>
         <div className="flex-1">
           <DropDownInputMenu

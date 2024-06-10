@@ -7,6 +7,7 @@ import useAsync from '@/hooks/useAsync'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
 import useDebounce from '@/hooks/useDebounce'
+import { useLoadTheme } from '@/store/\bcontext/ThemeContext'
 import { ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
 
@@ -18,6 +19,7 @@ export default function InviteList() {
   const { pending, requestFunction } = useAsync(getInvitationList)
   const dispatch = useAppDispatch()
   const { deBounceValue } = useDebounce(inviteTitle, 200)
+  const { theme } = useLoadTheme()
 
   const handleLoadList = async () => {
     const data = await requestFunction(cursorId, deBounceValue)
@@ -61,14 +63,12 @@ export default function InviteList() {
         <form
           onSubmit={(e) => {
             e.preventDefault()
-            // handleSearch()
           }}
         >
           <input
             placeholder="검색"
-            className="h-[4rem] w-full rounded-[0.6rem] border border-solid border-var-gray3 px-[4.8rem] py-[1rem] text-[1.6rem]"
+            className={`h-[4rem] w-full rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black1 bg-var-black1'} px-[4.8rem] py-[1rem] text-[1.6rem]`}
             onChange={handleInputChange}
-            // onBlur={handleSearch}
           />
           <Image
             src={searchIcon}
@@ -89,10 +89,18 @@ export default function InviteList() {
           {invitationList.map((item) => (
             <div
               key={item.id}
-              className="grid h-[7.2rem] grid-cols-3 items-center border-b text-center"
+              className={`grid h-[7.2rem] grid-cols-3 items-center border-b text-center ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black1'}`}
             >
-              <p className="text-[1.6rem]">{item.dashboard.title}</p>
-              <p className="text-[1.6rem]">{item.inviter.nickname}</p>
+              <p
+                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+              >
+                {item.dashboard.title}
+              </p>
+              <p
+                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+              >
+                {item.inviter.nickname}
+              </p>
               <div className="flex justify-center gap-[1rem]">
                 <ShortButton
                   text="수락"
