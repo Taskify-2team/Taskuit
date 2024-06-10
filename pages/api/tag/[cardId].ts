@@ -6,11 +6,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   cors(req, res, async () => {
     await dbConnect()
-    const { cardId } = req.query
+    const { id } = req.query
 
     switch (req.method) {
       case 'PATCH': {
-        const updateTag = await Tag.findByIdAndUpdate(cardId, req.body, {
+        const updateTag = await Tag.findByIdAndUpdate(id, req.body, {
           new: true,
         })
         res.status(200).send(updateTag)
@@ -18,7 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       case 'GET': {
-        const foundTag = await Tag.findById(cardId)
+        const foundTag = await Tag.findById(id)
         res.status(200).send(foundTag)
         break
       }

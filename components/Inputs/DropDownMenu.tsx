@@ -1,18 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import Image from 'next/image'
+import { Column, UpdateCard } from '@/types/dashboard'
 import ProgressChip from '../Chips/ProgressChip'
 import InputLayout from './InputLayout'
 
 interface DropDownMenuProps {
   label: string
   id: string
-  progressList: string[]
+  progressList: Column[]
+  onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
-export default function DropDownMenu({ id, label, progressList }: DropDownMenuProps) {
-  const [selectMenu, setSelectMenu] = useState(progressList?.[0])
+export default function DropDownMenu({ progressList, onChange, id, label }: DropDownMenuProps) {
+  const [selectMenu, setSelectMenu] = useState(progressList?.[0]?.title)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
 
@@ -20,6 +22,14 @@ export default function DropDownMenu({ id, label, progressList }: DropDownMenuPr
     if (dropDownElement.current && !dropDownElement.current.contains(e.target as Node)) {
       setShowMenuList(false)
     }
+  }
+
+  const handleChangeProgress = (progress: Column) => {
+    onChange((prev) => ({
+      ...prev,
+      columnId: progress.id,
+    }))
+    setSelectMenu(progress.title)
   }
 
   useEffect(() => {
@@ -49,18 +59,18 @@ export default function DropDownMenu({ id, label, progressList }: DropDownMenuPr
         </div>
         {showMenuList && (
           <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
-            {progressList.map((menuItem) => (
+            {progressList.map((progress) => (
               <div
-                key={menuItem}
-                onClick={() => setSelectMenu(menuItem)}
-                className={`${selectMenu === menuItem ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                key={progress.id}
+                onClick={() => handleChangeProgress(progress)}
+                className={`${selectMenu === progress.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
               >
-                {menuItem === selectMenu && (
+                {progress.title === selectMenu && (
                   <div className="col-start-1 size-[1rem] self-center">
                     <Image src={check} alt="체크 표시" />
                   </div>
                 )}
-                <ProgressChip progress={menuItem} />
+                <ProgressChip progress={progress.title} />
               </div>
             ))}
           </div>
