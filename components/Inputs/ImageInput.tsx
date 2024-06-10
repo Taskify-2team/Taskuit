@@ -44,7 +44,7 @@ export default function ImageInput({
         </div>
         {preview && (
           <div>
-            <Image fill src={preview} alt="프로필 이미지" />
+            <Image fill src={preview} style={{ objectFit: 'cover' }} alt="프로필 이미지" />
           </div>
         )}
         <input
