@@ -31,10 +31,8 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId: Number(dashboardId),
     columnId,
-    assigneeUserId: 0,
     title: '',
     description: '',
-    dueDate: '',
     tags: [],
   })
   const [isDisabled, setIsDisabled] = useState(true)
@@ -100,6 +98,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       <DropDownInputMenu
         id="manager"
         label="담당자"
+        isRequired
         memberList={members}
         setManager={setAssigneeUserId}
       />
@@ -123,6 +122,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       />
       <DateInput
         label="마감일"
+        isRequired
         id="dueDate"
         name="dueDate"
         value={cardBody.dueDate}

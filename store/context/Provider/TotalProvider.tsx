@@ -54,6 +54,8 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  console.log(userId)
+
   return (
     <UserContext.Provider value={{ userId }}>
       <LanguageContext.Provider value={{ language, handleSetLanguage }}>

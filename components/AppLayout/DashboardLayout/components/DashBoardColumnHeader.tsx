@@ -4,6 +4,7 @@ import Image from 'next/image'
 import settingIcon from '@/public/icons/settingIcon.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { Card } from '@/types/dashboard'
+import { useLoadUser } from '@/store/context/UserIdContext'
 
 interface DashBoardColumnHeaderProps {
   columnTitle: string
@@ -17,6 +18,8 @@ export default function DashBoardColumnHeader({
   cardList,
 }: DashBoardColumnHeaderProps) {
   const dispatch = useAppDispatch()
+  const { userId } = useLoadUser()
+  console.log(userId)
 
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
