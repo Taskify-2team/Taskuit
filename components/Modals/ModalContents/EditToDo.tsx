@@ -9,10 +9,10 @@ import {
   Textarea,
   ShortButton,
 } from '@/components'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
-import { updateDashBoardCard } from '@/service/cards'
-import { getColumnList, postCardImage } from '@/service/columns'
+import { getCardList, updateDashBoardCard } from '@/service/cards'
+import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
@@ -42,6 +42,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
+  const { cursorId } = useAppSelector((state) => state.card)
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
@@ -63,6 +64,10 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     setImageFile(file)
   }
 
+  const refreshCardList = async () => {
+    await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (imageFile && newCardBody.columnId) {
@@ -77,10 +82,9 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         cardId: card.id,
       })
     }
-
     dispatch(closeModal())
+    refreshCardList()
     dispatch(openToast('successUpdateCard'))
-    /** 토스트 */
   }
 
   useEffect(() => {

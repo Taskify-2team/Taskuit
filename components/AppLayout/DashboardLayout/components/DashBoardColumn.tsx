@@ -1,10 +1,11 @@
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
 import { getCardList, getDashBoardCard } from '@/service/cards'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
+import { deleteCard } from '@/store/reducers/cardReducer'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -22,9 +23,10 @@ export default function DashBoardColumn({
   drop,
 }: DashBoardColumnProps) {
   const cardList = useAppSelector((state) => state.card.cardList[columnId])
+  const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
+  const { cardListStatus } = useAppSelector((state) => state.card)
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const [cursorId, setCursorId] = useState<number>(0)
   // const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 
@@ -33,20 +35,21 @@ export default function DashBoardColumn({
       // const result = await getCardsRequest({ columnId, cursorId })
       // if (result) {
       //   setCardList((prev) => [...prev, ...result.data.cards])
-      //   setCursorId(result.data.cursorId)
       // }
       await dispatch(getCardList({ columnId, cursorId }))
+      // setCursorId(result.data.cursorId)
     }
   }, [columnId, getCardsRequest, cursorId])
 
-  const handleDeleteCard = (deletedCardId: number) => {
-    setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
+  const handleDeleteCard = (cardId: number, columnIdValue: number) => {
+    // setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
+    dispatch(deleteCard({ cardId, columnId: columnIdValue }))
   }
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const target = entries[0]
-      if (!pending && target.isIntersecting) {
+      if (cardListStatus !== 'pending' && target.isIntersecting) {
         getCardsData()
       }
     },
@@ -60,7 +63,7 @@ export default function DashBoardColumn({
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
-    if (obsRef.current && !pending && cursorId) observer.observe(obsRef.current)
+    if (obsRef.current && cardListStatus !== 'pending' && cursorId) observer.observe(obsRef.current)
     return () => {
       observer.disconnect()
     }
@@ -85,7 +88,7 @@ export default function DashBoardColumn({
       {cardList && (
         <div className="flex flex-col gap-[1.6rem]">
           {cardList.length > 0 &&
-            cardList.map((cardItem) => (
+            cardList.map((cardItem: Card) => (
               <DashBoardCard
                 key={cardItem.id}
                 columnTitle={columnTitle}

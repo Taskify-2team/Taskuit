@@ -8,10 +8,10 @@ import {
   Textarea,
   ShortButton,
 } from '@/components'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
-import { postDashBoardCard } from '@/service/cards'
+import { getCardList, postDashBoardCard } from '@/service/cards'
 import useAsync from '@/hooks/useAsync'
 import { PostCard } from '@/types/dashboard'
 import { postCardImage } from '@/service/columns'
@@ -26,7 +26,6 @@ export interface AddToDoProps {
 export default function AddToDo({ columnId }: AddToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
-
   const [members, setMembers] = useState([])
   const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId: Number(dashboardId),
@@ -42,6 +41,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const [dueDate, setDueDate] = useState('')
   const [imageFile, setImageFile] = useState<File>()
   const dispatch = useAppDispatch()
+  const { cursorId } = useAppSelector((state) => state.card)
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
@@ -73,6 +73,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       await postToDo(cardBody)
     }
     dispatch(closeModal())
+
     dispatch(openToast('successAddCard'))
   }
 

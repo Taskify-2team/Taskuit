@@ -9,7 +9,7 @@ interface DashBoardCardProps {
   card: Card
   columnTitle: string
   columnId: number
-  onDelete: (props: number) => void
+  onDelete: (cardId: number, columnId: number) => void
   dragStart: (card: Card, id: number) => void
   drop: () => void
 }
