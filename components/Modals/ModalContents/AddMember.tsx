@@ -6,6 +6,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { inviteUser } from '@/service/dashboards'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { Invitation } from '@/types/invitation'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export interface AddMemberProps {
   dashboardId: number
@@ -19,6 +20,7 @@ export default function AddMember({ dashboardId, setInviteList }: AddMemberProps
   })
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(inviteUser)
+  const { theme } = useLoadTheme()
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInviteBody({
@@ -41,9 +43,11 @@ export default function AddMember({ dashboardId, setInviteList }: AddMemberProps
         e.preventDefault()
         submitAddMember()
       }}
-      className="modal-layout"
+      className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}
     >
-      <h3 className="text-[2.4rem] font-bold">초대하기</h3>
+      <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
+        초대하기
+      </h3>
       <TextInput
         id="email"
         label="이메일"

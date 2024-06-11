@@ -3,6 +3,7 @@ import { formatDateTime } from '@/utils/formatDate'
 import useAsync from '@/hooks/useAsync'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { deleteComment, updateComment } from '@/service/comments'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import ShortButton from '../Buttons/ShortButton'
 import UserProfile from '../UserInfo/UserProfile'
 import EditButton from '../Buttons/EditButton'
@@ -18,6 +19,7 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
   const [text, setText] = useState(comment.content)
   const { requestFunction: updateCommentRequest } = useAsync(updateComment)
   const { requestFunction: deleteCommentRequest } = useAsync(deleteComment)
+  const { theme } = useLoadTheme()
 
   const updateCommentData = async () => {
     await updateCommentRequest({ id: comment.id, content: text })
@@ -54,7 +56,11 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
       />
       <div className="w-full">
         <div className="flex items-center gap-[0.8rem] pb-[0.6rem] pt-[0.4rem]">
-          <h3 className="text-[1.4rem] font-[600]">{comment.author.nickname}</h3>
+          <h3
+            className={`text-[1.4rem] font-[600] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+          >
+            {comment.author.nickname}
+          </h3>
           <span className="text-[1.2rem] text-var-gray4">{formatDateTime(comment.createdAt)}</span>
         </div>
         {isEdit ? (
@@ -74,7 +80,11 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
           </form>
         ) : (
           <div>
-            <p className="whitespace-pre-wrap text-[1.4rem] text-var-black2">{comment.content}</p>
+            <p
+              className={`whitespace-pre-wrap text-[1.4rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray3'}`}
+            >
+              {comment.content}
+            </p>
             <div className="mt-[1.2rem] flex gap-[1.2rem]">
               <EditButton onClick={handleEditClick} text="수정" />
               <EditButton onClick={handleDeleteClick} text="삭제" />

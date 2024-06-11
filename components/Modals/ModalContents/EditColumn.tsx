@@ -2,6 +2,7 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { addColumnItem } from '@/store/reducers/columnReducer'
 import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
@@ -20,6 +21,7 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const dispatch = useAppDispatch()
   const { requestFunction: updateColumnFunction } = useAsync(updateColumn)
   const { requestFunction: deleteColumnFunction } = useAsync(deleteColumn)
+  const { theme } = useLoadTheme()
 
   const handelChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewColumnName({
@@ -47,8 +49,10 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="modal-layout">
-      <h3 className="text-[2.4rem] font-bold">칼럼 관리</h3>
+    <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>
+      <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
+        칼럼 관리
+      </h3>
       <TextInput id="name" label="이름" value={newColumnName.title} onChange={handelChange} />
       <div className="flex items-end justify-between">
         <button

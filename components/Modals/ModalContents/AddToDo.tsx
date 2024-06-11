@@ -18,6 +18,7 @@ import { postCardImage } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export interface AddToDoProps {
   columnId: number
@@ -45,6 +46,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
+  const { theme } = useLoadTheme()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setCardBody({
@@ -100,8 +102,13 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }, [getMembersRequest])
 
   return (
-    <form onSubmit={submitAddToDo} className="modal-layout">
-      <h3 className="text-[2.4rem] font-bold">할 일 생성</h3>
+    <form
+      onSubmit={submitAddToDo}
+      className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}
+    >
+      <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
+        할 일 생성
+      </h3>
       <DropDownInputMenu
         id="manager"
         label="담당자"

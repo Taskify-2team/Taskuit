@@ -31,7 +31,7 @@ export default function TextInput({
         onChange={onChange}
         placeholder={placeholder}
         required={isRequired}
-        className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''} ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'}`}
+        className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''} ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1 text-var-gray3'}`}
         readOnly={isReadOnly}
         ref={ref}
       />

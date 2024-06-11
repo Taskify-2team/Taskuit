@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, ChangeEvent, KeyboardEvent, useState } from 'react'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
 
@@ -10,6 +11,7 @@ interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
 export default function TagInput({ id, label, isRequired }: TagInputProps) {
   const [tagList, setTagList] = useState<string[]>([])
   const [text, setText] = useState('')
+  const { theme } = useLoadTheme()
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -28,7 +30,9 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
-      <div className="input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem]">
+      <div
+        className={`input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1'}`}
+      >
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
             {tagList.map((tagItem) => (
@@ -42,7 +46,7 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
           placeholder="입력 후 Enter"
           onChange={handleChange}
           required={isRequired}
-          className="outline-none"
+          className={`outline-none ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1 text-var-gray3'}`}
           onKeyDown={handleKeyDown}
         />
       </div>

@@ -8,6 +8,7 @@ import useAsync from '@/hooks/useAsync'
 import { postDashboard } from '@/service/dashboards'
 import { DashBoard } from '@/types/dashboard'
 import { openMyToast } from '@/store/reducers/myToastReducer'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface AddDashBoardProps {
   dashBoard: DashBoard[]
@@ -21,6 +22,7 @@ export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardPr
     title: '',
     color: '#7ac555',
   })
+  const { theme } = useLoadTheme()
 
   const handleColor = (colorName: string) => {
     setDashBoardBody({
@@ -45,8 +47,13 @@ export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardPr
   }
 
   return (
-    <form onSubmit={submitAddDashBoard} className="modal-layout">
-      <h3 className="text-[2.4rem] font-bold">새로운 대시보드</h3>
+    <form
+      onSubmit={submitAddDashBoard}
+      className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}
+    >
+      <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
+        새로운 대시보드
+      </h3>
       <div className="flex w-full flex-col gap-[1.8rem]">
         <TextInput
           id="name"
