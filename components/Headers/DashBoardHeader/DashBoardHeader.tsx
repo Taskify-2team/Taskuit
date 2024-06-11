@@ -126,13 +126,13 @@ export default function DashBoardHeader() {
           handleOnClick={handleSetTheme}
         />
         {isButtonVisible && (
-          <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
-            <Link href="/mypage" passHref className="flex">
-              <HeaderButton
-                buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
-                buttonName="관리"
-              />
-            </Link>
+          <div className="flex gap-[1.6rem] pr-[4rem]">
+            <HeaderButton
+              buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
+              buttonName="관리"
+              handleOnClick={handleManageClick}
+            />
+
             <HeaderButton
               buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
               buttonName="초대하기"
