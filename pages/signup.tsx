@@ -50,7 +50,10 @@ export default function LoginForm() {
   const onSubmit = async (data: FormValueType) => {
     try {
       await SignUpAccess(data.id, data.nickname, data.password)
-      window.location.href = '/mydashboard'
+      dispatch(openToast('successSignUp'))
+      setTimeout(() => {
+        window.location.href = '/login'
+      }, 3000)
     } catch (error: unknown) {
       if (!isAxiosError(error)) {
         setLoginError('서버에서 오류가 발생했습니다.')

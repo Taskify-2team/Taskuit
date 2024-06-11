@@ -26,7 +26,7 @@ export default function DashBoardHeader() {
   const [totalCount, setTotalCount] = useState<number>(0)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const [isButtonVisible, setIsButtonVisible] = useState<boolean>(true)
+  const [isButtonVisible, setIsButtonVisible] = useState<boolean>(false)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [members, setMembers] = useState<any[]>([])
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
@@ -39,14 +39,9 @@ export default function DashBoardHeader() {
       let currentTitle = title
 
       if (accessToken) {
-        if (router.pathname === '/mydashboard') {
-          currentTitle = '내 대시보드'
-          setIsButtonVisible(false)
-        } else if (router.pathname === '/mypage') {
-          currentTitle = '마이 페이지'
-          setIsButtonVisible(false)
-        } else if (router.pathname.startsWith('/dashboard/')) {
+        if (router.pathname.startsWith('/dashboard/')) {
           const { dashboardId } = router.query
+          setIsButtonVisible(true)
           if (dashboardId) {
             const dashboardInfo = await getDashBoardInfo(Number(dashboardId))
             currentTitle = dashboardInfo.title
@@ -96,6 +91,9 @@ export default function DashBoardHeader() {
       setIsDropdownOpen(false)
     }
   }
+  const handleManageClick = () => {
+    router.push(`${router.asPath}/edit`)
+  }
 
   useEffect(() => {
     fetchData()
@@ -119,9 +117,12 @@ export default function DashBoardHeader() {
         <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         {isButtonVisible && (
           <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
-            <Link href="/mypage" passHref className="flex">
-              <HeaderButton buttonIcon={settingIcon} buttonName="관리" />
-            </Link>
+            <HeaderButton
+              buttonIcon={settingIcon}
+              buttonName="관리"
+              handleOnClick={handleManageClick}
+            />
+
             <HeaderButton
               buttonIcon={inviteIcon}
               buttonName="초대하기"
@@ -149,6 +150,11 @@ export default function DashBoardHeader() {
               <Link href="/mypage">
                 <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4">
                   내 정보
+                </p>
+              </Link>
+              <Link href="/mydashboard">
+                <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4">
+                  내 대시보드
                 </p>
               </Link>
               <button
