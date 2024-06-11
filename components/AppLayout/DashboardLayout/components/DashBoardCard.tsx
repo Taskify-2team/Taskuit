@@ -4,6 +4,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import TagChipList from '@/components/Chips/TagChipList'
 import { DashBoardCardInfo } from '@/components'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface DashBoardCardProps {
   card: Card
@@ -21,6 +22,7 @@ export default function DashBoardCard({
   drop,
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
+  const { theme } = useLoadTheme()
 
   const handleOpenModal = () =>
     dispatch(
@@ -34,7 +36,7 @@ export default function DashBoardCard({
     <button
       type="button"
       onClick={handleOpenModal}
-      className="w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] border-var-gray3 bg-var-white p-[2rem]"
+      className={`w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] p-[2rem] ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
       onDragStart={() => dragStart(card, columnId)}
       onDragEnd={drop}
@@ -49,7 +51,11 @@ export default function DashBoardCard({
           priority
         />
       )}
-      <h3 className="mb-[1rem] text-start text-[1.6rem]">{card.title}</h3>
+      <h3
+        className={`mb-[1rem] text-start text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+      >
+        {card.title}
+      </h3>
       <TagChipList tags={card.tags} />
       <DashBoardCardInfo card={card} />
     </button>

@@ -120,6 +120,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
             label="상태"
             onChange={setNewCardBody}
             columnTitle={columnTitle}
+            isRequired
           />
         </div>
         <div className="flex-1">
@@ -129,6 +130,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
             currentManager={card.assignee}
             memberList={members}
             setManager={setAssigneeUserId}
+            isRequired
           />
         </div>
       </div>
@@ -156,6 +158,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         name="dueDate"
         value={newCardBody?.dueDate}
         onChange={setDueDate}
+        isRequired
       />
       <TagInput
         id="tag"

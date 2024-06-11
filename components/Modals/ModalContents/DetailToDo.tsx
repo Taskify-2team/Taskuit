@@ -100,7 +100,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   }, [])
 
   return (
-    <div onClick={handleKebabClose} className="modal-layout max-h-[90vh] w-[73rem] overflow-auto">
+    <div onClick={handleKebabClose} className="modal-layout w-[73rem]">
       <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />

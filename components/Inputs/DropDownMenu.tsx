@@ -12,10 +12,16 @@ interface DropDownMenuProps {
   id: string
   columnTitle: string
   onChange: Dispatch<SetStateAction<UpdateCard>>
+  isRequired?: boolean
 }
 
-export default function DropDownMenu({ columnTitle, onChange, id, label }: DropDownMenuProps) {
-  const { data: columnList } = useAppSelector((state) => state.column.columnList)
+export default function DropDownMenu({
+  columnTitle,
+  onChange,
+  id,
+  label,
+  isRequired,
+}: DropDownMenuProps) {
   const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
@@ -42,7 +48,7 @@ export default function DropDownMenu({ columnTitle, onChange, id, label }: DropD
   })
 
   return (
-    <InputLayout id={id} label={label}>
+    <InputLayout id={id} label={label} isRequired={isRequired}>
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList((prev) => !prev)}

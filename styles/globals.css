@@ -8,6 +8,13 @@
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
     format('woff');
 }
+@font-face {
+  font-family: 'Logo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @layer components {
   .input-layout {
@@ -15,7 +22,7 @@
   }
 
   .modal-layout {
-    @apply flex min-h-[25rem] w-[54rem] animate-slideDown flex-col justify-between gap-[2.5rem] overflow-auto rounded-[0.8rem] bg-var-white p-[2.8rem];
+    @apply flex max-h-[90vh] min-h-[25rem] w-[54rem] animate-slideDown flex-col justify-between gap-[2.5rem] overflow-auto rounded-[0.8rem] bg-var-white p-[2.8rem];
   }
 
   .button-disabled {
@@ -68,4 +75,8 @@ address {
   --gray-gray_EEEEEE: #eee;
   --gray-gray_FAFAFA: #fafafa;
   --white-white_FFFFFF: #fff;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

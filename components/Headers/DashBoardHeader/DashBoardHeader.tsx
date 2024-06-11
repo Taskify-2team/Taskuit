@@ -1,7 +1,10 @@
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteIcon from '@/public/icons/inviteIcon.svg'
+import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
 import settingIcon from '@/public/icons/settingIcon.svg'
+import settingIconWhite from '@/public/icons/settingiconWhite.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
+import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import { getDashBoardInfo } from '@/service/dashboards'
 import { getMemberList } from '@/service/members'
 import { getUserInfo } from '@/service/users'
@@ -107,7 +110,7 @@ export default function DashBoardHeader() {
 
   return (
     <div
-      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} py-[1.6rem] pl-[34rem] shadow`}
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.6rem] pl-[34rem] shadow`}
     >
       <div className="flex items-center gap-[1rem]">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
@@ -116,14 +119,21 @@ export default function DashBoardHeader() {
         )}
       </div>
       <div className="flex gap-[1.6rem]">
-        <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
+        <HeaderButton
+          buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
+          buttonName="테마"
+          handleOnClick={handleSetTheme}
+        />
         {isButtonVisible && (
           <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
             <Link href="/mypage" passHref className="flex">
-              <HeaderButton buttonIcon={settingIcon} buttonName="관리" />
+              <HeaderButton
+                buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
+                buttonName="관리"
+              />
             </Link>
             <HeaderButton
-              buttonIcon={inviteIcon}
+              buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
               buttonName="초대하기"
               handleOnClick={() =>
                 dispatch(
