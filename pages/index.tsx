@@ -58,7 +58,7 @@ export default function Home() {
           <br /> 체계적으로 관리해보세요!
         </p>
         <Link href="/login">
-          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white sm:w-[23.5rem] sm:py-[1.2rem]">
+          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white sm:mb-[8rem] sm:mt-[6rem] sm:w-[23.5rem] sm:py-[1.2rem]">
             로그인하기
           </span>
         </Link>
