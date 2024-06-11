@@ -3,9 +3,6 @@
 import { getCardList } from '@/service/cards'
 import { Card } from '@/types/dashboard'
 import { createSlice } from '@reduxjs/toolkit'
-import { enableMapSet } from 'immer'
-
-enableMapSet()
 
 interface initialStateType {
   cardList: any

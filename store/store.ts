@@ -1,12 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { enableMapSet } from 'immer'
 import toastReducer from './reducers/toastReducer'
 import modalReducer from './reducers/modalReducer'
 import myToastReducer from './reducers/myToastReducer'
 import columnReducer from './reducers/columnReducer'
 import cardReducer from './reducers/cardReducer'
-
-enableMapSet()
 
 const store = configureStore({
   reducer: {
