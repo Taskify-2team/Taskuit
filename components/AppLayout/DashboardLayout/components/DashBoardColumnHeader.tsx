@@ -4,7 +4,10 @@ import Image from 'next/image'
 import settingIcon from '@/public/icons/settingIcon.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { Card } from '@/types/dashboard'
-import { useLoadUser } from '@/store/context/UserIdContext'
+import { useRouter } from 'next/router'
+import useAsync from '@/hooks/useAsync'
+import { getDashBoardInfo } from '@/service/dashboards'
+import { useCallback, useEffect, useState } from 'react'
 
 interface DashBoardColumnHeaderProps {
   columnTitle: string
@@ -17,9 +20,20 @@ export default function DashBoardColumnHeader({
   columnId,
   cardList,
 }: DashBoardColumnHeaderProps) {
+  const router = useRouter()
+  const { dashboardId } = router.query
   const dispatch = useAppDispatch()
-  const { userId } = useLoadUser()
-  console.log(userId)
+  const { requestFunction } = useAsync(getDashBoardInfo)
+  const [isMyDashBoard, setIsMyDashBoard] = useState(false)
+
+  const handleLoadDashBoard = useCallback(async () => {
+    const result = await requestFunction(Number(dashboardId))
+    setIsMyDashBoard(result.createdByMe)
+  }, [dashboardId, requestFunction])
+
+  useEffect(() => {
+    handleLoadDashBoard()
+  }, [handleLoadDashBoard])
 
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
@@ -32,19 +46,22 @@ export default function DashBoardColumnHeader({
           </div>
         )}
       </div>
-      <button
-        type="button"
-        onClick={() =>
-          dispatch(
-            openModal({
-              modalName: 'EditColumn',
-              modalProps: { columnId, columnTitle },
-            }),
-          )
-        }
-      >
-        <Image src={settingIcon} alt="설정" width="24" height="24" />
-      </button>
+
+      {isMyDashBoard && (
+        <button
+          type="button"
+          onClick={() =>
+            dispatch(
+              openModal({
+                modalName: 'EditColumn',
+                modalProps: { columnId, columnTitle },
+              }),
+            )
+          }
+        >
+          <Image src={settingIcon} alt="설정" width="24" height="24" />
+        </button>
+      )}
     </div>
   )
 }

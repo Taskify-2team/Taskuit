@@ -5,7 +5,7 @@ import { LanguageContext } from '../LanguageContext'
 import { ThemeContext } from '../ThemeContext'
 
 export default function TotalProvider({ children }: { children: ReactNode }) {
-  const [userId, setUserId] = useState(0)
+  const [userId, setUserId] = useState()
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
 
@@ -53,8 +53,6 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('theme', 'normal')
     }
   }, [])
-
-  console.log(userId)
 
   return (
     <UserContext.Provider value={{ userId }}>
