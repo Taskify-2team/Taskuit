@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
+import addDashBoardIcon from '@/public/icons/adddashboardiconWhite.svg'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDispatch } from 'react-redux'
 import { getDashBoard } from '@/service/dashboards'
@@ -41,7 +42,7 @@ export default function SideMenu() {
 
   return (
     <div
-      className={`fixed z-40 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} px-[2.4rem] pt-[2rem]`}
+      className={`fixed z-40 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'} px-[2.4rem] pt-[2rem]`}
     >
       <div className="flex items-center gap-[1rem]">
         <Image src={logoIcon} alt="Taskify 로고 아이콘" width={40} />
@@ -63,7 +64,10 @@ export default function SideMenu() {
             )
           }
         >
-          <Image src={adddashboardicon} alt="대시보드 추가 아이콘" />
+          <Image
+            src={theme === 'normal' ? adddashboardicon : addDashBoardIcon}
+            alt="대시보드 추가 아이콘"
+          />
         </button>
       </div>
       <div className="h-[30rem]">
