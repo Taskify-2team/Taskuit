@@ -32,7 +32,7 @@ export default function LightHeader() {
         <div className="flex items-center gap-[1rem]">
           <Image src={logo} height={39} alt="라이트 헤더 로고" />
           {isLogoFontVisible && (
-            <p className="text-[2.5rem] font-bold text-primary-violet">Taskuit</p>
+            <p className="text-[2.5rem] font-bold text-primary-violet sm:hidden">Taskuit</p>
           )}
         </div>
       </Link>
