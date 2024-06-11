@@ -6,7 +6,7 @@ import instagramIcon from '@/public/icons/instagramIconDark.svg'
 
 export default function Footer() {
   return (
-    <div className="flex h-[10rem] w-full items-center justify-between bg-var-white px-[14rem]">
+    <div className="flex h-[10rem] w-full items-center justify-between bg-var-white px-[14rem] sm:mt-[3rem] sm:flex-col sm:gap-[1.2rem] md:px-[4rem]">
       <p className="text-[1.6rem] font-normal">@FTF-Coding</p>
       <div className="flex gap-[3.2rem]">
         <Link href="/">
@@ -16,7 +16,7 @@ export default function Footer() {
           <p className="text-[1.6rem] font-normal">FAQ</p>
         </Link>
       </div>
-      <div className="flex gap-[1.4rem]">
+      <div className="flex gap-[1.4rem] sm:mt-[6.8rem] sm:pb-[9rem]">
         <Link href="https://mail.google.com/mail" target="_blank">
           <Image src={emailIcon} alt="이메일 아이콘" width={22} height={22} />
         </Link>
