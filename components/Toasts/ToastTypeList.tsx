@@ -15,6 +15,7 @@ const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['emailInUse', { text: '이미 사용중인 이메일입니다.', warn: true }],
   ['wrongEditBoardValue', { text: '변경된 내용이 없습니다.', warn: true }],
   ['wrongCurrentPassword', { text: '비밀번호가 일치하지 않습니다.', warn: true }],
+  ['successSignUp', { text: '가입이 완료되었습니다.', warn: false }],
 ])
 
 export default toastList
