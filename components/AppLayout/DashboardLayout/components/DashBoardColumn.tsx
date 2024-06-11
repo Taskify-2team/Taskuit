@@ -5,7 +5,6 @@ import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { deleteCard } from '@/store/reducers/cardReducer'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -27,24 +26,13 @@ export default function DashBoardColumn({
   const { cardListStatus } = useAppSelector((state) => state.card)
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  // const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
-      // const result = await getCardsRequest({ columnId, cursorId })
-      // if (result) {
-      //   setCardList((prev) => [...prev, ...result.data.cards])
-      // }
       await dispatch(getCardList({ columnId, cursorId }))
-      // setCursorId(result.data.cursorId)
     }
   }, [columnId, getCardsRequest, cursorId])
-
-  const handleDeleteCard = (cardId: number, columnIdValue: number) => {
-    // setCardList(cardList.filter((cardItem) => cardItem.id !== deletedCardId))
-    dispatch(deleteCard({ cardId, columnId: columnIdValue }))
-  }
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -94,7 +82,6 @@ export default function DashBoardColumn({
                 columnTitle={columnTitle}
                 card={cardItem}
                 columnId={columnId}
-                onDelete={handleDeleteCard}
                 dragStart={dragStart}
                 drop={drop}
               />

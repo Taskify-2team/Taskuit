@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 import { getCardList } from '@/service/cards'
+import { Card } from '@/types/dashboard'
 import { createSlice } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
 
@@ -21,16 +23,17 @@ const cardSlice = createSlice({
   name: 'card',
   initialState,
   reducers: {
-    addCard: (state, action) => {
-      state.cardList.cards = state.cardList.cards.map((card) =>
+    addCardItem: (state, action) => {
+      const { columnId } = action.payload
+      state.cardList[columnId] = state.cardList[columnId].map((card: Card) =>
         card.id === action.payload.newCardBody.id
           ? { ...card, title: action.payload.newCardBody.title }
           : card,
       )
     },
-    deleteCard: (state, action) => {
+    deleteCardItem: (state, action) => {
       state.cardList[action.payload.columnId] = state.cardList[action.payload.columnId]?.filter(
-        (cardItem) => cardItem.id !== action.payload.cardId,
+        (cardItem: Card) => cardItem.id !== action.payload.cardId,
       )
     },
   },
@@ -42,7 +45,7 @@ const cardSlice = createSlice({
       .addCase(getCardList.fulfilled, (state, action) => {
         state.cardListStatus = 'fulfilled'
         let columnId
-        action.payload.cards.forEach((card, i) => {
+        action.payload.cards.forEach((card: Card, i: number) => {
           columnId = card.columnId
           if (!state.cardList[columnId]) {
             state.cardList[columnId] = []
@@ -71,6 +74,6 @@ const cardSlice = createSlice({
   },
 })
 
-export const { addCard, deleteCard } = cardSlice.actions
+export const { addCardItem, deleteCardItem } = cardSlice.actions
 
 export default cardSlice.reducer

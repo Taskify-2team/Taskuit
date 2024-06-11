@@ -2,7 +2,7 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
-import { addColumn } from '@/store/reducers/columnReducer'
+import { addColumnItem } from '@/store/reducers/columnReducer'
 import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { ChangeEvent, FormEvent, useState } from 'react'
@@ -41,12 +41,7 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await updateColumnFunction(newColumnName)
-    // setColumns((prevColumns) =>
-    //   prevColumns.map((prevColumn) =>
-    //     prevColumn.id === columnId ? { ...prevColumn, title: newColumnName.title } : prevColumn,
-    //   ),
-    // )
-    dispatch(addColumn({ newColumnName }))
+    dispatch(addColumnItem({ newColumnName }))
     dispatch(closeModal())
     dispatch(openToast('successEditColumn'))
   }

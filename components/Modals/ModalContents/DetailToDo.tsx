@@ -15,20 +15,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import KebabEditButton from '@/components/Buttons/KebabEditButton'
 import { deleteDashBoardCard } from '@/service/cards'
 import { openToast } from '@/store/reducers/toastReducer'
+import { deleteCardItem } from '@/store/reducers/cardReducer'
 
 export interface ToDoDetailProps {
   card: Card
   columnTitle: string
-  onDelete: (props: number) => void
 }
 
-export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailProps) {
+export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const [cursorId, setCursorId] = useState<number | null>(0)
+  const [cursorId, setCursorId] = useState<number>(0)
   const [commentList, setCommentList] = useState<Comment[]>([])
   const [openKebab, setOpenKebab] = useState(false)
-
   const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
 
@@ -42,7 +41,7 @@ export default function ToDoDetail({ card, columnTitle, onDelete }: ToDoDetailPr
 
   const deleteCardData = async () => {
     await deleteCardRequest(card.id)
-    onDelete(card.id)
+    dispatch(deleteCardItem({ cardId: card.id, columnId: card.columnId }))
   }
 
   const handleDeleteCard = () => {

@@ -41,7 +41,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const [dueDate, setDueDate] = useState('')
   const [imageFile, setImageFile] = useState<File>()
   const dispatch = useAppDispatch()
-  const { cursorId } = useAppSelector((state) => state.card)
+  const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
@@ -62,6 +62,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     setImageFile(file)
   }
 
+  const refreshCardList = async () => {
+    await dispatch(getCardList({ cursorId: Number(cursorId), columnId }))
+  }
+
   const submitAddToDo = async (e: FormEvent) => {
     e.preventDefault()
     let imageResult
@@ -73,7 +77,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
       await postToDo(cardBody)
     }
     dispatch(closeModal())
-
+    refreshCardList()
     dispatch(openToast('successAddCard'))
   }
 

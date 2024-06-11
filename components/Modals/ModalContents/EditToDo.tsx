@@ -42,7 +42,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
-  const { cursorId } = useAppSelector((state) => state.card)
+  const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)

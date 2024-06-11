@@ -9,7 +9,6 @@ interface DashBoardCardProps {
   card: Card
   columnTitle: string
   columnId: number
-  onDelete: (cardId: number, columnId: number) => void
   dragStart: (card: Card, id: number) => void
   drop: () => void
 }
@@ -18,7 +17,6 @@ export default function DashBoardCard({
   card,
   columnTitle,
   columnId,
-  onDelete,
   dragStart,
   drop,
 }: DashBoardCardProps) {
@@ -28,7 +26,7 @@ export default function DashBoardCard({
     dispatch(
       openModal({
         modalName: 'DetailToDo',
-        modalProps: { card, columnTitle, onDelete },
+        modalProps: { card, columnTitle },
       }),
     )
 
