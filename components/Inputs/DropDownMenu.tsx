@@ -22,6 +22,7 @@ export default function DropDownMenu({
   label,
   isRequired,
 }: DropDownMenuProps) {
+  const { data: columnList } = useAppSelector((state) => state.column.columnList)
   const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)

@@ -27,6 +27,10 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
     dragOverColumn.current = id
   }
 
+  const refreshCardList = async () => {
+    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
+  }
+
   const drop = async () => {
     if (baseColumn.current !== dragOverColumn.current) {
       await updateDashBoardCard({
@@ -35,7 +39,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
       })
     }
     dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
-    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
+    refreshCardList()
   }
 
   return (

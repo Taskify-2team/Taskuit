@@ -20,14 +20,6 @@ const cardSlice = createSlice({
   name: 'card',
   initialState,
   reducers: {
-    addCardItem: (state, action) => {
-      const { columnId } = action.payload
-      state.cardList[columnId] = state.cardList[columnId].map((card: Card) =>
-        card.id === action.payload.newCardBody.id
-          ? { ...card, title: action.payload.newCardBody.title }
-          : card,
-      )
-    },
     deleteCardItem: (state, action) => {
       state.cardList[action.payload.columnId] = state.cardList[action.payload.columnId]?.filter(
         (cardItem: Card) => cardItem.id !== action.payload.cardId,
@@ -47,7 +39,9 @@ const cardSlice = createSlice({
           if (!state.cardList[columnId]) {
             state.cardList[columnId] = []
             state.cardList[columnId].push(card)
-          } else if (state.cardList[columnId][i]?.id !== card.id) {
+          }
+          const result = state.cardList[columnId].filter((v: Card) => v.id !== card.id)
+          if (!result) {
             state.cardList[columnId].push(card)
           } else if (
             state.cardList[columnId][i]?.title !== card.title ||
@@ -71,6 +65,6 @@ const cardSlice = createSlice({
   },
 })
 
-export const { addCardItem, deleteCardItem } = cardSlice.actions
+export const { deleteCardItem } = cardSlice.actions
 
 export default cardSlice.reducer
