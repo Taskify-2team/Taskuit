@@ -4,6 +4,7 @@ import Image from 'next/image'
 import settingIcon from '@/public/icons/settingIcon.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { Card } from '@/types/dashboard'
+import { useLoadUser } from '@/store/context/UserIdContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface DashBoardColumnHeaderProps {
