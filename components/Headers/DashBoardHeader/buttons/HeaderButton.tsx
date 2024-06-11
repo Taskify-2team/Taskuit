@@ -1,3 +1,4 @@
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image, { StaticImageData } from 'next/image'
 
 interface ButtonItems {
@@ -7,10 +8,12 @@ interface ButtonItems {
 }
 
 export default function HeaderButton({ buttonIcon, buttonName, handleOnClick }: ButtonItems) {
+  const { theme } = useLoadTheme()
+
   return (
     <button
       type="button"
-      className="flex items-center gap-[0.8rem] rounded-xl border border-solid border-[#d9d9d9] px-[1.6rem]"
+      className={`flex items-center gap-[0.8rem] rounded-xl border border-solid px-[1.6rem] ${theme === 'normal' ? 'border-[#d9d9d9] bg-var-white' : 'border-var-black1 bg-var-black1'}`}
       onClick={() => {
         if (handleOnClick) {
           handleOnClick()

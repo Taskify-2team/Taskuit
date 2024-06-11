@@ -26,7 +26,7 @@ export default function LightHeader() {
 
   return (
     <div
-      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1 text-white'} pl-[1.6rem] pr-[8rem]`}
+      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2 text-white'} pl-[1.6rem] pr-[8rem]`}
     >
       <Link href="/">
         <div className="flex items-center gap-[1rem]">

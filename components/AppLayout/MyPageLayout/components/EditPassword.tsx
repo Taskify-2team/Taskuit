@@ -2,6 +2,7 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { PasswordBody } from '@/pages/mypage'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -21,6 +22,7 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
   const [passwordCheck, setPasswordCheck] = useState('')
   const [isDisabled, setDisabled] = useState(true)
   const dispatch = useAppDispatch()
+  const { theme } = useLoadTheme()
 
   const handleInitPasswordValue = () => {
     setNewPasswordBody({
@@ -69,9 +71,13 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
   return (
     <form
       onSubmit={(e) => onSubmit(e, newPasswordBody)}
-      className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
+      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
     >
-      <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">비밀번호 변경</h3>
+      <h3
+        className={`mb-[3.2rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black' : 'text-var-gray3'}`}
+      >
+        비밀번호 변경
+      </h3>
       <div className="mb-[2.4rem] flex flex-col gap-[2rem]">
         <TextInput
           id="currentPassword"
