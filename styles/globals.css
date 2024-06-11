@@ -15,7 +15,7 @@
   }
 
   .modal-layout {
-    @apply flex min-h-[25rem] w-[54rem] animate-slideDown flex-col justify-between gap-[2.5rem] overflow-auto rounded-[0.8rem] bg-var-white p-[2.8rem];
+    @apply flex max-h-[90vh] min-h-[25rem] w-[54rem] animate-slideDown flex-col justify-between gap-[2.5rem] overflow-auto rounded-[0.8rem] bg-var-white p-[2.8rem];
   }
 
   .button-disabled {

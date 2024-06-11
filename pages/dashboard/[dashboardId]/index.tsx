@@ -13,7 +13,7 @@ export default function Dashboard() {
     if (typeof dashboardId === 'string') {
       await dispatch(getColumnList(dashboardId))
     }
-  }, [dashboardId])
+  }, [dashboardId, dispatch])
 
   useEffect(() => {
     if (dashboardId) {

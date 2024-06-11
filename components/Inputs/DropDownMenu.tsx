@@ -12,6 +12,7 @@ interface DropDownMenuProps {
   columnTitle: string
   columnList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
+  isRequired?: boolean
 }
 
 export default function DropDownMenu({
@@ -20,6 +21,7 @@ export default function DropDownMenu({
   onChange,
   id,
   label,
+  isRequired,
 }: DropDownMenuProps) {
   const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
@@ -47,7 +49,7 @@ export default function DropDownMenu({
   })
 
   return (
-    <InputLayout id={id} label={label}>
+    <InputLayout id={id} label={label} isRequired={isRequired}>
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList((prev) => !prev)}

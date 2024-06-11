@@ -22,6 +22,7 @@ interface DropDownInputMenuProps {
   currentManager?: Assignee
   memberList: Member[]
   setManager: Dispatch<SetStateAction<number>>
+  isRequired?: boolean
 }
 
 export default function DropDownInputMenu({
@@ -30,6 +31,7 @@ export default function DropDownInputMenu({
   setManager,
   currentManager,
   memberList: initMemberList = [],
+  isRequired,
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
     id: currentManager?.id,
@@ -152,7 +154,7 @@ export default function DropDownInputMenu({
   }, [initMemberList])
 
   return (
-    <InputLayout id={id} label={label}>
+    <InputLayout id={id} label={label} isRequired={isRequired}>
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList(true)}
