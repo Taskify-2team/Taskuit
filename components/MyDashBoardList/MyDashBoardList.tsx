@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getDashBoard } from '@/service/dashboards'
 import { DashBoard } from '@/types/dashboard'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openModal } from '@/store/reducers/modalReducer'
 import { BoardButton, CreateBoardButton, PaginationButton } from '..'
 
 export default function MyDashBoardList() {
@@ -9,6 +11,7 @@ export default function MyDashBoardList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [dashBoard, setDashBoard] = useState<DashBoard[]>([])
   const { theme } = useLoadTheme()
+  const dispatch = useAppDispatch()
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
@@ -16,6 +19,10 @@ export default function MyDashBoardList() {
 
   const handlePrev = () => {
     setCurrentPage(currentPage - 1)
+  }
+
+  const createBoard = () => {
+    dispatch(openModal({ modalName: 'AddDashBoard', modalProps: { dashBoard, setDashBoard } }))
   }
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function MyDashBoardList() {
   return (
     <>
       <div className="flex w-full flex-wrap items-center gap-[1.3rem]">
-        <CreateBoardButton />
+        <CreateBoardButton handleClick={createBoard} />
         {dashBoard && dashBoard.map((item) => <BoardButton key={item.id} board={item} />)}
       </div>
       {dashBoard[0] && (

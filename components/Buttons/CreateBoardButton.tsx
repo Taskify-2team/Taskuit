@@ -1,17 +1,14 @@
 import Image from 'next/image'
 import addLogo from '@/public/icons/addLogo.svg'
-import { useAppDispatch } from '@/hooks/useApp'
-import { openModal } from '@/store/reducers/modalReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 
-export default function CreateBoardButton() {
-  const dispatch = useAppDispatch()
+export default function CreateBoardButton({ handleClick }: { handleClick: () => void }) {
   const { theme } = useLoadTheme()
 
   return (
     <div
       className={`flex h-[7rem] w-[33.2rem] cursor-pointer items-center justify-center gap-[1.2rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'border-var-black2 bg-var-black2'}`}
-      onClick={() => dispatch(openModal({ modalName: 'AddDashBoard' }))}
+      onClick={handleClick}
     >
       <p
         className={`text-nowrap text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
