@@ -8,7 +8,6 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ShortButton } from '..'
 import ColorSelector from '../ColorSelector/ColorSelector'
 import CircleChip from '../Chips/CircleChip'
-import { title } from 'process'
 
 export default function EditName() {
   const [editBoardBody, setEditBoardBody] = useState({
