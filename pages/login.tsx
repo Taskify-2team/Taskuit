@@ -71,7 +71,9 @@ export default function LoginForm() {
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image src={logo} width={300} alt="로고" />
-          <p className="text-center text-[7rem] font-bold text-primary-violet">Taskuit</p>
+          <p className="text-center font-[Logo] text-[7rem] font-bold text-primary-violet">
+            Taskuit
+          </p>
         </Link>
         <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
       </div>

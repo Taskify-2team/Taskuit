@@ -45,7 +45,9 @@ export default function SideMenu() {
     >
       <div className="flex items-center gap-[1rem]">
         <Image src={logoIcon} alt="Taskify 로고 아이콘" width={40} />
-        <p className="text-center text-[2.5rem] font-bold text-primary-violet">Taskuit</p>
+        <p className="text-center font-[Freesentation] text-[3rem] font-bold text-primary-violet">
+          Taskuit
+        </p>
       </div>
       <div className="mt-[4rem] flex justify-between">
         <p
