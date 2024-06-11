@@ -1,7 +1,10 @@
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteIcon from '@/public/icons/inviteIcon.svg'
+import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
 import settingIcon from '@/public/icons/settingIcon.svg'
+import settingIconWhite from '@/public/icons/settingiconWhite.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
+import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import { getDashBoardInfo } from '@/service/dashboards'
 import { getMemberList } from '@/service/members'
 import { getUserInfo } from '@/service/users'
@@ -117,17 +120,21 @@ export default function DashBoardHeader() {
         )}
       </div>
       <div className="flex gap-[1.6rem]">
-        <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
+        <HeaderButton
+          buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
+          buttonName="테마"
+          handleOnClick={handleSetTheme}
+        />
         {isButtonVisible && (
-          <div className="flex gap-[1.6rem] pr-[4rem]">
+          <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
+            <Link href="/mypage" passHref className="flex">
+              <HeaderButton
+                buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
+                buttonName="관리"
+              />
+            </Link>
             <HeaderButton
-              buttonIcon={settingIcon}
-              buttonName="관리"
-              handleOnClick={handleManageClick}
-            />
-
-            <HeaderButton
-              buttonIcon={inviteIcon}
+              buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
               buttonName="초대하기"
               handleOnClick={() =>
                 dispatch(

@@ -2,12 +2,13 @@ import ShortButton from '@/components/Buttons/ShortButton'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn } from '@/service/columns'
-import { deleteColumn as deleteColumnReducer } from '@/store/reducers/columnReducer'
+import { deleteColumnItem } from '@/store/reducers/columnReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
+import { openToast } from '@/store/reducers/toastReducer'
 
 export interface WarningModalProps {
   variant: string
-  columnId?: number
+  columnId: number
 }
 
 export default function WarningModal({ variant, columnId }: WarningModalProps) {
@@ -23,8 +24,8 @@ export default function WarningModal({ variant, columnId }: WarningModalProps) {
       await requestFunction(columnId)
     }
     dispatch(closeModal())
-    // setColumns((prevColumns) => prevColumns.filter((prevColumn) => prevColumn.id !== columnId))
-    dispatch(deleteColumnReducer({ columnId }))
+    dispatch(deleteColumnItem({ columnId }))
+    dispatch(openToast('successDeleteColumn'))
   }
 
   return (

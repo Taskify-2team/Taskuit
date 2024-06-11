@@ -9,23 +9,23 @@ import {
   Textarea,
   ShortButton,
 } from '@/components'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
-import { updateDashBoardCard } from '@/service/cards'
+import { getCardList, updateDashBoardCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { Card, Column, UpdateCard } from '@/types/dashboard'
+import { openToast } from '@/store/reducers/toastReducer'
+import { Card, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 export interface EditToDoProps {
   card: Card
   columnTitle: string
-  columnList: Column[]
 }
 
-export default function EditToDo({ columnList, columnTitle, card }: EditToDoProps) {
+export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
@@ -42,6 +42,7 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
+  const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
@@ -63,6 +64,10 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
     setImageFile(file)
   }
 
+  const refreshCardList = async () => {
+    await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (imageFile && newCardBody.columnId) {
@@ -77,9 +82,9 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
         cardId: card.id,
       })
     }
-
     dispatch(closeModal())
-    /** 토스트 */
+    refreshCardList()
+    dispatch(openToast('successUpdateCard'))
   }
 
   useEffect(() => {
@@ -115,7 +120,6 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
             label="상태"
             onChange={setNewCardBody}
             columnTitle={columnTitle}
-            columnList={columnList}
             isRequired
           />
         </div>

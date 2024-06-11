@@ -5,6 +5,7 @@ const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['successDeleteCard', { text: '카드가 삭제되었습니다.', warn: false }],
   ['successDeleteMember', { text: '삭제되었습니다.', warn: false }],
   ['successUpdateProfile', { text: '프로필이 수정되었습니다.', warn: false }],
+  ['successUpdateCard', { text: '카드가 수정되었습니다.', warn: false }],
   ['successAddCard', { text: '카드가 추가되었습니다.', warn: false }],
   ['successAddColumn', { text: '컬럼이 추가되었습니다.', warn: false }],
   ['successUpdatePassword', { text: '비밀번호가 변경되었습니다.', warn: false }],

@@ -20,14 +20,14 @@ const columnSlice = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    addColumn: (state, action) => {
+    addColumnItem: (state, action) => {
       state.columnList.data = state.columnList.data.map((column) =>
         column.id === action.payload.newColumnName.columnId
           ? { ...column, title: action.payload.newColumnName.title }
           : column,
       )
     },
-    deleteColumn: (state, action) => {
+    deleteColumnItem: (state, action) => {
       state.columnList.data = state.columnList.data.filter(
         (prevColumn) => prevColumn.id !== action.payload.columnId,
       )
@@ -48,6 +48,6 @@ const columnSlice = createSlice({
   },
 })
 
-export const { addColumn, deleteColumn } = columnSlice.actions
+export const { addColumnItem, deleteColumnItem } = columnSlice.actions
 
 export default columnSlice.reducer
