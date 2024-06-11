@@ -10,7 +10,7 @@ export default function HeaderButton({ buttonIcon, buttonName, handleOnClick }: 
   return (
     <button
       type="button"
-      className="flex items-center gap-[0.8rem] rounded-xl border border-solid border-[#d9d9d9] px-[1.6rem]"
+      className="flex h-[4rem] items-center gap-[0.8rem] rounded-xl border border-solid border-[#d9d9d9] px-[1.6rem]"
       onClick={() => {
         if (handleOnClick) {
           handleOnClick()

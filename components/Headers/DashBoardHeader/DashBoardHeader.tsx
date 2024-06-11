@@ -42,6 +42,9 @@ export default function DashBoardHeader() {
         if (router.pathname.startsWith('/dashboard/')) {
           const { dashboardId } = router.query
           setIsButtonVisible(true)
+          if (router.pathname.endsWith('edit')) {
+            setIsButtonVisible(false)
+          }
           if (dashboardId) {
             const dashboardInfo = await getDashBoardInfo(Number(dashboardId))
             currentTitle = dashboardInfo.title
@@ -105,7 +108,7 @@ export default function DashBoardHeader() {
 
   return (
     <div
-      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} py-[1.6rem] pl-[34rem] shadow`}
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} py-[1.5rem] pl-[34rem] shadow`}
     >
       <div className="flex items-center gap-[1rem]">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
@@ -116,7 +119,7 @@ export default function DashBoardHeader() {
       <div className="flex gap-[1.6rem]">
         <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         {isButtonVisible && (
-          <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
+          <div className="flex gap-[1.6rem] pr-[4rem]">
             <HeaderButton
               buttonIcon={settingIcon}
               buttonName="관리"
@@ -138,7 +141,10 @@ export default function DashBoardHeader() {
             <ProfileList members={members} totalCount={totalCount} />
           </div>
         )}
-        <div className="relative flex items-center pl-[3.2rem] pr-[8rem]" onClick={toggleDropdown}>
+        <div
+          className="relative flex w-[19.2rem] items-center border-l-2 border-var-gray3 pl-[3.2rem] pr-[8rem]"
+          onClick={toggleDropdown}
+        >
           {userData && (
             <UserInfo profileImageUrl={userData.profileImageUrl} nickname={userData.nickname} />
           )}
