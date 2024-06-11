@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
+import { getUserInfo } from '@/service/users'
 import { UserContext } from '../UserIdContext'
 import { LanguageContext } from '../LanguageContext'
 import { ThemeContext } from '../ThemeContext'
@@ -28,10 +29,11 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    const data = localStorage.getItem('userId')
-    if (data) {
-      setUserId(Number(data))
+    const loadUser = async () => {
+      const result = await getUserInfo()
+      setUserId(result.id)
     }
+    loadUser()
   }, [])
 
   useEffect(() => {
@@ -51,6 +53,8 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('theme', 'normal')
     }
   }, [])
+
+  console.log(userId)
 
   return (
     <UserContext.Provider value={{ userId }}>
