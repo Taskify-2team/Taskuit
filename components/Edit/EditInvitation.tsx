@@ -77,7 +77,7 @@ export default function EditInvitation() {
               dispatch(
                 openModal({
                   modalName: 'AddMember',
-                  modalProps: { dashboardId, inviteList, setInviteList },
+                  modalProps: { dashboardId, setInviteList },
                 }),
               )
             }}

@@ -2,14 +2,17 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { inviteUser } from '@/service/dashboards'
+import { openMyToast } from '@/store/reducers/myToastReducer'
+import { Invitation } from '@/types/invitation'
 
 export interface AddMemberProps {
   dashboardId: number
+  setInviteList: Dispatch<SetStateAction<Invitation[]>>
 }
 
-export default function AddMember({ dashboardId }: AddMemberProps) {
+export default function AddMember({ dashboardId, setInviteList }: AddMemberProps) {
   const [inviteBody, setInviteBody] = useState({
     email: '',
     dashboardId,
@@ -28,7 +31,8 @@ export default function AddMember({ dashboardId }: AddMemberProps) {
     const result = await requestFunction(inviteBody)
     if (!result) return
     dispatch(closeModal())
-    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
+    dispatch(openMyToast({ text: '초대를 보냈습니다!', warn: false }))
+    setInviteList((prev) => [result.data, ...prev])
   }
 
   return (

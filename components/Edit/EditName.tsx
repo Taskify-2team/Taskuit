@@ -17,7 +17,7 @@ export default function EditName() {
   const router = useRouter()
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
-  const { dashboardBody } = useEditBoard(Number(dashboardId))
+  const { dashboardBody, setDashBoardBody } = useEditBoard(Number(dashboardId))
   const { theme } = useLoadTheme()
 
   const handleColor = (colorName: string) => {
@@ -37,6 +37,7 @@ export default function EditName() {
     }
     dispatch(openToast('successEditBoard'))
     await putDashBoard(Number(dashboardId), editBoardBody)
+    setDashBoardBody({ ...dashboardBody, ...editBoardBody })
     setEditBoardBody({
       ...editBoardBody,
       title: '',

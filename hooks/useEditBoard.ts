@@ -17,7 +17,7 @@ const useEditBoard = (dashboardId: number) => {
     handleLoadDashBoard()
   }, [dashboardId])
 
-  return { dashboardBody }
+  return { dashboardBody, setDashBoardBody }
 }
 
 export default useEditBoard
