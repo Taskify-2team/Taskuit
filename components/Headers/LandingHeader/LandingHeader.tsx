@@ -26,7 +26,7 @@ export default function LightHeader() {
 
   return (
     <div
-      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2 text-white'} pl-[1.6rem] pr-[8rem]`}
+      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2 text-white'} pl-[1.6rem] sm:px-[2.4rem] sm:py-[1.6rem] md:pr-[4rem] lg:pr-[8rem]`}
     >
       <Link href="/">
         <div className="flex items-center gap-[1rem]">
@@ -36,7 +36,7 @@ export default function LightHeader() {
           )}
         </div>
       </Link>
-      <div className="flex gap-[3.6rem]">
+      <div className="flex gap-[3.6rem] sm:gap-[2rem]">
         <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         <Link href="/login">
           <p className="text-[1.6rem]">로그인</p>

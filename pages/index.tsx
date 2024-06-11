@@ -16,13 +16,13 @@ function MainSmallCard({
   image: string
 }) {
   return (
-    <div className="h-full w-[37.8rem] overflow-hidden rounded-[0.8rem]">
-      <div className="flex h-[26rem] w-full items-center justify-center bg-var-black1">
-        <div className="relative h-[23rem] w-[30rem]">
+    <div className="h-full w-[37.8rem] overflow-hidden rounded-[0.8rem] sm:w-[34.3rem]">
+      <div className="flex h-[26rem] w-full items-center justify-center bg-var-black1 sm:h-[23.6rem]">
+        <div className="relative h-[23rem] w-[30rem] sm:h-[20rem] sm:w-[26rem]">
           <Image src={image} alt="카드 이미지" fill objectFit="contain" />
         </div>
       </div>
-      <div className="flex h-[12.4rem] w-full flex-col gap-[1rem] bg-var-black3 p-[3rem]">
+      <div className="sm:h[11.3rem] flex h-[12.4rem] w-full flex-col gap-[1rem] bg-var-black3 p-[3rem]">
         <p className="text-[1.8rem] font-bold text-var-white">{title}</p>
         <p className="text-[1.6rem] text-var-white">{children}</p>
       </div>
@@ -33,28 +33,34 @@ function MainSmallCard({
 export default function Home() {
   return (
     <LandingPageLayout>
-      <div className="flex h-full w-full flex-col items-center gap-[5rem] py-[9rem]">
-        <div className="relative h-[42.3rem] w-[72.2rem]">
+      <div className="flex h-full w-full flex-col items-center gap-[5rem] py-[9rem] sm:gap-[1.5rem] sm:pt-[5rem] md:pb-[16rem]">
+        <div className="relative h-[42.3rem] w-[72.2rem] sm:h-[16.8rem] sm:w-[28.7rem] md:h-[31.5rem] md:w-[53.8rem]">
           <Image src={mainImage} alt="메인 이미지" fill />
         </div>
-        <h1 className="text-[7.6rem] font-bold tracking-[-0.2rem]">
-          새로운 일정 관리
-          <span className="text-[8rem] font-bold text-primary-violet">Taskifty</span>
-        </h1>
-        <p className="text-center text-[1.8rem]">
+        <div className="flex items-center justify-center">
+          <h1 className="text-center text-[7.6rem] font-bold tracking-[-0.2rem] sm:text-[4rem] md:text-[5.6rem]">
+            새로운 일정 관리
+            <br className="hidden sm:inline" />
+            <span className="text-[8rem] font-bold text-primary-violet sm:text-[4.2rem] md:text-[6rem]">
+              Taskuit
+            </span>
+          </h1>
+        </div>
+
+        <p className="text-center text-[1.8rem] sm:text-[1.4rem]">
           다양한 일정을 다양한 사람들과
           <br /> 체계적으로 관리해보세요!
         </p>
         <Link href="/login">
-          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white">
+          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white sm:w-[23.5rem] sm:py-[1.2rem]">
             로그인하기
           </span>
         </Link>
-        <div className="flex flex-col gap-[9rem]">
-          <div className="flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem]">
-            <div className="flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem]">
-              <p className="text-[3rem] text-var-gray4">Point 1</p>
-              <p className="text-[5rem] font-bold text-var-white">
+        <div className="flex flex-col items-center gap-[9rem]">
+          <div className="flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col">
+            <div className="flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem] sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]">
+              <p className="text-[3rem] text-var-gray4 sm:text-center">Point 1</p>
+              <p className="text-[5rem] font-bold text-var-white sm:text-[3.6rem]">
                 일의 우선순위를
                 <br />
                 관리하세요
@@ -64,14 +70,14 @@ export default function Home() {
                 <br /> 업무를 관리해보세요
               </p>
             </div>
-            <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
+            <div className="m, relative h-[49.7rem] w-[55.2rem] overflow-hidden rounded-[0.8rem] sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.6rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]">
               <Image src={mainSectionImage1} alt="대시보드 이미지" fill />
             </div>
           </div>
-          <div className="flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem]">
-            <div className="flex h-[49.7rem] w-[33rem] flex-col justify-center gap-[5rem]">
-              <p className="text-[3rem] text-var-gray4">Point 2</p>
-              <p className="text-[5rem] font-bold text-var-white">
+          <div className="flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col">
+            <div className="flex h-[49.7rem] w-[33rem] flex-col justify-center gap-[5rem] sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]">
+              <p className="text-[3rem] text-var-gray4 sm:text-center">Point 2</p>
+              <p className="text-[5rem] font-bold text-var-white sm:text-[3.6rem]">
                 해야할 일을
                 <br /> 등록하세요
               </p>
@@ -81,13 +87,15 @@ export default function Home() {
                 팀원과 공유해보세요
               </p>
             </div>
-            <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem]">
+            <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem] sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.6rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]">
               <Image src={mainSectionImage2} alt="할일 생성 이미지" fill objectFit="cover" />
             </div>
           </div>
           <div>
-            <p className="text-[2.8rem] font-bold">생산성을 높이는 다양한 설정 ⚡️</p>
-            <div className="mt-[3.6rem] flex h-full w-[120rem] gap-[3.3rem]">
+            <p className="sm: text-center text-[2.8rem] font-bold md:text-center">
+              생산성을 높이는 다양한 설정 ⚡️
+            </p>
+            <div className="md: mt-[3.6rem] flex h-full w-[120rem] items-center gap-[3.3rem] sm:flex-col md:flex-col">
               <MainSmallCard title="대시보드 설정" image="/images/cardImage1.png">
                 대시보드 사진과 이름을 변경할 수 있어요.
               </MainSmallCard>

@@ -58,6 +58,11 @@ const config: Config = {
         fadeOut: 'fadeOut 0.3s ease-in-out forwards',
         timer: 'timer 2.9s linear forwards',
       },
+      screens: {
+        sm: { min: '375px', max: '743px' },
+        md: { min: '744px', max: '1280px' },
+        lg: { min: '1281px' },
+      },
     },
   },
   plugins: [],
