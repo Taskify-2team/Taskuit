@@ -1,13 +1,20 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 import ColorSelector from '@/components/ColorSelector/ColorSelector'
 import useAsync from '@/hooks/useAsync'
 import { postDashboard } from '@/service/dashboards'
+import { DashBoard } from '@/types/dashboard'
+import { openMyToast } from '@/store/reducers/myToastReducer'
 
-export default function AddDashBoard() {
+interface AddDashBoardProps {
+  dashBoard: DashBoard[]
+  setDashBoard: Dispatch<SetStateAction<DashBoard[]>>
+}
+
+export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardProps) {
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postDashboard)
   const [dashBoardBody, setDashBoardBody] = useState({
@@ -25,9 +32,16 @@ export default function AddDashBoard() {
   const submitAddDashBoard = async () => {
     const result = await requestFunction(dashBoardBody)
     if (!result) return
-
+    if (!dashBoard[0]) {
+      setDashBoard([result.data])
+    } else {
+      const popList = dashBoard.slice(0, -1)
+      if (popList) {
+        setDashBoard([result.data, ...popList])
+      }
+    }
     dispatch(closeModal())
-    /** 요청 성공 시 토스트나 모달 띄워주는 코드 */
+    dispatch(openMyToast({ text: '대시보드를 생성했습니다', warn: false }))
   }
 
   return (
