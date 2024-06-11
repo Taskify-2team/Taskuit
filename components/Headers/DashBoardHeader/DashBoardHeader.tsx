@@ -29,7 +29,7 @@ export default function DashBoardHeader() {
   const [totalCount, setTotalCount] = useState<number>(0)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const [isButtonVisible, setIsButtonVisible] = useState<boolean>(true)
+  const [isButtonVisible, setIsButtonVisible] = useState<boolean>(false)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [members, setMembers] = useState<any[]>([])
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
@@ -42,14 +42,12 @@ export default function DashBoardHeader() {
       let currentTitle = title
 
       if (accessToken) {
-        if (router.pathname === '/mydashboard') {
-          currentTitle = '내 대시보드'
-          setIsButtonVisible(false)
-        } else if (router.pathname === '/mypage') {
-          currentTitle = '마이 페이지'
-          setIsButtonVisible(false)
-        } else if (router.pathname.startsWith('/dashboard/')) {
+        if (router.pathname.startsWith('/dashboard/')) {
           const { dashboardId } = router.query
+          setIsButtonVisible(true)
+          if (router.pathname.endsWith('edit')) {
+            setIsButtonVisible(false)
+          }
           if (dashboardId) {
             const dashboardInfo = await getDashBoardInfo(Number(dashboardId))
             currentTitle = dashboardInfo.title
@@ -99,6 +97,9 @@ export default function DashBoardHeader() {
       setIsDropdownOpen(false)
     }
   }
+  const handleManageClick = () => {
+    router.push(`${router.asPath}/edit`)
+  }
 
   useEffect(() => {
     fetchData()
@@ -110,7 +111,7 @@ export default function DashBoardHeader() {
 
   return (
     <div
-      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.6rem] pl-[34rem] shadow`}
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} py-[1.5rem] pl-[34rem] shadow`}
     >
       <div className="flex items-center gap-[1rem]">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
@@ -125,13 +126,13 @@ export default function DashBoardHeader() {
           handleOnClick={handleSetTheme}
         />
         {isButtonVisible && (
-          <div className="flex gap-[1.6rem] border-r-2 border-solid border-var-gray3 pr-[4rem]">
-            <Link href="/mypage" passHref className="flex">
-              <HeaderButton
-                buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
-                buttonName="관리"
-              />
-            </Link>
+          <div className="flex gap-[1.6rem] pr-[4rem]">
+            <HeaderButton
+              buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
+              buttonName="관리"
+              handleOnClick={handleManageClick}
+            />
+
             <HeaderButton
               buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
               buttonName="초대하기"
@@ -147,7 +148,10 @@ export default function DashBoardHeader() {
             <ProfileList members={members} totalCount={totalCount} />
           </div>
         )}
-        <div className="relative flex items-center pl-[3.2rem] pr-[8rem]" onClick={toggleDropdown}>
+        <div
+          className="relative flex w-[19.2rem] items-center border-l-2 border-var-gray3 pl-[3.2rem] pr-[8rem]"
+          onClick={toggleDropdown}
+        >
           {userData && (
             <UserInfo profileImageUrl={userData.profileImageUrl} nickname={userData.nickname} />
           )}
@@ -159,6 +163,11 @@ export default function DashBoardHeader() {
               <Link href="/mypage">
                 <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4">
                   내 정보
+                </p>
+              </Link>
+              <Link href="/mydashboard">
+                <p className="block w-full px-4 py-2 text-left text-[1.6rem] hover:bg-var-gray4">
+                  내 대시보드
                 </p>
               </Link>
               <button
