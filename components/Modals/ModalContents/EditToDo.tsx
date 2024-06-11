@@ -12,20 +12,20 @@ import {
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updateDashBoardCard } from '@/service/cards'
-import { postCardImage } from '@/service/columns'
+import { getColumnList, postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { closeModal } from '@/store/reducers/modalReducer'
-import { Card, Column, UpdateCard } from '@/types/dashboard'
+import { openToast } from '@/store/reducers/toastReducer'
+import { Card, UpdateCard } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 export interface EditToDoProps {
   card: Card
   columnTitle: string
-  columnList: Column[]
 }
 
-export default function EditToDo({ columnList, columnTitle, card }: EditToDoProps) {
+export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const router = useRouter()
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
@@ -79,6 +79,7 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
     }
 
     dispatch(closeModal())
+    dispatch(openToast('successUpdateCard'))
     /** 토스트 */
   }
 
@@ -115,7 +116,6 @@ export default function EditToDo({ columnList, columnTitle, card }: EditToDoProp
             label="상태"
             onChange={setNewCardBody}
             columnTitle={columnTitle}
-            columnList={columnList}
           />
         </div>
         <div className="flex-1">

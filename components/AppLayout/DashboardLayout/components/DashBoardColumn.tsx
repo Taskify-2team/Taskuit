@@ -23,7 +23,7 @@ export default function DashBoardColumn({
 }: DashBoardColumnProps) {
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const [cursorId, setCursorId] = useState<number | null>(0)
+  const [cursorId, setCursorId] = useState<number>(0)
   const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 

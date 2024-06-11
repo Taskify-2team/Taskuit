@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import arrow from '@/public/icons/arrow.svg'
 import check from '@/public/icons/check.svg'
 import Image from 'next/image'
+import { useAppSelector } from '@/hooks/useApp'
 import { Column, UpdateCard } from '@/types/dashboard'
 import ProgressChip from '../Chips/ProgressChip'
 import InputLayout from './InputLayout'
@@ -10,17 +11,11 @@ interface DropDownMenuProps {
   label: string
   id: string
   columnTitle: string
-  columnList: Column[]
   onChange: Dispatch<SetStateAction<UpdateCard>>
 }
 
-export default function DropDownMenu({
-  columnList,
-  columnTitle,
-  onChange,
-  id,
-  label,
-}: DropDownMenuProps) {
+export default function DropDownMenu({ columnTitle, onChange, id, label }: DropDownMenuProps) {
+  const { data: columnList } = useAppSelector((state) => state.column.columnList)
   const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
