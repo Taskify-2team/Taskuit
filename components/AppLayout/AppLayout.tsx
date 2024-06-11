@@ -12,10 +12,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <DashBoardHeader />
-      <div className="flex min-h-[100vh] bg-var-gray1 pt-[7rem]">
+      <div className="flex min-h-[100vh] bg-var-gray1">
         <SideMenu />
         <div
-          className={`w-full p-[2rem] pl-[32rem] ${theme === 'normal' ? 'bg-var-gray1' : 'bg-var-black3'} transition ease-linear`}
+          className={`w-full pl-[32rem] pt-[11rem] ${theme === 'normal' ? 'bg-var-gray1' : 'bg-var-black3'} transition ease-linear`}
         >
           {children}
         </div>
