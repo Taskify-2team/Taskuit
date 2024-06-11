@@ -1,3 +1,4 @@
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image from 'next/image'
 
 export interface UserProfileProps {
@@ -8,6 +9,7 @@ export interface UserProfileProps {
 
 export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: UserProfileProps) {
   const initial = nickname.charAt(0).toUpperCase()
+  const { theme } = useLoadTheme()
 
   const SIZE = {
     s: {
@@ -30,7 +32,7 @@ export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: U
       alt={`${nickname}님의 프로필 사진`}
       width={SIZE[size].imageSize}
       height={SIZE[size].imageSize}
-      className="rounded-full border border-gray-300 shadow-md"
+      className={`rounded-full border shadow-md ${theme === 'normal' ? 'border-gray-300' : 'border-var-black2'}`}
       style={{ width: SIZE[size].imageSize, height: SIZE[size].imageSize, objectFit: 'cover' }}
     />
   ) : (

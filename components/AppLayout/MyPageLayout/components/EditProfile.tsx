@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { AxiosError, AxiosResponse } from 'axios'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { openToast } from '@/store/reducers/toastReducer'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface EditProfileProps {
   error: AxiosError<any> | null
@@ -28,6 +29,7 @@ export default function EditProfile({
   const [isDisabled, setDisabled] = useState(true)
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
+  const { theme } = useLoadTheme()
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value)
@@ -58,9 +60,13 @@ export default function EditProfile({
   return (
     <form
       onSubmit={(e) => onSubmit(e, nickName)}
-      className="flex w-[62rem] flex-col rounded-[0.8rem] bg-var-white p-[2.8rem]"
+      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
     >
-      <h3 className="mb-[3.2rem] text-[2.4rem] font-bold">프로필</h3>
+      <h3
+        className={`mb-[3.2rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+      >
+        프로필
+      </h3>
       <div className="mb-[2rem] flex gap-[1.6rem]">
         <ImageInput
           id="image"

@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import useAsync from '@/hooks/useAsync'
 import { getDashBoardInfo } from '@/service/dashboards'
 import { useCallback, useEffect, useState } from 'react'
+import { useLoadUser } from '@/store/context/UserIdContext'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface DashBoardColumnHeaderProps {
   columnTitle: string
@@ -25,6 +27,7 @@ export default function DashBoardColumnHeader({
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(getDashBoardInfo)
   const [isMyDashBoard, setIsMyDashBoard] = useState(false)
+  const { theme } = useLoadTheme()
 
   const handleLoadDashBoard = useCallback(async () => {
     const result = await requestFunction(Number(dashboardId))
@@ -35,13 +38,20 @@ export default function DashBoardColumnHeader({
     handleLoadDashBoard()
   }, [handleLoadDashBoard])
 
+
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
       <div className="flex items-center gap-[0.8rem]">
         <CircleChip color="#5534DA" />
-        <h3 className="mr-[0.4rem] text-[1.8rem] font-[700]">{columnTitle}</h3>
+        <h3
+          className={`mr-[0.4rem] text-[1.8rem] font-[700] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        >
+          {columnTitle}
+        </h3>
         {cardList && (
-          <div className="rounded-[0.4rem] bg-var-gray2 px-[0.6rem] py-[0.3rem] text-[1.2rem] text-var-gray5">
+          <div
+            className={`${theme === 'normal' ? 'bg-var-gray2 text-var-gray5' : 'bg-var-black2 text-var-gray3'} rounded-[0.4rem] px-[0.6rem] py-[0.3rem] text-[1.2rem]`}
+          >
             {cardList.length}
           </div>
         )}

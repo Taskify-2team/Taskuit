@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, RefObject } from 'react'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -19,6 +20,8 @@ export default function TextInput({
   isRequired = false,
   isReadOnly = false,
 }: TextInputProps) {
+  const { theme } = useLoadTheme()
+
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
       <input
@@ -28,7 +31,7 @@ export default function TextInput({
         onChange={onChange}
         placeholder={placeholder}
         required={isRequired}
-        className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''}`}
+        className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''} ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'}`}
         readOnly={isReadOnly}
         ref={ref}
       />
