@@ -6,6 +6,12 @@ import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
 import mainImage from '@/public/images/mainImage.jpg'
 import Link from 'next/link'
 
+const pointCard =
+  'sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col'
+const pointCardContent = 'sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]'
+const pointCardImage =
+  'sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.6rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]'
+
 function MainSmallCard({
   children,
   title,
@@ -57,8 +63,12 @@ export default function Home() {
           </span>
         </Link>
         <div className="flex flex-col items-center gap-[9rem]">
-          <div className="flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col">
-            <div className="flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem] sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]">
+          <div
+            className={`flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] ${pointCard}`}
+          >
+            <div
+              className={`flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem] ${pointCardContent}`}
+            >
               <p className="text-[3rem] text-var-gray4 sm:text-center">Point 1</p>
               <p className="text-[5rem] font-bold text-var-white sm:text-[3.6rem]">
                 일의 우선순위를
@@ -70,12 +80,18 @@ export default function Home() {
                 <br /> 업무를 관리해보세요
               </p>
             </div>
-            <div className="m, relative h-[49.7rem] w-[55.2rem] overflow-hidden rounded-[0.8rem] sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.6rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]">
+            <div
+              className={`m, relative h-[49.7rem] w-[55.2rem] overflow-hidden rounded-[0.8rem] ${pointCardImage}`}
+            >
               <Image src={mainSectionImage1} alt="대시보드 이미지" fill />
             </div>
           </div>
-          <div className="flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col">
-            <div className="flex h-[49.7rem] w-[33rem] flex-col justify-center gap-[5rem] sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]">
+          <div
+            className={`flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] bg-var-black3 p-[5rem] ${pointCard}`}
+          >
+            <div
+              className={`flex h-[49.7rem] w-[33rem] flex-col justify-center gap-[5rem] ${pointCardContent}`}
+            >
               <p className="text-[3rem] text-var-gray4 sm:text-center">Point 2</p>
               <p className="text-[5rem] font-bold text-var-white sm:text-[3.6rem]">
                 해야할 일을
@@ -87,7 +103,9 @@ export default function Home() {
                 팀원과 공유해보세요
               </p>
             </div>
-            <div className="relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem] sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.6rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]">
+            <div
+              className={`relative h-[49.7rem] w-[59.4rem] overflow-hidden rounded-[0.8rem] ${pointCardImage}`}
+            >
               <Image src={mainSectionImage2} alt="할일 생성 이미지" fill objectFit="cover" />
             </div>
           </div>
