@@ -69,3 +69,7 @@ address {
   --gray-gray_FAFAFA: #fafafa;
   --white-white_FFFFFF: #fff;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
