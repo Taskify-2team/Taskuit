@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
