@@ -1,9 +1,9 @@
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
-import { getDashBoardCard } from '@/service/cards'
+import { getCardList, getDashBoardCard } from '@/service/cards'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 
 interface DashBoardColumnProps {
@@ -21,19 +21,21 @@ export default function DashBoardColumn({
   dragEnter,
   drop,
 }: DashBoardColumnProps) {
+  const cardList = useAppSelector((state) => state.card.cardList[columnId])
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
   const [cursorId, setCursorId] = useState<number>(0)
-  const [cardList, setCardList] = useState<Card[]>([])
+  // const [cardList, setCardList] = useState<Card[]>([])
   const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
-      const result = await getCardsRequest({ columnId, cursorId })
-      if (result) {
-        setCardList((prev) => [...prev, ...result.data.cards])
-        setCursorId(result.data.cursorId)
-      }
+      // const result = await getCardsRequest({ columnId, cursorId })
+      // if (result) {
+      //   setCardList((prev) => [...prev, ...result.data.cards])
+      //   setCursorId(result.data.cursorId)
+      // }
+      await dispatch(getCardList({ columnId, cursorId }))
     }
   }, [columnId, getCardsRequest, cursorId])
 
