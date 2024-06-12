@@ -2,6 +2,7 @@ import Image from 'next/image'
 import addButton from '@/public/icons/addLogo.svg'
 import plusIcon from '@/public/icons/editFill.svg'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 
 interface ImageInputProps {
@@ -23,6 +24,7 @@ export default function ImageInput({
 }: ImageInputProps) {
   const [preview, setPreview] = useState(currentImage)
   const [onMouse, setOnMouse] = useState(false)
+  const { theme } = useLoadTheme()
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -41,7 +43,7 @@ export default function ImageInput({
       <div
         onMouseEnter={() => setOnMouse(true)}
         onMouseLeave={() => setOnMouse(false)}
-        className={`${size === 'm' ? 'size-[18.2rem]' : 'size-[7.6rem]'} hover:bg-var-image-hover relative flex size-[18.2rem] shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] bg-var-gray2`}
+        className={`${size === 'm' ? 'size-[18.2rem]' : 'size-[7.6rem]'} relative flex size-[18.2rem] shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] ${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-image-hover' : 'bg-var-black1 hover:bg-var-gray5'}`}
       >
         {onMouse && (
           <div className="relative size-[3rem]">

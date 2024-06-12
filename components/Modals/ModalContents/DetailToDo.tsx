@@ -16,6 +16,7 @@ import KebabEditButton from '@/components/Buttons/KebabEditButton'
 import { deleteDashBoardCard } from '@/service/cards'
 import { openToast } from '@/store/reducers/toastReducer'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export interface ToDoDetailProps {
   card: Card
@@ -30,6 +31,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   const [openKebab, setOpenKebab] = useState(false)
   const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
+  const { theme } = useLoadTheme()
 
   const getCommentData = useCallback(async () => {
     const result = await getCommentsRequest({ cardId: card.id, cursorId })
@@ -100,13 +102,18 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
   }, [])
 
   return (
-    <div onClick={handleKebabClose} className="modal-layout w-[73rem]">
+    <div
+      onClick={handleKebabClose}
+      className={`modal-layout w-[73rem] ${theme === 'dark' && 'bg-var-black2'}`}
+    >
       <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
           <Image src={kebabIcon} alt="케밥" width={28} height={28} />
         </button>
         {openKebab && (
-          <div className="absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[0.5rem] rounded-[0.6rem] border border-var-gray3 bg-white p-[0.6rem]">
+          <div
+            className={`absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[0.5rem] rounded-[0.6rem] border ${theme === 'normal' ? 'border-var-gray3 bg-white' : 'border-var-black2 bg-var-black1'} p-[0.6rem]`}
+          >
             <KebabEditButton
               text="수정하기"
               onClick={() =>
@@ -131,7 +138,11 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
         </button>
       </div>
       <div className="relative pr-[22.4rem]">
-        <h3 className="mb-[2.4rem] text-[2.4rem] font-bold">{card.title}</h3>
+        <h3
+          className={`mb-[2.4rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        >
+          {card.title}
+        </h3>
         <CardInfoChip card={card} />
         <div className="mb-[1.6rem] flex items-center gap-[2rem]">
           <ProgressChip progress={columnTitle} />
@@ -142,7 +153,9 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
             ))}
           </ul>
         </div>
-        <p className="mb-[1.6rem] whitespace-pre-wrap text-[1.4rem] leading-[2.4rem]">
+        <p
+          className={`mb-[1.6rem] whitespace-pre-wrap text-[1.4rem] leading-[2.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        >
           {card.description}
         </p>
         {card.imageUrl && (

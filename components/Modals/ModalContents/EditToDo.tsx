@@ -14,6 +14,7 @@ import useAsync from '@/hooks/useAsync'
 import { getCardList, updateDashBoardCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
@@ -47,6 +48,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
+  const { theme } = useLoadTheme()
 
   const getMembersRequest = useCallback(async () => {
     const result = await getMembers(0, Number(dashboardId))
@@ -111,8 +113,12 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   }, [getMembersRequest])
 
   return (
-    <form className="modal-layout" onSubmit={handleSubmit}>
-      <h3 className="text-[2.4rem] font-bold">할 일 수정</h3>
+    <form className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`} onSubmit={handleSubmit}>
+      <h3
+        className={`text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+      >
+        할 일 수정
+      </h3>
       <div className="flex gap-[1rem]">
         <div className="flex-1">
           <DropDownMenu
