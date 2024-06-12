@@ -4,7 +4,10 @@ import { DashBoard } from '@/types/dashboard'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
+import useAsync from '@/hooks/useAsync'
+import { ModalPortal } from '@/Portal'
 import { BoardButton, CreateBoardButton, PaginationButton } from '..'
+import Loading from '../Loading/Loading'
 
 export default function MyDashBoardList() {
   const [dashBoardPage, setDashBoardPage] = useState(0)
@@ -12,6 +15,7 @@ export default function MyDashBoardList() {
   const [dashBoard, setDashBoard] = useState<DashBoard[]>([])
   const { theme } = useLoadTheme()
   const dispatch = useAppDispatch()
+  const { pending, requestFunction } = useAsync(getDashBoard)
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
@@ -27,15 +31,20 @@ export default function MyDashBoardList() {
 
   useEffect(() => {
     const handleLoadList = async () => {
-      const data = await getDashBoard(currentPage)
+      const data = await requestFunction(currentPage)
       setDashBoard(data.dashboards)
       setDashBoardPage(Math.ceil(data.totalCount / 5))
     }
     handleLoadList()
-  }, [currentPage])
+  }, [currentPage, requestFunction])
 
   return (
     <>
+      {pending && (
+        <ModalPortal>
+          <Loading />
+        </ModalPortal>
+      )}
       <div className="flex w-full flex-wrap items-center gap-[1.3rem]">
         <CreateBoardButton handleClick={createBoard} />
         {dashBoard && dashBoard.map((item) => <BoardButton key={item.id} board={item} />)}
