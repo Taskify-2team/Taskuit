@@ -1,3 +1,4 @@
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteIcon from '@/public/icons/inviteIcon.svg'
 import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
@@ -15,7 +16,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import crownIcon from '@/public/icons/crownicon.svg'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useDispatch } from 'react-redux'
-import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface UserInfoData {
   profileImageUrl: string
