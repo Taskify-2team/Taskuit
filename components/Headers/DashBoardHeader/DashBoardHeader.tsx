@@ -21,10 +21,11 @@ import settingIcon from '@/public/icons/settingIcon.svg'
 interface UserInfoData {
   profileImageUrl: string
   nickname: string
+  id: number
 }
 
 export default function DashBoardHeader() {
-  const [title, setTitle] = useState<string>('대시보드 타이틀')
+  const [title, setTitle] = useState<string>('')
   const [userData, setUserData] = useState<UserInfoData | null>(null)
   const router = useRouter()
   const [totalCount, setTotalCount] = useState<number>(0)
@@ -40,7 +41,8 @@ export default function DashBoardHeader() {
   const fetchData = useCallback(async () => {
     try {
       const accessToken = localStorage.getItem('accessToken')
-      let currentTitle = title
+      let currentTitle = ''
+
       if (accessToken) {
         if (router.pathname.startsWith('/dashboard/')) {
           const { dashboardId } = router.query
@@ -53,6 +55,10 @@ export default function DashBoardHeader() {
             currentTitle = dashboardInfo.title
             setCreatedByMe(dashboardInfo.createdByMe)
           }
+        } else if (router.pathname === '/mydashboard') {
+          currentTitle = '내 대시보드'
+        } else if (router.pathname === '/mypage') {
+          currentTitle = '마이페이지'
         }
       } else {
         router.push('/login')
@@ -64,7 +70,7 @@ export default function DashBoardHeader() {
       setUserData(userInfo)
 
       if (router.query.dashboardId) {
-        const data = await getMemberList(1, Number(router.query.dashboardId))
+        const data = await getMemberList(1, Number(router.query.dashboardId), 10)
         setMembers(data.members || [])
         setTotalCount(data.totalCount || 0)
         localStorage.setItem('members', JSON.stringify(data.members))
@@ -73,7 +79,6 @@ export default function DashBoardHeader() {
       dispatch(openToast('failedToLoadData'))
     }
   }, [
-    title,
     router,
     setIsButtonVisible,
     setTitle,
@@ -112,7 +117,7 @@ export default function DashBoardHeader() {
 
   return (
     <div
-      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} sm:justfiy-right py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[1.2rem]`}
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:justify-end sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[1.2rem]`}
     >
       <div className="flex items-center gap-[0.6rem] sm:hidden">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
@@ -128,27 +133,37 @@ export default function DashBoardHeader() {
         />
         {isButtonVisible && (
           <div className="flex gap-[1.6rem] sm:gap-[1.3rem]">
-            <HeaderButton
-              buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
-              buttonName="관리"
-              handleOnClick={handleManageClick}
-            />
+            {createdByMe && (
+              <div className="flex gap-[1.6rem] sm:gap-[1.3rem]">
+                <HeaderButton
+                  buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
+                  buttonName="관리"
+                  handleOnClick={handleManageClick}
+                />
 
-            <HeaderButton
-              buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
-              buttonName="초대하기"
-              handleOnClick={() =>
-                dispatch(
-                  openModal({
-                    modalName: 'AddMember',
-                    modalProps: { dashboardId: router.query.dashboardId },
-                  }),
-                )
-              }
-            />
-            <ProfileList members={members} totalCount={totalCount} />
+                <HeaderButton
+                  buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
+                  buttonName="초대하기"
+                  handleOnClick={() =>
+                    dispatch(
+                      openModal({
+                        modalName: 'AddMember',
+                        modalProps: {
+                          dashboardId: router.query.dashboardId,
+                          setInviteList: () => {},
+                        },
+                      }),
+                    )
+                  }
+                />
+              </div>
+            )}
+            {userData && (
+              <ProfileList members={members} totalCount={totalCount} LogInId={userData.id} />
+            )}
           </div>
         )}
+
         <div
           className="relative flex items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:pl-[1rem]"
           onClick={toggleDropdown}
