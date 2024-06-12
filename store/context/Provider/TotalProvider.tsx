@@ -5,7 +5,7 @@ import { LanguageContext } from '../LanguageContext'
 import { ThemeContext } from '../ThemeContext'
 
 export default function TotalProvider({ children }: { children: ReactNode }) {
-  const [userId, setUserId] = useState()
+  const [userId, setUserId] = useState(0)
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
 
