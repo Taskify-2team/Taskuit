@@ -3,8 +3,8 @@ import { CreateColumnButton, DashBoardColumn } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useRef } from 'react'
-import { getCardList, updateDashBoardCard } from '@/service/cards'
-import { deleteCardItem } from '@/store/reducers/cardReducer'
+import { getCardList, updateCard } from '@/service/cards'
+import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 
 interface DashboardLayoutProps {
   dashboardId: number
@@ -27,19 +27,18 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
     dragOverColumn.current = id
   }
 
-  const refreshCardList = async () => {
-    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
-  }
-
   const drop = async () => {
     if (baseColumn.current !== dragOverColumn.current) {
-      await updateDashBoardCard({
-        newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
-        cardId: dragItem.current.id,
-      })
+      await dispatch(
+        updateCard({
+          newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
+          cardId: dragItem.current.id,
+        }),
+      )
+      await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
+      dispatch(orderingCardList({ columnId: dragOverColumn.current }))
+      dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }
-    dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
-    refreshCardList()
   }
 
   return (

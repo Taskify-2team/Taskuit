@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
@@ -17,6 +16,7 @@ import themeIcon from '@/public/icons/brightness_89411.svg'
 import crownIcon from '@/public/icons/crownicon.svg'
 import inviteIcon from '@/public/icons/inviteIcon.svg'
 import settingIcon from '@/public/icons/settingIcon.svg'
+import { useAppDispatch } from '@/hooks/useApp'
 
 interface UserInfoData {
   profileImageUrl: string
@@ -35,7 +35,7 @@ export default function DashBoardHeader() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [members, setMembers] = useState<any[]>([])
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
 
   const fetchData = useCallback(async () => {

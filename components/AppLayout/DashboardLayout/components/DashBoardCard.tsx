@@ -5,6 +5,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import TagChipList from '@/components/Chips/TagChipList'
 import { DashBoardCardInfo } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useRef } from 'react'
 
 interface DashBoardCardProps {
   card: Card
@@ -23,6 +24,7 @@ export default function DashBoardCard({
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const draggableRef = useRef<HTMLButtonElement>(null)
 
   const handleOpenModal = () =>
     dispatch(
@@ -32,14 +34,29 @@ export default function DashBoardCard({
       }),
     )
 
+  const handleDragStart = () => {
+    dragStart(card, columnId)
+    if (draggableRef.current) {
+      draggableRef.current.classList.add('cursor-grabbing')
+    }
+  }
+
+  const handleDragEnd = () => {
+    drop()
+    if (draggableRef.current) {
+      draggableRef.current.classList.remove('cursor-grabbing')
+    }
+  }
+
   return (
     <button
       type="button"
       onClick={handleOpenModal}
-      className={`w-[31.4rem] cursor-pointer rounded-[0.6rem] border-[0.1rem] p-[2rem] ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
+      className={`w-[31.4rem] animate-slideDown cursor-pointer rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue active:cursor-grab ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
-      onDragStart={() => dragStart(card, columnId)}
-      onDragEnd={drop}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      ref={draggableRef}
     >
       {card.imageUrl && (
         <Image

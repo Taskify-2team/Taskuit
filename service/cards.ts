@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { PostCard, UpdateCard } from '@/types/dashboard'
+import { Card, CardList, PostCard, UpdateCard } from '@/types/dashboard'
 import axios from './instance'
 
 export const postDashBoardCard = async (props: PostCard) => {
@@ -34,6 +34,22 @@ export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; car
   })
   return response
 }
+
+export const updateCard = createAsyncThunk<Card, { newCardBody: UpdateCard; cardId: number }>(
+  'card/updateCard',
+  async (params) => {
+    const response = await axios.put(`/cards/${params.cardId}`, {
+      assigneeUserId: params.newCardBody.assigneeUserId,
+      columnId: params.newCardBody.columnId,
+      title: params.newCardBody.title,
+      description: params.newCardBody.description,
+      dueDate: params.newCardBody.dueDate,
+      tags: params.newCardBody.tags,
+      imageUrl: params.newCardBody.imageUrl,
+    })
+    return response.data
+  },
+)
 
 export const deleteDashBoardCard = async (param: number) => {
   const response = await axios.delete(`/cards/${param}`)
