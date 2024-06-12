@@ -15,7 +15,7 @@ import { getCardList, updateCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { deleteCardItem } from '@/store/reducers/cardReducer'
+import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
@@ -66,10 +66,6 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     setImageFile(file)
   }
 
-  const refreshCardList = async () => {
-    await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
-  }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (imageFile && newCardBody.columnId) {
@@ -86,7 +82,8 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     if (card.columnId !== newCardBody.columnId) {
       dispatch(deleteCardItem({ cardId: card.id, columnId: card.columnId }))
     }
-    refreshCardList()
+    await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
+    dispatch(orderingCardList({ columnId: newCardBody.columnId }))
     dispatch(openToast('successUpdateCard'))
     dispatch(closeModal())
   }

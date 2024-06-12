@@ -41,7 +41,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex overflow-auto">
+    <div className="cursor flex overflow-auto">
       {columnList?.map((column) => (
         <DashBoardColumn
           key={column.id}
