@@ -56,7 +56,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }
 
   const getMembersRequest = useCallback(async () => {
-    const result = await getMembers(0, Number(dashboardId))
+    const result = await getMembers(0, Number(dashboardId), Number(4))
     setMembers(result.members)
   }, [dashboardId, getMembers])
 
