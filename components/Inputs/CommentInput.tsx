@@ -2,31 +2,35 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { postComment } from '@/service/comments'
 import { useRouter } from 'next/router'
+import { useLoadTheme } from '@/store/context/ThemeContext'
+import { Comment } from '@/types/dashboard'
 import ShortButton from '../Buttons/ShortButton'
 import InputLayout from './InputLayout'
 
 interface CommentInputProps {
   cardId: number
   columnId: number
-  onAdd: () => void
+  onAdd: (props: Comment) => void
 }
 
 export default function CommentInput({ cardId, columnId, onAdd }: CommentInputProps) {
   const router = useRouter()
   const { dashboardId } = router.query
+  const { theme } = useLoadTheme()
 
   const [content, setContent] = useState('')
   const { requestFunction } = useAsync(postComment)
 
   const postCommentRequest = async () => {
-    await requestFunction({
+    const newComment = {
       content,
       cardId,
       columnId,
       dashboardId: Number(dashboardId),
-    })
+    }
+    const result = await requestFunction(newComment)
     setContent('')
-    onAdd()
+    onAdd(result?.data)
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -47,7 +51,7 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
             value={content}
             onChange={handleChange}
             placeholder="댓글 작성하기"
-            className="input-layout h-[13.9rem] w-full resize-none text-[1.4rem]"
+            className={`input-layout h-[13.9rem] w-full resize-none text-[1.4rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
           />
           <div className="absolute bottom-[1.2rem] right-[1.2rem]">
             <ShortButton type="submit" text="입력" color="white" />

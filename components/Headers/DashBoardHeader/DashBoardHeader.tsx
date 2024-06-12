@@ -112,7 +112,7 @@ export default function DashBoardHeader() {
 
   return (
     <div
-      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black1 bg-var-black1 text-white'} sm:justfiy-right py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[1.2rem]`}
+      className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} sm:justfiy-right py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[1.2rem]`}
     >
       <div className="flex items-center gap-[0.6rem] sm:hidden">
         <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>

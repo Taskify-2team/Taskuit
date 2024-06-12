@@ -5,6 +5,7 @@ import { closeModal } from '@/store/reducers/modalReducer'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { getColumnList, postColumn } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 
 export interface AddColumnProps {
   dashboardId: number
@@ -17,6 +18,7 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
   })
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postColumn)
+  const { theme } = useLoadTheme()
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setColumnBody({
@@ -37,8 +39,10 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="modal-layout">
-      <h3 className="text-[2.4rem] font-bold">새 컬럼 생성</h3>
+    <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>
+      <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
+        새 컬럼 생성
+      </h3>
       <TextInput
         id="columnName"
         label="이름"

@@ -4,6 +4,7 @@ import check from '@/public/icons/check.svg'
 import Image from 'next/image'
 import { useAppSelector } from '@/hooks/useApp'
 import { Column, UpdateCard } from '@/types/dashboard'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import ProgressChip from '../Chips/ProgressChip'
 import InputLayout from './InputLayout'
 
@@ -26,6 +27,7 @@ export default function DropDownMenu({
   const [selectMenu, setSelectMenu] = useState(columnTitle)
   const [showMenuList, setShowMenuList] = useState(false)
   const dropDownElement = useRef<HTMLDivElement>(null)
+  const { theme } = useLoadTheme()
 
   const handleClickOutside = (e: MouseEvent) => {
     if (dropDownElement.current && !dropDownElement.current.contains(e.target as Node)) {
@@ -53,7 +55,7 @@ export default function DropDownMenu({
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList((prev) => !prev)}
-        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative h-[4.8rem] w-full cursor-pointer items-center rounded-[0.6rem] border border-solid bg-var-white px-[1.6rem] py-[1.3rem] text-var-black3`}
+        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative h-[4.8rem] w-full cursor-pointer items-center rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'} px-[1.6rem] py-[1.3rem] text-var-black3`}
       >
         <div className="flex size-full items-center justify-between">
           <ProgressChip progress={selectMenu} />
@@ -67,7 +69,9 @@ export default function DropDownMenu({
           </div>
         </div>
         {showMenuList && (
-          <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
+          <div
+            className={`absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid py-[0.65rem] shadow-lg ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black1'}`}
+          >
             {columnList.map((column) => (
               <div
                 key={column.id}

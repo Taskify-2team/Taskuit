@@ -28,6 +28,7 @@ const config: Config = {
         'var-gray2': '#eeeeee',
         'var-gray1': '#fafafa',
         'var-white': '#ffffff',
+        'var-image-hover': 'rgba(0, 0, 0, 0.2)',
       },
       keyframes: {
         slideDown: {

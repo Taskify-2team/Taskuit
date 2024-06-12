@@ -13,6 +13,7 @@ import cancel from '@/public/icons/cancel.svg'
 import Image from 'next/image'
 import { Assignee } from '@/types/dashboard'
 import { Member } from '@/types/member'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 import UserInfo from '../UserInfo/UserInfo'
 
@@ -44,6 +45,7 @@ export default function DropDownInputMenu({
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
+  const { theme } = useLoadTheme()
 
   const initializeSelectMenu = () => {
     setSelectMenu({
@@ -158,7 +160,7 @@ export default function DropDownInputMenu({
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList(true)}
-        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex h-[4.8rem] w-full cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid bg-var-white px-[1.6rem] py-[1.3rem] text-var-black2`}
+        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex h-[4.8rem] w-full cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white text-var-black2' : 'border-var-black1 bg-var-black1 text-var-gray3'} px-[1.6rem] py-[1.3rem]`}
       >
         {selectMenu.profileImageUrl && (
           <>
@@ -176,7 +178,7 @@ export default function DropDownInputMenu({
                 fill
                 src={selectMenu.profileImageUrl}
                 alt="프로필 이미지"
-                className="rounded-full border-[0.2rem]"
+                className={`rounded-full border ${theme === 'normal' ? 'border-var-white' : 'border-var-black1'}`}
               />
             </div>
           </>
@@ -186,7 +188,7 @@ export default function DropDownInputMenu({
           onKeyDown={handleKeyDown}
           value={selectMenu.nickname}
           onChange={handleInputChange}
-          className="w-full text-[1.6rem] outline-none"
+          className={`w-full text-[1.6rem] outline-none ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'}`}
           placeholder="이름을 입력해 주세요"
         />
         <div className="absolute right-[1.5rem] size-[1rem]">
@@ -198,7 +200,9 @@ export default function DropDownInputMenu({
           />
         </div>
         {showMenuList && (
-          <div className="absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid border-var-gray3 bg-var-white py-[0.65rem] shadow-lg">
+          <div
+            className={`absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
+          >
             {menuList?.map((menuItem, i) => (
               <div
                 key={menuItem.userId}
