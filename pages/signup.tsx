@@ -66,7 +66,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center pb-[17.2rem] pt-[10.3rem] sm:pt-[9rem] md:pt-[14rem]">
+    <div className="flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />

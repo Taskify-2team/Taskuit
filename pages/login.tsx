@@ -67,7 +67,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center pt-[10.3rem] sm:pt-[9rem] md:pt-[14rem]">
+    <div className="flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />
@@ -145,7 +145,7 @@ export default function LoginForm() {
           </LongButton>
         </div>
       </form>
-      <div className="mb-[22.3rem] mt-[1.6rem] flex gap-[1rem]">
+      <div className="mt-[1.6rem] flex gap-[1rem]">
         <span className="text-[1.6rem]">회원이 아니신가요?</span>
         <Link href="/signup" className="text-[1.6rem] text-primary-violet underline">
           회원가입하기
