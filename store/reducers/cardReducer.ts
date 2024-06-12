@@ -27,7 +27,7 @@ const cardSlice = createSlice({
       state.cardList[columnId] = state.cardList[columnId]?.filter(
         (cardItem: Card) => cardItem.id !== cardId,
       )
-      state.totalCount[action.payload.columnId] -= 1
+      state.totalCount[columnId] = state.totalCount[columnId] === 1 && 0
     },
     orderingCardList: (state, action) => {
       const { columnId } = action.payload

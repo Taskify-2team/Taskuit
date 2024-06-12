@@ -34,28 +34,14 @@ export default function DashBoardCard({
       }),
     )
 
-  const handleDragStart = () => {
-    dragStart(card, columnId)
-    if (draggableRef.current) {
-      draggableRef.current.classList.add('cursor-grabbing')
-    }
-  }
-
-  const handleDragEnd = () => {
-    drop()
-    if (draggableRef.current) {
-      draggableRef.current.classList.remove('cursor-grabbing')
-    }
-  }
-
   return (
     <button
       type="button"
       onClick={handleOpenModal}
-      className={`w-[31.4rem] animate-slideDown cursor-pointer rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue active:cursor-grab ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
+      className={`w-[31.4rem] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
+      onDragStart={() => dragStart(card, columnId)}
+      onDragEnd={() => drop()}
       ref={draggableRef}
     >
       {card.imageUrl && (
