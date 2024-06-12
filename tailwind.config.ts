@@ -58,6 +58,7 @@ const config: Config = {
         fadeIn: 'fadeIn 0.3s ease-in-out forwards',
         fadeOut: 'fadeOut 0.3s ease-in-out forwards',
         timer: 'timer 2.9s linear forwards',
+        spin: 'spin 2s linear infinite',
       },
       screens: {
         sm: { min: '375px', max: '743px' },

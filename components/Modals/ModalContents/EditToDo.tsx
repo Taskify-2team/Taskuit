@@ -84,9 +84,9 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         cardId: card.id,
       })
     }
+    dispatch(closeModal())
     refreshCardList()
     dispatch(openToast('successUpdateCard'))
-    dispatch(closeModal())
   }
 
   useEffect(() => {
