@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import useAsync from '@/hooks/useAsync'
 import { getDashBoardInfo } from '@/service/dashboards'
 import { useCallback, useEffect, useState } from 'react'
-import { useLoadUser } from '@/store/context/UserIdContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface DashBoardColumnHeaderProps {
@@ -37,7 +36,6 @@ export default function DashBoardColumnHeader({
   useEffect(() => {
     handleLoadDashBoard()
   }, [handleLoadDashBoard])
-
 
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
