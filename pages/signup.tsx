@@ -66,10 +66,10 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center pb-[17.2rem] pt-[10.3rem]">
+    <div className="flex flex-col items-center pb-[17.2rem] pt-[10.3rem] sm:pt-[9rem] md:pt-[14rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
-          <Image src={logo} width={300} alt="로고" />
+          <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />
           <p className="text-center font-[Logo] text-[7rem] font-bold text-primary-violet">
             Taskuit
           </p>
@@ -77,7 +77,7 @@ export default function LoginForm() {
         <p className="text-[2rem]">첫 방문을 환영합니다!</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-[52rem] flex-col">
+        <div className="w-[52rem] flex-col sm:w-[35.1rem]">
           <div className="pb-[2.8rem]">
             <Controller
               name="id"
@@ -103,7 +103,7 @@ export default function LoginForm() {
               )}
             />
           </div>
-          <div className="pb-[2.3rem]">
+          <div className="pb-[2.8rem]">
             <Controller
               name="nickname"
               control={control}
@@ -128,7 +128,7 @@ export default function LoginForm() {
               )}
             />
           </div>
-          <div className="pb-[2.3rem]">
+          <div className="pb-[2.8rem]">
             <Controller
               name="password"
               control={control}
@@ -153,7 +153,7 @@ export default function LoginForm() {
               )}
             />
           </div>
-          <div className="pb-[2.3rem]">
+          <div className="pb-[2.8rem]">
             <Controller
               name="passwordConfirm"
               control={control}
@@ -197,7 +197,7 @@ export default function LoginForm() {
               </div>
             )}
           />
-          <div className="mb-[0.5rem] h-[1.5rem]">
+          <div className="h-[1.5rem]">
             {loginError && <div className="text-[1.4rem] text-var-red">{loginError}</div>}
           </div>
           <LongButton

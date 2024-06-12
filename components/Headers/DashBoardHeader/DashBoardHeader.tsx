@@ -16,6 +16,7 @@ import crownIcon from '@/public/icons/crownicon.svg'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useDispatch } from 'react-redux'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { openToast } from '@/store/reducers/toastReducer'
 
 interface UserInfoData {
   profileImageUrl: string
@@ -70,7 +71,7 @@ export default function DashBoardHeader() {
         localStorage.setItem('members', JSON.stringify(data.members))
       }
     } catch (error) {
-      alert('데이터를 가져오는 중 오류가 발생했습니다.')
+      dispatch(openToast('failedToLoadData'))
     }
   }, [
     title,
@@ -81,6 +82,7 @@ export default function DashBoardHeader() {
     setUserData,
     setMembers,
     setTotalCount,
+    dispatch,
   ])
 
   const toggleDropdown = () => {

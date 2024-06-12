@@ -67,18 +67,18 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center pt-[10.3rem]">
+    <div className="flex flex-col items-center pt-[10.3rem] sm:pt-[9rem] md:pt-[14rem]">
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
-          <Image src={logo} width={300} alt="로고" />
-          <p className="text-center font-[Logo] text-[7rem] font-bold text-primary-violet">
+          <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />
+          <p className="text-center font-[Logo] text-[7rem] font-bold text-primary-violet sm:text-[5rem]">
             Taskuit
           </p>
         </Link>
         <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-[52rem] flex-col">
+        <div className="w-[52rem] flex-col sm:w-[35.1rem]">
           <div className="pb-[2.8rem]">
             <Controller
               name="id"
@@ -104,7 +104,7 @@ export default function LoginForm() {
               )}
             />
           </div>
-          <div className="pb-[2.3rem]">
+          <div className="pb-[2.8rem]">
             <Controller
               name="password"
               control={control}
@@ -145,7 +145,7 @@ export default function LoginForm() {
           </LongButton>
         </div>
       </form>
-      <div className="mt-[1.6rem] flex gap-[1rem]">
+      <div className="mb-[22.3rem] mt-[1.6rem] flex gap-[1rem]">
         <span className="text-[1.6rem]">회원이 아니신가요?</span>
         <Link href="/signup" className="text-[1.6rem] text-primary-violet underline">
           회원가입하기
