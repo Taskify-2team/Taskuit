@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import inviteIcon from '@/public/icons/inviteIcon.svg'
@@ -12,10 +14,8 @@ import { getUserInfo } from '@/service/users'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useRef, useState } from 'react'
 import crownIcon from '@/public/icons/crownicon.svg'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useDispatch } from 'react-redux'
 
 interface UserInfoData {
   profileImageUrl: string
