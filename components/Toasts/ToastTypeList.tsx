@@ -16,6 +16,7 @@ const toastList: Map<string, { text: string; warn: boolean }> = new Map([
   ['wrongEditBoardValue', { text: '변경된 내용이 없습니다.', warn: true }],
   ['wrongCurrentPassword', { text: '비밀번호가 일치하지 않습니다.', warn: true }],
   ['successSignUp', { text: '가입이 완료되었습니다.', warn: false }],
+  ['failedToLoadData', { text: '데이터를 가져오는 중 오류가 발생했습니다.', warn: true }],
 ])
 
 export default toastList

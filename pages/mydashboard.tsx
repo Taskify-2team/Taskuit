@@ -8,7 +8,7 @@ export default function MyDashBoard() {
 
   return (
     <AppLayout>
-      <div className="mx-auto my-0 flex w-[102.2rem] flex-col">
+      <div className="mx-auto my-0 flex w-[102.2rem] flex-col p-[2rem]">
         <MyDashBoardList />
         <div
           className={`mt-[3rem] flex w-full flex-col gap-[2rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} px-[2.8rem] py-[3rem]`}
