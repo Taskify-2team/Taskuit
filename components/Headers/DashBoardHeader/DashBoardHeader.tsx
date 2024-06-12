@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useAppDispatch } from 'react-redux'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import { getDashBoardInfo } from '@/service/dashboards'
@@ -32,7 +32,7 @@ export default function DashBoardHeader() {
   const [isButtonVisible, setIsButtonVisible] = useState<boolean>(false)
   const [members, setMembers] = useState<Member[]>([])
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
 
   const { pending, requestFunction: fetchData } = useAsync(async () => {
