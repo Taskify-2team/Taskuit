@@ -23,7 +23,7 @@ export interface ToDoDetailProps {
   columnTitle: string
 }
 
-export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
+export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
   const [cursorId, setCursorId] = useState<number>(0)
