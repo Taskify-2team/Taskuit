@@ -36,9 +36,9 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
         newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
         cardId: dragItem.current.id,
       })
+      refreshCardList()
+      dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }
-    dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
-    refreshCardList()
   }
 
   return (
