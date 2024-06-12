@@ -1,11 +1,6 @@
+import { UserInfoProps } from '@/types/header'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import UserProfile from './UserProfile'
-
-export interface UserInfoProps {
-  profileImageUrl: string
-  nickname: string
-  size?: 'm' | 'l'
-}
 
 export default function UserInfo({ profileImageUrl, nickname, size = 'l' }: UserInfoProps) {
   const { theme } = useLoadTheme()

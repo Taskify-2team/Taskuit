@@ -1,23 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { ProfileListProps } from '@/types/header'
 import UserInfo from '@/components/UserInfo/UserInfo'
 import UserProfile from '../../../UserInfo/UserProfile'
-
-interface Member {
-  id: number
-  userId: number
-  email: string
-  nickname: string
-  profileImageUrl: string
-  createdAt: string
-  updatedAt: string
-  isOwner: boolean
-}
-
-interface ProfileListProps {
-  members?: Member[]
-  totalCount: number
-  LogInId: number
-}
 
 export default function ProfileList({ members, totalCount, LogInId }: ProfileListProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)

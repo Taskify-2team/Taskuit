@@ -3,13 +3,7 @@ import crownicon from '@/public/icons/crownicon.svg'
 import CircleChip from '@/components/Chips/CircleChip'
 import Link from 'next/link'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-
-interface SideMenuListItemProps {
-  id: number
-  color: string
-  title: string
-  createdByMe: boolean
-}
+import { SideMenuListItemProps } from '@/types/sidemenu'
 
 export default function SideMenuListItem({
   id,

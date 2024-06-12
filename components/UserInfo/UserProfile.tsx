@@ -1,11 +1,6 @@
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { UserProfileProps } from '@/types/header'
 import Image from 'next/image'
-
-export interface UserProfileProps {
-  profileImageUrl: string
-  nickname: string
-  size?: 's' | 'm' | 'l'
-}
 
 export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: UserProfileProps) {
   const initial = nickname.charAt(0).toUpperCase()
