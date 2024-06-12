@@ -52,8 +52,8 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
     dispatch(openToast('successDeleteColumn'))
   }
 
-  const handleAddComment = () => {
-    getCommentData()
+  const handleAddComment = (newComment: Comment) => {
+    setCommentList((prev) => [newComment, ...prev])
   }
 
   const handleUpdateComment = (updatedItem: Comment) => {
@@ -175,6 +175,7 @@ export default function ToDoDetail({ card, columnTitle }: ToDoDetailProps) {
             <CommentItem
               key={commentItem.id}
               comment={commentItem}
+              authorId={commentItem.author.id}
               onUpdate={handleUpdateComment}
               onDelete={handleDeleteComment}
             />
