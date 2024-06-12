@@ -1,25 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { ProfileListProps } from '@/types/header'
 import UserInfo from '@/components/UserInfo/UserInfo'
 import UserProfile from '../../../UserInfo/UserProfile'
 
-interface Member {
-  id: number
-  userId: number
-  email: string
-  nickname: string
-  profileImageUrl: string
-  createdAt: string
-  updatedAt: string
-  isOwner: boolean
-}
-
-interface ProfileListProps {
-  members?: Member[]
-  totalCount: number
-  LogInId: number
-}
-
-export default function ProfileList({ members, totalCount, LogInId }: ProfileListProps) {
+export default function ProfileList({ theme, members, totalCount, LogInId }: ProfileListProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -63,14 +47,18 @@ export default function ProfileList({ members, totalCount, LogInId }: ProfileLis
                 </div>
               ))}
             {totalCount > 3 && (
-              <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-gray-400 text-[1.6rem] text-var-white">
+              <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-gray-400 text-[1.6rem] text-var-white">
                 +{totalCount - 3}
               </div>
             )}
           </div>
           {isDropdownOpen && (
             <div
-              className="h-100% absolute mt-2 animate-slideDown rounded-md border border-gray-300 bg-white shadow-lg"
+              className={`h-100% absolute mt-2 animate-slideDown rounded-md border ${
+                theme === 'normal'
+                  ? 'border-var-gray3 bg-var-white'
+                  : 'border-var-black1 bg-var-black1 text-white'
+              }shadow-lg`}
               ref={dropdownRef}
               onClick={closeDropdown}
             >

@@ -1,11 +1,6 @@
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { UserProfileProps } from '@/types/header'
 import Image from 'next/image'
-
-export interface UserProfileProps {
-  profileImageUrl: string
-  nickname: string
-  size?: 's' | 'm' | 'l'
-}
 
 export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: UserProfileProps) {
   const initial = nickname.charAt(0).toUpperCase()
@@ -37,7 +32,7 @@ export default function UserProfile({ profileImageUrl, nickname, size = 'l' }: U
     />
   ) : (
     <div
-      className="flex items-center justify-center rounded-full border-2 border-white bg-gray-500 font-bold text-white shadow-md"
+      className={`flex items-center justify-center rounded-full border-2${theme === 'normal' ? 'border-gray-300' : 'border-var-black2'} bg-gray-500 font-bold text-white shadow-md`}
       style={SIZE[size].textStyle}
     >
       {initial}

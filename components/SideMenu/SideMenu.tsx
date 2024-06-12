@@ -7,10 +7,11 @@ import addDashBoardIcon from '@/public/icons/adddashboardiconWhite.svg'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDispatch } from 'react-redux'
 import { getDashBoard } from '@/service/dashboards'
+import { DashBoardProps } from '@/types/sidemenu'
 import { openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import PaginationButton from '../Buttons/PaginationButton'
-import SideMenuList, { DashBoardProps } from './SideMenuList/SideMenuList'
+import SideMenuList from './SideMenuList/SideMenuList'
 
 export default function SideMenu() {
   const [dashBoard, setDashBoard] = useState<DashBoardProps[]>([])

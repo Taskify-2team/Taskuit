@@ -1,13 +1,8 @@
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import Image, { StaticImageData } from 'next/image'
+import { HeaderButtonItems } from '@/types/header'
+import Image from 'next/image'
 
-interface ButtonItems {
-  buttonIcon: StaticImageData
-  buttonName: string
-  handleOnClick?: () => void
-}
-
-export default function HeaderButton({ buttonIcon, buttonName, handleOnClick }: ButtonItems) {
+export default function HeaderButton({ buttonIcon, buttonName, handleOnClick }: HeaderButtonItems) {
   const { theme } = useLoadTheme()
 
   return (
