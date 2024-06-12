@@ -4,22 +4,25 @@ import useAsync from '@/hooks/useAsync'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { deleteComment, updateComment } from '@/service/comments'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadUser } from '@/store/context/UserIdContext'
 import ShortButton from '../Buttons/ShortButton'
 import UserProfile from '../UserInfo/UserProfile'
 import EditButton from '../Buttons/EditButton'
 
 interface CommentItemProps {
   comment: Comment
+  authorId: number
   onUpdate: (props: Comment) => void
   onDelete: (props: Comment) => void
 }
 
-export default function CommentItem({ comment, onUpdate, onDelete }: CommentItemProps) {
+export default function CommentItem({ comment, authorId, onUpdate, onDelete }: CommentItemProps) {
   const [isEdit, setIsEdit] = useState(false)
   const [text, setText] = useState(comment.content)
   const { requestFunction: updateCommentRequest } = useAsync(updateComment)
   const { requestFunction: deleteCommentRequest } = useAsync(deleteComment)
   const { theme } = useLoadTheme()
+  const { userId } = useLoadUser()
 
   const updateCommentData = async () => {
     await updateCommentRequest({ id: comment.id, content: text })
@@ -85,10 +88,12 @@ export default function CommentItem({ comment, onUpdate, onDelete }: CommentItem
             >
               {comment.content}
             </p>
-            <div className="mt-[1.2rem] flex gap-[1.2rem]">
-              <EditButton onClick={handleEditClick} text="수정" />
-              <EditButton onClick={handleDeleteClick} text="삭제" />
-            </div>
+            {authorId === userId && (
+              <div className="mt-[1.2rem] flex gap-[1.2rem]">
+                <EditButton onClick={handleEditClick} text="수정" />
+                <EditButton onClick={handleDeleteClick} text="삭제" />
+              </div>
+            )}
           </div>
         )}
       </div>

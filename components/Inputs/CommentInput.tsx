@@ -3,13 +3,14 @@ import useAsync from '@/hooks/useAsync'
 import { postComment } from '@/service/comments'
 import { useRouter } from 'next/router'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { Comment } from '@/types/dashboard'
 import ShortButton from '../Buttons/ShortButton'
 import InputLayout from './InputLayout'
 
 interface CommentInputProps {
   cardId: number
   columnId: number
-  onAdd: () => void
+  onAdd: (props: Comment) => void
 }
 
 export default function CommentInput({ cardId, columnId, onAdd }: CommentInputProps) {
@@ -21,14 +22,15 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
   const { requestFunction } = useAsync(postComment)
 
   const postCommentRequest = async () => {
-    await requestFunction({
+    const newComment = {
       content,
       cardId,
       columnId,
       dashboardId: Number(dashboardId),
-    })
+    }
+    const result = await requestFunction(newComment)
     setContent('')
-    onAdd()
+    onAdd(result?.data)
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
