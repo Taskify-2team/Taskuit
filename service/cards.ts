@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { PostCard, UpdateCard } from '@/types/dashboard'
+import { CardList, PostCard, UpdateCard } from '@/types/dashboard'
 import axios from './instance'
 
 export const postDashBoardCard = async (props: PostCard) => {
@@ -13,14 +13,14 @@ export const getDashBoardCard = async (params: { cursorId?: number | null; colum
   return response
 }
 
-export const getCardList = createAsyncThunk<any, { cursorId: number; columnId: number }>(
-  'card/getCardList',
-  async ({ cursorId, columnId }) => {
-    const cursorIdParam = cursorId ? `$cursorId=${cursorId}` : ''
-    const response = await axios.get(`/cards?size=6&columnId=${columnId}${cursorIdParam}`)
-    return response.data
-  },
-)
+export const getCardList = createAsyncThunk<
+  CardList,
+  { cursorId: number | null; columnId: number }
+>('card/getCardList', async ({ cursorId, columnId }) => {
+  const cursorIdParam = cursorId ? `&cursorId=${cursorId}` : ''
+  const response = await axios.get(`/cards?size=6&columnId=${columnId}${cursorIdParam}`)
+  return response.data
+})
 
 export const updateDashBoardCard = async (params: { newCardBody: UpdateCard; cardId: number }) => {
   const response = await axios.put(`/cards/${params.cardId}`, {

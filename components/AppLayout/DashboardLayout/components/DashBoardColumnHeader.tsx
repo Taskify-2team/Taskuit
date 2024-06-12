@@ -1,14 +1,14 @@
+import { useCallback, useEffect, useState } from 'react'
 import { CircleChip } from '@/components'
 import { openModal } from '@/store/reducers/modalReducer'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image from 'next/image'
-import settingIcon from '@/public/icons/settingIcon.svg'
 import { useAppDispatch } from '@/hooks/useApp'
 import { Card } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import useAsync from '@/hooks/useAsync'
 import { getDashBoardInfo } from '@/service/dashboards'
-import { useCallback, useEffect, useState } from 'react'
-import { useLoadTheme } from '@/store/context/ThemeContext'
+import settingIcon from '@/public/icons/settingIcon.svg'
 
 interface DashBoardColumnHeaderProps {
   columnTitle: string

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import UserInfo from '@/components/UserInfo/UserInfo'
 import UserProfile from '../../../UserInfo/UserProfile'
 
@@ -21,19 +21,35 @@ interface ProfileListProps {
 
 export default function ProfileList({ members, totalCount, LogInId }: ProfileListProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
+  const closeDropdown = () => {
+    setIsDropdownOpen(false)
+  }
   return (
     <div>
       {members && (
         <div>
           <div
             className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-[1rem]"
-            onMouseEnter={toggleDropdown}
-            onMouseLeave={toggleDropdown}
+            onClick={toggleDropdown}
           >
             {members
               .slice(0, 3)
@@ -53,7 +69,11 @@ export default function ProfileList({ members, totalCount, LogInId }: ProfileLis
             )}
           </div>
           {isDropdownOpen && (
-            <div className="h-100% absolute mt-2 animate-slideDown rounded-md border border-gray-300 bg-white shadow-lg">
+            <div
+              className="h-100% absolute mt-2 animate-slideDown rounded-md border border-gray-300 bg-white shadow-lg"
+              ref={dropdownRef}
+              onClick={closeDropdown}
+            >
               {members.map((member) => (
                 <div key={member.id} className="px-4 py-2">
                   <UserInfo nickname={member.nickname} profileImageUrl={member.profileImageUrl} />

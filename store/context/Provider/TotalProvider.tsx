@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { getUserInfo } from '@/service/users'
 import { UserContext } from '../UserIdContext'
 import { LanguageContext } from '../LanguageContext'
@@ -9,31 +9,12 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
 
-  const handleSetLanguage = () => {
-    if (language === 'ko') {
-      setLanguage('en')
-    } else {
-      setLanguage('ko')
-    }
-    localStorage.setItem('language', language)
-  }
-
-  const handleSetTheme = () => {
-    if (theme === 'normal') {
-      setTheme('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      setTheme('normal')
-      localStorage.setItem('theme', 'normal')
-    }
-  }
-
   useEffect(() => {
     const loadUser = async () => {
       const result = await getUserInfo()
       setUserId(result.id)
     }
-    if (localStorage.getItem('accesccToken')) {
+    if (localStorage.getItem('accessToken')) {
       loadUser()
     }
   }, [])
@@ -43,7 +24,7 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
     if (data) {
       setLanguage(data)
     } else {
-      localStorage.setItem('language', language)
+      localStorage.setItem('language', 'ko')
     }
   }, [])
 
@@ -56,10 +37,43 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  const userIdValue = useMemo(() => ({ userId }), [userId])
+
+  const languageValue = useMemo(
+    () => ({
+      language,
+      handleSetLanguage: () => {
+        if (language === 'ko') {
+          setLanguage('en')
+        } else {
+          setLanguage('ko')
+        }
+        localStorage.setItem('language', language)
+      },
+    }),
+    [language],
+  )
+
+  const themeValue = useMemo(
+    () => ({
+      theme,
+      handleSetTheme: () => {
+        if (theme === 'normal') {
+          setTheme('dark')
+          localStorage.setItem('theme', 'dark')
+        } else {
+          setTheme('normal')
+          localStorage.setItem('theme', 'normal')
+        }
+      },
+    }),
+    [theme],
+  )
+
   return (
-    <UserContext.Provider value={{ userId }}>
-      <LanguageContext.Provider value={{ language, handleSetLanguage }}>
-        <ThemeContext.Provider value={{ theme, handleSetTheme }}>{children}</ThemeContext.Provider>
+    <UserContext.Provider value={userIdValue}>
+      <LanguageContext.Provider value={languageValue}>
+        <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
       </LanguageContext.Provider>
     </UserContext.Provider>
   )
