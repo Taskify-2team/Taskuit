@@ -27,6 +27,7 @@ export interface ProfileListProps {
   members?: Member[]
   totalCount: number
   LogInId: number
+  theme: string
 }
 
 export interface UserInfoProps {

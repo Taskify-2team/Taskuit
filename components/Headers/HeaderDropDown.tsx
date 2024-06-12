@@ -6,7 +6,7 @@ interface DropdownProps {
 }
 
 function Dropdown({ theme }: DropdownProps) {
-  const router = useRouter() // useRouter 함수를 호출하여 router 객체를 가져옵니다.
+  const router = useRouter()
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
     router.push('/login')

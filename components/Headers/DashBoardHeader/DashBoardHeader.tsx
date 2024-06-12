@@ -1,5 +1,4 @@
-import { useAppDispatch } from 'react-redux'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ProfileList, HeaderButton, UserInfo } from '@/components'
 import { getDashBoardInfo } from '@/service/dashboards'
@@ -9,6 +8,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
+import { useAppDispatch } from '@/hooks/useApp'
 import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
 import settingIconWhite from '@/public/icons/settingiconWhite.svg'
@@ -96,7 +96,8 @@ export default function DashBoardHeader() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, [router])
+
   return (
     <>
       {pending && (
@@ -147,14 +148,19 @@ export default function DashBoardHeader() {
                 </div>
               )}
               {userData && (
-                <ProfileList members={members} totalCount={totalCount} LogInId={userData.id} />
+                <ProfileList
+                  theme={theme}
+                  members={members}
+                  totalCount={totalCount}
+                  LogInId={userData.id}
+                />
               )}
             </div>
           )}
-
           <div
             className="relative flex items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:pl-[1rem]"
             onClick={toggleDropdown}
+            ref={dropdownRef}
           >
             {userData && (
               <UserInfo profileImageUrl={userData.profileImageUrl} nickname={userData.nickname} />
