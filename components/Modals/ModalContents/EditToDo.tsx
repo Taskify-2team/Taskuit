@@ -51,7 +51,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const { theme } = useLoadTheme()
 
   const getMembersRequest = useCallback(async () => {
-    const result = await getMembers(0, Number(dashboardId))
+    const result = await getMembers(0, Number(dashboardId), Number(4))
     setMembers(result.members)
   }, [dashboardId, getMembers])
 
