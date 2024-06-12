@@ -3,7 +3,7 @@ import { CreateColumnButton, DashBoardColumn } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useRef } from 'react'
-import { getCardList, updateDashBoardCard } from '@/service/cards'
+import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
 
 interface DashboardLayoutProps {
@@ -32,10 +32,12 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
 
   const drop = async () => {
     if (baseColumn.current !== dragOverColumn.current) {
-      await updateDashBoardCard({
-        newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
-        cardId: dragItem.current.id,
-      })
+      await dispatch(
+        updateCard({
+          newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
+          cardId: dragItem.current.id,
+        }),
+      )
       refreshCardList()
       dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }

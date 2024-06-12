@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
-import { getCardList } from '@/service/cards'
+import { getCardList, updateCard } from '@/service/cards'
 import { Card } from '@/types/dashboard'
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -26,6 +26,7 @@ const cardSlice = createSlice({
       state.cardList[action.payload.columnId] = state.cardList[action.payload.columnId]?.filter(
         (cardItem: Card) => cardItem.id !== action.payload.cardId,
       )
+      state.totalCount[action.payload.columnId] -= 1
     },
   },
   extraReducers: (builder) => {
@@ -42,15 +43,39 @@ const cardSlice = createSlice({
             state.cardList[columnId] = []
             state.cardList[columnId] = [...state.cardList[columnId], card]
           }
-          const result = state.cardList[columnId].filter((v: Card) => v.id === card.id)
-          if (result.length === 0) {
+          const foundIndex = state.cardList[columnId].findIndex((v: Card) => v.id === card.id)
+          if (foundIndex === -1) {
             state.cardList[columnId] = [...state.cardList[columnId], card]
+          } else {
+            state.cardList[columnId][foundIndex] = card
           }
           state.cursorId[columnId] = action.payload.cursorId || null
-          state.totalCount[columnId] = action.payload.totalCount
+          state.totalCount[columnId] = action.payload.totalCount || 0
         })
       })
       .addCase(getCardList.rejected, (state) => {
+        state.cardListStatus = 'rejected'
+      })
+      .addCase(updateCard.pending, (state) => {
+        state.cardListStatus = 'pending'
+      })
+      .addCase(updateCard.fulfilled, (state, action) => {
+        state.cardListStatus = 'fulfilled'
+        const { columnId } = action.payload
+        if (!state.cardList[columnId]) {
+          state.cardList[columnId] = []
+          state.cardList[columnId] = [...state.cardList[columnId], action.payload]
+        }
+        const foundIndex = state.cardList[columnId].findIndex(
+          (v: Card) => v.id === action.payload.id,
+        )
+        if (foundIndex === -1) {
+          state.cardList[columnId] = [...state.cardList[columnId], action.payload]
+        } else {
+          state.cardList[columnId][foundIndex] = action.payload
+        }
+      })
+      .addCase(updateCard.rejected, (state) => {
         state.cardListStatus = 'rejected'
       })
   },

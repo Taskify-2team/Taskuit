@@ -21,9 +21,9 @@ export interface Column {
 }
 
 export interface PostCard {
+  columnId: number
   assigneeUserId?: number
   dashboardId: number
-  columnId: number
   title: string
   description: string
   dueDate?: string

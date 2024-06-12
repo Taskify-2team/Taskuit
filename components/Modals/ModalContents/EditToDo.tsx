@@ -11,10 +11,11 @@ import {
 } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
-import { getCardList, updateDashBoardCard } from '@/service/cards'
+import { getCardList, updateCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { deleteCardItem } from '@/store/reducers/cardReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
@@ -45,7 +46,6 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const [dueDate, setDueDate] = useState('')
   const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
   const dispatch = useAppDispatch()
-  const { requestFunction } = useAsync(updateDashBoardCard)
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
   const { theme } = useLoadTheme()
@@ -74,15 +74,17 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     e.preventDefault()
     if (imageFile && newCardBody.columnId) {
       const imageResult = await updateCardImage({ columnId: newCardBody?.columnId, imageFile })
-      await requestFunction({
-        newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
-        cardId: card.id,
-      })
+      await dispatch(
+        updateCard({
+          newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
+          cardId: card.id,
+        }),
+      )
     } else {
-      await requestFunction({
-        newCardBody,
-        cardId: card.id,
-      })
+      await dispatch(updateCard({ newCardBody, cardId: card.id }))
+    }
+    if (card.columnId !== newCardBody.columnId) {
+      dispatch(deleteCardItem({ cardId: card.id, columnId: card.columnId }))
     }
     refreshCardList()
     dispatch(openToast('successUpdateCard'))
