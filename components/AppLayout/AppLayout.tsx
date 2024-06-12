@@ -15,7 +15,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <div className="flex min-h-[100vh] bg-var-gray1">
         <SideMenu />
         <div
-          className={`w-full pl-[32rem] pt-[11rem] ${theme === 'normal' ? 'bg-var-gray1' : 'bg-var-black3'} transition ease-linear`}
+          className={`w-full pl-[30rem] pt-[8rem] ${theme === 'normal' ? 'bg-var-gray1' : 'bg-var-black3'} transition ease-linear`}
         >
           {children}
         </div>

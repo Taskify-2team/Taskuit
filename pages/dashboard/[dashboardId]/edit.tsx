@@ -23,7 +23,7 @@ export default function Edit() {
 
   return (
     <AppLayout>
-      <div className="flex flex-col gap-[1.2rem]">
+      <div className="flex flex-col gap-[1.2rem] p-[2rem]">
         <div
           className="my-[1.3rem] flex w-fit cursor-pointer gap-[0.6rem]"
           onClick={() => router.back()}
