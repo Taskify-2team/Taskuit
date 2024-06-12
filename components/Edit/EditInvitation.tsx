@@ -51,7 +51,7 @@ export default function EditInvitation() {
 
   return (
     <>
-      {pending && (
+      {pending && !inviteList[0] && (
         <ModalPortal>
           <Loading />
         </ModalPortal>

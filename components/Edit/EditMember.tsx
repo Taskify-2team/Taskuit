@@ -47,7 +47,7 @@ export default function EditMember() {
 
   return (
     <>
-      {pending && (
+      {pending && !memberList && (
         <ModalPortal>
           <Loading />
         </ModalPortal>

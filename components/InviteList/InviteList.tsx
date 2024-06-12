@@ -61,7 +61,7 @@ export default function InviteList() {
 
   return (
     <>
-      {pending && (
+      {pending && !invitationList[0] && (
         <ModalPortal>
           <Loading />
         </ModalPortal>

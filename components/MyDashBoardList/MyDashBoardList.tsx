@@ -40,7 +40,7 @@ export default function MyDashBoardList() {
 
   return (
     <>
-      {pending && (
+      {pending && !dashBoard[0] && (
         <ModalPortal>
           <Loading />
         </ModalPortal>
