@@ -3,8 +3,9 @@ import loadingImage from '@/public/images/loadingImage.png'
 
 export default function Loading() {
   return (
-    <div className="fixed top-0 z-[100] flex h-screen w-screen items-center justify-center bg-var-black1/50">
+    <div className="fixed top-0 z-[100] flex h-screen w-screen flex-col items-center justify-center gap-[1rem] bg-var-white">
       <Image src={loadingImage} width={100} alt="로딩이미지" className="animate-spin" />
+      <p className="font-[Logo] text-[4rem] font-bold text-primary-violet">Loading...</p>
     </div>
   )
 }
