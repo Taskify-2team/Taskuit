@@ -44,7 +44,7 @@ const cardSlice = createSlice({
       .addCase(getCardList.fulfilled, (state, action) => {
         state.cardListStatus = 'fulfilled'
         let columnId
-        action.payload.cards.forEach((card: Card) => {
+        action.payload.cards.forEach((card: Card, i: number) => {
           columnId = card.columnId
           if (!state.cardList[columnId]) {
             state.cardList[columnId] = []

@@ -8,8 +8,10 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
 import useDebounce from '@/hooks/useDebounce'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { ModalPortal } from '@/Portal'
 import { ShortButton } from '..'
 import EmptyInvite from '../EmptyInvite/EmptyInvite'
+import Loading from '../Loading/Loading'
 
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
@@ -59,6 +61,11 @@ export default function InviteList() {
 
   return (
     <>
+      {pending && !invitationList[0] && (
+        <ModalPortal>
+          <Loading />
+        </ModalPortal>
+      )}
       <div className="relative">
         <form
           onSubmit={(e) => {

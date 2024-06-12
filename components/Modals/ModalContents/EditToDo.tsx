@@ -85,7 +85,6 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
     dispatch(orderingCardList({ columnId: newCardBody.columnId }))
     dispatch(openToast('successUpdateCard'))
-    dispatch(closeModal())
   }
 
   useEffect(() => {
