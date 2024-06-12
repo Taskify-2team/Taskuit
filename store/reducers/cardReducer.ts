@@ -7,12 +7,14 @@ import { createSlice } from '@reduxjs/toolkit'
 interface initialStateType {
   cardList: any
   cursorId: any
+  totalCount: any
   cardListStatus: string
 }
 
 const initialState: initialStateType = {
   cardList: {},
   cursorId: {},
+  totalCount: {},
   cardListStatus: '',
 }
 
@@ -38,13 +40,14 @@ const cardSlice = createSlice({
           columnId = card.columnId
           if (!state.cardList[columnId]) {
             state.cardList[columnId] = []
-            state.cardList[columnId].push(card)
+            state.cardList[columnId] = [...state.cardList[columnId], card]
           }
           const result = state.cardList[columnId].filter((v: Card) => v.id === card.id)
           if (result.length === 0) {
-            state.cardList[columnId]?.push(card)
+            state.cardList[columnId] = [...state.cardList[columnId], card]
           }
           state.cursorId[columnId] = action.payload.cursorId || null
+          state.totalCount[columnId] = action.payload.totalCount
         })
       })
       .addCase(getCardList.rejected, (state) => {
