@@ -21,12 +21,14 @@ export default function SideMenuListItem({
 
   return (
     <Link href={`/dashboard/${id}`}>
-      <div className="my-[2.7rem] flex items-center gap-[3rem]">
+      <div className="my-[2.7rem] flex items-center gap-[1.6rem]">
         <CircleChip color={color} />
-        <div className={`text-[1.8rem] ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}>
+        <div
+          className={`text-[1.8rem] sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
+        >
           {title}
         </div>
-        <div className="ml-[-2.0rem]">
+        <div className="ml-[-1.2rem] sm:hidden">
           {createdByMe && <Image src={crownicon} alt="크라운 아이콘" />}
         </div>
       </div>
