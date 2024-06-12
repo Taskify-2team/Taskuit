@@ -8,11 +8,12 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDispatch } from 'react-redux'
 import { getDashBoard } from '@/service/dashboards'
 import { openModal } from '@/store/reducers/modalReducer'
+import { openToast } from '@/store/reducers/toastReducer'
 import PaginationButton from '../Buttons/PaginationButton'
 import SideMenuList, { DashBoardProps } from './SideMenuList/SideMenuList'
 
 export default function SideMenu() {
-  const [dashboardData, setDashboardData] = useState<DashBoardProps[] | undefined>(undefined)
+  const [dashBoard, setDashBoard] = useState<DashBoardProps[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [dashBoardPage, setDashBoardPage] = useState(0)
   const dispatch = useDispatch()
@@ -21,18 +22,21 @@ export default function SideMenu() {
     const fetchData = async () => {
       try {
         const data = await getDashBoard(currentPage)
-        setDashboardData(data.dashboards)
+        setDashBoard(data.dashboards)
         setDashBoardPage(Math.ceil(data.totalCount / 5))
       } catch (error) {
-        console.error('Error fetching dashboard data:', error)
+        dispatch(openToast('failedToLoadData'))
       }
     }
 
     fetchData()
-  }, [currentPage])
+  }, [currentPage, dispatch])
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
+  }
+  const createBoard = () => {
+    dispatch(openModal({ modalName: 'AddDashBoard', modalProps: { dashBoard, setDashBoard } }))
   }
 
   const handlePrev = () => {
@@ -61,25 +65,18 @@ export default function SideMenu() {
         >
           Dash Boards
         </p>
-        <button
-          type="button"
-          onClick={() =>
-            dispatch(
-              openModal({
-                modalName: 'AddDashBoard',
-              }),
-            )
-          }
-        >
+        <button type="button" onClick={createBoard}>
           <Image
             src={theme === 'normal' ? adddashboardicon : addDashBoardIcon}
             alt="대시보드 추가 아이콘"
           />
         </button>
       </div>
-      <div className="h-[30rem] sm:h-[20rem]">
-        <SideMenuList data={dashboardData} />
-      </div>
+      {dashBoard[0] && (
+        <div className="h-[30rem] sm:h-[20rem]">
+          <SideMenuList data={dashBoard} />
+        </div>
+      )}
       <div className="sm:w-[5rem]">
         <PaginationButton
           currentPage={currentPage}

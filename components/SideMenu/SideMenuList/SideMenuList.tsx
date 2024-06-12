@@ -19,7 +19,7 @@ export default function SideMenuList({ data }: SideMenuListProps) {
   return (
     <div>
       {dashBoards.length === 0 ? (
-        <p className="mt-[3rem]">No dashboards available</p>
+        <p className="mt-[3rem] text-[1.6rem]">참여중인 대시보드가 없습니다.</p>
       ) : (
         dashBoards.map((dashBoard) => (
           <SideMenuListItem
