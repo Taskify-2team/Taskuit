@@ -16,6 +16,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const dragItem = useRef({ id: 0 })
   const baseColumn = useRef(0)
   const dragOverColumn = useRef(0)
+  const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
 
   const dragStart = (card: Card, id: number) => {
     dragItem.current = card
@@ -27,7 +28,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   }
 
   const refreshCardList = async () => {
-    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId: null }))
+    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
   }
 
   const drop = async () => {

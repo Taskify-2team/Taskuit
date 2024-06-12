@@ -51,7 +51,7 @@ export default function SideMenu() {
           alt="Taskify 로고 아이콘"
           className="w-[4rem] sm:w-[3rem] md:w-[3.5rem]"
         />
-        <p className="text-center font-[Freesentation] text-[3rem] font-bold text-primary-violet sm:hidden md:text-[2.5rem]">
+        <p className="text-center font-[Logo] text-[3rem] font-bold text-primary-violet sm:hidden md:text-[2.5rem]">
           Taskuit
         </p>
       </div>
