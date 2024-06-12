@@ -13,10 +13,10 @@ export const getDashBoardCard = async (params: { cursorId?: number | null; colum
   return response
 }
 
-export const getCardList = createAsyncThunk<any, { cursorId: number; columnId: number }>(
+export const getCardList = createAsyncThunk<CardList, { cursorId: number; columnId: number }>(
   'card/getCardList',
   async ({ cursorId, columnId }) => {
-    const cursorIdParam = cursorId ? `$cursorId=${cursorId}` : ''
+    const cursorIdParam = cursorId ? `&cursorId=${cursorId}` : ''
     const response = await axios.get(`/cards?size=6&columnId=${columnId}${cursorIdParam}`)
     return response.data
   },
