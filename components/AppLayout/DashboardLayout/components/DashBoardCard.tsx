@@ -40,7 +40,6 @@ export default function DashBoardCard({
       onClick={handleOpenModal}
       className={`w-[31.4rem] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
-      onDragOver={(e) => e.preventDefault()}
       onDragStart={() => dragStart(card, columnId)}
       onDragEnd={() => drop()}
       ref={draggableRef}
