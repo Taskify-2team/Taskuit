@@ -35,7 +35,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
           cardId: dragItem.current.id,
         }),
       )
-      await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId: null }))
+      await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
       dispatch(orderingCardList({ columnId: dragOverColumn.current }))
       dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }
