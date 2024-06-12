@@ -53,7 +53,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
           drop={drop}
         />
       ))}
-      <section className="w-[35.4rem] pt-[5.2rem]">
+      <section className="w-[35.4rem] p-[2rem] pt-[7.2rem]">
         <CreateColumnButton
           onClick={() => {
             dispatch(openModal({ modalName: 'AddColumn', modalProps: { dashboardId } }))

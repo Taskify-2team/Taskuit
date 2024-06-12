@@ -21,16 +21,14 @@ export default function ProfileList({ members, totalCount }: ProfileListProps) {
     <div>
       {members ? (
         <div>
-          <div className="ml-[4rem] mr-[3.2rem] flex items-center">
-            {members.slice(0, 3).map((member) => (
-              <UserProfile
-                key={member.id}
-                nickname={member.nickname}
-                profileImageUrl={member.profileImageUrl}
-              />
+          <div className="ml-[2rem] flex w-[6.9rem] items-center sm:ml-[1rem]">
+            {members.slice(1, 3).map((member) => (
+              <div key={member.id} className="ml-[-1.5rem]">
+                <UserProfile nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
+              </div>
             ))}
             {totalCount > 3 && (
-              <div className="h-[3.8rem] w-[3.8rem] rounded-full border-2 border-white">
+              <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-gray-400 text-[1.6rem] text-var-white">
                 +{totalCount - 3}
               </div>
             )}

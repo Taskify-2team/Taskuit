@@ -59,7 +59,7 @@ export default function DashBoardColumn({
 
   return (
     <section
-      className="flex w-[35.4rem] flex-col gap-[1.6rem] pr-[2rem]"
+      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem]"
       onDragEnter={() => dragEnter(columnId)}
     >
       <DashBoardColumnHeader cardList={cardList} columnId={columnId} columnTitle={columnTitle} />
