@@ -43,7 +43,7 @@ export default function SideMenu() {
 
   return (
     <div
-      className={`fixed z-50 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'} px-[2.4rem] pt-[2rem]`}
+      className={`fixed z-50 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black3 bg-var-black2'} px-[2.4rem] pt-[2rem]`}
     >
       <div className="flex items-center gap-[1rem]">
         <Image src={logoIcon} alt="Taskify 로고 아이콘" width={40} />

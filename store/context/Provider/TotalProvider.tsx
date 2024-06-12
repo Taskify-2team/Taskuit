@@ -33,7 +33,9 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       const result = await getUserInfo()
       setUserId(result.id)
     }
-    loadUser()
+    if (localStorage.getItem('accesccToken')) {
+      loadUser()
+    }
   }, [])
 
   useEffect(() => {
