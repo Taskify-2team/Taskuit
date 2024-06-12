@@ -4,7 +4,6 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image from 'next/image'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
-import { Card } from '@/types/dashboard'
 import { useRouter } from 'next/router'
 import useAsync from '@/hooks/useAsync'
 import { getDashBoardInfo } from '@/service/dashboards'
@@ -13,13 +12,11 @@ import settingIcon from '@/public/icons/settingIcon.svg'
 interface DashBoardColumnHeaderProps {
   columnTitle: string
   columnId: number
-  cardList: Card[]
 }
 
 export default function DashBoardColumnHeader({
   columnTitle,
   columnId,
-  cardList,
 }: DashBoardColumnHeaderProps) {
   const router = useRouter()
   const { dashboardId } = router.query
@@ -47,13 +44,11 @@ export default function DashBoardColumnHeader({
         >
           {columnTitle}
         </h3>
-        {cardList && (
-          <div
-            className={`${theme === 'normal' ? 'bg-var-gray2 text-var-gray5' : 'bg-var-black2 text-var-gray3'} rounded-[0.4rem] px-[0.6rem] py-[0.3rem] text-[1.2rem]`}
-          >
-            {cardLength}
-          </div>
-        )}
+        <div
+          className={`${theme === 'normal' ? 'bg-var-gray2 text-var-gray5' : 'bg-var-black2 text-var-gray3'} rounded-[0.4rem] px-[0.6rem] py-[0.3rem] text-[1.2rem]`}
+        >
+          {cardLength || 0}
+        </div>
       </div>
 
       {isMyDashBoard && (

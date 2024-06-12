@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
-import { deleteCardItem } from '@/store/reducers/cardReducer'
+import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 
 interface DashboardLayoutProps {
   dashboardId: number
@@ -26,10 +26,6 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
     dragOverColumn.current = id
   }
 
-  const refreshCardList = async () => {
-    await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId: null }))
-  }
-
   const drop = async () => {
     if (baseColumn.current !== dragOverColumn.current) {
       await dispatch(
@@ -38,7 +34,8 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
           cardId: dragItem.current.id,
         }),
       )
-      refreshCardList()
+      await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId: null }))
+      dispatch(orderingCardList({ columnId: dragOverColumn.current }))
       dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }
   }

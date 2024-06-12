@@ -23,10 +23,17 @@ const cardSlice = createSlice({
   initialState,
   reducers: {
     deleteCardItem: (state, action) => {
-      state.cardList[action.payload.columnId] = state.cardList[action.payload.columnId]?.filter(
-        (cardItem: Card) => cardItem.id !== action.payload.cardId,
+      const { columnId, cardId } = action.payload
+      state.cardList[columnId] = state.cardList[columnId]?.filter(
+        (cardItem: Card) => cardItem.id !== cardId,
       )
       state.totalCount[action.payload.columnId] -= 1
+    },
+    orderingCardList: (state, action) => {
+      const { columnId } = action.payload
+      state.cardList[columnId] = [...state.cardList[columnId]].sort(
+        (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
+      )
     },
   },
   extraReducers: (builder) => {
@@ -50,7 +57,7 @@ const cardSlice = createSlice({
             state.cardList[columnId][foundIndex] = card
           }
           state.cursorId[columnId] = action.payload.cursorId || null
-          state.totalCount[columnId] = action.payload.totalCount || 0
+          state.totalCount[columnId] = action.payload.totalCount || '0'
         })
       })
       .addCase(getCardList.rejected, (state) => {
@@ -81,6 +88,6 @@ const cardSlice = createSlice({
   },
 })
 
-export const { deleteCardItem } = cardSlice.actions
+export const { deleteCardItem, orderingCardList } = cardSlice.actions
 
 export default cardSlice.reducer

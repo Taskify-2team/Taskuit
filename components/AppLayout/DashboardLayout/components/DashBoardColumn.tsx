@@ -62,7 +62,7 @@ export default function DashBoardColumn({
       className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem]"
       onDragEnter={() => dragEnter(columnId)}
     >
-      <DashBoardColumnHeader cardList={cardList} columnId={columnId} columnTitle={columnTitle} />
+      <DashBoardColumnHeader columnId={columnId} columnTitle={columnTitle} />
       <CreateTodoButton
         onClick={() =>
           dispatch(
