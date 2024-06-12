@@ -12,10 +12,10 @@ import { openModal } from '@/store/reducers/modalReducer'
 import themeIcon from '@/public/icons/brightness_89411.svg'
 import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import crownIcon from '@/public/icons/crownicon.svg'
-import inviteIcon from '@/public/icons/inviteIcon.svg'
 import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
-import settingIcon from '@/public/icons/settingIcon.svg'
+import inviteIcon from '@/public/icons/inviteIcon.svg'
 import settingIconWhite from '@/public/icons/settingiconWhite.svg'
+import settingIcon from '@/public/icons/settingIcon.svg'
 
 interface UserInfoData {
   profileImageUrl: string
