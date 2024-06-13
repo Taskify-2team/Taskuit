@@ -15,14 +15,15 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setIsDropdownOpen(false)
+        setCurrentPage(1)
       }
     }
-    setMemberListPage(Math.ceil(totalCount / 5))
+    setMemberListPage(Math.ceil(totalCount / pageSize))
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [currentPage])
+  }, [currentPage, totalCount])
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
