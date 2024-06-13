@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import Image from 'next/image'
 import cancelBtn from '@/public/icons/cancel.svg'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, useState } from 'react'
+import TagColorPicker from './TagColorPicker'
 
 interface TagChipProps {
   tag: string
@@ -8,6 +10,7 @@ interface TagChipProps {
 }
 
 export default function TagChip({ tag, onDelete }: TagChipProps) {
+  const [customColor, setCustomColor] = useState(false)
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
     { bg: '#F7DBF0', text: '#D549B6' },
@@ -15,9 +18,18 @@ export default function TagChip({ tag, onDelete }: TagChipProps) {
     { bg: '#E7F7DB', text: '#86D549' },
   ]
 
+  const handleOpenCustomColor = () => {
+    if (onDelete) setCustomColor(true)
+  }
+
+  const handleCloseCustomColor = () => {
+    if (onDelete) setCustomColor(false)
+  }
+
   const randomPick = Math.floor(Math.random() * 4)
   return (
     <li
+      onClick={handleOpenCustomColor}
       className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
       style={{ backgroundColor: tagColor[randomPick].bg, color: tagColor[randomPick].text }}
     >
@@ -33,6 +45,9 @@ export default function TagChip({ tag, onDelete }: TagChipProps) {
           </div>
         </button>
       )}
+      <div className="absolute bottom-[-7.28rem] left-[-9rem] z-50">
+        {customColor && <TagColorPicker onMouseLeave={handleCloseCustomColor} />}
+      </div>
     </li>
   )
 }
