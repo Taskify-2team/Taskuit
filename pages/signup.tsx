@@ -9,16 +9,11 @@ import logo from '@/public/images/taskuitLogo_main.png'
 import { SignUpAccess } from '@/service/users'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useAppDispatch } from '@/hooks/useApp'
+import { SignUpFormValueType } from '@/types/auth'
+import { useLoadTheme } from '@/store/context/ThemeContext'
+import AuthThemeButton from '@/components/AuthThemeButton/AuthThemeButton'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
-
-export interface FormValueType {
-  id: string
-  password: string
-  nickname: string
-  passwordConfirm: string
-  agreeTerms: boolean
-}
 
 export default function LoginForm() {
   const {
@@ -27,11 +22,12 @@ export default function LoginForm() {
     setError,
     getValues,
     formState: { errors, dirtyFields, isSubmitting },
-  } = useForm<FormValueType>({
+  } = useForm<SignUpFormValueType>({
     mode: 'onBlur',
   })
   const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
+  const { handleSetTheme, theme } = useLoadTheme()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSignUpError = (error: AxiosError<any>) => {
@@ -47,7 +43,7 @@ export default function LoginForm() {
     }
   }
 
-  const onSubmit = async (data: FormValueType) => {
+  const onSubmit = async (data: SignUpFormValueType) => {
     try {
       await SignUpAccess(data.id, data.nickname, data.password)
       dispatch(openToast('successSignUp'))
@@ -66,7 +62,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem]">
+    <div
+      className={`flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} `}
+    >
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />
@@ -74,7 +72,9 @@ export default function LoginForm() {
             Taskuit
           </p>
         </Link>
-        <p className="text-[2rem]">첫 방문을 환영합니다!</p>
+        <p className={`text-[2rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
+          첫 방문을 환영합니다!
+        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-[52rem] flex-col sm:w-[35.1rem]">
@@ -99,6 +99,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error || errors.id}
+                  theme={theme}
                 />
               )}
             />
@@ -124,6 +125,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error}
+                  theme={theme}
                 />
               )}
             />
@@ -149,6 +151,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error}
+                  theme={theme}
                 />
               )}
             />
@@ -174,6 +177,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error}
+                  theme={theme}
                 />
               )}
             />
@@ -191,7 +195,10 @@ export default function LoginForm() {
                   checked={field.value}
                   onChange={field.onChange}
                 />
-                <label htmlFor="agreeTerms" className="text-[1.6rem] text-gray-600">
+                <label
+                  htmlFor="agreeTerms"
+                  className={`text-[1.6rem] text-gray-600 ${theme === 'normal' ? 'text-black' : 'text-white'}`}
+                >
                   이용약관에 동의합니다.
                 </label>
               </div>
@@ -217,11 +224,17 @@ export default function LoginForm() {
         </div>
       </form>
       <div className="mt-[1.6rem] flex gap-[1rem]">
-        <span className="text-[1.6rem]">이미 가입하셨나요?</span>
-        <Link href="/login" className="text-[1.6rem] text-primary-violet underline">
+        <span className={`text-[1.6rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
+          이미 가입하셨나요?
+        </span>
+        <Link
+          href="/login"
+          className={`text-[1.6rem] underline ${theme === 'normal' ? 'text-primary-violet' : 'text-var-blue'}`}
+        >
           로그인 하기
         </Link>
       </div>
+      <AuthThemeButton theme={theme} handleSetTheme={handleSetTheme} />
     </div>
   )
 }
