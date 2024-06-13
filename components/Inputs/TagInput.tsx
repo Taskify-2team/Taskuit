@@ -1,27 +1,56 @@
-import { InputHTMLAttributes, ChangeEvent, KeyboardEvent, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  InputHTMLAttributes,
+  ChangeEvent,
+  KeyboardEvent,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
 
 interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
+  tagList?: string[]
+  setTagList: Dispatch<SetStateAction<any>>
 }
 
-export default function TagInput({ id, label, isRequired }: TagInputProps) {
-  const [tagList, setTagList] = useState<string[]>([])
+export default function TagInput({
+  id,
+  tagList = [],
+  setTagList,
+  label,
+  isRequired,
+}: TagInputProps) {
   const [text, setText] = useState('')
   const { theme } = useLoadTheme()
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      if (tagList.includes(text)) {
-        setText('')
-        return
-      }
-      setTagList((prev) => [...prev, text])
+      if (e.nativeEvent.isComposing) return
+      setText('')
+      setTagList((prev: any) => ({
+        ...prev,
+        tags: [...(prev.tags || []), text],
+      }))
     }
+    if (e.key === ' ') {
+      e.preventDefault()
+    }
+  }
+
+  const handleDelete = (idx: number) => {
+    const filterTag = tagList?.filter((tag) => tag !== tagList[idx])
+
+    setTagList((prev: any) => ({
+      ...prev,
+      tags: filterTag,
+    }))
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +64,8 @@ export default function TagInput({ id, label, isRequired }: TagInputProps) {
       >
         {tagList.length > 0 && (
           <div className="flex flex-wrap gap-[0.6rem]">
-            {tagList.map((tagItem) => (
-              <TagChip key={tagItem} tag={tagItem} textColor="red" bgColor="red" />
+            {tagList.map((tagItem, idx) => (
+              <TagChip key={tagItem} tag={tagItem} onDelete={() => handleDelete(idx)} />
             ))}
           </div>
         )}
