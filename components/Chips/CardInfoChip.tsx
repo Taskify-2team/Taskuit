@@ -12,7 +12,7 @@ export default function CardInfoChip({ card }: CardInfoChipProps) {
 
   return (
     <div
-      className={`sm:top-unset sm:right-unset absolute right-0 top-[5.7rem] flex w-[20rem] flex-col gap-[2rem] rounded-[0.8rem] border sm:relative sm:mb-[1.6rem] sm:w-full sm:flex-row sm:justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} p-[1.6rem]`}
+      className={`absolute right-0 top-[5.7rem] flex w-[20rem] flex-col gap-[2rem] rounded-[0.8rem] border sm:relative sm:right-unset sm:top-unset sm:mb-[1.6rem] sm:w-full sm:flex-row sm:justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} p-[1.6rem]`}
     >
       <div className="flex flex-col gap-[0.6rem]">
         <h4
