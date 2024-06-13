@@ -41,6 +41,7 @@ export default function EditProfile({
 
   useEffect(() => {
     setDisabled(!imageFile && profileBody.nickname === nickName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nickName, imageFile])
 
   useEffect(() => {
@@ -55,6 +56,7 @@ export default function EditProfile({
       dispatch(openToast('successUpdateProfile'))
       setDisabled(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, error])
 
   return (

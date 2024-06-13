@@ -66,6 +66,7 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
       dispatch(openToast('successUpdatePassword'))
       handleInitPasswordValue()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, result])
 
   return (

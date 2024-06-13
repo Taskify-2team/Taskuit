@@ -9,9 +9,9 @@ import { openToast } from '@/store/reducers/toastReducer'
 import useDebounce from '@/hooks/useDebounce'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
-import { ShortButton } from '..'
-import EmptyInvite from '../EmptyInvite/EmptyInvite'
-import Loading from '../Loading/Loading'
+import { ShortButton } from '../..'
+import EmptyInvite from './EmptyInvite'
+import Loading from '../../Loading/Loading'
 
 export default function InviteList() {
   const [invitationList, setInvitationList] = useState<Invitation[]>([])
@@ -49,6 +49,7 @@ export default function InviteList() {
 
   useEffect(() => {
     handleLoadList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deBounceValue])
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function InviteList() {
     return () => {
       observer.disconnect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorId, pending])
 
   return (
