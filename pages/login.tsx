@@ -2,19 +2,17 @@ import { AuthInput, LongButton } from '@/components'
 import { LoginAccess } from '@/service/auth'
 import { AxiosError, isAxiosError } from 'axios'
 import Image from 'next/image'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
+import AuthThemeButton from '@/components/AuthThemeButton/AuthThemeButton'
+import { LogInFormValueType } from '@/types/auth'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
-
-export interface FormValueType {
-  id: string
-  password: string
-}
 
 export default function LoginForm() {
   const {
@@ -22,11 +20,12 @@ export default function LoginForm() {
     control,
     setError,
     formState: { errors, dirtyFields, isSubmitting },
-  } = useForm<FormValueType>({
+  } = useForm<LogInFormValueType>({
     mode: 'onBlur',
   })
   const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
+  const { handleSetTheme, theme } = useLoadTheme()
 
   const handleLoginSuccess = (accessToken: string) => {
     localStorage.setItem('accessToken', accessToken)
@@ -55,7 +54,7 @@ export default function LoginForm() {
     }
   }
 
-  const onSubmit = async (data: FormValueType) => {
+  const onSubmit = async (data: LogInFormValueType) => {
     try {
       const response = await LoginAccess(data.id, data.password)
       const { accessToken } = response.data
@@ -67,7 +66,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem]">
+    <div
+      className={`flex flex-col items-center py-[18rem] sm:pt-[10rem] md:py-[20.7rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} `}
+    >
       <div className="mb-[3.8rem] flex flex-col items-center">
         <Link href="/" className="flex flex-col items-center">
           <Image src={logo} alt="로고" className="w-[30rem] sm:w-[20rem]" />
@@ -75,7 +76,9 @@ export default function LoginForm() {
             Taskuit
           </p>
         </Link>
-        <p className="text-[2rem]">오늘도 만나서 반가워요!</p>
+        <p className={`text-[2rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
+          오늘도 만나서 반가워요!
+        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-[52rem] flex-col sm:w-[35.1rem]">
@@ -100,6 +103,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error || errors.id}
+                  theme={theme}
                 />
               )}
             />
@@ -125,6 +129,7 @@ export default function LoginForm() {
                   onChange={onChange}
                   onBlur={onBlur}
                   error={error || errors.password}
+                  theme={theme}
                 />
               )}
             />
@@ -146,11 +151,17 @@ export default function LoginForm() {
         </div>
       </form>
       <div className="mt-[1.6rem] flex gap-[1rem]">
-        <span className="text-[1.6rem]">회원이 아니신가요?</span>
-        <Link href="/signup" className="text-[1.6rem] text-primary-violet underline">
+        <span className={`text-[1.6rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
+          회원이 아니신가요?
+        </span>
+        <Link
+          href="/signup"
+          className={`text-[1.6rem] underline ${theme === 'normal' ? 'text-primary-violet' : 'text-var-blue'}`}
+        >
           회원가입하기
         </Link>
       </div>
+      <AuthThemeButton theme={theme} handleSetTheme={handleSetTheme} />
     </div>
   )
 }
