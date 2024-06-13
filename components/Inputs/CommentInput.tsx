@@ -51,7 +51,7 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
             value={content}
             onChange={handleChange}
             placeholder="댓글 작성하기"
-            className={`input-layout h-[13.9rem] w-full resize-none text-[1.4rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
+            className={`input-layout h-[13.9rem] w-full resize-none text-[1.4rem] sm:h-[7rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
           />
           <div className="absolute bottom-[1.2rem] right-[1.2rem]">
             <ShortButton type="submit" text="입력" color="white" />

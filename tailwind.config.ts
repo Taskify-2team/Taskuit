@@ -65,6 +65,9 @@ const config: Config = {
         md: { min: '744px', max: '1280px' },
         lg: { min: '1281px' },
       },
+      inset: {
+        unset: 'unset',
+      },
     },
   },
   plugins: [],
