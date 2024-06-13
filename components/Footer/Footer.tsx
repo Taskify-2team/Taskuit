@@ -6,7 +6,7 @@ import githubIconWhite from '@/public/icons/githubIconWhite.svg'
 import kakaoIconWhite from '@/public/icons/KakaoWhite.svg'
 import facebookIcon from '@/public/icons/facebookIconDark.svg'
 import githubIcon from '@/public/icons/githubIcon.svg'
-import kakaoIcon from '@/public/icons/kakao.svg'
+import kakaoIcon from '@/public/icons/Kakao.svg'
 
 export default function Footer() {
   const { theme } = useLoadTheme()
