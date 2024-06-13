@@ -1,7 +1,7 @@
 import TagChip from './TagChip'
 
 interface TagChipListProps {
-  tags: string[]
+  tags: string
 }
 
 export default function TagChipList({ tags }: TagChipListProps) {
