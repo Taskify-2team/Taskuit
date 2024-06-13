@@ -28,6 +28,10 @@
   .button-disabled {
     @apply cursor-default bg-var-gray3 text-var-gray4;
   }
+
+  .ellipsis {
+    @apply w-full truncate;
+  }
 }
 
 * {
