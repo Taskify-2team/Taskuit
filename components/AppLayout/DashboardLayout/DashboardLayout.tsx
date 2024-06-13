@@ -42,7 +42,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex">
+    <div className="flex sm:w-full sm:flex-col">
       {columnList?.map((column) => (
         <DashBoardColumn
           key={column.id}
