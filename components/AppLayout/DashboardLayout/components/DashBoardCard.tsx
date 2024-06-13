@@ -38,7 +38,7 @@ export default function DashBoardCard({
     <button
       type="button"
       onClick={handleOpenModal}
-      className={`w-[31.4rem] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
+      className={`w-[31.4rem] max-w-[100%] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
       onDragStart={() => dragStart(card, columnId)}
       onDragEnd={() => drop()}

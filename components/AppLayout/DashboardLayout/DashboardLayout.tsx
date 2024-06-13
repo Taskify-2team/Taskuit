@@ -42,7 +42,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex overflow-auto">
+    <div className="flex">
       {columnList?.map((column) => (
         <DashBoardColumn
           key={column.id}
@@ -53,7 +53,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
           drop={drop}
         />
       ))}
-      <section className="w-[35.4rem] p-[2rem] pt-[7.2rem]">
+      <section className="p-[2rem] pt-[7.2rem]">
         <CreateColumnButton
           onClick={() => {
             dispatch(openModal({ modalName: 'AddColumn', modalProps: { dashboardId } }))

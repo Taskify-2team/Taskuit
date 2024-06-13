@@ -74,22 +74,24 @@ export default function DashBoardColumn({
           )
         }
       />
-      {cardList && (
-        <div className="flex flex-col gap-[1.6rem]">
-          {cardList.length > 0 &&
-            cardList.map((cardItem: Card) => (
-              <DashBoardCard
-                key={cardItem.id}
-                columnTitle={columnTitle}
-                card={cardItem}
-                columnId={columnId}
-                dragStart={dragStart}
-                drop={drop}
-              />
-            ))}
-          <div ref={obsRef} />
-        </div>
-      )}
+      <div className="w-full overflow-y-auto" style={{ maxHeight: 'calc(100vh - 225px)' }}>
+        {cardList && (
+          <div className="flex flex-col gap-[1.6rem]">
+            {cardList.length > 0 &&
+              cardList.map((cardItem: Card) => (
+                <DashBoardCard
+                  key={cardItem.id}
+                  columnTitle={columnTitle}
+                  card={cardItem}
+                  columnId={columnId}
+                  dragStart={dragStart}
+                  drop={drop}
+                />
+              ))}
+            <div style={{ height: '1px' }} ref={obsRef} />
+          </div>
+        )}
+      </div>
     </section>
   )
 }
