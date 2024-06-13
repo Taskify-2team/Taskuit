@@ -3,7 +3,8 @@ import { SideMenuListProps } from '@/types/sidemenu'
 import SideMenuListItem from './SideMenuListItem'
 
 export default function SideMenuList({ data }: SideMenuListProps) {
-  const dashBoards = data || [] // 데이터가 없을 경우를 대비하여 기본값으로 빈 배열을 설정
+  const dashBoards = data || []
+  const currentPath = window.location.pathname
 
   return (
     <div>
@@ -17,6 +18,7 @@ export default function SideMenuList({ data }: SideMenuListProps) {
             color={dashBoard.color}
             title={dashBoard.title}
             createdByMe={dashBoard.createdByMe}
+            isFocused={currentPath === `/dashboard/${dashBoard.id}`}
           />
         ))
       )}
