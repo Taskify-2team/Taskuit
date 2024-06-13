@@ -2,15 +2,16 @@ import { Card } from '@/types/dashboard'
 import { CreateColumnButton, DashBoardColumn } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useRef } from 'react'
+import { Dispatch, SetStateAction, useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 
 interface DashboardLayoutProps {
   dashboardId: number
+  setIsDrag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
+export default function DashboardLayout({ dashboardId, setIsDrag }: DashboardLayoutProps) {
   const { data: columnList } = useAppSelector((state) => state.column.columnList)
   const dispatch = useAppDispatch()
   const dragItem = useRef({ id: 0 })
@@ -19,6 +20,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
 
   const dragStart = (card: Card, id: number) => {
+    setIsDrag(false)
     dragItem.current = card
     baseColumn.current = id
   }
