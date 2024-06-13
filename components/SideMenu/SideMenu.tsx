@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
@@ -12,7 +13,6 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import PaginationButton from '../Buttons/PaginationButton'
 import SideMenuList from './SideMenuList/SideMenuList'
-import Link from 'next/link'
 
 export default function SideMenu() {
   const [dashBoard, setDashBoard] = useState<DashBoardProps[]>([])
