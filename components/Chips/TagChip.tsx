@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import cancelBtn from '@/public/icons/cancel.svg'
 import { MouseEventHandler, useState } from 'react'
-import TagColorPicker from './TagColorPicker'
+import TagColorSelector from '../ColorSelector/TagColorSelector'
 
 interface TagChipProps {
   tag: string
@@ -46,7 +46,7 @@ export default function TagChip({ tag, onDelete }: TagChipProps) {
         </button>
       )}
       <div className="absolute bottom-[-7.28rem] left-[-9rem] z-50">
-        {customColor && <TagColorPicker onMouseLeave={handleCloseCustomColor} />}
+        {customColor && <TagColorSelector onMouseLeave={handleCloseCustomColor} />}
       </div>
     </li>
   )

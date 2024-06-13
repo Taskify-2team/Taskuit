@@ -15,6 +15,7 @@ import { getCardList, updateCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadUser } from '@/store/context/UserIdContext'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
@@ -29,26 +30,34 @@ export interface EditToDoProps {
 
 export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const router = useRouter()
-  const { dashboardId } = router.query
+  const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
+  const tagList = useAppSelector((state) => state.tag.tagList[card.columnId][card.id])
+  const dispatch = useAppDispatch()
+  const { requestFunction: updateCardImage } = useAsync(postCardImage)
+  const { requestFunction: getMembers } = useAsync(getMemberList)
+  const { theme } = useLoadTheme()
+  const { userId } = useLoadUser()
   const [members, setMembers] = useState([])
+  const [imageFile, setImageFile] = useState<File>()
+  const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [dueDate, setDueDate] = useState('')
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
     columnId: card.columnId,
     assigneeUserId: card.assignee.id || 0,
     title: card.title,
     description: card.description,
     dueDate: card.dueDate,
-    tags: card.tags,
+    tags: [], // 안쓸수도 쓸수도
     imageUrl: card.imageUrl || null,
   })
-  const [imageFile, setImageFile] = useState<File>()
-  const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [dueDate, setDueDate] = useState('')
-  const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
-  const dispatch = useAppDispatch()
-  const { requestFunction: updateCardImage } = useAsync(postCardImage)
-  const { requestFunction: getMembers } = useAsync(getMemberList)
-  const { theme } = useLoadTheme()
+  const [myTagBody, setMyTagBody] = useState({
+    userId,
+    columnId: card.columnId,
+    cardId: card.id,
+    tags: tagList,
+  })
+  const { dashboardId } = router.query
 
   const getMembersRequest = useCallback(async () => {
     const result = await getMembers(0, Number(dashboardId))
@@ -165,7 +174,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         onChange={setDueDate}
         isRequired
       />
-      <TagInput id="tag" label="태그" tagList={newCardBody.tags} setTagList={setNewCardBody} />
+      <TagInput id="tag" label="태그" tagList={myTagBody} setTagList={setMyTagBody} />
       <ImageInput
         id="image"
         label="이미지"

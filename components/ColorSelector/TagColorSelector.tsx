@@ -1,4 +1,8 @@
-export default function TagColorPicker({ onMouseLeave }) {
+interface TagColorSelectorProps {
+  onMouseLeave: () => void
+}
+
+export default function TagColorSelector({ onMouseLeave }: TagColorSelectorProps) {
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
     { bg: '#F7DBF0', text: '#D549B6' },

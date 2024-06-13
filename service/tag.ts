@@ -18,8 +18,24 @@ export const getTagList = createAsyncThunk(
 
 export const postTag = createAsyncThunk(
   'tag/postTag',
-  async ({ userId, columnId, tagBody }: { userId: number; columnId: number; tagBody: Tag }) => {
-    const response = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, tagBody)
+  async ({
+    userId,
+    columnId,
+    cardId,
+    text,
+    color,
+  }: {
+    userId: number
+    columnId: number
+    cardId: number
+    text: string
+    color: string
+  }) => {
+    const response = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, {
+      text,
+      color,
+      cardId,
+    })
     return response.data
   },
 )

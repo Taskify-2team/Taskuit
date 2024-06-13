@@ -69,6 +69,7 @@ export default function TagInput({
           id={id}
           value={text}
           placeholder="입력 후 Enter"
+          maxLength={20}
           onChange={handleChange}
           required={isRequired}
           className={`outline-none ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1 text-var-gray3'}`}
