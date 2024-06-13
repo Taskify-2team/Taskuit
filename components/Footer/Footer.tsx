@@ -1,12 +1,12 @@
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image from 'next/image'
 import Link from 'next/link'
-import kakaoIcon from '@/public/icons/kakao.svg'
 import kakaoIconWhite from '@/public/icons/KakaoWhite.svg'
-import facebookIcon from '@/public/icons/facebookIconDark.svg'
 import facebookIconWhite from '@/public/icons/facebookIcon.svg'
-import githubIcon from '@/public/icons/githubIcon.svg'
 import githubIconWhite from '@/public/icons/githubIconWhite.svg'
-import { useLoadTheme } from '@/store/context/ThemeContext'
+import kakaoIcon from '@/public/icons/kakao.svg'
+import facebookIcon from '@/public/icons/facebookIconDark.svg'
+import githubIcon from '@/public/icons/githubIcon.svg'
 
 export default function Footer() {
   const { theme } = useLoadTheme()
