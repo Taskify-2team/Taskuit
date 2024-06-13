@@ -7,24 +7,23 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   cors(req, res, async () => {
     await dbConnect()
-    const { userId } = req.body
+    const { userId, columnId } = req.query
 
     switch (req.method) {
       case 'POST': {
-        const { columnId, cardId, text, color } = req.body
-        const newTagList = await Tag.insertMany({
+        const { cardId, text, color } = req.body
+        const newTag = await Tag.create({
           columnId,
           cardId,
           text,
           color,
           user: userId,
         })
-        res.status(201).send(newTagList)
+        res.status(201).send({ data: newTag })
         break
       }
 
       case 'GET': {
-        const { columnId } = req.body
         const foundTag = await Tag.find({ user: userId, columnId })
         res.status(200).send({ data: foundTag })
         break

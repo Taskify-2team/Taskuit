@@ -1,15 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from '@/service/instance'
+import { TAG_URL } from '@/service/instance'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export interface Tag {
-  userId: number
   cardId: number
-  content: string
+  text: string
   color: string
 }
 
-export const getTagList = createAsyncThunk<any, any>('tag/getTagList', async ({ userId }) => {
-  const response = await axios.get(`/api/tag`, userId)
-  return response.data
-})
+export const getTagList = createAsyncThunk(
+  'tag/getTagList',
+  async ({ userId, columnId }: { userId: number; columnId: number }) => {
+    const response = await TAG_URL.get(`/tags?userId=${userId}&columnId=${columnId}`)
+    return response.data
+  },
+)
+
+export const postTag = createAsyncThunk(
+  'tag/postTag',
+  async ({ userId, columnId, tagBody }: { userId: number; columnId: number; tagBody: Tag }) => {
+    const response = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, tagBody)
+    return response.data
+  },
+)
