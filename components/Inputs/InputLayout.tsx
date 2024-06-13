@@ -20,7 +20,7 @@ export default function InputLayout({
   return (
     <label htmlFor={id} className="flex flex-col gap-[1rem]">
       <span
-        className={`${isSmallSize ? 'text-[1.6rem]' : 'text-[1.8rem]'} leading-tight ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        className={`${isSmallSize ? 'text-[1.6rem]' : 'text-[1.8rem] sm:text-[1.6rem]'} leading-tight ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
         {label} {isRequired && <b className="text-[1.8rem] text-primary-violet">*</b>}
       </span>

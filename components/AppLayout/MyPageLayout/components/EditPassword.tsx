@@ -71,10 +71,10 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
   return (
     <form
       onSubmit={(e) => onSubmit(e, newPasswordBody)}
-      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
+      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] sm:w-[calc(100vw-9.1rem)] md:w-[calc(100vw-20rem)] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
     >
       <h3
-        className={`mb-[3.2rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black' : 'text-var-gray3'}`}
+        className={`mb-[3.2rem] text-[2.4rem] font-bold sm:mb-[2.4rem] sm:text-[2rem] ${theme === 'normal' ? 'text-var-black' : 'text-var-gray3'}`}
       >
         비밀번호 변경
       </h3>

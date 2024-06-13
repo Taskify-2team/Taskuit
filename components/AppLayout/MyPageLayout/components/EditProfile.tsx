@@ -60,14 +60,14 @@ export default function EditProfile({
   return (
     <form
       onSubmit={(e) => onSubmit(e, nickName)}
-      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
+      className={`flex w-[62rem] flex-col rounded-[0.8rem] p-[2.8rem] sm:w-[calc(100vw-9.1rem)] sm:p-[2rem] md:w-[calc(100vw-20rem)] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
     >
       <h3
-        className={`mb-[3.2rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        className={`mb-[3.2rem] text-[2.4rem] font-bold sm:text-[2rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
         프로필
       </h3>
-      <div className="mb-[2rem] flex gap-[1.6rem]">
+      <div className="mb-[2rem] flex gap-[1.6rem] sm:flex-col">
         <ImageInput
           id="image"
           label="이미지"
