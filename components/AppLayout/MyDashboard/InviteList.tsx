@@ -88,7 +88,7 @@ export default function InviteList() {
           />
         </form>
       </div>
-      <div className="grid grid-cols-3 text-center">
+      <div className="grid grid-cols-3 text-center sm:hidden">
         <p className="text-[1.6rem] text-var-gray4">이름</p>
         <p className="text-[1.6rem] text-var-gray4">초대자</p>
         <p className="text-[1.6rem] text-var-gray4">수락 여부</p>
@@ -98,19 +98,29 @@ export default function InviteList() {
           {invitationList.map((item) => (
             <div
               key={item.id}
-              className={`grid h-[7.2rem] grid-cols-3 items-center border-b text-center ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black1'}`}
+              className={`grid h-[7.2rem] grid-cols-3 items-center border-b text-center sm:mt-[1.6rem] sm:flex sm:h-auto sm:flex-col sm:items-start sm:gap-[1rem] ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black1'}`}
             >
-              <p
-                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
-              >
-                {item.dashboard.title}
-              </p>
-              <p
-                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
-              >
-                {item.inviter.nickname}
-              </p>
-              <div className="flex justify-center gap-[1rem]">
+              <div className="sm:flex">
+                <h4 className="hidden w-[5.3rem] text-left text-[1.4rem] text-var-gray4 sm:block">
+                  이름
+                </h4>
+                <p
+                  className={`text-[1.6rem] sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+                >
+                  {item.dashboard.title}
+                </p>
+              </div>
+              <div className="sm:flex">
+                <h4 className="hidden w-[5.3rem] text-left text-[1.4rem] text-var-gray4 sm:block">
+                  초대자
+                </h4>
+                <p
+                  className={`text-[1.6rem] sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+                >
+                  {item.inviter.nickname}
+                </p>
+              </div>
+              <div className="flex justify-center gap-[1rem] sm:mb-[1.6rem] sm:mt-[0.6rem] sm:w-full sm:justify-stretch">
                 <ShortButton
                   text="수락"
                   color="purple"
