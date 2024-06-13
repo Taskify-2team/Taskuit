@@ -140,7 +140,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         value={cardBody.dueDate}
         onChange={setDueDate}
       />
-      <TagInput id="tag" label="태그" />
+      <TagInput id="tag" label="태그" tagList={cardBody.tags} setTagList={setCardBody} />
       <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />

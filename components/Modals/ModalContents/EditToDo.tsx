@@ -32,13 +32,13 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
   const [newCardBody, setNewCardBody] = useState<UpdateCard>({
-    columnId: card?.columnId,
-    assigneeUserId: card?.assignee.id || 0,
-    title: card?.title,
-    description: card?.description,
-    dueDate: card?.dueDate,
-    tags: card?.tags,
-    imageUrl: card?.imageUrl || null,
+    columnId: card.columnId,
+    assigneeUserId: card.assignee.id || 0,
+    title: card.title,
+    description: card.description,
+    dueDate: card.dueDate,
+    tags: card.tags,
+    imageUrl: card.imageUrl || null,
   })
   const [imageFile, setImageFile] = useState<File>()
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
@@ -165,13 +165,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         onChange={setDueDate}
         isRequired
       />
-      <TagInput
-        id="tag"
-        label="태그"
-        value={newCardBody?.tags}
-        name="tag"
-        onChange={handleInputValue}
-      />
+      <TagInput id="tag" label="태그" tagList={newCardBody.tags} setTagList={setNewCardBody} />
       <ImageInput
         id="image"
         label="이미지"
