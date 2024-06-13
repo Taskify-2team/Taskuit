@@ -95,11 +95,10 @@ export {
 
 /** Chip Components */
 import TagChip from './Chips/TagChip'
-import TagChipList from './Chips/TagChipList'
 import CircleChip from './Chips/CircleChip'
 import ProgressChip from './Chips/ProgressChip'
 
-export { TagChip, TagChipList, CircleChip, ProgressChip }
+export { TagChip, CircleChip, ProgressChip }
 
 /** Modal Components */
 import ModalLayout from './Modals/ModalLayout'

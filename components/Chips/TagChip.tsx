@@ -1,18 +1,25 @@
 import Image from 'next/image'
 import cancelBtn from '@/public/icons/cancel.svg'
+import { MouseEventHandler } from 'react'
 
 interface TagChipProps {
   tag: string
-  onDelete?: () => void
-  bgColor: string
-  textColor: string
+  onDelete?: MouseEventHandler<HTMLButtonElement>
 }
 
-export default function TagChip({ tag, bgColor, textColor, onDelete }: TagChipProps) {
+export default function TagChip({ tag, onDelete }: TagChipProps) {
+  const tagColor = [
+    { bg: '#F9EEE3', text: '#D58D49' },
+    { bg: '#F7DBF0', text: '#D549B6' },
+    { bg: '#DBE6F7', text: '#4981D5' },
+    { bg: '#E7F7DB', text: '#86D549' },
+  ]
+
+  const randomPick = Math.floor(Math.random() * 4)
   return (
     <li
       className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
-      style={{ backgroundColor: bgColor, color: textColor }}
+      style={{ backgroundColor: tagColor[randomPick].bg, color: tagColor[randomPick].text }}
     >
       {tag}
       {onDelete && (

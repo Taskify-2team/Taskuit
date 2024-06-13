@@ -11,7 +11,6 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
-import TagChipList from '../Chips/TagChipList'
 
 interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -63,7 +62,10 @@ export default function TagInput({
       <div
         className={`input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1'}`}
       >
-        {tagList.length > 0 && <TagChipList tags={tagList} onDelete={handleDelete} />}
+        {tagList.length > 0 &&
+          tagList.map((tag, idx) => (
+            <TagChip key={tag} tag={tag} onDelete={() => handleDelete(idx)} />
+          ))}
         <input
           id={id}
           value={text}

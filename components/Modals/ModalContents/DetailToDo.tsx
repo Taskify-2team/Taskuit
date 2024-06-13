@@ -149,7 +149,7 @@ export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
           <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
           <ul className="flex gap-[0.6rem]">
             {card.tags.map((tag) => (
-              <TagChip key={tag} tag={tag} textColor="#D58D49" bgColor="#F9EEE3" />
+              <TagChip key={tag} tag={tag} />
             ))}
           </ul>
         </div>

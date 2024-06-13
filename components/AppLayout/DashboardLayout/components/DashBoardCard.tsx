@@ -2,8 +2,7 @@ import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import TagChipList from '@/components/Chips/TagChipList'
-import { DashBoardCardInfo } from '@/components'
+import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 
 interface DashBoardCardProps {
@@ -57,7 +56,11 @@ export default function DashBoardCard({
         {card.title}
       </h3>
       <div className="mb-[1.2rem]">
-        <TagChipList tags={card.tags} />
+        <ul className="flex gap-[0.6rem]">
+          {card.tags.map((tag) => (
+            <TagChip key={tag} tag={tag} />
+          ))}
+        </ul>
       </div>
       <DashBoardCardInfo card={card} />
     </button>
