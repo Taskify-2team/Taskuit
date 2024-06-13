@@ -21,6 +21,7 @@ export default function DashBoardColumnHeader({
   const router = useRouter()
   const { dashboardId } = router.query
   const cardLength = useAppSelector((state) => state.card.totalCount[columnId])
+  const renderCardLength = useAppSelector((state) => state.card.cardList[columnId])
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(getDashBoardInfo)
   const [isMyDashBoard, setIsMyDashBoard] = useState(false)
@@ -47,7 +48,7 @@ export default function DashBoardColumnHeader({
         <div
           className={`${theme === 'normal' ? 'bg-var-gray2 text-var-gray5' : 'bg-var-black2 text-var-gray3'} rounded-[0.4rem] px-[0.6rem] py-[0.3rem] text-[1.2rem]`}
         >
-          {cardLength || 0}
+          {cardLength || renderCardLength?.length || 0}
         </div>
       </div>
 

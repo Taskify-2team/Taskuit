@@ -61,6 +61,7 @@ export default function DashBoardColumn({
     <section
       className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem]"
       onDragEnter={() => dragEnter(columnId)}
+      onDragOver={(e) => e.preventDefault()}
     >
       <DashBoardColumnHeader columnId={columnId} columnTitle={columnTitle} />
       <CreateTodoButton

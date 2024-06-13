@@ -37,7 +37,7 @@ export default function EditMember() {
   useEffect(() => {
     const handleLoadList = async () => {
       if (dashboardId) {
-        const result = await getMemberList(currentPage, Number(dashboardId))
+        const result = await requestFunction(currentPage, Number(dashboardId))
         setMemberList(result.members)
         setTotalPage(Math.ceil(result.totalCount / 4))
       }
@@ -47,7 +47,7 @@ export default function EditMember() {
 
   return (
     <>
-      {pending && !memberList && (
+      {pending && !memberList[0] && (
         <ModalPortal>
           <Loading />
         </ModalPortal>
