@@ -61,7 +61,7 @@ const config: Config = {
         spin: 'spin 2s linear infinite',
       },
       screens: {
-        sm: { min: '375px', max: '743px' },
+        sm: { max: '743px' },
         md: { min: '744px', max: '1280px' },
         lg: { min: '1281px' },
       },
