@@ -68,7 +68,13 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
                   : 'border-var-black1 bg-var-black1 text-white'
               }shadow-lg`}
             >
-              <div className="h-[30rem] w-[14rem]">
+              <div
+                className={`h-[30rem] w-[14rem] ${
+                  theme === 'normal'
+                    ? 'border-var-gray3'
+                    : 'border-var-black1 bg-var-black1 text-white'
+                }`}
+              >
                 {members
                   .slice((currentPage - 1) * pageSize, currentPage * pageSize)
                   .map((member) => (
