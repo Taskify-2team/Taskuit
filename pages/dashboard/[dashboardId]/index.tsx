@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   return (
     <AppLayout>
-      <div className="flex h-full overflow-auto">
+      <div className="flex h-full w-full overflow-auto">
         <DashboardLayout dashboardId={Number(dashboardId)} />
       </div>
     </AppLayout>

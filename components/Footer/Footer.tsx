@@ -1,15 +1,54 @@
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import Image from 'next/image'
 import Link from 'next/link'
-import emailIcon from '@/public/icons/emailIconDark.svg'
-import emailIconWhite from '@/public/icons/emailIcon.svg'
-import facebookIcon from '@/public/icons/facebookIconDark.svg'
 import facebookIconWhite from '@/public/icons/facebookIcon.svg'
-import instagramIcon from '@/public/icons/instagramIconDark.svg'
-import instagramIconWhite from '@/public/icons/instagramIcon.svg'
-import { useLoadTheme } from '@/store/context/ThemeContext'
+import githubIconWhite from '@/public/icons/githubIconWhite.svg'
+import kakaoIconWhite from '@/public/icons/KakaoWhite.svg'
+import facebookIcon from '@/public/icons/facebookIconDark.svg'
+import githubIcon from '@/public/icons/githubIcon.svg'
+import kakaoIcon from '@/public/icons/Kakao.svg'
 
 export default function Footer() {
   const { theme } = useLoadTheme()
+
+  const shareKakao = () => {
+    if (window.Kakao) {
+      const kakao = window.Kakao
+
+      if (!kakao.isInitialized()) {
+        kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY)
+      }
+
+      kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: 'Taskuit',
+          description: '다양한 사람들과 일정을 공유해 보세요!',
+          imageUrl: '',
+          link: {
+            mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+          },
+        },
+        buttons: [
+          {
+            title: '일정 공유하러 가기',
+            link: {
+              mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+            },
+          },
+        ],
+      })
+    }
+  }
+
+  const shareFacebook = () => {
+    const title = '페이스북 공유하기'
+    window.open(
+      `https://www.facebook.com/sharer.php?u=${process.env.NEXT_PUBLIC_BASE_URL}`,
+      title,
+      'toolbar=0,status=0,width=655,height=520',
+    )
+  }
 
   return (
     <div
@@ -37,26 +76,24 @@ export default function Footer() {
         </Link>
       </div>
       <div className="flex gap-[1.4rem] sm:mt-[6.8rem] sm:pb-[9rem]">
-        <Link href="https://mail.google.com/mail" target="_blank">
+        <Image
+          src={theme === 'normal' ? kakaoIcon : kakaoIconWhite}
+          alt="카카오톡 아이콘"
+          width={22}
+          height={22}
+          onClick={shareKakao}
+        />
+        <Image
+          src={theme === 'normal' ? facebookIcon : facebookIconWhite}
+          alt="페이스북 아이콘"
+          width={22}
+          height={22}
+          onClick={shareFacebook}
+        />
+        <Link href="https://github.com/Taskify-2team/Taskify" target="_blank">
           <Image
-            src={theme === 'normal' ? emailIcon : emailIconWhite}
-            alt="이메일 아이콘"
-            width={22}
-            height={22}
-          />
-        </Link>
-        <Link href="https://www.facebook.com/?locale=ko_KR" target="_blank">
-          <Image
-            src={theme === 'normal' ? facebookIcon : facebookIconWhite}
-            alt="페이스북 아이콘"
-            width={22}
-            height={22}
-          />
-        </Link>
-        <Link href="https://www.instagram.com/" target="_blank">
-          <Image
-            src={theme === 'normal' ? instagramIcon : instagramIconWhite}
-            alt="인스타그램 아이콘"
+            src={theme === 'normal' ? githubIcon : githubIconWhite}
+            alt="깃허브 아이콘"
             width={22}
             height={22}
           />
