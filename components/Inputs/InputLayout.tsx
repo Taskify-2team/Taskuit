@@ -18,7 +18,7 @@ export default function InputLayout({
   const { theme } = useLoadTheme()
 
   return (
-    <label htmlFor={id} className="flex flex-col gap-[1rem]">
+    <label htmlFor={id} className="relative flex flex-col gap-[1rem]">
       <span
         className={`${isSmallSize ? 'text-[1.6rem]' : 'text-[1.8rem]'} leading-tight ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
