@@ -59,7 +59,7 @@ export default function DashBoardColumn({
 
   return (
     <section
-      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem] sm:w-full"
+      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem] sm:w-full sm:gap-[1rem] sm:border-b sm:px-[1.2rem] sm:py-[1.7rem]"
       onDragEnter={() => dragEnter(columnId)}
       onDragOver={(e) => e.preventDefault()}
     >
@@ -79,7 +79,7 @@ export default function DashBoardColumn({
         style={{ maxHeight: 'calc(100vh - 225px)' }}
       >
         {cardList && (
-          <div className="flex flex-col gap-[1.6rem] sm:w-full">
+          <div className="flex flex-col gap-[1.6rem] sm:w-full sm:gap-[1rem]">
             {cardList.length > 0 &&
               cardList.map((cardItem: Card) => (
                 <DashBoardCard
