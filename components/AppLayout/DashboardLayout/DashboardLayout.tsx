@@ -5,6 +5,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
+import { useLoadUser } from '@/store/context/UserIdContext'
 
 interface DashboardLayoutProps {
   dashboardId: number

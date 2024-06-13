@@ -1,14 +1,31 @@
-POST http://localhost:3000/api/tag
+POST http://localhost:3000/api/tags
 Content-Type: application/json
 
 {
-  "cardId": 7672,
-  "content": "안녕하세요",
-  "backgroundColor": "#000000",
-  "textColor": "#ffffff"
+  "user": "666ab8a2592ccb79541c8158",
+  "columnId": 30833,
+  "cardId": 7940,
+  "text": "웃기시네",
+  "color": "#76a5ea"
 }
 
 ###
 
-GET http://localhost:3000/api/tag/6665c83732d10f550a143996
+DELETE http://localhost:3000/api/tags/666ab8dc592ccb79541c815a
 
+###
+
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "userId": 3643
+}
+
+###
+
+GET http://localhost:3000/api/tags/666aaa9662d3c425ad993392
+
+###
+
+GET http://localhost:3000/api/tags
