@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { ReactNode, useEffect } from 'react'
 import mainSectionImage1 from '@/public/images/mainSectionImage1.png'
 import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
-import mainImage from '@/public/images/mainImage.jpg'
+import mainImage from '@/public/images/mainImage.png'
 import Link from 'next/link'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useRouter } from 'next/router'
@@ -70,16 +70,15 @@ export default function Home() {
         <div className="relative h-[42.3rem] w-[72.2rem] sm:h-[16.8rem] sm:w-[28.7rem] md:h-[31.5rem] md:w-[53.8rem]">
           <Image src={mainImage} alt="메인 이미지" fill />
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center gap-[1rem]">
           <h1
             className={`text-center text-[7.6rem] font-bold tracking-[-0.2rem] sm:text-[4rem] md:text-[5.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
           >
             쉬운 일정 관리
-            <br className="hidden sm:inline" />
-            <span className="font-[logo] text-[8rem] font-bold text-primary-violet sm:text-[4.2rem] md:text-[6rem]">
-              Taskuit!
-            </span>
           </h1>
+          <span className="font-[logo] text-[8rem] font-bold text-primary-violet sm:text-[4.2rem] md:text-[6rem]">
+            Taskuit!
+          </span>
         </div>
         <p
           className={`text-center text-[2.2rem] font-bold sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
