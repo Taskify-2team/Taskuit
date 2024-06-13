@@ -2,10 +2,6 @@
 .react-datepicker__time-container .react-datepicker-time__header {
   @apply text-[1.3rem];
 }
-/* 
-.react-datepicker .react-datepicker__header {
-  @apply bg-var-violet;
-} */
 
 .react-datepicker__time-container .react-datepicker__header--time {
   padding: 14px 5px 14.5px;
@@ -33,6 +29,12 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+@media (max-width: 743px) {
+  .react-datepicker__input-container::after {
+    top: 9.5px;
+  }
 }
 
 .react-datepicker__time-list-item {

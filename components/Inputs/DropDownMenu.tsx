@@ -55,7 +55,7 @@ export default function DropDownMenu({
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList((prev) => !prev)}
-        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative h-[4.8rem] w-full cursor-pointer items-center rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'} px-[1.6rem] py-[1.3rem] text-var-black3`}
+        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative w-full cursor-pointer items-center rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'} px-[1.6rem] py-[1.1rem] text-var-black3 sm:py-[0.75rem]`}
       >
         <div className="flex size-full items-center justify-between">
           <ProgressChip progress={selectMenu} />

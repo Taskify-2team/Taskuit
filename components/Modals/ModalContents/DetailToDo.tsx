@@ -104,7 +104,7 @@ export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
   return (
     <div
       onClick={handleKebabClose}
-      className={`modal-layout w-[73rem] sm:max-w-[90vw] ${theme === 'dark' && 'bg-var-black2'}`}
+      className={`modal-layout w-[73rem] ${theme === 'dark' && 'bg-var-black2'}`}
     >
       <div className="absolute right-[2.8rem] top-[3.2rem] z-10 flex items-center gap-[2.4rem]">
         <button type="button" onClick={handleKebabClick}>
