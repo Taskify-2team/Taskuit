@@ -1,10 +1,11 @@
 import TagChip from './TagChip'
 
 interface TagChipListProps {
-  tags: string
+  tags: string[]
+  onDelete?: (idx: number) => void
 }
 
-export default function TagChipList({ tags }: TagChipListProps) {
+export default function TagChipList({ tags, onDelete }: TagChipListProps) {
   const tagColor = [
     { bg: '#F9EEE3', text: '#D58D49' },
     { bg: '#F7DBF0', text: '#D549B6' },
@@ -13,8 +14,8 @@ export default function TagChipList({ tags }: TagChipListProps) {
   ]
 
   return (
-    <ul className="mb-[1.3rem] flex gap-[0.6rem]">
-      {tags.map((tag) => {
+    <ul className="flex gap-[0.6rem]">
+      {tags.map((tag, idx) => {
         const randomPick = Math.floor(Math.random() * 4)
         return (
           <TagChip
@@ -22,6 +23,7 @@ export default function TagChipList({ tags }: TagChipListProps) {
             tag={tag}
             bgColor={tagColor[randomPick].bg}
             textColor={tagColor[randomPick].text}
+            onDelete={() => onDelete?.(idx)}
           />
         )
       })}

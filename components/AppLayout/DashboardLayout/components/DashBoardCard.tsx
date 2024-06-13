@@ -5,7 +5,6 @@ import { openModal } from '@/store/reducers/modalReducer'
 import TagChipList from '@/components/Chips/TagChipList'
 import { DashBoardCardInfo } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { useRef } from 'react'
 
 interface DashBoardCardProps {
   card: Card
@@ -24,7 +23,6 @@ export default function DashBoardCard({
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
-  const draggableRef = useRef<HTMLButtonElement>(null)
 
   const handleOpenModal = () =>
     dispatch(
@@ -42,7 +40,6 @@ export default function DashBoardCard({
       draggable
       onDragStart={() => dragStart(card, columnId)}
       onDragEnd={() => drop()}
-      ref={draggableRef}
     >
       {card.imageUrl && (
         <Image
@@ -59,7 +56,9 @@ export default function DashBoardCard({
       >
         {card.title}
       </h3>
-      <TagChipList tags={card.tags} />
+      <div className="mb-[1.2rem]">
+        <TagChipList tags={card.tags} />
+      </div>
       <DashBoardCardInfo card={card} />
     </button>
   )
