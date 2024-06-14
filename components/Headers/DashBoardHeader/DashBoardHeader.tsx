@@ -127,7 +127,7 @@ export default function DashBoardHeader() {
             handleOnClick={handleSetTheme}
           />
           {isButtonVisible && (
-            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:gap-[1.7rem] sm:pr-0">
+            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:flex-col sm:items-center sm:gap-[2.7rem] sm:pr-0">
               {createdByMe && (
                 <div className="flex gap-[1.6rem] sm:flex-col sm:gap-[1rem]">
                   <HeaderButton
@@ -164,7 +164,7 @@ export default function DashBoardHeader() {
             </div>
           )}
           <div
-            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:border-none sm:pl-0 sm:pl-[1rem]"
+            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:border-none sm:pl-0"
             onClick={toggleDropdown}
             ref={dropdownRef}
           >

@@ -39,26 +39,26 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
     return (
       <div className="cursor-pointer">
         <div
-          className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-[1rem]"
+          className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-0 sm:w-fit sm:flex-col"
           onClick={toggleDropdown}
         >
           {members
             .slice(0, 3)
             .filter((member) => member.userId !== LogInId)
             .map((member) => (
-              <div key={member.id} className="ml-[-1.5rem]">
+              <div key={member.id} className="ml-[-1.5rem] sm:ml-0 sm:mt-[-1.5rem]">
                 <UserProfile nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
               </div>
             ))}
           {totalCount > 3 && (
-            <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-gray-400 text-[1.6rem] text-var-white">
+            <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-gray-400 text-[1.6rem] text-var-white sm:ml-0 sm:mt-[-1.5rem]">
               +{totalCount - 3}
             </div>
           )}
         </div>
         {isDropdownOpen && (
           <div
-            className={`h-100% absolute mt-[0.8rem] animate-slideDown rounded-md border bg-white ${
+            className={`h-100% absolute mt-[0.8rem] animate-slideDown rounded-md border bg-white sm:bottom-[1rem] sm:left-[6rem] sm:mt-0 ${
               theme === 'normal' ? 'border-var-gray3' : 'border-var-black1 bg-var-black1 text-white'
             }shadow-lg`}
           >
@@ -70,7 +70,7 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
               }`}
             >
               {members.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((member) => (
-                <div key={member.id} className="px-[2rem] py-[1rem]">
+                <div key={member.id} className="px-[2rem] py-[1rem] sm:px-[1rem]">
                   <UserInfo nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
                 </div>
               ))}
