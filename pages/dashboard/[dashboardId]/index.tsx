@@ -20,9 +20,12 @@ export default function Dashboard() {
 
   const getColumnsData = useCallback(async () => {
     if (typeof dashboardId === 'string') {
-      await dispatch(getColumnList(dashboardId))
+      const result = await dispatch(getColumnList(dashboardId))
+      if (result.meta.requestStatus === 'rejected') {
+        router.replace('/mydashboard')
+      }
     }
-  }, [dashboardId, dispatch])
+  }, [dashboardId, dispatch, router])
 
   const onAxisDragStart = (e: MouseEvent) => {
     preventUnexpectedEffects(e)
@@ -37,6 +40,7 @@ export default function Dashboard() {
     if (!isDrag) {
       return
     }
+
     throttle(() => {
       preventUnexpectedEffects(e)
       const scrollLeft = totalX - e.clientX
@@ -60,7 +64,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(closeModal())
-  }, [])
+  }, [dispatch])
 
   return (
     <AppLayout>
