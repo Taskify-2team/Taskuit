@@ -49,7 +49,7 @@ export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardPr
   return (
     <form
       onSubmit={submitAddDashBoard}
-      className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}
+      className={`modal-layout overflow-visible ${theme === 'dark' && 'bg-var-black2'}`}
     >
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
         새로운 대시보드
