@@ -128,6 +128,7 @@ export default function InviteList() {
                     dispatch(openToast('acceptInvite'))
                     handleInvite(item.id, true)
                   }}
+                  isGrowInMo
                 />
                 <ShortButton
                   text="거절"
@@ -136,6 +137,7 @@ export default function InviteList() {
                     dispatch(openToast('refuseInvite'))
                     handleInvite(item.id, false)
                   }}
+                  isGrowInMo
                 />
               </div>
             </div>

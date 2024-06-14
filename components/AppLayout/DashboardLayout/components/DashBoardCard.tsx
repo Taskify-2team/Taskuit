@@ -55,7 +55,7 @@ export default function DashBoardCard({
         />
       )}
       <h3
-        className={`mb-[1rem] text-start text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+        className={`ellipsis mb-[1rem] text-start text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
       >
         {card.title}
       </h3>

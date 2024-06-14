@@ -6,10 +6,10 @@ import { openToast } from '@/store/reducers/toastReducer'
 import useEditBoard from '@/hooks/useEditBoard'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
-import { ShortButton } from '..'
-import ColorSelector from '../ColorSelector/ColorSelector'
-import CircleChip from '../Chips/CircleChip'
-import Loading from '../Loading/Loading'
+import { ShortButton } from '../..'
+import ColorSelector from '../../ColorSelector/ColorSelector'
+import CircleChip from '../../Chips/CircleChip'
+import Loading from '../../Loading/Loading'
 
 export default function EditName() {
   const [editBoardBody, setEditBoardBody] = useState({
@@ -58,9 +58,9 @@ export default function EditName() {
         </ModalPortal>
       )}
       <div
-        className={`flex w-[62rem] flex-col gap-[3.4rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
+        className={`flex w-[62rem] max-w-full flex-col gap-[3.4rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-[2rem]">
           <div className="flex items-center justify-between gap-[1rem]">
             <CircleChip color={dashboardBody.color} />
             <p
