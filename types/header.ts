@@ -34,6 +34,7 @@ export interface UserInfoProps {
   profileImageUrl: string
   nickname: string
   size?: 'm' | 'l'
+  isHeader?: boolean
 }
 
 export interface UserProfileProps {

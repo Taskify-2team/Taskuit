@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         'primary-violet': '#1A57C9',
-        'var-violet': '#d3f8ff',
+        'var-violet': '#e7f0ff',
         'var-red': '#d6173a',
         'var-green': '#7ac555',
         'var-purple': '#760dde',

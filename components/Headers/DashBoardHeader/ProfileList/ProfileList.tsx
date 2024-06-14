@@ -35,72 +35,60 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
     setCurrentPage(currentPage - 1)
   }
 
-  return (
-    <div>
-      {members && (
-        <div>
-          <div
-            className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-[1rem]"
-            onClick={toggleDropdown}
-          >
-            {members
-              .slice(0, 3)
-              .filter((member) => member.userId !== LogInId)
-              .map((member) => (
-                <div key={member.id} className="ml-[-1.5rem]">
-                  <UserProfile
-                    nickname={member.nickname}
-                    profileImageUrl={member.profileImageUrl}
-                  />
-                </div>
-              ))}
-            {totalCount > 3 && (
-              <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-gray-400 text-[1.6rem] text-var-white">
-                +{totalCount - 3}
+  if (members && members.length > 1) {
+    return (
+      <div className="cursor-pointer">
+        <div
+          className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-[1rem]"
+          onClick={toggleDropdown}
+        >
+          {members
+            .slice(0, 3)
+            .filter((member) => member.userId !== LogInId)
+            .map((member) => (
+              <div key={member.id} className="ml-[-1.5rem]">
+                <UserProfile nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
               </div>
-            )}
-          </div>
-          {isDropdownOpen && (
-            <div
-              className={`h-100% absolute mt-2 animate-slideDown rounded-md border bg-white ${
-                theme === 'normal'
-                  ? 'border-var-gray3'
-                  : 'border-var-black1 bg-var-black1 text-white'
-              }shadow-lg`}
-            >
-              <div
-                className={`h-[30rem] w-[14rem] ${
-                  theme === 'normal'
-                    ? 'border-var-gray3'
-                    : 'border-var-black1 bg-var-black1 text-white'
-                }`}
-              >
-                {members
-                  .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-                  .map((member) => (
-                    <div key={member.id} className="px-[1rem] py-[0.5rem]">
-                      <UserInfo
-                        nickname={member.nickname}
-                        profileImageUrl={member.profileImageUrl}
-                      />
-                    </div>
-                  ))}
-                <div
-                  className="absolute bottom-0 left-1/2 my-[0.5rem] -translate-x-1/2 transform"
-                  ref={ref}
-                >
-                  <PaginationButton
-                    currentPage={currentPage}
-                    totalPage={memberListPage}
-                    handleNext={handleNext}
-                    handlePrev={handlePrev}
-                  />
-                </div>
-              </div>
+            ))}
+          {totalCount > 3 && (
+            <div className="ml-[-1.5rem] flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-gray-400 text-[1.6rem] text-var-white">
+              +{totalCount - 3}
             </div>
           )}
         </div>
-      )}
-    </div>
-  )
+        {isDropdownOpen && (
+          <div
+            className={`h-100% absolute mt-[0.8rem] animate-slideDown rounded-md border bg-white ${
+              theme === 'normal' ? 'border-var-gray3' : 'border-var-black1 bg-var-black1 text-white'
+            }shadow-lg`}
+          >
+            <div
+              className={`h-[35rem] w-[15rem] ${
+                theme === 'normal'
+                  ? 'border-var-gray3'
+                  : 'border-var-black1 bg-var-black1 text-white'
+              }`}
+            >
+              {members.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((member) => (
+                <div key={member.id} className="px-[2rem] py-[1rem]">
+                  <UserInfo nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
+                </div>
+              ))}
+              <div
+                className="absolute bottom-0 left-1/2 my-[0.5rem] -translate-x-1/2 transform"
+                ref={ref}
+              >
+                <PaginationButton
+                  currentPage={currentPage}
+                  totalPage={memberListPage}
+                  handleNext={handleNext}
+                  handlePrev={handlePrev}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
 }

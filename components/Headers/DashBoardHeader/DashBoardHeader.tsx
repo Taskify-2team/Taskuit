@@ -106,24 +106,28 @@ export default function DashBoardHeader() {
         </ModalPortal>
       )}
       <div
-        className={`fixed z-50 flex w-[100vw] items-center justify-between ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:justify-end sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[1.2rem]`}
+        className={`fixed z-50 flex w-[100vw] items-center justify-between sm:pr-[2rem] ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:justify-end sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[4rem]`}
       >
         <div className="flex items-center gap-[0.6rem] sm:hidden">
           <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
           {createdByMe && (
-            <Image src={crownIcon} alt="대시보드 생성자 아이콘" className="h-[2rem] w-[2rem]" />
+            <Image
+              src={crownIcon}
+              alt="대시보드 생성자 아이콘"
+              className="mr-[1rem] h-[2rem] w-[2rem]"
+            />
           )}
         </div>
-        <div className="flex gap-[1.6rem] sm:gap-[1.3rem]">
+        <div className="flex gap-[1.6rem] sm:gap-[1rem]">
           <HeaderButton
             buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
             buttonName="테마"
             handleOnClick={handleSetTheme}
           />
           {isButtonVisible && (
-            <div className="flex gap-[1.6rem] sm:gap-[1.3rem]">
+            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:gap-[1.7rem] sm:pr-0">
               {createdByMe && (
-                <div className="flex gap-[1.6rem] sm:gap-[1.3rem]">
+                <div className="flex gap-[1.6rem] sm:gap-[1rem]">
                   <HeaderButton
                     buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
                     buttonName="관리"
@@ -158,12 +162,16 @@ export default function DashBoardHeader() {
             </div>
           )}
           <div
-            className="relative flex items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:pl-[1rem]"
+            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:pl-[1rem]"
             onClick={toggleDropdown}
             ref={dropdownRef}
           >
             {userData && (
-              <UserInfo profileImageUrl={userData.profileImageUrl} nickname={userData.nickname} />
+              <UserInfo
+                profileImageUrl={userData.profileImageUrl}
+                nickname={userData.nickname}
+                isHeader
+              />
             )}
             {isDropdownOpen && <Dropdown theme={theme} />}
           </div>

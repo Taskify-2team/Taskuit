@@ -47,6 +47,7 @@ export default function EditInvitation() {
       }
     }
     handleLoadList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, dashboardId])
 
   return (
