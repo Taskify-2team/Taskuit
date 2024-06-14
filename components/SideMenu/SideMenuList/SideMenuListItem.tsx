@@ -26,11 +26,11 @@ export default function SideMenuListItem({
       <div className={sideMenuItemClass}>
         <CircleChip color={color} />
         <div
-          className={`text-[1.8rem] sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
+          className={`ellipsis text-[1.8rem] sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
         >
           {title}
         </div>
-        <div className="ml-[-1.2rem] sm:hidden">
+        <div className="ml-[-1.2rem] shrink-0 sm:hidden">
           {createdByMe && <Image src={crownicon} alt="크라운 아이콘" />}
         </div>
       </div>

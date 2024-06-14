@@ -55,7 +55,7 @@ export default function DashboardLayout({ dashboardId, setIsDrag }: DashboardLay
           drop={drop}
         />
       ))}
-      <section className="p-[2rem] pt-[7.2rem]">
+      <section className="p-[2rem] pt-[7.2rem] sm:pt-[1.2rem]">
         <CreateColumnButton
           onClick={() => {
             dispatch(openModal({ modalName: 'AddColumn', modalProps: { dashboardId } }))

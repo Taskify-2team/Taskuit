@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Taskify</title>
+        <title>Taskuit</title>
       </Head>
       <Provider store={store}>
         <TotalProvider>

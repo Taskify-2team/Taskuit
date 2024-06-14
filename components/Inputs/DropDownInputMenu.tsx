@@ -160,7 +160,7 @@ export default function DropDownInputMenu({
       <div
         ref={dropDownElement}
         onClick={() => setShowMenuList(true)}
-        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex h-[4.8rem] w-full cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white text-var-black2' : 'border-var-black1 bg-var-black1 text-var-gray3'} px-[1.6rem] py-[1.3rem]`}
+        className={`${showMenuList ? 'border-primary-violet' : 'border-var-gray3'} relative flex w-full cursor-pointer items-center gap-[0.6rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white text-var-black2' : 'border-var-black1 bg-var-black1 text-var-gray3'} px-[1.6rem] py-[1.2rem] sm:py-[1rem]`}
       >
         {selectMenu.profileImageUrl && (
           <>
@@ -188,7 +188,7 @@ export default function DropDownInputMenu({
           onKeyDown={handleKeyDown}
           value={selectMenu.nickname}
           onChange={handleInputChange}
-          className={`w-full text-[1.6rem] outline-none ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'}`}
+          className={`w-full text-[1.6rem] outline-none sm:text-[1.4rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'}`}
           placeholder="이름을 입력해 주세요"
         />
         <div className="absolute right-[1.5rem] size-[1rem]">

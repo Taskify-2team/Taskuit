@@ -9,7 +9,7 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
 import useAsync from '@/hooks/useAsync'
 import { PaginationButton, ShortButton } from '..'
-import EmptyInvite from '../EmptyInvite/EmptyInvite'
+import EmptyInvite from '../AppLayout/MyDashboard/EmptyInvite'
 import Loading from '../Loading/Loading'
 
 export default function EditInvitation() {
