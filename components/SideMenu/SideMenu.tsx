@@ -49,7 +49,7 @@ export default function SideMenu() {
 
   return (
     <div
-      className={`fixed z-50 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black3 bg-var-black2'} px-[2.4rem] pt-[2rem] sm:w-[6.7rem] sm:items-center sm:px-[1rem] md:w-[16rem] md:px-[1.3rem]`}
+      className={`fixed z-50 flex h-[100vh] w-[30rem] flex-col border-r-2 sm:h-fit sm:border-none ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black3 bg-var-black2'} px-[2.4rem] pt-[2rem] sm:w-[6.7rem] sm:items-center sm:bg-transparent sm:px-[1rem] md:w-[16rem] md:px-[1.3rem]`}
     >
       <Link href="/mydashboard" className="flex w-fit items-center gap-[0.5rem]">
         <Image
