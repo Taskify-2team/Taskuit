@@ -9,6 +9,7 @@ import { postDashboard } from '@/service/dashboards'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useRouter } from 'next/router'
+import TextCounter from '@/components/TextCounter/TextCounter'
 
 export default function AddDashBoard() {
   const dispatch = useAppDispatch()
@@ -43,7 +44,7 @@ export default function AddDashBoard() {
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
         새로운 대시보드
       </h3>
-      <div className="flex w-full flex-col gap-[1.8rem]">
+      <div className="relative flex w-full flex-col gap-[1.8rem]">
         <TextInput
           id="name"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -52,6 +53,7 @@ export default function AddDashBoard() {
           label="대시보드 이름"
           placeholder="대시보드 이름"
         />
+        <TextCounter text={dashBoardBody.title} length={20} />
       </div>
       <ColorSelector boardColor={dashBoardBody.color} handleClick={handleColor} />
       <div className="flex gap-[1.2rem] self-end">
