@@ -19,6 +19,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import TextCounter from '@/components/TextCounter/TextCounter'
 
 export interface AddToDoProps {
   columnId: number
@@ -115,15 +116,18 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         memberList={members}
         setManager={setAssigneeUserId}
       />
-      <TextInput
-        label="제목"
-        isRequired
-        name="title"
-        id="title"
-        value={cardBody.title}
-        placeholder="제목을 입력해 주세요."
-        onChange={handleChange}
-      />
+      <div className="relative">
+        <TextInput
+          label="제목"
+          isRequired
+          name="title"
+          id="title"
+          value={cardBody.title}
+          placeholder="제목을 입력해 주세요."
+          onChange={handleChange}
+        />
+        <TextCounter text={cardBody.title} length={20} />
+      </div>
       <Textarea
         label="설명"
         isRequired
