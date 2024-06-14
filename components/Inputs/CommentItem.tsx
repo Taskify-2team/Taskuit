@@ -84,7 +84,7 @@ export default function CommentItem({ comment, authorId, onUpdate, onDelete }: C
         ) : (
           <div className="w-full">
             <p
-              className={`whitespace-pre-wrap break-words text-[1.4rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray3'}`}
+              className={`max-w-[80%] whitespace-pre-wrap break-words text-[1.4rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray3'}`}
             >
               {comment.content}
             </p>
