@@ -33,9 +33,14 @@ export default function DashBoardColumn({
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
       await dispatch(getCardList({ columnId, cursorId }))
-      // await dispatch(getTagList({ userId: userDbId, columnId }))
     }
   }, [columnId, getCardsRequest, cursorId])
+
+  const getTagsData = async () => {
+    if (userDbId) {
+      await dispatch(getTagList({ userId: userDbId, columnId }))
+    }
+  }
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -51,6 +56,12 @@ export default function DashBoardColumn({
     getCardsData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (userDbId) {
+      getTagsData()
+    }
+  }, [userDbId])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })

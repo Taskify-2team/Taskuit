@@ -20,12 +20,14 @@ const tagSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getTagList.fulfilled, (state, action) => {
-        const { columnId } = action.payload
-        if (!state.tagList[columnId]) {
-          state.tagList[columnId] = []
-          state.tagList[columnId] = action.payload
-        }
-        state.tagList[columnId] = action.payload
+        let columnId
+        action.payload.forEach((tag) => {
+          columnId = tag.columnId
+          if (!state.tagList[columnId]) {
+            state.tagList[columnId] = []
+            state.tagList[columnId] = [...state.tagList[columnId], tag]
+          }
+        })
       })
       .addCase(postTag.fulfilled, (state, action) => {
         state.tagList = action.payload

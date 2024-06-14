@@ -45,6 +45,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
     }
   }
 
+  /** context의 userId를 db에 줘서 엑세스 토큰 역할을 하는 고유 id값 추출받는 코드 */
   const connectDbUserId = async () => {
     await dispatch(getDbUserId({ userId }))
   }

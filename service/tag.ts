@@ -12,7 +12,7 @@ export interface Tag {
 
 export const getTagList = createAsyncThunk(
   'tag/getTagList',
-  async ({ userId, columnId }: { userId: number; columnId: number }) => {
+  async ({ userId, columnId }: { userId: string; columnId: number }) => {
     const { data } = await TAG_URL.get(`/tags?userId=${userId}&columnId=${columnId}`)
     return camelcaseKeys(data.data, { deep: true })
   },
@@ -26,7 +26,7 @@ export const postTag = createAsyncThunk(
     cardId,
     tags,
   }: {
-    userId: number
+    userId: string
     columnId: number
     cardId: number
     tags: TagsType[]
