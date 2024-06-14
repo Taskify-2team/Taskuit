@@ -38,6 +38,7 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
+
   return (
     <ul
       ref={colorPickerRef}
