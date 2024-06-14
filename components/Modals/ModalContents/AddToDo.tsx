@@ -99,8 +99,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }, [assigneeUserId, dueDate, setCardBody])
 
   useEffect(() => {
-    getMembersRequest()
-  }, [getMembersRequest])
+    if (dashboardId) {
+      getMembersRequest()
+    }
+  }, [dashboardId, getMembersRequest])
 
   return (
     <form

@@ -1,8 +1,16 @@
 import { AppLayout, MyDashBoardList, InviteList } from '@/components'
+import { useAppDispatch } from '@/hooks/useApp'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { closeModal } from '@/store/reducers/modalReducer'
+import { useEffect } from 'react'
 
 export default function MyDashBoard() {
   const { theme } = useLoadTheme()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [dispatch])
 
   return (
     <AppLayout>

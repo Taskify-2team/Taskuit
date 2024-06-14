@@ -8,11 +8,15 @@ import backIcon from '@/public/icons/arrowBack.svg'
 import backIconGray from '@/public/icons/arrowBackGrey.svg'
 import Image from 'next/image'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useAppDispatch } from '@/hooks/useApp'
+import { useEffect } from 'react'
+import { closeModal } from '@/store/reducers/modalReducer'
 
 export default function Edit() {
   const router = useRouter()
   const { dashboardId } = router.query
   const { theme } = useLoadTheme()
+  const dispatch = useAppDispatch()
 
   const handleDeleteDashboard = async () => {
     if (dashboardId) {
@@ -20,6 +24,10 @@ export default function Edit() {
       router.replace('/mydashboard')
     }
   }
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [dispatch])
 
   return (
     <AppLayout>

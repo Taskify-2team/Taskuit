@@ -1,6 +1,7 @@
 import { AppLayout, DashboardLayout } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { getColumnList } from '@/service/columns'
+import { closeModal } from '@/store/reducers/modalReducer'
 import throttle from '@/utils/throttle'
 import { useRouter } from 'next/router'
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
@@ -56,6 +57,10 @@ export default function Dashboard() {
       getColumnsData()
     }
   }, [dashboardId, getColumnsData])
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [])
 
   return (
     <AppLayout>
