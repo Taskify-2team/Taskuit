@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TagsType } from '@/components/Modals/ModalContents/EditToDo'
 import { TAG_URL } from '@/service/instance'
 import camelcaseKeys from 'camelcase-keys'
 
 export interface Tag {
-  cardId: number
   text: string
   color: string
 }
@@ -23,7 +21,7 @@ export const postTag = async ({
   userId: string
   columnId: number
   cardId: number
-  tags: TagsType[]
+  tags: Tag[]
 }) => {
   const { data } = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, {
     tags,
@@ -46,7 +44,7 @@ export const updateTags = async ({
   userId: string
   columnId: number
   cardId: number
-  tags: TagsType[]
+  tags: Tag[]
 }) => {
   const { data } = await TAG_URL.put(`/tags?userId=${userId}&columnId=${columnId}`, {
     tags,

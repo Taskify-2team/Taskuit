@@ -1,31 +1,30 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
-import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
+import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { useEffect, useState } from 'react'
-import findTag from '@/utils/findTag'
+import { Tag } from '@/service/tag'
 
 interface DashBoardCardProps {
   card: Card
+  tagList: Tag[]
   columnTitle: string
   columnId: number
-  dragStart: (card: Card, id: number) => void
+  dragStart: (card: Card, id: number, tags: Tag[]) => void
   drop: () => void
 }
 
 export default function DashBoardCard({
   card,
+  tagList,
   columnTitle,
   columnId,
   dragStart,
   drop,
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
-  const cardTags = useAppSelector((state) => state.tag.tagList[columnId])
   const { theme } = useLoadTheme()
-  const [tags, setTags] = useState([])
 
   const handleOpenModal = () =>
     dispatch(
@@ -35,19 +34,13 @@ export default function DashBoardCard({
       }),
     )
 
-  useEffect(() => {
-    if (cardTags) {
-      setTags(findTag({ cardTags, cardId: card.id }))
-    }
-  }, [cardTags])
-
   return (
     <button
       type="button"
       onClick={handleOpenModal}
       className={`w-[31.4rem] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] outline-[0.1rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
-      onDragStart={() => dragStart(card, columnId)}
+      onDragStart={() => dragStart(card, columnId, tagList)}
       onDragEnd={() => drop()}
     >
       {card.imageUrl && (
@@ -66,7 +59,9 @@ export default function DashBoardCard({
         {card.title}
       </h3>
       <div className="mb-[1.2rem]">
-        <ul className="flex gap-[0.6rem]">{tags?.map((tag) => <TagChip key={tag} tag={tag} />)}</ul>
+        <ul className="flex gap-[0.6rem]">
+          {tagList?.map((tag) => <TagChip key={tag.text} tag={tag} />)}
+        </ul>
       </div>
       <DashBoardCardInfo card={card} />
     </button>

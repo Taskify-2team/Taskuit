@@ -19,8 +19,8 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { useLoadUser } from '@/store/context/UserIdContext'
-import { getDbUserId, postTag } from '@/service/tag'
+import { useDbId } from '@/store/context/DbIdContext'
+import { postTag } from '@/service/tag'
 import { TagsType } from './EditToDo'
 
 export interface AddToDoProps {
@@ -31,12 +31,12 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
-  const { userId } = useLoadUser()
+  const { dbId } = useDbId()
   const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
-  const { userDbId } = useAppSelector((state) => state.tag)
   const { requestFunction: postToDo } = useAsync(postDashBoardCard)
   const { requestFunction: postImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
+  const { requestFunction: postTagRequest } = useAsync(postTag)
   const { dashboardId } = router.query
   const [members, setMembers] = useState([])
   const [isDisabled, setIsDisabled] = useState(true)
@@ -73,10 +73,6 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     await dispatch(getCardList({ cursorId: Number(cursorId), columnId }))
   }
 
-  const connectDbUserId = async () => {
-    await dispatch(getDbUserId({ userId }))
-  }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     let imageResult
@@ -91,7 +87,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     if (!postResult) return
 
     const { id } = postResult.data
-    await dispatch(postTag({ userId: userDbId, columnId, cardId: id, tags: myTagBody }))
+    await postTagRequest({ userId: dbId, columnId, cardId: id, tags: myTagBody })
     dispatch(closeModal())
     refreshCardList()
     dispatch(openToast('successAddCard'))
@@ -114,10 +110,6 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   useEffect(() => {
     getMembersRequest()
   }, [getMembersRequest])
-
-  useEffect(() => {
-    connectDbUserId()
-  }, [])
 
   return (
     <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>

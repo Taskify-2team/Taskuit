@@ -1,17 +1,16 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react'
-import useAsync from '@/hooks/useAsync'
 import { getDbUserId } from '@/service/tag'
 import { getUserInfo } from '@/service/users'
 import { UserContext } from '../UserIdContext'
 import { LanguageContext } from '../LanguageContext'
 import { ThemeContext } from '../ThemeContext'
+import { DbIdContext } from '../DbIdContext'
 
 export default function TotalProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState(0)
   const [dbId, setDbId] = useState('')
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
-  const { requestFunction: getDbId } = useAsync(getDbUserId)
 
   useEffect(() => {
     const loadUser = async () => {
@@ -25,7 +24,7 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const loadDbId = async () => {
-      const result = await getDbId({ userId })
+      const result = await getDbUserId({ userId })
       setDbId(result.id)
     }
     if (userId) {
@@ -52,6 +51,8 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const userIdValue = useMemo(() => ({ userId }), [userId])
+
+  const dbIdValue = useMemo(() => ({ dbId }), [dbId])
 
   const languageValue = useMemo(
     () => ({
@@ -86,9 +87,11 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider value={userIdValue}>
-      <LanguageContext.Provider value={languageValue}>
-        <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
-      </LanguageContext.Provider>
+      <DbIdContext.Provider value={dbIdValue}>
+        <LanguageContext.Provider value={languageValue}>
+          <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
+        </LanguageContext.Provider>
+      </DbIdContext.Provider>
     </UserContext.Provider>
   )
 }

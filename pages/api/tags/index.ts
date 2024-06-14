@@ -24,11 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       case 'PUT': {
         const { cardId, tags } = req.body
-        const updateTag = await Tag.findOneAndUpdate(
-          { user: userId, columnId, cardId },
-          { tags, columnId },
-          { new: true },
-        )
+        const updateTag = await Tag.findOneAndUpdate({ cardId }, { tags, columnId }, { new: true })
         res.status(201).send({ data: updateTag })
         break
       }

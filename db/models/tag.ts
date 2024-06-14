@@ -7,8 +7,8 @@ const tagsSchema = new mongoose.Schema({
 })
 
 const tagSchema = new mongoose.Schema({
-  columnId: { type: Number, required: true, unique: true },
-  cardId: { type: Number, required: true, unique: true },
+  columnId: { type: Number, required: true },
+  cardId: { type: Number, required: true },
   tags: [tagsSchema],
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 })

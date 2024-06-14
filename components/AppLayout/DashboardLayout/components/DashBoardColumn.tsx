@@ -1,16 +1,18 @@
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
 import { getCardList, getDashBoardCard } from '@/service/cards'
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { getTagList } from '@/service/tag'
+import { Tag, getTagList } from '@/service/tag'
+import { useDbId } from '@/store/context/DbIdContext'
+import findTag from '@/utils/findTag'
 
 interface DashBoardColumnProps {
   columnId: number
   columnTitle: string
-  dragStart: (card: Card, id: number) => void
+  dragStart: (card: Card, id: number, tags: Tag[]) => void
   dragEnter: (id: number) => void
   drop: () => void
 }
@@ -24,11 +26,13 @@ export default function DashBoardColumn({
 }: DashBoardColumnProps) {
   const cardList = useAppSelector((state) => state.card.cardList[columnId])
   const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
-  const { userDbId } = useAppSelector((state) => state.tag)
   const { cardListStatus } = useAppSelector((state) => state.card)
+  const [tagList, setTagList] = useState([])
+  const { dbId } = useDbId()
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
   const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
+  const { requestFunction: getTagListRequest } = useAsync(getTagList)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
@@ -37,8 +41,11 @@ export default function DashBoardColumn({
   }, [columnId, getCardsRequest, cursorId])
 
   const getTagsData = async () => {
-    if (userDbId) {
-      await dispatch(getTagList({ userId: userDbId, columnId }))
+    if (dbId) {
+      const result = await getTagListRequest({ userId: dbId, columnId })
+      if (!result) return
+
+      setTagList(result)
     }
   }
 
@@ -58,10 +65,10 @@ export default function DashBoardColumn({
   }, [])
 
   useEffect(() => {
-    if (userDbId) {
+    if (dbId) {
       getTagsData()
     }
-  }, [userDbId])
+  }, [dbId, cardList])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
@@ -91,16 +98,20 @@ export default function DashBoardColumn({
       {cardList && (
         <div className="flex flex-col gap-[1.6rem]">
           {cardList.length > 0 &&
-            cardList.map((cardItem: Card) => (
-              <DashBoardCard
-                key={cardItem.id}
-                columnTitle={columnTitle}
-                card={cardItem}
-                columnId={columnId}
-                dragStart={dragStart}
-                drop={drop}
-              />
-            ))}
+            cardList.map((cardItem: Card) => {
+              const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
+              return (
+                <DashBoardCard
+                  key={cardItem.id}
+                  columnTitle={columnTitle}
+                  card={cardItem}
+                  columnId={columnId}
+                  dragStart={dragStart}
+                  drop={drop}
+                  tagList={tag}
+                />
+              )
+            })}
           <div ref={obsRef} />
         </div>
       )}
