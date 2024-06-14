@@ -24,7 +24,7 @@ export default function BoardButton({ board }: BoardButtonProps) {
         <div className="flex items-center justify-center gap-[0.8rem]">
           <CircleChip color={board.color} />
           <p
-            className={`ellipsis ml-[0.8rem] text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+            className={`ellipsis ml-[0.8rem] max-w-[20rem] text-[1.6rem] sm:max-w-[calc(100vw-25rem)] md:max-w-[calc(50vw-25rem)] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
             {board.title}
           </p>
