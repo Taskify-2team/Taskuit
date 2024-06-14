@@ -8,16 +8,16 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react'
+import { Tag } from '@/service/tag'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
-import { TagsType } from '../Modals/ModalContents/EditToDo'
 
 interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
-  myTagBody?: TagsType[]
-  setMyTagBody: Dispatch<SetStateAction<any>>
+  myTagBody?: Tag[]
+  setMyTagBody: Dispatch<SetStateAction<Tag[]>>
 }
 
 export default function TagInput({
@@ -44,8 +44,9 @@ export default function TagInput({
 
   const handleDelete = (idx: number) => {
     const filterTag = myTagBody?.filter((tag) => tag !== myTagBody[idx])
-
-    setMyTagBody(filterTag)
+    if (filterTag) {
+      setMyTagBody(filterTag)
+    }
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

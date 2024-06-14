@@ -4,11 +4,11 @@ import Image from 'next/image'
 import cancelBtn from '@/public/icons/cancel.svg'
 import { Dispatch, MouseEventHandler, SetStateAction, useState } from 'react'
 import hexToRgb from '@/utils/hexToRgb'
+import { Tag } from '@/service/tag'
 import TagColorSelector from '../ColorSelector/TagColorSelector'
-import { TagsType } from '../Modals/ModalContents/EditToDo'
 
 interface TagChipProps {
-  tag: TagsType
+  tag: Tag
   idx?: number
   onDelete?: MouseEventHandler<HTMLButtonElement>
   setMyTagBody?: Dispatch<SetStateAction<any>>
@@ -47,7 +47,7 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
         </button>
       )}
       <div className="absolute bottom-[-5.5rem] left-0 z-50">
-        {customColor && idx && setMyTagBody && (
+        {customColor && idx !== undefined && setMyTagBody && (
           <TagColorSelector
             setMyTagBody={setMyTagBody}
             idx={idx}

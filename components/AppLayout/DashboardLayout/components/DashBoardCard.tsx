@@ -30,7 +30,7 @@ export default function DashBoardCard({
     dispatch(
       openModal({
         modalName: 'DetailToDo',
-        modalProps: { card, columnTitle },
+        modalProps: { card, columnTitle, tags: tagList },
       }),
     )
 
