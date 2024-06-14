@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { openModal } from '@/store/reducers/modalReducer'
 import { Tag, getTagList } from '@/service/tag'
 import { useDbId } from '@/store/context/DbIdContext'
@@ -24,6 +25,7 @@ export default function DashBoardColumn({
   dragEnter,
   drop,
 }: DashBoardColumnProps) {
+  const { theme } = useLoadTheme()
   const cardList = useAppSelector((state) => state.card.cardList[columnId])
   const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
   const { cardListStatus } = useAppSelector((state) => state.card)
@@ -80,7 +82,7 @@ export default function DashBoardColumn({
 
   return (
     <section
-      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem] sm:w-full sm:gap-[1rem] sm:border-b sm:px-[1.2rem] sm:py-[1.7rem]"
+      className={`flex w-[35.4rem] flex-col gap-[1.6rem] border-r p-[2rem] sm:w-full sm:gap-[1rem] sm:border-b sm:px-[1.2rem] sm:py-[1.7rem] ${theme === 'normal' ? 'border-var-gray2' : 'border-var-black2'}`}
       onDragEnter={() => dragEnter(columnId)}
       onDragOver={(e) => e.preventDefault()}
     >

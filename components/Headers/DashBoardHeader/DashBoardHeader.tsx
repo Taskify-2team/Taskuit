@@ -106,9 +106,9 @@ export default function DashBoardHeader() {
         </ModalPortal>
       )}
       <div
-        className={`fixed z-50 flex w-[100vw] items-center justify-between sm:pr-[2rem] ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:justify-end sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[4rem]`}
+        className={`fixed z-50 flex w-[100vw] items-center justify-between sm:pr-[2rem] ${theme === 'normal' ? 'border-var-gray3 bg-var-white pl-[2.4rem]' : 'border-var-black2 bg-var-black2 text-white'} py-[1.5rem] pl-[34rem] pr-[8rem] shadow sm:pl-[8rem] sm:pr-[0.5rem] md:justify-between md:pl-[20rem] md:pr-[4rem]`}
       >
-        <div className="flex items-center gap-[0.6rem] sm:hidden">
+        <div className="flex items-center gap-[0.6rem]">
           <p className="flex h-[3.8rem] items-center text-[2rem] font-bold">{title}</p>
           {createdByMe && (
             <Image
@@ -118,16 +118,18 @@ export default function DashBoardHeader() {
             />
           )}
         </div>
-        <div className="flex gap-[1.6rem] sm:gap-[1rem]">
+        <div
+          className={`flex gap-[1.6rem] sm:fixed sm:bottom-0 sm:left-0 sm:z-[100] sm:h-[100vh] sm:w-[6.7rem] sm:flex-col sm:items-center sm:justify-end sm:gap-[1rem] sm:border-r-[0.1rem] sm:pb-[1.5rem] ${theme === 'normal' ? 'sm:border-var-gray3 sm:bg-var-white' : 'sm:border-var-black3 sm:bg-var-black2'}`}
+        >
           <HeaderButton
             buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
             buttonName="테마"
             handleOnClick={handleSetTheme}
           />
           {isButtonVisible && (
-            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:gap-[1.7rem] sm:pr-0">
+            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:flex-col sm:items-center sm:gap-[2.7rem] sm:pr-0">
               {createdByMe && (
-                <div className="flex gap-[1.6rem] sm:gap-[1rem]">
+                <div className="flex gap-[1.6rem] sm:flex-col sm:gap-[1rem]">
                   <HeaderButton
                     buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
                     buttonName="관리"
@@ -162,7 +164,7 @@ export default function DashBoardHeader() {
             </div>
           )}
           <div
-            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:pl-[1rem]"
+            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:border-none sm:pl-0"
             onClick={toggleDropdown}
             ref={dropdownRef}
           >
