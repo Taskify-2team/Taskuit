@@ -47,9 +47,11 @@ export default function AddDashBoard() {
       <div className="relative flex w-full flex-col gap-[1.8rem]">
         <TextInput
           id="name"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setDashBoardBody({ ...dashBoardBody, title: e.target.value })
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (dashBoardBody.title.length <= 20) {
+              setDashBoardBody({ ...dashBoardBody, title: e.target.value })
+            }
+          }}
           label="대시보드 이름"
           placeholder="대시보드 이름"
         />
