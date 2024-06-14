@@ -19,9 +19,9 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
       }
     }
     setMemberListPage(Math.ceil(totalCount / pageSize))
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('click', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('click', handleClickOutside)
     }
   }, [currentPage, totalCount])
 
@@ -37,7 +37,7 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
 
   if (members && members.length > 1) {
     return (
-      <div className="cursor-pointer">
+      <div className="cursor-pointer" ref={ref}>
         <div
           className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-0 sm:w-fit sm:flex-col"
           onClick={toggleDropdown}
@@ -74,10 +74,7 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
                   <UserInfo nickname={member.nickname} profileImageUrl={member.profileImageUrl} />
                 </div>
               ))}
-              <div
-                className="absolute bottom-0 left-1/2 my-[0.5rem] -translate-x-1/2 transform"
-                ref={ref}
-              >
+              <div className="absolute bottom-0 left-1/2 my-[0.5rem] -translate-x-1/2 transform">
                 <PaginationButton
                   currentPage={currentPage}
                   totalPage={memberListPage}
