@@ -4,7 +4,7 @@ const throttle = (func: () => void) => {
     timer = setTimeout(() => {
       timer = null
       func()
-    }, 200)
+    }, 100)
   }
 }
 

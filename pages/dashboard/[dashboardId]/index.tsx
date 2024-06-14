@@ -1,6 +1,7 @@
 import { AppLayout, DashboardLayout } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { getColumnList } from '@/service/columns'
+import { closeModal } from '@/store/reducers/modalReducer'
 import throttle from '@/utils/throttle'
 import { useRouter } from 'next/router'
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
@@ -19,9 +20,12 @@ export default function Dashboard() {
 
   const getColumnsData = useCallback(async () => {
     if (typeof dashboardId === 'string') {
-      await dispatch(getColumnList(dashboardId))
+      const result = await dispatch(getColumnList(dashboardId))
+      if (result.meta.requestStatus === 'rejected') {
+        router.replace('/mydashboard')
+      }
     }
-  }, [dashboardId, dispatch])
+  }, [dashboardId, dispatch, router])
 
   const onAxisDragStart = (e: MouseEvent) => {
     preventUnexpectedEffects(e)
@@ -36,6 +40,7 @@ export default function Dashboard() {
     if (!isDrag) {
       return
     }
+
     throttle(() => {
       preventUnexpectedEffects(e)
       const scrollLeft = totalX - e.clientX
@@ -56,6 +61,10 @@ export default function Dashboard() {
       getColumnsData()
     }
   }, [dashboardId, getColumnsData])
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [dispatch])
 
   return (
     <AppLayout>
