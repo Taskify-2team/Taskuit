@@ -6,7 +6,9 @@ const INSTANCE_URL = axios.create({
 })
 
 const baseURL =
-  process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'http://localhost:3000/api'
+  process.env.NODE_ENV === 'production'
+    ? 'https://taskuit.vercel.app/'
+    : 'http://localhost:3000/api'
 
 export const TAG_URL = axios.create({
   baseURL,
