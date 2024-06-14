@@ -13,7 +13,7 @@ export default function SideMenuListItem({
   isFocused = false,
 }: SideMenuListItemProps) {
   const { theme } = useLoadTheme()
-  let sideMenuItemClass = `my-[2.7rem] flex items-center gap-[1.6rem] rounded-[0.4rem] pl-[1rem] sm:pl-0`
+  let sideMenuItemClass = `my-[0.5rem] py-[1.2rem] flex items-center gap-[1.6rem] rounded-[0.4rem] pl-[1rem] sm:pl-0`
   sideMenuItemClass += theme === 'normal' ? ' hover:bg-var-violet' : ' hover:bg-var-gray5'
 
   if (isFocused) {
@@ -26,7 +26,7 @@ export default function SideMenuListItem({
       <div className={sideMenuItemClass}>
         <CircleChip color={color} />
         <div
-          className={`ellipsis text-[1.8rem] sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
+          className={`ellipsis w-fit text-[1.8rem] sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}
         >
           {title}
         </div>
