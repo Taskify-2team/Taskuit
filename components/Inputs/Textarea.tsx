@@ -31,7 +31,7 @@ export default function Textarea({
         maxLength={250}
         className={`input-layout h-[9.6rem] resize-none ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
       />
-      <TextCounter text={String(value)} />
+      <TextCounter text={String(value)} length={250} />
     </InputLayout>
   )
 }

@@ -1,6 +1,7 @@
 import { AppLayout, DashboardLayout } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { getColumnList } from '@/service/columns'
+import throttle from '@/utils/throttle'
 import { useRouter } from 'next/router'
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 
@@ -32,14 +33,16 @@ export default function Dashboard() {
   }
 
   const onAxisDragMove = (e: MouseEvent) => {
-    preventUnexpectedEffects(e)
     if (!isDrag) {
       return
     }
-    const scrollLeft = totalX - e.clientX
-    if (scrollRef.current && 'scrollLeft' in scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollLeft
-    }
+    throttle(() => {
+      preventUnexpectedEffects(e)
+      const scrollLeft = totalX - e.clientX
+      if (scrollRef.current && 'scrollLeft' in scrollRef.current) {
+        scrollRef.current.scrollLeft = scrollLeft
+      }
+    })
   }
 
   const onAxisDragEnd = () => {
