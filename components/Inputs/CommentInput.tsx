@@ -47,7 +47,7 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
     <form onSubmit={handleSubmit}>
       <InputLayout id="comment" label="댓글" isSmallSize>
         <div>
-          <div className="relative">
+          <div className="relative h-fit">
             <textarea
               id="comment"
               value={content}
@@ -58,7 +58,9 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
             />
             <TextCounter text={content} length={250} />
           </div>
-          <ShortButton type="submit" text="입력" color="white" />
+          <div className="pt-[0.5rem]">
+            <ShortButton type="submit" text="입력" color="white" />
+          </div>
         </div>
       </InputLayout>
     </form>
