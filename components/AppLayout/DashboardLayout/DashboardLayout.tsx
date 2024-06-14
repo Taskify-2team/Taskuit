@@ -2,9 +2,11 @@ import { Card } from '@/types/dashboard'
 import { CreateColumnButton, DashBoardColumn } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
+import { getDbUserId } from '@/service/tag'
+import { useLoadUser } from '@/store/context/UserIdContext'
 
 interface DashboardLayoutProps {
   dashboardId: number
@@ -12,11 +14,13 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const { data: columnList } = useAppSelector((state) => state.column.columnList)
+  const { userId } = useLoadUser()
   const dispatch = useAppDispatch()
   const dragItem = useRef({ id: 0 })
   const baseColumn = useRef(0)
   const dragOverColumn = useRef(0)
   const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
+  const { userDbId } = useAppSelector((state) => state.tag)
 
   const dragStart = (card: Card, id: number) => {
     dragItem.current = card
@@ -40,6 +44,16 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
       dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))
     }
   }
+
+  const connectDbUserId = async () => {
+    await dispatch(getDbUserId({ userId }))
+  }
+
+  useEffect(() => {
+    if (!userDbId && userId) {
+      connectDbUserId()
+    }
+  }, [userId])
 
   return (
     <div className="flex overflow-auto">

@@ -13,8 +13,8 @@ export interface Tag {
 export const getTagList = createAsyncThunk(
   'tag/getTagList',
   async ({ userId, columnId }: { userId: number; columnId: number }) => {
-    const response = await TAG_URL.get(`/tags?userId=${userId}&columnId=${columnId}`)
-    return response.data
+    const { data } = await TAG_URL.get(`/tags?userId=${userId}&columnId=${columnId}`)
+    return camelcaseKeys(data.data, { deep: true })
   },
 )
 
@@ -31,18 +31,18 @@ export const postTag = createAsyncThunk(
     cardId: number
     tags: TagsType[]
   }) => {
-    const response = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, {
+    const { data } = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, {
       tags,
       cardId,
     })
-    return response.data
+    return camelcaseKeys(data.data, { deep: true })
   },
 )
 
 export const getDbUserId = createAsyncThunk(
-  'tag/getUserId',
+  'tag/getDbUserId',
   async ({ userId }: { userId: number }) => {
-    const response = await TAG_URL.post(`/users?userId=${userId}`)
-    return camelcaseKeys(response.data, { deep: true })
+    const { data } = await TAG_URL.post(`/users?userId=${userId}`)
+    return camelcaseKeys(data.data, { deep: true })
   },
 )

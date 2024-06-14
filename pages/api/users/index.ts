@@ -14,9 +14,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (!existingUser) {
           const newUser = await User.create({ userId })
-          res.status(200).send(newUser)
+          res.status(200).send({ data: newUser })
         } else {
-          res.status(200).send(existingUser)
+          res.status(200).send({ data: existingUser })
         }
         break
       }

@@ -91,10 +91,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     if (!postResult) return
 
     const { id } = postResult.data
-    const tagPostResult = await dispatch(
-      postTag({ userId: userDbId, columnId, cardId: id, tags: myTagBody }),
-    )
-    console.log(tagPostResult)
+    await dispatch(postTag({ userId: userDbId, columnId, cardId: id, tags: myTagBody }))
     dispatch(closeModal())
     refreshCardList()
     dispatch(openToast('successAddCard'))

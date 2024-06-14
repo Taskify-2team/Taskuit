@@ -5,6 +5,7 @@ import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
+import { getTagList } from '@/service/tag'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -23,6 +24,7 @@ export default function DashBoardColumn({
 }: DashBoardColumnProps) {
   const cardList = useAppSelector((state) => state.card.cardList[columnId])
   const cursorId = useAppSelector((state) => state.card.cursorId[columnId])
+  const { userDbId } = useAppSelector((state) => state.tag)
   const { cardListStatus } = useAppSelector((state) => state.card)
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
@@ -31,6 +33,7 @@ export default function DashBoardColumn({
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
       await dispatch(getCardList({ columnId, cursorId }))
+      // await dispatch(getTagList({ userId: userDbId, columnId }))
     }
   }, [columnId, getCardsRequest, cursorId])
 

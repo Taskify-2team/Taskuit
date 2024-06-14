@@ -5,12 +5,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface TagListType {
   tagList: any
-  userDbId: number
+  userDbId: string
 }
 
 const initialState: TagListType = {
   tagList: {},
-  userDbId: 0,
+  userDbId: '',
 }
 
 const tagSlice = createSlice({
