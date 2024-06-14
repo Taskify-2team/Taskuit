@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { CreateTodoButton, DashBoardCard, DashBoardColumnHeader } from '@/components'
-import { getCardList, getDashBoardCard } from '@/service/cards'
+import { getCardList } from '@/service/cards'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import useAsync from '@/hooks/useAsync'
 import { Card } from '@/types/dashboard'
@@ -9,6 +10,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { Tag, getTagList } from '@/service/tag'
 import { useDbId } from '@/store/context/DbIdContext'
 import findTag from '@/utils/findTag'
+import LoadingCard from './LoadingCard'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -33,14 +35,13 @@ export default function DashBoardColumn({
   const { dbId } = useDbId()
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const { requestFunction: getCardsRequest, pending } = useAsync(getDashBoardCard)
-  const { requestFunction: getTagListRequest } = useAsync(getTagList)
+  const { requestFunction: getTagListRequest, pending: pendingTag } = useAsync(getTagList)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
       await dispatch(getCardList({ columnId, cursorId }))
     }
-  }, [columnId, getCardsRequest, cursorId])
+  }, [columnId, getCardList, cursorId])
 
   const getTagsData = useCallback(async () => {
     if (dbId) {
@@ -58,7 +59,7 @@ export default function DashBoardColumn({
         getCardsData()
       }
     },
-    [getCardsData, pending],
+    [getCardsData, cardListStatus],
   )
 
   useEffect(() => {
@@ -78,7 +79,7 @@ export default function DashBoardColumn({
     return () => {
       observer.disconnect()
     }
-  }, [cursorId, pending, handleObserver])
+  }, [cursorId, cardListStatus, handleObserver])
 
   return (
     <section
@@ -101,26 +102,30 @@ export default function DashBoardColumn({
         className="w-full overflow-y-auto sm:!max-h-[50rem]"
         style={{ maxHeight: 'calc(100vh - 225px)' }}
       >
-        {cardList && (
-          <div className="flex flex-col gap-[1.6rem] sm:w-full sm:gap-[1rem]">
-            {cardList.length > 0 &&
-              cardList.map((cardItem: Card) => {
-                const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
-                return (
-                  <DashBoardCard
-                    key={cardItem.id}
-                    columnTitle={columnTitle}
-                    card={cardItem}
-                    columnId={columnId}
-                    dragStart={dragStart}
-                    drop={drop}
-                    tagList={tag}
-                  />
-                )
-              })}
-            <div style={{ height: '1px' }} ref={obsRef} />
-          </div>
-        )}
+        <div className="flex flex-col gap-[1.6rem] sm:w-full sm:gap-[1rem]">
+          {cardList?.length > 0 &&
+            cardList.map((cardItem: Card) => {
+              const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
+              return (
+                <>
+                  {pendingTag ? (
+                    <LoadingCard theme={theme} />
+                  ) : (
+                    <DashBoardCard
+                      key={cardItem.id}
+                      columnTitle={columnTitle}
+                      card={cardItem}
+                      columnId={columnId}
+                      dragStart={dragStart}
+                      drop={drop}
+                      tagList={tag}
+                    />
+                  )}
+                </>
+              )
+            })}
+          <div style={{ height: '1px' }} ref={obsRef} />
+        </div>
       </div>
     </section>
   )

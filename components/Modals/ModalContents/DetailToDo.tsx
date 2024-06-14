@@ -22,7 +22,7 @@ import { Tag } from '@/service/tag'
 export interface ToDoDetailProps {
   card: Card
   columnTitle: string
-  tags: Tag[]
+  tags?: Tag[]
 }
 
 export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps) {
@@ -152,9 +152,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
           <ProgressChip progress={columnTitle} />
           <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
           <ul className="flex gap-[0.6rem]">
-            {tags.map((tag) => (
-              <TagChip key={tag.text} tag={tag} />
-            ))}
+            {tags && tags.map((tag) => <TagChip key={tag.text} tag={tag} />)}
           </ul>
         </div>
         <p
