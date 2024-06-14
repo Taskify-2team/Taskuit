@@ -8,6 +8,7 @@ import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { getDbUserId, getTagList, updateTags } from '@/service/tag'
 import { useLoadUser } from '@/store/context/UserIdContext'
 import findTag from '@/utils/findTag'
+import useAsync from '@/hooks/useAsync'
 
 interface DashboardLayoutProps {
   dashboardId: number
@@ -15,14 +16,14 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const { data: columnList } = useAppSelector((state) => state.column.columnList)
+  const { requestFunction: updateTagsRequest } = useAsync(updateTags)
+  const { requestFunction: getTagListRequest } = useAsync(getTagList)
   const { userId } = useLoadUser()
   const dispatch = useAppDispatch()
   const dragItem = useRef({ id: 0 })
   const baseColumn = useRef(0)
   const dragOverColumn = useRef(0)
   const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
-  const { userDbId } = useAppSelector((state) => state.tag)
-  const cardTags = useAppSelector((state) => state.tag.tagList[baseColumn.current])
 
   const dragStart = (card: Card, id: number) => {
     dragItem.current = card
@@ -42,20 +43,13 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
         }),
       )
 
-      await dispatch(
-        updateTags({
-          userId: userDbId,
-          columnId: dragOverColumn.current,
-          cardId: dragItem.current.id,
-          tags: findTag({ cardTags, cardId: dragItem.current.id }),
-        }),
-      )
-      const result = await dispatch(
-        getTagList({
-          userId: userDbId,
-          columnId: dragOverColumn.current,
-        }),
-      )
+      await updateTagsRequest({
+        userId: userDbId,
+        columnId: dragOverColumn.current,
+        cardId: dragItem.current.id,
+        tags: findTag({ cardTags, cardId: dragItem.current.id }),
+      })
+      await getTagListRequest({ userId: userDbId, columnId: dragOverColumn.current })
       await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))
       dispatch(orderingCardList({ columnId: dragOverColumn.current }))
       dispatch(deleteCardItem({ cardId: dragItem.current.id, columnId: baseColumn.current }))

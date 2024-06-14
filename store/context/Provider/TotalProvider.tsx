@@ -1,4 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react'
+import useAsync from '@/hooks/useAsync'
+import { getDbUserId } from '@/service/tag'
 import { getUserInfo } from '@/service/users'
 import { UserContext } from '../UserIdContext'
 import { LanguageContext } from '../LanguageContext'
@@ -6,8 +8,10 @@ import { ThemeContext } from '../ThemeContext'
 
 export default function TotalProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState(0)
+  const [dbId, setDbId] = useState('')
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
+  const { requestFunction: getDbId } = useAsync(getDbUserId)
 
   useEffect(() => {
     const loadUser = async () => {
@@ -18,6 +22,16 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       loadUser()
     }
   }, [])
+
+  useEffect(() => {
+    const loadDbId = async () => {
+      const result = await getDbId({ userId })
+      setDbId(result.id)
+    }
+    if (userId) {
+      loadDbId()
+    }
+  }, [userId])
 
   useEffect(() => {
     const data = localStorage.getItem('language')
