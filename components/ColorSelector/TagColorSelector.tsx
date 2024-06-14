@@ -1,24 +1,57 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+
 interface TagColorSelectorProps {
-  onMouseLeave: () => void
+  idx: number
+  onClose: () => void
+  setMyTagBody: Dispatch<SetStateAction<any>>
 }
 
-export default function TagColorSelector({ onMouseLeave }: TagColorSelectorProps) {
+export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColorSelectorProps) {
+  const colorPickerRef = useRef<HTMLUListElement>(null)
   const tagColor = [
-    { bg: '#F9EEE3', text: '#D58D49' },
-    { bg: '#F7DBF0', text: '#D549B6' },
-    { bg: '#DBE6F7', text: '#4981D5' },
-    { bg: '#E7F7DB', text: '#86D549' },
+    { color: '#D58D49' },
+    { color: '#D549B6' },
+    { color: '#4981D5' },
+    { color: '#86D549' },
   ]
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (colorPickerRef.current && !colorPickerRef.current.contains(e.target as Node)) {
+      onClose()
+    }
+  }
+
+  const handleCustomColor = (preparedColor) => {
+    setMyTagBody((prev) => {
+      const updatedTags = prev.map((tag, i) =>
+        i === idx ? { text: tag.text, color: tagColor[preparedColor].color } : tag,
+      )
+      return updatedTags
+    })
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [])
   return (
     <ul
-      onMouseLeave={onMouseLeave}
+      ref={colorPickerRef}
       className="flex animate-slideDown gap-[1.2rem] rounded-[0.6rem] border border-var-gray3 bg-var-white p-[1rem] shadow-lg"
     >
-      <li className="size-[4rem] cursor-pointer rounded-[1rem] bg-[#F9EEE3]" />
-      <li className="size-[4rem] cursor-pointer rounded-[1rem] bg-[#E7F7DB]" />
-      <li className="size-[4rem] cursor-pointer rounded-[1rem] bg-[#F7DBF0]" />
-      <li className="size-[4rem] cursor-pointer rounded-[1rem] bg-[#DBE6F7]" />
-      <li className="absolute left-1/2 top-[-1rem] size-[2rem] translate-x-[-1.4rem] rotate-45 border-l border-t border-var-gray3 bg-var-white" />
+      {tagColor.map((color, i) => (
+        <li
+          key={i}
+          onClick={() => handleCustomColor(i)}
+          className="size-[2rem] cursor-pointer rounded-[1rem]"
+          style={{ backgroundColor: color.color }}
+        />
+      ))}
+      <li className="absolute left-[1.9rem] top-[-0.8rem] size-[1.5rem] translate-x-[-1.4rem] rotate-45 border-l border-t border-var-gray3 bg-var-white" />
     </ul>
   )
 }

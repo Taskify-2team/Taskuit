@@ -1,22 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import Image from 'next/image'
 import cancelBtn from '@/public/icons/cancel.svg'
-import { MouseEventHandler, useState } from 'react'
+import { Dispatch, MouseEventHandler, SetStateAction, useState } from 'react'
+import hexToRgb from '@/utils/hexToRgb'
 import TagColorSelector from '../ColorSelector/TagColorSelector'
+import { TagsType } from '../Modals/ModalContents/EditToDo'
 
 interface TagChipProps {
-  tag: string
+  tag: TagsType
+  idx: number
   onDelete?: MouseEventHandler<HTMLButtonElement>
+  setMyTagBody: Dispatch<SetStateAction<any>>
 }
 
-export default function TagChip({ tag, onDelete }: TagChipProps) {
+export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipProps) {
   const [customColor, setCustomColor] = useState(false)
-  const tagColor = [
-    { bg: '#F9EEE3', text: '#D58D49' },
-    { bg: '#F7DBF0', text: '#D549B6' },
-    { bg: '#DBE6F7', text: '#4981D5' },
-    { bg: '#E7F7DB', text: '#86D549' },
-  ]
+  const { r, g, b } = hexToRgb(tag.color)
 
   const handleOpenCustomColor = () => {
     if (onDelete) setCustomColor(true)
@@ -26,14 +26,15 @@ export default function TagChip({ tag, onDelete }: TagChipProps) {
     if (onDelete) setCustomColor(false)
   }
 
-  const randomPick = Math.floor(Math.random() * 4)
   return (
     <li
       onClick={handleOpenCustomColor}
       className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
-      style={{ backgroundColor: tagColor[randomPick].bg, color: tagColor[randomPick].text }}
+      style={{ backgroundColor: `rgba(${r},${g},${b}, 0.18)` }}
     >
-      {tag}
+      <div className="text-[1.2rem]" style={{ color: tag.color }}>
+        {tag.text}
+      </div>
       {onDelete && (
         <button
           onClick={onDelete}
@@ -45,8 +46,14 @@ export default function TagChip({ tag, onDelete }: TagChipProps) {
           </div>
         </button>
       )}
-      <div className="absolute bottom-[-7.28rem] left-[-9rem] z-50">
-        {customColor && <TagColorSelector onMouseLeave={handleCloseCustomColor} />}
+      <div className="absolute bottom-[-5.5rem] left-0 z-50">
+        {customColor && (
+          <TagColorSelector
+            setMyTagBody={setMyTagBody}
+            idx={idx}
+            onClose={handleCloseCustomColor}
+          />
+        )}
       </div>
     </li>
   )

@@ -14,6 +14,7 @@ import useAsync from '@/hooks/useAsync'
 import { getCardList, updateCard } from '@/service/cards'
 import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
+import { postTag } from '@/service/tag'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadUser } from '@/store/context/UserIdContext'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
@@ -28,10 +29,15 @@ export interface EditToDoProps {
   columnTitle: string
 }
 
+export interface TagsType {
+  text: string
+  color: string
+}
+
 export default function EditToDo({ columnTitle, card }: EditToDoProps) {
   const router = useRouter()
   const cursorId = useAppSelector((state) => state.card.cursorId[card.columnId])
-  const tagList = useAppSelector((state) => state.tag.tagList[card.columnId][card.id])
+  const tagList = useAppSelector((state) => state.tag.tagList[card.columnId]?.[card.id]) || []
   const dispatch = useAppDispatch()
   const { requestFunction: updateCardImage } = useAsync(postCardImage)
   const { requestFunction: getMembers } = useAsync(getMemberList)
@@ -51,12 +57,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     tags: [], // 안쓸수도 쓸수도
     imageUrl: card.imageUrl || null,
   })
-  const [myTagBody, setMyTagBody] = useState({
-    userId,
-    columnId: card.columnId,
-    cardId: card.id,
-    tags: tagList,
-  })
+  const [myTagBody, setMyTagBody] = useState<TagsType[]>([])
   const { dashboardId } = router.query
 
   const getMembersRequest = useCallback(async () => {
@@ -91,6 +92,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
     if (card.columnId !== newCardBody.columnId) {
       dispatch(deleteCardItem({ cardId: card.id, columnId: card.columnId }))
     }
+    await dispatch(postTag(myTagBody))
     await dispatch(getCardList({ cursorId: Number(cursorId), columnId: card.columnId }))
     dispatch(orderingCardList({ columnId: newCardBody.columnId }))
     dispatch(openToast('successUpdateCard'))
@@ -174,7 +176,7 @@ export default function EditToDo({ columnTitle, card }: EditToDoProps) {
         onChange={setDueDate}
         isRequired
       />
-      <TagInput id="tag" label="태그" tagList={myTagBody} setTagList={setMyTagBody} />
+      <TagInput id="tag" label="태그" myTagBody={myTagBody.tags} setMyTagBody={setMyTagBody} />
       <ImageInput
         id="image"
         label="이미지"

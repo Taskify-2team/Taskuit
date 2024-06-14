@@ -4,9 +4,24 @@ Content-Type: application/json
 {
   "user": "666ab8a2592ccb79541c8158",
   "columnId": 30833,
+  "cardId": 7939,
+  "tags": [
+    {"text": "야호오", "color": "#76a5ea"}, {"text": "우리야", "color": "#ffffff"}
+  ]
+}
+
+###
+
+PUT http://localhost:3000/api/tags?userId=666ab8a2592ccb79541c8158&columnId=30833
+Content-Type: application/json
+
+{
+  "user": "666ab8a2592ccb79541c8158",
+  "columnId": 30833,
   "cardId": 7940,
-  "text": "야호오",
-  "color": "#76a5ea"
+  "tags": [
+    {"text": "fghfgh", "color": "#76a5ea"}, {"text": "sdfnsd", "color": "#ffffff"}
+  ]
 }
 
 ###

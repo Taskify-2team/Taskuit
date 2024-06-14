@@ -11,15 +11,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (req.method) {
       case 'POST': {
-        const { cardId, text, color } = req.body
+        const { cardId, tags } = req.body
         const newTag = await Tag.create({
           columnId,
           cardId,
-          text,
-          color,
+          tags,
           user: userId,
         })
         res.status(201).send({ data: newTag })
+        break
+      }
+
+      case 'PUT': {
+        const { cardId, tags } = req.body
+        const updateTag = await Tag.findOneAndUpdate({ user: userId, columnId, cardId }, { tags })
+        res.status(201).send({ data: updateTag })
         break
       }
 

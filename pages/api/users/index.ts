@@ -6,7 +6,7 @@ import User from '@/db/models/user'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   cors(req, res, async () => {
     await dbConnect()
-    const { userId } = req.body
+    const { userId } = req.query
 
     switch (req.method) {
       case 'POST': {
@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           const newUser = await User.create({ userId })
           res.status(200).send(newUser)
         } else {
-          res.status(409).send({ message: '이미 존재하는 회원입니다.' })
+          res.status(200).send(existingUser)
         }
         break
       }

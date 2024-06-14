@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   InputHTMLAttributes,
@@ -10,18 +11,19 @@ import {
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
+import { TagsType } from '../Modals/ModalContents/EditToDo'
 
 interface TagInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   isRequired?: boolean
-  tagList?: string[]
-  setTagList: Dispatch<SetStateAction<any>>
+  myTagBody?: TagsType[]
+  setMyTagBody: Dispatch<SetStateAction<any>>
 }
 
 export default function TagInput({
   id,
-  tagList = [],
-  setTagList,
+  myTagBody,
+  setMyTagBody,
   label,
   isRequired,
 }: TagInputProps) {
@@ -31,12 +33,9 @@ export default function TagInput({
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      if (e.nativeEvent.isComposing) return
+      if (e.nativeEvent.isComposing || !text) return
       setText('')
-      setTagList((prev: any) => ({
-        ...prev,
-        tags: [...(prev.tags || []), text],
-      }))
+      setMyTagBody((prev: any) => [...prev, { text, color: '#4981D5' }])
     }
     if (e.key === ' ') {
       e.preventDefault()
@@ -44,12 +43,9 @@ export default function TagInput({
   }
 
   const handleDelete = (idx: number) => {
-    const filterTag = tagList?.filter((tag) => tag !== tagList[idx])
+    const filterTag = myTagBody?.filter((tag) => tag !== myTagBody[idx])
 
-    setTagList((prev: any) => ({
-      ...prev,
-      tags: filterTag,
-    }))
+    setMyTagBody(filterTag)
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,9 +57,16 @@ export default function TagInput({
       <div
         className={`input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1'}`}
       >
-        {tagList.length > 0 &&
-          tagList.map((tag, idx) => (
-            <TagChip key={tag} tag={tag} onDelete={() => handleDelete(idx)} />
+        {myTagBody &&
+          myTagBody.length > 0 &&
+          myTagBody?.map((tag, idx) => (
+            <TagChip
+              key={idx}
+              tag={tag}
+              idx={idx}
+              setMyTagBody={setMyTagBody}
+              onDelete={() => handleDelete(idx)}
+            />
           ))}
         <input
           id={id}

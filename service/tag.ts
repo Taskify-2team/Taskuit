@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TagsType } from '@/components/Modals/ModalContents/EditToDo'
 import { TAG_URL } from '@/service/instance'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import camelcaseKeys from 'camelcase-keys'
 
 export interface Tag {
   cardId: number
@@ -22,20 +24,25 @@ export const postTag = createAsyncThunk(
     userId,
     columnId,
     cardId,
-    text,
-    color,
+    tags,
   }: {
     userId: number
     columnId: number
     cardId: number
-    text: string
-    color: string
+    tags: TagsType[]
   }) => {
     const response = await TAG_URL.post(`/tags?userId=${userId}&columnId=${columnId}`, {
-      text,
-      color,
+      tags,
       cardId,
     })
     return response.data
+  },
+)
+
+export const getDbUserId = createAsyncThunk(
+  'tag/getUserId',
+  async ({ userId }: { userId: number }) => {
+    const response = await TAG_URL.post(`/users?userId=${userId}`)
+    return camelcaseKeys(response.data, { deep: true })
   },
 )

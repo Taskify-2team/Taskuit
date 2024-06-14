@@ -4,6 +4,7 @@ import modalReducer from './reducers/modalReducer'
 import myToastReducer from './reducers/myToastReducer'
 import columnReducer from './reducers/columnReducer'
 import cardReducer from './reducers/cardReducer'
+import tagReducer from './reducers/tagReducer'
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     myToast: myToastReducer,
     column: columnReducer,
     card: cardReducer,
+    tag: tagReducer,
   },
 })
 
