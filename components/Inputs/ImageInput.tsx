@@ -43,7 +43,7 @@ export default function ImageInput({
       <div
         onMouseEnter={() => setOnMouse(true)}
         onMouseLeave={() => setOnMouse(false)}
-        className={`${size === 'm' ? 'size-[18.2rem]' : 'size-[7.6rem]'} relative flex size-[18.2rem] shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] ${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-image-hover' : 'bg-var-black1 hover:bg-var-gray5'}`}
+        className={`${size === 'm' ? 'size-[18.2rem] sm:size-[10rem]' : 'size-[7.6rem]'} relative flex size-[18.2rem] shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] ${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-image-hover' : 'bg-var-black1 hover:bg-var-gray5'}`}
       >
         {onMouse && (
           <div className="relative size-[3rem]">

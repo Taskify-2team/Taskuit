@@ -80,7 +80,7 @@ export default function DashBoardColumn({
 
   return (
     <section
-      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem]"
+      className="flex w-[35.4rem] flex-col gap-[1.6rem] border-r border-r-var-gray2 p-[2rem] sm:w-full sm:gap-[1rem] sm:border-b sm:px-[1.2rem] sm:py-[1.7rem]"
       onDragEnter={() => dragEnter(columnId)}
       onDragOver={(e) => e.preventDefault()}
     >
@@ -95,26 +95,31 @@ export default function DashBoardColumn({
           )
         }
       />
-      {cardList && (
-        <div className="flex flex-col gap-[1.6rem]">
-          {cardList.length > 0 &&
-            cardList.map((cardItem: Card) => {
-              const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
-              return (
-                <DashBoardCard
-                  key={cardItem.id}
-                  columnTitle={columnTitle}
-                  card={cardItem}
-                  columnId={columnId}
-                  dragStart={dragStart}
-                  drop={drop}
-                  tagList={tag}
-                />
-              )
-            })}
-          <div ref={obsRef} />
-        </div>
-      )}
+      <div
+        className="w-full overflow-y-auto sm:!max-h-[50rem]"
+        style={{ maxHeight: 'calc(100vh - 225px)' }}
+      >
+        {cardList && (
+          <div className="flex flex-col gap-[1.6rem] sm:w-full sm:gap-[1rem]">
+            {cardList.length > 0 &&
+              cardList.map((cardItem: Card) => {
+                const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
+                return (
+                  <DashBoardCard
+                    key={cardItem.id}
+                    columnTitle={columnTitle}
+                    card={cardItem}
+                    columnId={columnId}
+                    dragStart={dragStart}
+                    drop={drop}
+                    tagList={tag}
+                  />
+                )
+              })}
+            <div style={{ height: '1px' }} ref={obsRef} />
+          </div>
+        )}
+      </div>
     </section>
   )
 }

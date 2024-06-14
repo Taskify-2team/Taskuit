@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { Tag } from '@/service/tag'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
 
@@ -47,6 +48,15 @@ export default function TagInput({
     if (filterTag) {
       setMyTagBody(filterTag)
     }
+  }
+
+  const handleDelete = (idx: number) => {
+    const filterTag = tagList?.filter((tag) => tag !== tagList[idx])
+
+    setTagList((prev: any) => ({
+      ...prev,
+      tags: filterTag,
+    }))
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

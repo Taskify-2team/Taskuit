@@ -22,6 +22,7 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDbId } from '@/store/context/DbIdContext'
 import { postTag } from '@/service/tag'
 import { TagsType } from './EditToDo'
+import TextCounter from '@/components/TextCounter/TextCounter'
 
 export interface AddToDoProps {
   columnId: number
@@ -108,8 +109,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }, [assigneeUserId, dueDate, setCardBody])
 
   useEffect(() => {
-    getMembersRequest()
-  }, [getMembersRequest])
+    if (dashboardId) {
+      getMembersRequest()
+    }
+  }, [dashboardId, getMembersRequest])
 
   return (
     <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>
@@ -122,15 +125,18 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         memberList={members}
         setManager={setAssigneeUserId}
       />
-      <TextInput
-        label="제목"
-        isRequired
-        name="title"
-        id="title"
-        value={cardBody.title}
-        placeholder="제목을 입력해 주세요."
-        onChange={handleChange}
-      />
+      <div className="relative">
+        <TextInput
+          label="제목"
+          isRequired
+          name="title"
+          id="title"
+          value={cardBody.title}
+          placeholder="제목을 입력해 주세요."
+          onChange={handleChange}
+        />
+        <TextCounter text={cardBody.title} length={20} />
+      </div>
       <Textarea
         label="설명"
         isRequired

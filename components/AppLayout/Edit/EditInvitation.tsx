@@ -8,9 +8,9 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
 import useAsync from '@/hooks/useAsync'
-import { PaginationButton, ShortButton } from '..'
-import EmptyInvite from '../EmptyInvite/EmptyInvite'
-import Loading from '../Loading/Loading'
+import { PaginationButton, ShortButton } from '../..'
+import EmptyInvite from '../MyDashboard/EmptyInvite'
+import Loading from '../../Loading/Loading'
 
 export default function EditInvitation() {
   const [inviteList, setInviteList] = useState<Invitation[]>([])
@@ -47,6 +47,7 @@ export default function EditInvitation() {
       }
     }
     handleLoadList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, dashboardId])
 
   return (
@@ -57,7 +58,7 @@ export default function EditInvitation() {
         </ModalPortal>
       )}
       <div
-        className={`flex w-[62rem] flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
+        className={`flex w-[62rem] max-w-full flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
       >
         <div className="flex items-center justify-between">
           <p
@@ -65,7 +66,7 @@ export default function EditInvitation() {
           >
             초대 내역
           </p>
-          <div className="flex items-center justify-end gap-[1.6rem]">
+          <div className="flex items-center justify-end gap-[1.6rem] sm:relative">
             <div
               className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
             >
@@ -88,6 +89,7 @@ export default function EditInvitation() {
                   }),
                 )
               }}
+              className="sm:absolute sm:top-[6.5rem]"
             />
           </div>
         </div>

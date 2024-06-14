@@ -6,6 +6,7 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { Comment } from '@/types/dashboard'
 import ShortButton from '../Buttons/ShortButton'
 import InputLayout from './InputLayout'
+import TextCounter from '../TextCounter/TextCounter'
 
 interface CommentInputProps {
   cardId: number
@@ -45,15 +46,19 @@ export default function CommentInput({ cardId, columnId, onAdd }: CommentInputPr
   return (
     <form onSubmit={handleSubmit}>
       <InputLayout id="comment" label="댓글" isSmallSize>
-        <div className="relative">
-          <textarea
-            id="comment"
-            value={content}
-            onChange={handleChange}
-            placeholder="댓글 작성하기"
-            className={`input-layout h-[13.9rem] w-full resize-none text-[1.4rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
-          />
-          <div className="absolute bottom-[1.2rem] right-[1.2rem]">
+        <div>
+          <div className="relative h-fit">
+            <textarea
+              id="comment"
+              value={content}
+              onChange={handleChange}
+              placeholder="댓글 작성하기"
+              className={`input-layout h-[13.9rem] w-full resize-none text-[1.4rem] sm:h-[7rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
+              maxLength={250}
+            />
+            <TextCounter text={content} length={250} />
+          </div>
+          <div className="pt-[0.5rem]">
             <ShortButton type="submit" text="입력" color="white" />
           </div>
         </div>

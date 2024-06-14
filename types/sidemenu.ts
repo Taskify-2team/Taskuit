@@ -3,6 +3,7 @@ export interface SideMenuListItemProps {
   color: string
   title: string
   createdByMe: boolean
+  isFocused: boolean
 }
 
 export interface DashBoardProps {

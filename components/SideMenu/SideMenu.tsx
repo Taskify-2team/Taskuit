@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import logoIcon from '@/public/images/taskuitLogo_main.png'
 import adddashboardicon from '@/public/icons/adddashboardicon.svg'
@@ -50,7 +51,7 @@ export default function SideMenu() {
     <div
       className={`fixed z-50 flex h-[100vh] w-[30rem] flex-col border-r-2 ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black3 bg-var-black2'} px-[2.4rem] pt-[2rem] sm:w-[6.7rem] sm:items-center sm:px-[1rem] md:w-[16rem] md:px-[1.3rem]`}
     >
-      <div className="flex items-center gap-[0.5rem]">
+      <Link href="/mydashboard" className="flex w-fit items-center gap-[0.5rem]">
         <Image
           src={logoIcon}
           alt="Taskify 로고 아이콘"
@@ -59,7 +60,7 @@ export default function SideMenu() {
         <p className="text-center font-[Logo] text-[3rem] font-bold text-primary-violet sm:hidden md:text-[2.5rem]">
           Taskuit
         </p>
-      </div>
+      </Link>
       <div className="mt-[4rem] flex justify-between">
         <p
           className={`text-[1.5rem] font-bold sm:hidden ${theme === 'normal' ? `text-var-gray5` : `text-white`}`}

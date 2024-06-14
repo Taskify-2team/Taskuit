@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
+import { useEffect } from 'react'
 import modalList from './ModalTypeList'
 
 export default function ModalLayout() {
@@ -8,6 +9,15 @@ export default function ModalLayout() {
 
   const findModal = modalList.get(modalName)
   const renderModal = findModal ? findModal({ ...modalProps }) : ''
+
+  useEffect(() => {
+    if (modalName) {
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [modalName])
 
   if (!modalName) return null
 

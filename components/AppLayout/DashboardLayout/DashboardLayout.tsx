@@ -2,7 +2,7 @@ import { Card } from '@/types/dashboard'
 import { CreateColumnButton, DashBoardColumn } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import { useRef } from 'react'
+import { Dispatch, SetStateAction, useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { Tag, updateTags } from '@/service/tag'
@@ -11,9 +11,10 @@ import { useDbId } from '@/store/context/DbIdContext'
 
 interface DashboardLayoutProps {
   dashboardId: number
+  setIsDrag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
+export default function DashboardLayout({ dashboardId, setIsDrag }: DashboardLayoutProps) {
   const { data: columnList } = useAppSelector((state) => state.column.columnList)
   const { requestFunction: updateTagsRequest } = useAsync(updateTags)
   const { dbId } = useDbId()
@@ -25,6 +26,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
 
   const dragStart = (card: Card, id: number, tags: Tag[]) => {
+    setIsDrag(false)
     dragItem.current = card
     baseColumn.current = id
     dragItemTags.current = tags
@@ -56,7 +58,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex overflow-auto">
+    <div className="flex sm:w-full sm:flex-col">
       {columnList?.map((column) => (
         <DashBoardColumn
           key={column.id}
@@ -67,7 +69,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
           drop={drop}
         />
       ))}
-      <section className="w-[35.4rem] p-[2rem] pt-[7.2rem]">
+      <section className="p-[2rem] pt-[7.2rem] sm:px-[1.2rem] sm:pt-[1.2rem]">
         <CreateColumnButton
           onClick={() => {
             dispatch(openModal({ modalName: 'AddColumn', modalProps: { dashboardId } }))

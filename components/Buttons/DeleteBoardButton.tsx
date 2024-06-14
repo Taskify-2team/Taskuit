@@ -8,7 +8,7 @@ export default function DeleteBoardButton({ onClick }: DeleteButtonProps) {
 
   return (
     <button
-      className={`flex h-[6.2rem] w-[32rem] cursor-pointer items-center justify-center rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white text-var-black4' : 'border-var-black1 bg-var-black1 text-var-gray3'} text-[1.8rem] font-medium`}
+      className={`flex h-[6.2rem] w-[32rem] cursor-pointer items-center justify-center rounded-[0.6rem] border border-solid sm:w-full ${theme === 'normal' ? 'border-var-gray3 bg-var-white text-var-black4' : 'border-var-black1 bg-var-black1 text-var-gray3'} text-[1.8rem] font-medium`}
       onClick={onClick}
       type="button"
     >

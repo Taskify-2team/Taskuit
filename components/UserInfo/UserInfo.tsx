@@ -2,7 +2,12 @@ import { UserInfoProps } from '@/types/header'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import UserProfile from './UserProfile'
 
-export default function UserInfo({ profileImageUrl, nickname, size = 'l' }: UserInfoProps) {
+export default function UserInfo({
+  profileImageUrl,
+  nickname,
+  size = 'l',
+  isHeader,
+}: UserInfoProps) {
   const { theme } = useLoadTheme()
 
   const SIZE = {
@@ -21,7 +26,7 @@ export default function UserInfo({ profileImageUrl, nickname, size = 'l' }: User
       <UserProfile profileImageUrl={profileImageUrl} nickname={nickname} size={size} />
       <p
         style={SIZE[size].fontSize}
-        className={`${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        className={`${isHeader ? 'sm:hidden' : ''} ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
         {nickname}
       </p>

@@ -126,13 +126,16 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   }, [getMembersRequest])
 
   return (
-    <form className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`} onSubmit={handleSubmit}>
+    <form
+      className={`modal-layout ${theme === 'dark' ? 'bg-var-black2' : ''}`}
+      onSubmit={handleSubmit}
+    >
       <h3
         className={`text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
         할 일 수정
       </h3>
-      <div className="flex gap-[1rem]">
+      <div className="flex gap-[1rem] sm:flex-col sm:gap-[2.4rem]">
         <div className="flex-1">
           <DropDownMenu
             id="progress"

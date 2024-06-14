@@ -140,9 +140,10 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
           <Image src={closeIcon} alt="케밥" width={32} height={32} />
         </button>
       </div>
-      <div className="relative pr-[22.4rem]">
+      <div className="relative pr-[22.4rem] sm:pr-0">
         <h3
           className={`mb-[2.4rem] text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+          style={{ maxWidth: 'calc(100% - 100px)', overflowWrap: 'break-word' }}
         >
           {card.title}
         </h3>

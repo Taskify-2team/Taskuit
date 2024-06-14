@@ -6,8 +6,8 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
-import { BoardButton, CreateBoardButton, PaginationButton } from '..'
-import Loading from '../Loading/Loading'
+import { BoardButton, CreateBoardButton, PaginationButton } from '../..'
+import Loading from '../../Loading/Loading'
 
 export default function MyDashBoardList() {
   const [dashBoardPage, setDashBoardPage] = useState(0)
@@ -26,7 +26,7 @@ export default function MyDashBoardList() {
   }
 
   const createBoard = () => {
-    dispatch(openModal({ modalName: 'AddDashBoard', modalProps: { dashBoard, setDashBoard } }))
+    dispatch(openModal({ modalName: 'AddDashBoard' }))
   }
 
   useEffect(() => {

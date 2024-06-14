@@ -13,6 +13,7 @@ interface AuthInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: () => void
   error?: FieldError | undefined
+  theme: string
 }
 
 export default function AuthInput({
@@ -24,6 +25,7 @@ export default function AuthInput({
   onChange,
   onBlur,
   error,
+  theme,
 }: AuthInputProps) {
   const [showPassword, setShowPassword] = useState(false)
   const inputType = type === 'password' && showPassword ? 'text' : type
@@ -33,16 +35,19 @@ export default function AuthInput({
   }
 
   return (
-    <label htmlFor={id} className="relative flex flex-col gap-[0.8rem]">
+    <label
+      htmlFor={id}
+      className={`relative flex flex-col gap-[0.8rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}
+    >
       <span className="text-[1.6rem] leading-tight">{label}</span>
       <input
         id={id}
         type={inputType}
         placeholder={placeholder}
-        value={value} // 수정: value prop 설정
+        value={value}
         onChange={onChange}
         onBlur={onBlur}
-        className={`rounded-[0.8rem] ${error ? 'border-var-red' : 'border-var-gray3 focus:border-primary-violet'} border-[0.1rem] px-[1.6rem] py-[1.5rem] text-[1.6rem] outline-none`}
+        className={`rounded-[0.8rem] text-black ${error ? 'border-var-red' : 'border-var-gray3 focus:border-primary-violet'} border-[0.1rem] px-[1.6rem] py-[1.5rem] text-[1.6rem] outline-none ${theme === 'normal' ? 'bg-white' : 'bg-var-gray2'}`}
       />
       {type === 'password' && (
         <button

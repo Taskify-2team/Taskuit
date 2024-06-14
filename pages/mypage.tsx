@@ -1,7 +1,9 @@
 import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
+import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updatePassword } from '@/service/auth'
 import { getUserInfo, postProfileImage, updateUserProfile } from '@/service/users'
+import { closeModal } from '@/store/reducers/modalReducer'
 import { FormEvent, useEffect, useState } from 'react'
 
 export interface ProfileBody {
@@ -34,6 +36,7 @@ export default function MyPage() {
     result: updatePasswordResult,
     requestFunction: updatePasswordRequest,
   } = useAsync(updatePassword)
+  const dispatch = useAppDispatch()
 
   const handleUserInfo = async () => {
     const res = await getUserInfoReq()
@@ -74,6 +77,10 @@ export default function MyPage() {
   useEffect(() => {
     handleUserInfo()
   }, [updateUserProfileResult])
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [dispatch])
 
   return (
     <AppLayout>

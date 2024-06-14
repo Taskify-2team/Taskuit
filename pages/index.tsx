@@ -122,7 +122,7 @@ export default function Home() {
             <div
               className={`m, relative h-[49.7rem] w-[55.2rem] overflow-hidden rounded-[0.8rem] ${pointCardImage}`}
             >
-              <Image src={mainSectionImage1} alt="대시보드 이미지" fill />
+              <Image src={mainSectionImage1} alt="대시보드 이미지" fill objectFit="cover" />
             </div>
           </div>
           <div

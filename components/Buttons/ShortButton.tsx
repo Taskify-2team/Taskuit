@@ -7,6 +7,8 @@ interface ShortButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color: 'white' | 'purple'
   isDisabled?: boolean
   link?: string
+  isGrowInMo?: boolean
+  className?: string
 }
 
 export default function ShortButton({
@@ -16,6 +18,8 @@ export default function ShortButton({
   onClick,
   isDisabled,
   link,
+  isGrowInMo,
+  className = '',
 }: ShortButtonProps) {
   const colorVariants = {
     white: 'border border-solid border-var-gray3 bg-var-white text-primary-violet',
@@ -38,7 +42,7 @@ export default function ShortButton({
       onClick={onClick}
       type={type}
       disabled={isDisabled}
-      className={`${isDisabled ? 'button-disabled' : colorVariants[color]} inline-block w-[8.4rem] cursor-pointer rounded-[0.4rem] py-[0.7rem] text-center text-[1.4rem] leading-tight`}
+      className={`${className} ${isGrowInMo ? 'sm:grow' : ''} ${isDisabled ? 'button-disabled' : colorVariants[color]} inline-block w-[8.4rem] cursor-pointer rounded-[0.4rem] py-[0.7rem] text-center text-[1.4rem] leading-tight sm:text-[1.2rem]`}
     >
       {text}
     </button>

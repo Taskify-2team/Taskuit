@@ -10,7 +10,7 @@ export default function CreateColumnButton({ onClick }: ButtonHTMLAttributes<HTM
     <button
       type="button"
       onClick={onClick}
-      className={`flex h-[7rem] w-[54.4rem] cursor-pointer items-center justify-center gap-[1.2rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'border-var-black2 bg-var-black2'} lg:w-[35.4rem]`}
+      className={`flex h-[7rem] w-[35.4rem] cursor-pointer items-center justify-center gap-[1.2rem] rounded-[0.6rem] border border-solid sm:w-full ${theme === 'normal' ? 'bg-var-white' : 'border-var-black2 bg-var-black2'} lg:w-[35.4rem]`}
     >
       <p
         className={`text-nowrap text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black' : 'text-var-white'}`}

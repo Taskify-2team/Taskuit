@@ -1,14 +1,20 @@
-import { AppLayout } from '@/components'
-import InviteList from '@/components/InviteList/InviteList'
-import MyDashBoardList from '@/components/MyDashBoardList/MyDashBoardList'
+import { AppLayout, MyDashBoardList, InviteList } from '@/components'
+import { useAppDispatch } from '@/hooks/useApp'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { closeModal } from '@/store/reducers/modalReducer'
+import { useEffect } from 'react'
 
 export default function MyDashBoard() {
   const { theme } = useLoadTheme()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(closeModal())
+  }, [dispatch])
 
   return (
     <AppLayout>
-      <div className="mx-auto my-0 flex w-[102.2rem] flex-col p-[2rem]">
+      <div className="flex w-[102.2rem] max-w-[calc(100vw-30rem)] flex-col p-[2rem] sm:max-w-[calc(100vw-6.7rem)] md:max-w-[calc(100vw-16rem)]">
         <MyDashBoardList />
         <div
           className={`mt-[3rem] flex w-full flex-col gap-[2rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} px-[2.8rem] py-[3rem]`}

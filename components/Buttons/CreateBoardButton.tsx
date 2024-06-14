@@ -7,7 +7,7 @@ export default function CreateBoardButton({ handleClick }: { handleClick: () => 
 
   return (
     <div
-      className={`flex h-[7rem] w-[33.2rem] cursor-pointer items-center justify-center gap-[1.2rem] rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'bg-var-white' : 'border-var-black2 bg-var-black2'}`}
+      className={`flex h-[7rem] w-[calc((100%-2.6rem)/3)] cursor-pointer items-center justify-center gap-[1.2rem] rounded-[0.6rem] border border-solid sm:h-[5.8rem] sm:w-full md:w-[calc((100%-2.6rem)/2)] ${theme === 'normal' ? 'bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       onClick={handleClick}
     >
       <p

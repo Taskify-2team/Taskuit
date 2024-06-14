@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         'primary-violet': '#1A57C9',
-        'var-violet': '#d3f8ff',
+        'var-violet': '#e7f0ff',
         'var-red': '#d6173a',
         'var-green': '#7ac555',
         'var-purple': '#760dde',
@@ -61,9 +61,12 @@ const config: Config = {
         spin: 'spin 2s linear infinite',
       },
       screens: {
-        sm: { min: '375px', max: '743px' },
+        sm: { max: '743px' },
         md: { min: '744px', max: '1280px' },
         lg: { min: '1281px' },
+      },
+      inset: {
+        unset: 'unset',
       },
     },
   },
