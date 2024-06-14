@@ -1,27 +1,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
 import ColorSelector from '@/components/ColorSelector/ColorSelector'
 import useAsync from '@/hooks/useAsync'
 import { postDashboard } from '@/service/dashboards'
-import { DashBoard } from '@/types/dashboard'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useRouter } from 'next/router'
 
-interface AddDashBoardProps {
-  dashBoard: DashBoard[]
-  setDashBoard: Dispatch<SetStateAction<DashBoard[]>>
-}
-
-export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardProps) {
+export default function AddDashBoard() {
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postDashboard)
   const [dashBoardBody, setDashBoardBody] = useState({
     title: '',
     color: '#7ac555',
   })
+  const router = useRouter()
   const { theme } = useLoadTheme()
 
   const handleColor = (colorName: string) => {
@@ -34,16 +30,9 @@ export default function AddDashBoard({ dashBoard, setDashBoard }: AddDashBoardPr
   const submitAddDashBoard = async () => {
     const result = await requestFunction(dashBoardBody)
     if (!result) return
-    if (!dashBoard[0]) {
-      setDashBoard([result.data])
-    } else {
-      const popList = dashBoard.slice(0, -1)
-      if (popList) {
-        setDashBoard([result.data, ...popList])
-      }
-    }
     dispatch(closeModal())
     dispatch(openMyToast({ text: '대시보드를 생성했습니다', warn: false }))
+    router.push(`/dashboard/${result.data.id}`)
   }
 
   return (
