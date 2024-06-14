@@ -47,7 +47,7 @@ export default function DashBoardColumn({
 
       setTagList(result)
     }
-  }, [getTagListRequest])
+  }, [getTagListRequest, dbId])
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
