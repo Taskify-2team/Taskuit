@@ -2,21 +2,22 @@ import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
-import TagChipList from '@/components/Chips/TagChipList'
-import { DashBoardCardInfo } from '@/components'
+import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { useRef } from 'react'
+import { Tag } from '@/service/tag'
 
 interface DashBoardCardProps {
   card: Card
+  tagList: Tag[]
   columnTitle: string
   columnId: number
-  dragStart: (card: Card, id: number) => void
+  dragStart: (card: Card, id: number, tags: Tag[]) => void
   drop: () => void
 }
 
 export default function DashBoardCard({
   card,
+  tagList,
   columnTitle,
   columnId,
   dragStart,
@@ -24,13 +25,12 @@ export default function DashBoardCard({
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
-  const draggableRef = useRef<HTMLButtonElement>(null)
 
   const handleOpenModal = () =>
     dispatch(
       openModal({
         modalName: 'DetailToDo',
-        modalProps: { card, columnTitle },
+        modalProps: { card, columnTitle, tags: tagList },
       }),
     )
 
@@ -40,9 +40,8 @@ export default function DashBoardCard({
       onClick={handleOpenModal}
       className={`w-[100%] animate-slideDown rounded-[0.6rem] border-[0.1rem] p-[2rem] hover:border-var-blue ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black2'}`}
       draggable
-      onDragStart={() => dragStart(card, columnId)}
+      onDragStart={() => dragStart(card, columnId, tagList)}
       onDragEnd={() => drop()}
-      ref={draggableRef}
     >
       {card.imageUrl && (
         <Image
@@ -59,7 +58,11 @@ export default function DashBoardCard({
       >
         {card.title}
       </h3>
-      <TagChipList tags={card.tags} />
+      <div className="mb-[1.2rem]">
+        <ul className="flex gap-[0.6rem]">
+          {tagList?.map((tag) => <TagChip key={tag.text} tag={tag} />)}
+        </ul>
+      </div>
       <DashBoardCardInfo card={card} />
     </button>
   )

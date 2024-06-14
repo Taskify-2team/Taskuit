@@ -55,20 +55,3 @@ export const deleteDashBoardCard = async (param: number) => {
   const response = await axios.delete(`/cards/${param}`)
   return response
 }
-
-export interface TagBody {
-  cardId: number
-  content: string
-  backgroundColor: string
-  textColor: string
-}
-
-export const postTag = async (cardId: number, tagBody: TagBody) => {
-  const response = await axios.post(`/api/tag/${cardId}`, { tagBody })
-  return response
-}
-
-export const getTags = async (cardId: number) => {
-  const response = await axios.get(`/api/tag/${cardId}`)
-  return response
-}

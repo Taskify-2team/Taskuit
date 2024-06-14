@@ -14,7 +14,7 @@ function Dropdown({ theme }: DropdownProps) {
 
   return (
     <div
-      className={`absolute left-[1rem] top-[4.5rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid p-[0.5rem] text-center sm:w-[9rem] md:left-[0.5rem] ${
+      className={`absolute left-[1rem] top-[4.5rem] flex w-[11rem] animate-slideDown flex-col overflow-hidden rounded-md border border-solid p-[0.5rem] text-center sm:left-[5rem] sm:top-[-9rem] sm:w-[10rem] md:left-[0.5rem] ${
         theme === 'normal'
           ? 'border-var-gray3 bg-var-white'
           : 'border-var-black1 bg-var-black1 text-white'
