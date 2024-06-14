@@ -9,9 +9,9 @@ import { TagsType } from '../Modals/ModalContents/EditToDo'
 
 interface TagChipProps {
   tag: TagsType
-  idx: number
+  idx?: number
   onDelete?: MouseEventHandler<HTMLButtonElement>
-  setMyTagBody: Dispatch<SetStateAction<any>>
+  setMyTagBody?: Dispatch<SetStateAction<any>>
 }
 
 export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipProps) {
@@ -47,7 +47,7 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
         </button>
       )}
       <div className="absolute bottom-[-5.5rem] left-0 z-50">
-        {customColor && (
+        {customColor && idx && setMyTagBody && (
           <TagColorSelector
             setMyTagBody={setMyTagBody}
             idx={idx}

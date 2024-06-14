@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
-import { getDbUserId, getTagList, postTag } from '@/service/tag'
+import { getDbUserId, getTagList, postTag, updateTags } from '@/service/tag'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface TagListType {
@@ -27,14 +27,19 @@ const tagSlice = createSlice({
             state.tagList[columnId] = []
             state.tagList[columnId] = [...state.tagList[columnId], tag]
           }
+          const foundIndex = state.tagList[columnId].findIndex((v) => v.id === tag.cardId)
+          if (foundIndex === -1) {
+            state.tagList[columnId] = [...state.tagList[columnId], tag]
+          } else {
+            state.tagList[columnId][foundIndex] = tag
+          }
         })
-      })
-      .addCase(postTag.fulfilled, (state, action) => {
-        state.tagList = action.payload
       })
       .addCase(getDbUserId.fulfilled, (state, action) => {
         state.userDbId = action.payload.id
       })
+      .addCase(postTag.fulfilled, () => {})
+      .addCase(updateTags.fulfilled, (state, action) => {})
   },
 })
 

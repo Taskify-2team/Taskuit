@@ -46,3 +46,24 @@ export const getDbUserId = createAsyncThunk(
     return camelcaseKeys(data.data, { deep: true })
   },
 )
+
+export const updateTags = createAsyncThunk(
+  'tag/updateTags',
+  async ({
+    userId,
+    columnId,
+    cardId,
+    tags,
+  }: {
+    userId: string
+    columnId: number
+    cardId: number
+    tags: TagsType[]
+  }) => {
+    const { data } = await TAG_URL.put(`/tags?userId=${userId}&columnId=${columnId}`, {
+      tags,
+      cardId,
+    })
+    return camelcaseKeys(data.data, { deep: true })
+  },
+)

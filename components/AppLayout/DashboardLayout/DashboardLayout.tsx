@@ -5,8 +5,9 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { useEffect, useRef } from 'react'
 import { getCardList, updateCard } from '@/service/cards'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
-import { getDbUserId } from '@/service/tag'
+import { getDbUserId, getTagList, updateTags } from '@/service/tag'
 import { useLoadUser } from '@/store/context/UserIdContext'
+import findTag from '@/utils/findTag'
 
 interface DashboardLayoutProps {
   dashboardId: number
@@ -21,6 +22,7 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
   const dragOverColumn = useRef(0)
   const cursorId = useAppSelector((state) => state.card.cursorId[dragOverColumn.current])
   const { userDbId } = useAppSelector((state) => state.tag)
+  const cardTags = useAppSelector((state) => state.tag.tagList[baseColumn.current])
 
   const dragStart = (card: Card, id: number) => {
     dragItem.current = card
@@ -37,6 +39,21 @@ export default function DashboardLayout({ dashboardId }: DashboardLayoutProps) {
         updateCard({
           newCardBody: { ...dragItem.current, columnId: dragOverColumn.current },
           cardId: dragItem.current.id,
+        }),
+      )
+
+      await dispatch(
+        updateTags({
+          userId: userDbId,
+          columnId: dragOverColumn.current,
+          cardId: dragItem.current.id,
+          tags: findTag({ cardTags, cardId: dragItem.current.id }),
+        }),
+      )
+      const result = await dispatch(
+        getTagList({
+          userId: userDbId,
+          columnId: dragOverColumn.current,
         }),
       )
       await dispatch(getCardList({ columnId: dragOverColumn.current, cursorId }))

@@ -1,9 +1,11 @@
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
-import { useAppDispatch } from '@/hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useEffect, useState } from 'react'
+import findTag from '@/utils/findTag'
 
 interface DashBoardCardProps {
   card: Card
@@ -21,7 +23,9 @@ export default function DashBoardCard({
   drop,
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
+  const cardTags = useAppSelector((state) => state.tag.tagList[columnId])
   const { theme } = useLoadTheme()
+  const [tags, setTags] = useState([])
 
   const handleOpenModal = () =>
     dispatch(
@@ -30,6 +34,12 @@ export default function DashBoardCard({
         modalProps: { card, columnTitle },
       }),
     )
+
+  useEffect(() => {
+    if (cardTags) {
+      setTags(findTag({ cardTags, cardId: card.id }))
+    }
+  }, [cardTags])
 
   return (
     <button
@@ -56,11 +66,7 @@ export default function DashBoardCard({
         {card.title}
       </h3>
       <div className="mb-[1.2rem]">
-        <ul className="flex gap-[0.6rem]">
-          {card.tags.map((tag) => (
-            <TagChip key={tag} tag={tag} />
-          ))}
-        </ul>
+        <ul className="flex gap-[0.6rem]">{tags?.map((tag) => <TagChip key={tag} tag={tag} />)}</ul>
       </div>
       <DashBoardCardInfo card={card} />
     </button>
