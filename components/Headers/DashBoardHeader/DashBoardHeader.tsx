@@ -92,9 +92,9 @@ export default function DashBoardHeader() {
 
   useEffect(() => {
     fetchData()
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('click', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('click', handleClickOutside)
     }
   }, [router])
 
