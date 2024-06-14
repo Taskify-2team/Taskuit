@@ -26,7 +26,7 @@ export default function MyDashBoardList() {
   }
 
   const createBoard = () => {
-    dispatch(openModal({ modalName: 'AddDashBoard', modalProps: { dashBoard, setDashBoard } }))
+    dispatch(openModal({ modalName: 'AddDashBoard' }))
   }
 
   useEffect(() => {

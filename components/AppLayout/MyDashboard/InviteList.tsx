@@ -9,6 +9,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import useDebounce from '@/hooks/useDebounce'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
+import { useRouter } from 'next/router'
 import { ShortButton } from '../..'
 import EmptyInvite from './EmptyInvite'
 import Loading from '../../Loading/Loading'
@@ -18,6 +19,7 @@ export default function InviteList() {
   const [cursorId, setCursorId] = useState<number | null>(0)
   const [inviteTitle, setInviteTitle] = useState('')
   const obsRef = useRef(null)
+  const router = useRouter()
   const { pending, requestFunction } = useAsync(getInvitationList)
   const dispatch = useAppDispatch()
   const { deBounceValue } = useDebounce(inviteTitle, 200)
@@ -36,7 +38,10 @@ export default function InviteList() {
   }
 
   const handleInvite = async (id: number, answer: boolean) => {
-    await postInvitation(id, answer)
+    const result = await postInvitation(id, answer)
+    if (answer) {
+      router.push(`/dashboard/${result.data.dashboard.id}`)
+    }
     setInvitationList(invitationList.filter((item) => item.id !== id))
   }
 
