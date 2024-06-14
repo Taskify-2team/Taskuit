@@ -94,7 +94,14 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   }
 
   useEffect(() => {
-    if (cardBody.columnId && cardBody.dashboardId && cardBody.description && cardBody.title) {
+    if (
+      cardBody.columnId &&
+      cardBody.dashboardId &&
+      cardBody.description &&
+      cardBody.title &&
+      cardBody.assigneeUserId &&
+      cardBody.dueDate
+    ) {
       setIsDisabled(false)
     }
   }, [cardBody])
@@ -123,6 +130,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         label="담당자"
         memberList={members}
         setManager={setAssigneeUserId}
+        isRequired
       />
       <div className="relative">
         <TextInput
@@ -151,6 +159,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         name="dueDate"
         value={cardBody.dueDate}
         onChange={setDueDate}
+        isRequired
       />
       <TagInput id="tag" label="태그" myTagBody={myTagBody} setMyTagBody={setMyTagBody} />
       <ImageInput id="image" label="이미지" size="s" onChange={handleFileInputValue} />

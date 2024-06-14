@@ -18,9 +18,9 @@ export default function InputLayout({
   const { theme } = useLoadTheme()
 
   return (
-    <label htmlFor={id} className="relative flex flex-col gap-[1rem]">
+    <label htmlFor={id} className="relative flex flex-col">
       <span
-        className={`${isSmallSize ? 'text-[1.6rem]' : 'text-[1.8rem] sm:text-[1.6rem]'} leading-tight ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+        className={`${isSmallSize ? 'text-[1.6rem]' : 'text-[1.8rem] sm:text-[1.6rem]'} pb-[1rem] leading-tight ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
         {label} {isRequired && <b className="text-[1.8rem] text-primary-violet">*</b>}
       </span>
