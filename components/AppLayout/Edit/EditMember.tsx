@@ -7,8 +7,8 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
-import { PaginationButton, ShortButton, UserInfo } from '..'
-import Loading from '../Loading/Loading'
+import { PaginationButton, ShortButton, UserInfo } from '../..'
+import Loading from '../../Loading/Loading'
 
 export default function EditMember() {
   const [memberList, setMemberList] = useState<Member[]>([])
@@ -53,7 +53,7 @@ export default function EditMember() {
         </ModalPortal>
       )}
       <div
-        className={`flex w-[62rem] flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
+        className={`flex w-[62rem] max-w-full flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
       >
         <div className="flex items-center justify-between">
           <p
