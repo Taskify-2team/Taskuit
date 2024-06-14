@@ -5,6 +5,10 @@ const INSTANCE_URL = axios.create({
   baseURL: 'https://sp-taskify-api.vercel.app/5-2',
 })
 
+export const TAG_URL = axios.create({
+  baseURL: 'http://localhost:3000/api',
+})
+
 INSTANCE_URL.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     if (config.headers['exclude-access-token']) {

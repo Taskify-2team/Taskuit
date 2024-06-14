@@ -1,14 +1,46 @@
-POST http://localhost:3000/api/tag
+POST http://localhost:3000/api/tags?userId=666ab8a2592ccb79541c8158&columnId=30833
 Content-Type: application/json
 
 {
-  "cardId": 7672,
-  "content": "안녕하세요",
-  "backgroundColor": "#000000",
-  "textColor": "#ffffff"
+  "user": "666ab8a2592ccb79541c8158",
+  "columnId": 30833,
+  "cardId": 7939,
+  "tags": [
+    {"text": "야호오", "color": "#76a5ea"}, {"text": "우리야", "color": "#ffffff"}
+  ]
 }
 
 ###
 
-GET http://localhost:3000/api/tag/6665c83732d10f550a143996
+PUT http://localhost:3000/api/tags?userId=666ab8a2592ccb79541c8158&columnId=30833
+Content-Type: application/json
 
+{
+  "user": "666ab8a2592ccb79541c8158",
+  "columnId": 30833,
+  "cardId": 7940,
+  "tags": [
+    {"text": "fghfgh", "color": "#76a5ea"}, {"text": "sdfnsd", "color": "#ffffff"}
+  ]
+}
+
+###
+
+DELETE http://localhost:3000/api/tags/666ab8dc592ccb79541c815a
+
+###
+
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "userId": 3643
+}
+
+###
+
+GET http://localhost:3000/api/tags?userId=666ab8a2592ccb79541c8158&columnId=30833
+
+###
+
+GET http://localhost:3000/api/tags

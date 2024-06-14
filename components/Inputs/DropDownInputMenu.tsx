@@ -113,23 +113,18 @@ export default function DropDownInputMenu({
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+    if (e.nativeEvent.isComposing) return
     switch (e.key) {
       case ' ':
         e.preventDefault()
         break
       case 'ArrowDown':
-        e.currentTarget.focus()
-        e.preventDefault()
         handleArrowDown()
         break
       case 'ArrowUp':
-        e.currentTarget.focus()
-        e.preventDefault()
         handleArrowUp()
         break
       case 'Enter':
-        e.currentTarget.focus()
-        e.preventDefault()
         setShowMenuList(false)
         e.currentTarget.blur()
         break

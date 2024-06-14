@@ -17,13 +17,15 @@ import { deleteDashBoardCard } from '@/service/cards'
 import { openToast } from '@/store/reducers/toastReducer'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { Tag } from '@/service/tag'
 
 export interface ToDoDetailProps {
   card: Card
   columnTitle: string
+  tags: Tag[]
 }
 
-export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
+export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps) {
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
   const [cursorId, setCursorId] = useState<number>(0)
@@ -125,6 +127,7 @@ export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
                       card,
                       managerList: card.assignee,
                       columnTitle,
+                      tags,
                     },
                   }),
                 )
@@ -147,16 +150,12 @@ export default function DetailToDo({ card, columnTitle }: ToDoDetailProps) {
         <CardInfoChip card={card} />
         <div className="mb-[1.6rem] flex items-center gap-[2rem]">
           <ProgressChip progress={columnTitle} />
-          {card.tags.length > 0 && (
-            <>
-              <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
-              <ul className="flex gap-[0.6rem]">
-                {card.tags.map((tag) => (
-                  <TagChip key={tag} tag={tag} textColor="#D58D49" bgColor="#F9EEE3" />
-                ))}
-              </ul>
-            </>
-          )}
+          <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
+          <ul className="flex gap-[0.6rem]">
+            {tags.map((tag) => (
+              <TagChip key={tag.text} tag={tag} />
+            ))}
+          </ul>
         </div>
         <p
           className={`mb-[1.6rem] whitespace-pre-wrap text-[1.4rem] leading-[2.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
