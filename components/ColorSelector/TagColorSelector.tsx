@@ -1,11 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { Tag } from '@/service/tag'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 
 interface TagColorSelectorProps {
   idx: number
   onClose: () => void
-  setMyTagBody: Dispatch<SetStateAction<any>>
+  setMyTagBody: Dispatch<SetStateAction<Tag[]>>
 }
 
 export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColorSelectorProps) {
@@ -23,8 +24,8 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
     }
   }
 
-  const handleCustomColor = (preparedColor) => {
-    setMyTagBody((prev) => {
+  const handleCustomColor = (preparedColor: number) => {
+    setMyTagBody((prev: Tag[]) => {
       const updatedTags = prev.map((tag, i) =>
         i === idx ? { text: tag.text, color: tagColor[preparedColor].color } : tag,
       )

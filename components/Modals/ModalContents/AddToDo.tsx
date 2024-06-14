@@ -20,8 +20,7 @@ import { useRouter } from 'next/router'
 import { getMemberList } from '@/service/members'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDbId } from '@/store/context/DbIdContext'
-import { postTag } from '@/service/tag'
-import { TagsType } from './EditToDo'
+import { Tag, postTag } from '@/service/tag'
 import TextCounter from '@/components/TextCounter/TextCounter'
 
 export interface AddToDoProps {
@@ -53,7 +52,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     dueDate: '',
     tags: [],
   })
-  const [myTagBody, setMyTagBody] = useState<TagsType[]>([])
+  const [myTagBody, setMyTagBody] = useState<Tag[]>([])
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setCardBody({
       ...cardBody,
