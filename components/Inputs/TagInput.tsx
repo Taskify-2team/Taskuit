@@ -50,15 +50,6 @@ export default function TagInput({
     }
   }
 
-  const handleDelete = (idx: number) => {
-    const filterTag = tagList?.filter((tag) => tag !== tagList[idx])
-
-    setTagList((prev: any) => ({
-      ...prev,
-      tags: filterTag,
-    }))
-  }
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value)
   }
