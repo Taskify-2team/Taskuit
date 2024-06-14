@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextHandler } from 'next-connect'
 
-const allowedOrigins = ['http://localhost:3000', 'https://taskuit.vercel.app/']
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://taskuit.vercel.app/',
+  'https://taskify-sigma-lime.vercel.app/',
+]
 
 const cors = (req: NextApiRequest, res: NextApiResponse, next: NextHandler) => {
   const { origin } = req.headers
