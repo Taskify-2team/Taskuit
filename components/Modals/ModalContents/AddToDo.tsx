@@ -42,7 +42,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [assigneeUserId, setAssigneeUserId] = useState(0)
   const [dueDate, setDueDate] = useState('')
-  const [imageFile, setImageFile] = useState<File>()
+  const [imageFile, setImageFile] = useState<File | null>()
   const [cardBody, setCardBody] = useState<PostCard>({
     dashboardId: Number(dashboardId),
     columnId,
@@ -65,7 +65,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     setMembers(result.members)
   }, [dashboardId, getMembers])
 
-  const handleFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File | null) => {
     setImageFile(file)
   }
 
