@@ -59,7 +59,7 @@ export default function DashBoardCard({
         {card.title}
       </h3>
       <div className="mb-[1.2rem]">
-        <ul className="flex gap-[0.6rem]">
+        <ul className="flex flex-wrap gap-[0.6rem]">
           {tagList?.map((tag) => <TagChip key={tag.text} tag={tag} />)}
         </ul>
       </div>

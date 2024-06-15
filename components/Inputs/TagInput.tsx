@@ -31,18 +31,6 @@ export default function TagInput({
   const [text, setText] = useState('')
   const { theme } = useLoadTheme()
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      if (e.nativeEvent.isComposing || !text) return
-      setText('')
-      setMyTagBody((prev: any) => [...prev, { text, color: '#4981D5' }])
-    }
-    if (e.key === ' ') {
-      e.preventDefault()
-    }
-  }
-
   const handleDelete = (idx: number) => {
     const filterTag = myTagBody?.filter((tag) => tag !== myTagBody[idx])
     if (filterTag) {
@@ -52,6 +40,25 @@ export default function TagInput({
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (e.nativeEvent.isComposing || !text) return
+      setText('')
+      setMyTagBody((prev: any) => [...prev, { text, color: '#4981D5' }])
+    }
+
+    if (e.key === ' ') {
+      e.preventDefault()
+    }
+
+    if (e.key === 'Backspace') {
+      if (myTagBody && !text) {
+        handleDelete(myTagBody.length - 1)
+      }
+    }
   }
 
   return (
@@ -73,6 +80,7 @@ export default function TagInput({
         <input
           id={id}
           value={text}
+          autoComplete="off"
           placeholder="입력 후 Enter"
           maxLength={20}
           onChange={handleChange}
