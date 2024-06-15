@@ -8,7 +8,7 @@ export default function HeaderButton({ buttonIcon, buttonName, handleOnClick }: 
   return (
     <button
       type="button"
-      className={`flex shrink-0 items-center gap-[0.3rem] rounded-xl border border-solid px-[1.6rem] py-[0.8rem] hover:border-var-blue sm:p-[0.8rem] md:p-[0.8rem] ${theme === 'normal' ? 'border-[#d9d9d9] bg-var-white' : 'border-var-black1 bg-var-black1'}`}
+      className={`flex shrink-0 items-center gap-[0.5rem] rounded-xl border border-solid px-[1.6rem] py-[0.8rem] hover:border-var-blue sm:p-[0.8rem] md:p-[0.8rem] ${theme === 'normal' ? 'border-[#d9d9d9] bg-var-white' : 'border-var-black1 bg-var-black1'}`}
       onClick={() => {
         if (handleOnClick) {
           handleOnClick()

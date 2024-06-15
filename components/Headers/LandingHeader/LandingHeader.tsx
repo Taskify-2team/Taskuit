@@ -7,6 +7,7 @@ import { useLoadLanguage } from '@/store/context/LanguageContext'
 import themeIcon from '@/public/icons/brightness_89411.svg'
 import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import translateIcon from '@/public/icons/translateIcon.svg'
+import translateIconWhite from '@/public/icons/translateIconWhite.svg'
 import HeaderButton from '../DashBoardHeader/buttons/HeaderButton'
 
 export default function LightHeader() {
@@ -44,7 +45,7 @@ export default function LightHeader() {
       </Link>
       <div className="flex items-center gap-[3.6rem] sm:gap-[2rem]">
         <HeaderButton
-          buttonIcon={translateIcon}
+          buttonIcon={theme === 'normal' ? translateIcon : translateIconWhite}
           buttonName={language === 'ko' ? '언어' : 'Language'}
           handleOnClick={handleSetLanguage}
         />
