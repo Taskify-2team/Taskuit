@@ -1,5 +1,6 @@
 import { AppLayout, MyDashBoardList, InviteList } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { useEffect } from 'react'
@@ -7,6 +8,7 @@ import { useEffect } from 'react'
 export default function MyDashBoard() {
   const { theme } = useLoadTheme()
   const dispatch = useAppDispatch()
+  const { language } = useLoadLanguage()
 
   useEffect(() => {
     dispatch(closeModal())
@@ -22,7 +24,7 @@ export default function MyDashBoard() {
           <p
             className={`text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            초대받은 대시보드
+            {language === 'ko' ? '초대받은 대시보드' : 'Invited List'}
           </p>
           <InviteList />
         </div>
