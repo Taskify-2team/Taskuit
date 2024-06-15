@@ -52,6 +52,7 @@ export default function TagInput({
 
     if (e.key === ' ') {
       e.preventDefault()
+      if (e.nativeEvent.isComposing || !text) return
     }
 
     if (e.key === 'Backspace') {

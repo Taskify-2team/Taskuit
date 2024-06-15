@@ -12,8 +12,8 @@ interface EditProfileProps {
   error: AxiosError<any> | null
   result: AxiosResponse | null
   onSubmit: (e: FormEvent, nickname: string) => Promise<void>
-  imageFile?: File
-  setImageFile: (file: File) => void
+  imageFile?: File | null
+  setImageFile: (file: File | null) => void
   profileBody: ProfileBody
 }
 
@@ -35,12 +35,12 @@ export default function EditProfile({
     setNickName(e.target.value)
   }
 
-  const handleFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File | null) => {
     setImageFile(file)
   }
 
   useEffect(() => {
-    setDisabled(!imageFile && profileBody.nickname === nickName)
+    setDisabled(imageFile === undefined && profileBody.nickname === nickName)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nickName, imageFile])
 

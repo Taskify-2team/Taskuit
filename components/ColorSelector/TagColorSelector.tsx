@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Tag } from '@/service/tag'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 
 interface TagColorSelectorProps {
@@ -11,6 +12,7 @@ interface TagColorSelectorProps {
 
 export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColorSelectorProps) {
   const colorPickerRef = useRef<HTMLUListElement>(null)
+  const { theme } = useLoadTheme()
   const tagColor = [
     { color: '#D58D49' },
     { color: '#D549B6' },
@@ -43,7 +45,7 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
   return (
     <ul
       ref={colorPickerRef}
-      className="flex animate-slideDown gap-[1.2rem] rounded-[0.6rem] border border-var-gray3 bg-var-white p-[1rem] shadow-lg"
+      className={`${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-gray5 bg-var-black1'} flex animate-slideDown gap-[1.2rem] rounded-[0.6rem] border p-[1rem] shadow-lg`}
     >
       {tagColor.map((color, i) => (
         <li
@@ -53,7 +55,9 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
           style={{ backgroundColor: color.color }}
         />
       ))}
-      <li className="absolute left-[1.9rem] top-[-0.8rem] size-[1.5rem] translate-x-[-1.4rem] rotate-45 border-l border-t border-var-gray3 bg-var-white" />
+      <li
+        className={`absolute left-[1.9rem] top-[-0.8rem] size-[1.5rem] translate-x-[-1.4rem] rotate-45 border-l border-t ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-gray5 bg-var-black1'}`}
+      />
     </ul>
   )
 }
