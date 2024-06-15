@@ -10,7 +10,7 @@ import {
 } from 'react'
 import { Tag } from '@/service/tag'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import InputLayout from './InputLayout'
 import TagChip from '../Chips/TagChip'
 
@@ -30,6 +30,7 @@ export default function TagInput({
 }: TagInputProps) {
   const [text, setText] = useState('')
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleDelete = (idx: number) => {
     const filterTag = myTagBody?.filter((tag) => tag !== myTagBody[idx])
@@ -82,7 +83,7 @@ export default function TagInput({
           id={id}
           value={text}
           autoComplete="off"
-          placeholder="입력 후 Enter"
+          placeholder={language === 'ko' ? '입력 후 Enter' : 'Enter after entering'}
           maxLength={20}
           onChange={handleChange}
           required={isRequired}

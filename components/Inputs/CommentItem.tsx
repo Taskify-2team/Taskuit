@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { deleteComment, updateComment } from '@/service/comments'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadUser } from '@/store/context/UserIdContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import ShortButton from '../Buttons/ShortButton'
 import UserProfile from '../UserInfo/UserProfile'
 import EditButton from '../Buttons/EditButton'
@@ -23,6 +24,7 @@ export default function CommentItem({ comment, authorId, onUpdate, onDelete }: C
   const { requestFunction: deleteCommentRequest } = useAsync(deleteComment)
   const { theme } = useLoadTheme()
   const { userId } = useLoadUser()
+  const { language } = useLoadLanguage()
 
   const updateCommentData = async () => {
     await updateCommentRequest({ id: comment.id, content: text })
@@ -73,11 +75,15 @@ export default function CommentItem({ comment, authorId, onUpdate, onDelete }: C
                 id="comment"
                 value={text}
                 onChange={handleChange}
-                placeholder="댓글 작성하기"
+                placeholder={language === 'ko' ? '댓글 작성하기' : 'Write a comment'}
                 className="input-layout h-[7rem] w-full resize-none text-[1.4rem]"
               />
               <div className="absolute bottom-[1.2rem] right-[1.2rem]">
-                <ShortButton type="submit" text="완료" color="white" />
+                <ShortButton
+                  type="submit"
+                  text={language === 'ko' ? '완료' : 'Enter'}
+                  color="white"
+                />
               </div>
             </div>
           </form>
@@ -90,8 +96,11 @@ export default function CommentItem({ comment, authorId, onUpdate, onDelete }: C
             </p>
             {authorId === userId && (
               <div className="mt-[1.2rem] flex gap-[1.2rem]">
-                <EditButton onClick={handleEditClick} text="수정" />
-                <EditButton onClick={handleDeleteClick} text="삭제" />
+                <EditButton onClick={handleEditClick} text={language === 'ko' ? '수정' : 'Edit'} />
+                <EditButton
+                  onClick={handleDeleteClick}
+                  text={language === 'ko' ? '삭제' : 'Delete'}
+                />
               </div>
             )}
           </div>

@@ -20,6 +20,7 @@ import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 export interface ToDoDetailProps {
   card: Card
@@ -36,6 +37,8 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
   const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
+
   const getCommentData = useCallback(async () => {
     const result = await getCommentsRequest({ cardId: card.id, cursorId })
     if (result) {
@@ -118,7 +121,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
             className={`absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[0.5rem] rounded-[0.6rem] border ${theme === 'normal' ? 'border-var-gray3 bg-white' : 'border-var-black2 bg-var-black1'} p-[0.6rem]`}
           >
             <KebabEditButton
-              text="수정하기"
+              text={language === 'ko' ? '수정하기' : 'Edit'}
               onClick={() =>
                 dispatch(
                   openModal({
@@ -134,7 +137,10 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
                 )
               }
             />
-            <KebabEditButton text="삭제하기" onClick={handleDeleteCard} />
+            <KebabEditButton
+              text={language === 'ko' ? '삭제하기' : 'Delete'}
+              onClick={handleDeleteCard}
+            />
           </div>
         )}
         <button type="button" onClick={() => dispatch(closeModal())}>
