@@ -29,7 +29,7 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
   return (
     <li
       onClick={handleOpenCustomColor}
-      className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
+      className={`${onDelete ? 'cursor-pointer' : ''} relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]`}
       style={{ backgroundColor: `rgba(${r},${g},${b}, 0.18)` }}
     >
       <div className="w-full text-[1.2rem]" style={{ color: tag.color }}>
@@ -46,7 +46,7 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
           </div>
         </button>
       )}
-      <div className="absolute bottom-[-5.5rem] left-0 z-50">
+      <div className="absolute bottom-[-5.5rem] left-0 z-50 cursor-default">
         {customColor && idx !== undefined && setMyTagBody && (
           <TagColorSelector
             setMyTagBody={setMyTagBody}
