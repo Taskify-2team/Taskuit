@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import themeIcon from '@/public/icons/brightness_89411.svg'
-import translateIcon from '@/public/icons/translateIcon.svg'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import themeIcon from '@/public/icons/brightness_89411.svg'
+import themeIconWhite from '@/public/icons/brightnessWhite.svg'
+import translateIcon from '@/public/icons/translateIcon.svg'
 import HeaderButton from '../DashBoardHeader/buttons/HeaderButton'
 
 export default function LightHeader() {
@@ -48,7 +49,7 @@ export default function LightHeader() {
           handleOnClick={handleSetLanguage}
         />
         <HeaderButton
-          buttonIcon={themeIcon}
+          buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
           buttonName={language === 'ko' ? '테마' : 'Theme'}
           handleOnClick={handleSetTheme}
         />
