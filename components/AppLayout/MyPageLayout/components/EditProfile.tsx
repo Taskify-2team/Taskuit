@@ -7,13 +7,14 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 interface EditProfileProps {
   error: AxiosError<any> | null
   result: AxiosResponse | null
   onSubmit: (e: FormEvent, nickname: string) => Promise<void>
-  imageFile?: File
-  setImageFile: (file: File) => void
+  imageFile?: File | null
+  setImageFile: (file: File | null) => void
   profileBody: ProfileBody
 }
 
@@ -30,17 +31,18 @@ export default function EditProfile({
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value)
   }
 
-  const handleFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File | null) => {
     setImageFile(file)
   }
 
   useEffect(() => {
-    setDisabled(!imageFile && profileBody.nickname === nickName)
+    setDisabled(imageFile === undefined && profileBody.nickname === nickName)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nickName, imageFile])
 
@@ -67,12 +69,12 @@ export default function EditProfile({
       <h3
         className={`mb-[3.2rem] text-[2.4rem] font-bold sm:text-[2rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
-        프로필
+        {language === 'ko' ? '프로필' : 'Profile'}
       </h3>
       <div className="mb-[2rem] flex gap-[1.6rem] sm:flex-col">
         <ImageInput
           id="image"
-          label="이미지"
+          label={language === 'ko' ? '이미지' : 'Image'}
           size="m"
           currentImage={profileBody.profileImageUrl}
           onChange={handleFileInputValue}
@@ -80,14 +82,14 @@ export default function EditProfile({
         <div className="flex w-full flex-col gap-[1.8rem]">
           <TextInput
             id="email"
-            label="이메일"
+            label={language === 'ko' ? '이메일' : 'Email'}
             value={profileBody.email}
             isReadOnly
             placeholder="email@gmail.com"
           />
           <TextInput
             id="nickname"
-            label="닉네임"
+            label={language === 'ko' ? '닉네임' : 'Nickname'}
             value={nickName}
             onChange={handleInputValue}
             ref={inputRef}
@@ -96,7 +98,12 @@ export default function EditProfile({
         </div>
       </div>
       <div className="self-end">
-        <ShortButton color="purple" type="submit" isDisabled={isDisabled} text="저장" />
+        <ShortButton
+          color="purple"
+          type="submit"
+          isDisabled={isDisabled}
+          text={language === 'ko' ? '저장' : 'save'}
+        />
       </div>
     </form>
   )

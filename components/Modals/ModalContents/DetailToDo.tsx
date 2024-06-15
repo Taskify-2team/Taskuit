@@ -1,23 +1,26 @@
-import { Card, Comment } from '@/types/dashboard'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import {
+  KebabEditButton,
+  ProgressChip,
+  TagChip,
+  CommentInput,
+  CardInfoChip,
+  CommentItem,
+} from '@/components'
 import kebabIcon from '@/public/icons/kebab.svg'
 import closeIcon from '@/public/icons/close.svg'
+import { Card, Comment } from '@/types/dashboard'
 import { useAppDispatch } from '@/hooks/useApp'
-import { closeModal, openModal } from '@/store/reducers/modalReducer'
-import ProgressChip from '@/components/Chips/ProgressChip'
-import TagChip from '@/components/Chips/TagChip'
-import CommentInput from '@/components/Inputs/CommentInput'
-import CardInfoChip from '@/components/Chips/CardInfoChip'
-import CommentItem from '@/components/Inputs/CommentItem'
 import useAsync from '@/hooks/useAsync'
 import { getComments } from '@/service/comments'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import KebabEditButton from '@/components/Buttons/KebabEditButton'
+import { Tag } from '@/service/tag'
 import { deleteDashBoardCard } from '@/service/cards'
+import { closeModal, openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { Tag } from '@/service/tag'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 export interface ToDoDetailProps {
   card: Card
@@ -34,6 +37,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
   const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const getCommentData = useCallback(async () => {
     const result = await getCommentsRequest({ cardId: card.id, cursorId })
@@ -117,7 +121,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
             className={`absolute right-[6rem] top-[3rem] flex w-[9.3rem] flex-col gap-[0.5rem] rounded-[0.6rem] border ${theme === 'normal' ? 'border-var-gray3 bg-white' : 'border-var-black2 bg-var-black1'} p-[0.6rem]`}
           >
             <KebabEditButton
-              text="수정하기"
+              text={language === 'ko' ? '수정하기' : 'Edit'}
               onClick={() =>
                 dispatch(
                   openModal({
@@ -133,7 +137,10 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
                 )
               }
             />
-            <KebabEditButton text="삭제하기" onClick={handleDeleteCard} />
+            <KebabEditButton
+              text={language === 'ko' ? '삭제하기' : 'Delete'}
+              onClick={handleDeleteCard}
+            />
           </div>
         )}
         <button type="button" onClick={() => dispatch(closeModal())}>
@@ -151,7 +158,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
         <div className="mb-[1.6rem] flex items-center gap-[2rem]">
           <ProgressChip progress={columnTitle} />
           <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
-          <ul className="flex gap-[0.6rem]">
+          <ul className="flex flex-wrap gap-[0.6rem]">
             {tags && tags.map((tag) => <TagChip key={tag.text} tag={tag} />)}
           </ul>
         </div>

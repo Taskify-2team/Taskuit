@@ -5,6 +5,7 @@ import cancelBtn from '@/public/icons/cancel.svg'
 import { Dispatch, MouseEventHandler, SetStateAction, useState } from 'react'
 import hexToRgb from '@/utils/hexToRgb'
 import { Tag } from '@/service/tag'
+import { useLoadTheme } from '@/store/context/ThemeContext'
 import TagColorSelector from '../ColorSelector/TagColorSelector'
 
 interface TagChipProps {
@@ -16,6 +17,7 @@ interface TagChipProps {
 
 export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipProps) {
   const [customColor, setCustomColor] = useState(false)
+  const { theme } = useLoadTheme()
   const { r, g, b } = hexToRgb(tag.color)
 
   const handleOpenCustomColor = () => {
@@ -29,24 +31,24 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
   return (
     <li
       onClick={handleOpenCustomColor}
-      className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
+      className={`${onDelete ? 'cursor-pointer' : ''} relative w-fit animate-slideDown rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]`}
       style={{ backgroundColor: `rgba(${r},${g},${b}, 0.18)` }}
     >
-      <div className="text-[1.2rem]" style={{ color: tag.color }}>
+      <div className="w-full text-[1.2rem]" style={{ color: tag.color }}>
         {tag.text}
       </div>
       {onDelete && (
         <button
           onClick={onDelete}
           type="button"
-          className="absolute right-[-0.5rem] top-[-0.5rem] rounded-full bg-var-gray1 p-[0.3rem] hover:bg-var-gray2"
+          className={`${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-gray3' : 'bg-var-black2 hover:bg-var-black3'} absolute right-[-0.5rem] top-[-0.5rem] rounded-full p-[0.3rem]`}
         >
           <div className="relative size-[0.7rem] opacity-80">
             <Image fill src={cancelBtn} alt="삭제버튼" />
           </div>
         </button>
       )}
-      <div className="absolute bottom-[-5.5rem] left-0 z-50">
+      <div className="absolute bottom-[-5.5rem] left-0 z-50 cursor-default">
         {customColor && idx !== undefined && setMyTagBody && (
           <TagColorSelector
             setMyTagBody={setMyTagBody}

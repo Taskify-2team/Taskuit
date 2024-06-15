@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import addLogo from '@/public/icons/addLogo.svg'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 export default function CreateBoardButton({ handleClick }: { handleClick: () => void }) {
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   return (
     <div
@@ -13,7 +15,7 @@ export default function CreateBoardButton({ handleClick }: { handleClick: () => 
       <p
         className={`text-nowrap text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
       >
-        새로운 대시보드
+        {language === 'ko' ? '새로운 대시보드' : 'Create Dashboard'}
       </p>
       <div className="relative h-[2.2rem] w-[2.2rem] rounded-[0.4rem] border-var-gray3 bg-var-violet p-[0.3rem]">
         <Image src={addLogo} alt="더하기 이미지" fill />

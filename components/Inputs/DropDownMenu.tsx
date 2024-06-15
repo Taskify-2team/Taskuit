@@ -70,13 +70,13 @@ export default function DropDownMenu({
         </div>
         {showMenuList && (
           <div
-            className={`absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid py-[0.65rem] shadow-lg ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black1'}`}
+            className={`absolute left-0 top-[5rem] z-50 flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid py-[0.65rem] shadow-lg ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black2 bg-var-black1'}`}
           >
             {columnList.map((column) => (
               <div
                 key={column.id}
                 onClick={() => handleChangeProgress(column)}
-                className={`${selectMenu === column.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                className={`${selectMenu === column.title && (theme === 'normal' ? 'bg-var-violet' : 'bg-var-black1')} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] ${theme === 'normal' ? 'hover:bg-var-violet' : 'hover:bg-var-black2'} `}
               >
                 {column.title === selectMenu && (
                   <div className="col-start-1 size-[1rem] self-center">

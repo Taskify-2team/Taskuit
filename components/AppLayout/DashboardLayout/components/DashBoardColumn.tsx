@@ -10,7 +10,6 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { Tag, getTagList } from '@/service/tag'
 import { useDbId } from '@/store/context/DbIdContext'
 import findTag from '@/utils/findTag'
-import LoadingCard from './LoadingCard'
 
 interface DashBoardColumnProps {
   columnId: number
@@ -35,7 +34,7 @@ export default function DashBoardColumn({
   const { dbId } = useDbId()
   const obsRef = useRef(null)
   const dispatch = useAppDispatch()
-  const { requestFunction: getTagListRequest, pending: pendingTag } = useAsync(getTagList)
+  const { requestFunction: getTagListRequest } = useAsync(getTagList)
 
   const getCardsData = useCallback(async () => {
     if (typeof columnId === 'number') {
@@ -107,21 +106,15 @@ export default function DashBoardColumn({
             cardList.map((cardItem: Card) => {
               const tag = findTag({ cardTags: tagList, cardId: cardItem.id })
               return (
-                <>
-                  {pendingTag ? (
-                    <LoadingCard theme={theme} />
-                  ) : (
-                    <DashBoardCard
-                      key={cardItem.id}
-                      columnTitle={columnTitle}
-                      card={cardItem}
-                      columnId={columnId}
-                      dragStart={dragStart}
-                      drop={drop}
-                      tagList={tag}
-                    />
-                  )}
-                </>
+                <DashBoardCard
+                  key={cardItem.id}
+                  columnTitle={columnTitle}
+                  card={cardItem}
+                  columnId={columnId}
+                  dragStart={dragStart}
+                  drop={drop}
+                  tagList={tag}
+                />
               )
             })}
           <div style={{ height: '1px' }} ref={obsRef} />

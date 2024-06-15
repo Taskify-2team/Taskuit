@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { Assignee } from '@/types/dashboard'
 import { Member } from '@/types/member'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import InputLayout from './InputLayout'
 import UserInfo from '../UserInfo/UserInfo'
 
@@ -46,6 +47,7 @@ export default function DropDownInputMenu({
   const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const initializeSelectMenu = () => {
     setSelectMenu({
@@ -184,7 +186,7 @@ export default function DropDownInputMenu({
           value={selectMenu.nickname}
           onChange={handleInputChange}
           className={`w-full text-[1.6rem] outline-none sm:text-[1.4rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'}`}
-          placeholder="이름을 입력해 주세요"
+          placeholder={language === 'ko' ? '이름을 입력해 주세요' : 'Input your name'}
         />
         <div className="absolute right-[1.5rem] size-[1rem]">
           <Image
@@ -196,7 +198,7 @@ export default function DropDownInputMenu({
         </div>
         {showMenuList && (
           <div
-            className={`absolute left-0 top-[5rem] flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
+            className={`absolute left-0 top-[5rem] z-50 flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
           >
             {menuList?.map((menuItem, i) => (
               <div
@@ -213,7 +215,8 @@ export default function DropDownInputMenu({
                     index: i,
                   })
                 }
-                className={`${menuItem.nickname === selectMenu.nickname ? 'bg-var-violet' : ''} relative flex h-full w-full items-center gap-[1rem] px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                // eslint-disable-next-line no-nested-ternary
+                className={`${menuItem.nickname === selectMenu.nickname && (theme === 'normal' ? 'bg-var-violet' : 'bg-var-black2')} relative flex h-full w-full items-center gap-[1rem] px-[1.6rem] py-[0.65rem] ${theme === 'normal' ? 'hover:bg-var-violet' : 'hover:bg-var-black2'} `}
               >
                 <div className="relative size-[1rem] self-center">
                   {menuItem.nickname === selectMenu.nickname && (

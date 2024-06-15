@@ -6,6 +6,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { getColumnList, postColumn } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 export interface AddColumnProps {
   dashboardId: number
@@ -19,6 +20,7 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
   const dispatch = useAppDispatch()
   const { requestFunction } = useAsync(postColumn)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setColumnBody({
@@ -41,19 +43,23 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
   return (
     <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
-        새 컬럼 생성
+        {language === 'ko' ? '새 컬럼 생성' : 'Create new column'}
       </h3>
       <TextInput
         id="columnName"
-        label="이름"
+        label={language === 'ko' ? '이름' : 'Name'}
         name="columnName"
         value={columnBody.title}
         onChange={handleInputValue}
-        placeholder="새로운 프로젝트"
+        placeholder={language === 'ko' ? '새로운 프로젝트' : 'New project'}
       />
       <div className="flex gap-[1rem] self-end">
-        <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" type="submit" text="생성" onClick={handleSubmit} />
+        <ShortButton
+          color="white"
+          text={language === 'ko' ? '취소' : 'Cancel'}
+          onClick={() => dispatch(closeModal())}
+        />
+        <ShortButton color="purple" text={language === 'ko' ? '생성' : 'Create'} type="submit" />
       </div>
     </form>
   )

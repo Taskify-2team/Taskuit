@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, forwardRef, useEffect, useState } from 'react
 import { ko } from 'date-fns/locale'
 import { formatDatePicker, parseDatePicker } from '@/utils/formatDate'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import InputLayout from './InputLayout'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -17,13 +18,15 @@ interface DateInputProps {
 
 const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>) => {
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   return (
     <input
       {...props}
       ref={ref}
+      autoComplete="off"
       type="text"
-      placeholder="날짜를 입력해 주세요"
+      placeholder={language === 'ko' ? '날짜를 입력해 주세요' : 'Please enter the date'}
       className={`input-layout w-[100%] pl-[4.6rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
     />
   )

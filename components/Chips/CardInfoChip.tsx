@@ -1,6 +1,7 @@
 import { Card } from '@/types/dashboard'
 import { formatDateTimeDot } from '@/utils/formatDate'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import UserInfo from '../UserInfo/UserInfo'
 
 interface CardInfoChipProps {
@@ -9,6 +10,7 @@ interface CardInfoChipProps {
 
 export default function CardInfoChip({ card }: CardInfoChipProps) {
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   return (
     <div
@@ -18,7 +20,7 @@ export default function CardInfoChip({ card }: CardInfoChipProps) {
         <h4
           className={`text-[1.2rem] font-[600] leading-[2rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
         >
-          담당자
+          {language === 'ko' ? '담당자' : 'Manager'}
         </h4>
         <UserInfo
           profileImageUrl={card.assignee.profileImageUrl}
@@ -30,7 +32,7 @@ export default function CardInfoChip({ card }: CardInfoChipProps) {
         <h4
           className={`text-[1.2rem] font-[600] leading-[2rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
         >
-          마감일
+          {language === 'ko' ? '마감일' : 'Due date'}
         </h4>
         <p className={`text-[1.4rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray3'}`}>
           {formatDateTimeDot(card.dueDate)}

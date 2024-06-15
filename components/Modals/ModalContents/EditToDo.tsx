@@ -16,6 +16,7 @@ import { postCardImage } from '@/service/columns'
 import { getMemberList } from '@/service/members'
 import { Tag, updateTags } from '@/service/tag'
 import { useDbId } from '@/store/context/DbIdContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
@@ -40,7 +41,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   const { theme } = useLoadTheme()
   const { dbId } = useDbId()
   const [members, setMembers] = useState([])
-  const [imageFile, setImageFile] = useState<File>()
+  const [imageFile, setImageFile] = useState<File | null>()
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
@@ -55,6 +56,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   })
   const [myTagBody, setMyTagBody] = useState<Tag[]>(tags)
   const { dashboardId } = router.query
+  const { language } = useLoadLanguage()
 
   const getMembersRequest = useCallback(async () => {
     const result = await getMembers(0, Number(dashboardId))
@@ -68,7 +70,13 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
     })
   }
 
-  const handleFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File | null) => {
+    if (file === null) {
+      setNewCardBody((prev) => ({
+        ...prev,
+        imageUrl: null,
+      }))
+    }
     setImageFile(file)
   }
 
@@ -133,13 +141,13 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
       <h3
         className={`text-[2.4rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
-        할 일 수정
+        {language === 'ko' ? '할 일 수정' : 'Edit to do'}
       </h3>
       <div className="flex gap-[1rem] sm:flex-col sm:gap-[2.4rem]">
         <div className="flex-1">
           <DropDownMenu
             id="progress"
-            label="상태"
+            label={language === 'ko' ? '상태' : 'Status'}
             onChange={setNewCardBody}
             columnTitle={columnTitle}
             isRequired
@@ -148,7 +156,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
         <div className="flex-1">
           <DropDownInputMenu
             id="manager"
-            label="담당자"
+            label={language === 'ko' ? '담당자' : 'Manager'}
             currentManager={card.assignee}
             memberList={members}
             setManager={setAssigneeUserId}
@@ -158,41 +166,57 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
       </div>
       <TextInput
         id="title"
-        label="제목"
+        label={language === 'ko' ? '제목' : 'Title'}
         name="title"
         value={newCardBody?.title}
         onChange={handleInputValue}
-        placeholder="제목을 입력해 주세요."
+        placeholder={language === 'ko' ? '제목을 입력해 주세요.' : 'Please enter a title.'}
         isRequired
       />
       <Textarea
         id="description"
-        label="설명"
+        label={language === 'ko' ? '설명' : 'Description'}
         name="description"
         value={newCardBody?.description}
         onChange={handleInputValue}
-        placeholder="설명을 입력해 주세요."
+        placeholder={language === 'ko' ? '설명을 입력해 주세요.' : 'Please enter a description.'}
         isRequired
       />
       <DateInput
         id="dueDate"
-        label="마감일"
+        label={language === 'ko' ? '마감일' : 'Due date'}
         name="dueDate"
         value={newCardBody?.dueDate}
         onChange={setDueDate}
         isRequired
       />
-      <TagInput id="tag" label="태그" myTagBody={myTagBody} setMyTagBody={setMyTagBody} />
-      <ImageInput
-        id="image"
-        label="이미지"
-        size="s"
-        currentImage={card.imageUrl}
-        onChange={handleFileInputValue}
+      <TagInput
+        id="tag"
+        label={language === 'ko' ? '태그' : 'Tag'}
+        myTagBody={myTagBody}
+        setMyTagBody={setMyTagBody}
       />
+      <div className="flex">
+        <ImageInput
+          id="image"
+          label={language === 'ko' ? '이미지' : 'Image'}
+          size="s"
+          currentImage={card.imageUrl}
+          onChange={handleFileInputValue}
+        />
+      </div>
       <div className="flex gap-[1rem] self-end">
-        <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="수정" type="submit" isDisabled={isDisabled} />
+        <ShortButton
+          color="white"
+          text={language === 'ko' ? '취소' : 'Cancel'}
+          onClick={() => dispatch(closeModal())}
+        />
+        <ShortButton
+          color="purple"
+          text={language === 'ko' ? '수정' : 'Edit'}
+          type="submit"
+          isDisabled={isDisabled}
+        />
       </div>
     </form>
   )

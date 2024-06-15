@@ -2,6 +2,7 @@ import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { addColumnItem } from '@/store/reducers/columnReducer'
 import { closeModal, openModal } from '@/store/reducers/modalReducer'
@@ -22,6 +23,7 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   const { requestFunction: updateColumnFunction } = useAsync(updateColumn)
   const { requestFunction: deleteColumnFunction } = useAsync(deleteColumn)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handelChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewColumnName({
@@ -51,20 +53,34 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
   return (
     <form onSubmit={handleSubmit} className={`modal-layout ${theme === 'dark' && 'bg-var-black2'}`}>
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
-        칼럼 관리
+        {language === 'ko' ? '칼럼 관리' : 'Edit Column'}
       </h3>
-      <TextInput id="name" label="이름" value={newColumnName.title} onChange={handelChange} />
+      <TextInput
+        id="name"
+        label={language === 'ko' ? '이름' : 'Name'}
+        value={newColumnName.title}
+        onChange={handelChange}
+      />
       <div className="flex items-end justify-between">
         <button
           type="button"
           className="cursor-pointer text-[1.4rem] text-var-gray4 underline"
           onClick={handleDelete}
         >
-          삭제하기
+          {language === 'ko' ? '삭제하기' : 'Delete'}
         </button>
         <div className="flex gap-[1rem]">
-          <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-          <ShortButton type="submit" color="purple" text="변경" onClick={handleSubmit} />
+          <ShortButton
+            color="white"
+            text={language === 'ko' ? '취소' : 'Cancel'}
+            onClick={() => dispatch(closeModal())}
+          />
+          <ShortButton
+            type="submit"
+            color="purple"
+            text={language === 'ko' ? '변경' : 'Change'}
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </form>

@@ -60,10 +60,11 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       handleSetLanguage: () => {
         if (language === 'ko') {
           setLanguage('en')
+          localStorage.setItem('language', 'en')
         } else {
           setLanguage('ko')
+          localStorage.setItem('language', 'ko')
         }
-        localStorage.setItem('language', language)
       },
     }),
     [language],
