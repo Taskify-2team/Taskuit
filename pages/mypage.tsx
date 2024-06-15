@@ -24,7 +24,7 @@ export default function MyPage() {
     email: '',
     profileImageUrl: '',
   })
-  const [imageFile, setImageFile] = useState<File>()
+  const [imageFile, setImageFile] = useState<File | null>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
   const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
   const {
@@ -61,6 +61,8 @@ export default function MyPage() {
       formData.append('image', imageFile)
       const res = await postProfileImageReq(formData)
       profileimageUrl = res?.profileImageUrl
+    } else if (imageFile === null) {
+      profileimageUrl = null
     }
 
     await updateUserProfileRequest({

@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import Image from 'next/image'
+import cancelButton from '@/public/icons/cancel.svg'
 import addButton from '@/public/icons/addLogo.svg'
 import plusIcon from '@/public/icons/editFill.svg'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
@@ -11,7 +13,7 @@ interface ImageInputProps {
   label: string
   isRequired?: boolean
   size: 's' | 'm'
-  onChange: (file: File) => void
+  onChange: (file: File | null) => void
 }
 
 export default function ImageInput({
@@ -35,12 +37,28 @@ export default function ImageInput({
     onChange(file)
   }
 
+  const handleDeleteFile = () => {
+    onChange(null)
+    setPreview('')
+  }
+
   useEffect(() => {
     setPreview(currentImage)
   }, [currentImage])
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
+      {preview && (
+        <button
+          type="button"
+          onClick={handleDeleteFile}
+          className={`${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-gray3' : 'bg-var-black3 hover:bg-var-black4'} absolute right-[-1rem] top-[2.5rem] z-50 rounded-full p-[0.5rem]`}
+        >
+          <div className={`${size === 'm' ? 'size-[1.5rem]' : 'size-[1rem]'} relative`}>
+            <Image fill src={cancelButton} alt="이미지 삭제 버튼" />
+          </div>
+        </button>
+      )}
       <div
         onMouseEnter={() => setOnMouse(true)}
         onMouseLeave={() => setOnMouse(false)}
