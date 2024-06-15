@@ -76,7 +76,7 @@ export default function DropDownMenu({
               <div
                 key={column.id}
                 onClick={() => handleChangeProgress(column)}
-                className={`${selectMenu === column.title ? 'bg-var-violet' : ''} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                className={`${selectMenu === column.title && (theme === 'normal' ? 'bg-var-violet' : 'bg-var-black1')} relative grid size-full grid-cols-[2.2rem_1fr] place-items-start gap-1 px-[1.6rem] py-[0.65rem] ${theme === 'normal' ? 'hover:bg-var-violet' : 'hover:bg-var-black2'} `}
               >
                 {column.title === selectMenu && (
                   <div className="col-start-1 size-[1rem] self-center">

@@ -10,7 +10,7 @@ interface DashBoardCardInfoProps {
 
 export default function DashBoardCardInfo({ card }: DashBoardCardInfoProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex animate-slideDown justify-between">
       <div className="flex items-center gap-[0.6rem] text-[1.2rem] text-var-gray5">
         <Image src={calenderIcon} alt="날짜" width="18" height="18" />
         {formatDateDot(card.dueDate)}

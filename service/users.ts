@@ -14,7 +14,7 @@ export const getUserInfo = async () => {
   return response.data
 }
 
-export const postProfileImage = async (profileImageUrl: FormData) => {
+export const postProfileImage = async (profileImageUrl: FormData | null) => {
   const response = await axios.post(`/users/me/image`, profileImageUrl, {
     headers: {
       'Content-Type': 'multipart/form-data',

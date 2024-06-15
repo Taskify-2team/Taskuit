@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -5,6 +6,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { Tag } from '@/service/tag'
+import LoadingTag from '@/components/Loading/LoadingTag'
 
 interface DashBoardCardProps {
   card: Card
@@ -49,19 +51,25 @@ export default function DashBoardCard({
           height={400}
           src={card.imageUrl}
           alt="카드 이미지"
-          className="mb-[1.2rem] rounded-[0.6rem] object-cover"
+          className="mb-[1.2rem] animate-slideDown rounded-[0.6rem] object-cover"
           priority
         />
       )}
       <h3
-        className={`ellipsis mb-[1rem] text-start text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+        className={`ellipsis mb-[1rem] animate-slideDown text-start text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
       >
         {card.title}
       </h3>
       <div className="mb-[1.2rem]">
-        <ul className="flex flex-wrap gap-[0.6rem]">
-          {tagList?.map((tag) => <TagChip key={tag.text} tag={tag} />)}
-        </ul>
+        {tagList ? (
+          <ul className="flex flex-wrap gap-[0.6rem]">
+            {tagList.map((tag) => (
+              <TagChip key={tag.text} tag={tag} />
+            ))}
+          </ul>
+        ) : (
+          <LoadingTag theme={theme} />
+        )}
       </div>
       <DashBoardCardInfo card={card} />
     </button>

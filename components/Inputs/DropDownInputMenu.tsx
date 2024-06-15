@@ -213,7 +213,8 @@ export default function DropDownInputMenu({
                     index: i,
                   })
                 }
-                className={`${menuItem.nickname === selectMenu.nickname ? 'bg-var-violet' : ''} relative flex h-full w-full items-center gap-[1rem] px-[1.6rem] py-[0.65rem] hover:bg-var-violet`}
+                // eslint-disable-next-line no-nested-ternary
+                className={`${menuItem.nickname === selectMenu.nickname && (theme === 'normal' ? 'bg-var-violet' : 'bg-var-black2')} relative flex h-full w-full items-center gap-[1rem] px-[1.6rem] py-[0.65rem] ${theme === 'normal' ? 'hover:bg-var-violet' : 'hover:bg-var-black2'} `}
               >
                 <div className="relative size-[1rem] self-center">
                   {menuItem.nickname === selectMenu.nickname && (

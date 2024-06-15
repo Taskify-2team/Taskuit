@@ -40,7 +40,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   const { theme } = useLoadTheme()
   const { dbId } = useDbId()
   const [members, setMembers] = useState([])
-  const [imageFile, setImageFile] = useState<File>()
+  const [imageFile, setImageFile] = useState<File | null>()
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [dueDate, setDueDate] = useState('')
@@ -68,7 +68,13 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
     })
   }
 
-  const handleFileInputValue = (file: File) => {
+  const handleFileInputValue = (file: File | null) => {
+    if (file === null) {
+      setNewCardBody((prev) => ({
+        ...prev,
+        imageUrl: null,
+      }))
+    }
     setImageFile(file)
   }
 
@@ -183,13 +189,15 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
         isRequired
       />
       <TagInput id="tag" label="태그" myTagBody={myTagBody} setMyTagBody={setMyTagBody} />
-      <ImageInput
-        id="image"
-        label="이미지"
-        size="s"
-        currentImage={card.imageUrl}
-        onChange={handleFileInputValue}
-      />
+      <div className="flex">
+        <ImageInput
+          id="image"
+          label="이미지"
+          size="s"
+          currentImage={card.imageUrl}
+          onChange={handleFileInputValue}
+        />
+      </div>
       <div className="flex gap-[1rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
         <ShortButton color="purple" text="수정" type="submit" isDisabled={isDisabled} />
