@@ -24,19 +24,19 @@ function Dropdown({ theme }: DropdownProps) {
     >
       <Link
         href="/mypage"
-        className="block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem]"
+        className={`block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem] ${theme === 'normal' ? '' : 'hover:text-var-black3'}`}
       >
         {language === 'ko' ? '내 정보' : 'My Page'}
       </Link>
       <Link
         href="/mydashboard"
-        className="block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem]"
+        className={`block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem] ${theme === 'normal' ? '' : 'hover:text-var-black3'}`}
       >
         {language === 'ko' ? '내 대시보드' : 'Dashboard'}
       </Link>
       <button
         type="button"
-        className="border-t-block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem]"
+        className={`border-t-block w-full rounded-[0.4rem] px-4 py-[1rem] text-left text-[1.6rem] hover:bg-var-violet sm:text-[1.3rem] ${theme === 'normal' ? '' : 'hover:text-var-black3'}`}
         onClick={handleLogout}
       >
         {language === 'ko' ? '로그아웃' : 'Logout'}
