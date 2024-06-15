@@ -1,3 +1,8 @@
+/**
+ *
+ * @param hexString rgb로 변환시킬 헥스값 문자열
+ * @returns
+ */
 const hexToRgb = (hexString: string) => {
   const hex = hexString?.replace('#', '')
 
