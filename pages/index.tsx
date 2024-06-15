@@ -43,7 +43,7 @@ function MainSmallCard({
           {title}
         </p>
         <p
-          className={`text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+          className={`text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'} whitespace-nowrap`}
         >
           {children}
         </p>
@@ -71,7 +71,7 @@ export default function Home() {
         <div className="relative h-[42.3rem] w-[72.2rem] sm:h-[16.8rem] sm:w-[28.7rem] md:h-[31.5rem] md:w-[53.8rem]">
           <Image src={mainImage} alt="메인 이미지" fill />
         </div>
-        <div className="flex items-center justify-center gap-[1rem] sm:flex-col">
+        <div className="flex items-center justify-center gap-[1rem] sm:flex-col sm:gap-0">
           <h1
             className={`text-center text-[7.6rem] font-bold tracking-[-0.2rem] sm:text-[4rem] md:text-[5.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
           >
@@ -81,21 +81,30 @@ export default function Home() {
             Taskuit!
           </span>
         </div>
-        <p
-          className={`text-center text-[2.2rem] font-bold sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
-        >
-          {language === 'ko' ? '다양한 일정을 다양한 사람들과' : 'Manage various schedules'}
-          <br />
-          <span className="text-[3rem] font-bold text-primary-violet">
-            {language === 'ko' ? '쉽고,' : 'Easily,'}
-          </span>
-          <span className="text-[3rem] font-bold text-primary-violet">
-            {language === 'ko' ? ' 체계적' : 'Systematically'}
-          </span>
-          {language === 'ko' ? ' 으로 관리해보세요!' : ' with various people'}
-        </p>
+        <div>
+          <p
+            className={`text-center text-[2.2rem] font-bold sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+          >
+            {language === 'ko' ? '다양한 일정을 다양한 사람들과' : 'Manage various schedules'}
+          </p>
+          <div className="flex items-center gap-[0.3rem] sm:flex-col sm:gap-0">
+            <div>
+              <span className="text-[3rem] font-bold text-primary-violet sm:text-[2.4rem]">
+                {language === 'ko' ? '쉽고,' : 'Easily,'}
+              </span>
+              <span className="text-[3rem] font-bold text-primary-violet sm:text-[2.4rem]">
+                {language === 'ko' ? ' 체계적' : 'Systematically'}
+              </span>
+            </div>
+            <p
+              className={`text-center text-[2.2rem] font-bold sm:text-[1.4rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+            >
+              {language === 'ko' ? ' 으로 관리해보세요!' : 'with various people'}
+            </p>
+          </div>
+        </div>
         <Link href="/login">
-          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white sm:mb-[8rem] sm:mt-[6rem] sm:w-[23.5rem] sm:py-[1.2rem]">
+          <span className="inline-block w-[28rem] cursor-pointer rounded-[0.8rem] bg-primary-violet py-[1.4rem] text-center text-[1.8rem] leading-tight text-var-white sm:w-[23.5rem] sm:py-[1.2rem]">
             {language === 'ko' ? '로그인' : 'Login'}
           </span>
         </Link>
@@ -112,14 +121,14 @@ export default function Home() {
                 Point 1
               </p>
               <p
-                className={`text-[5rem] font-bold sm:text-[3.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+                className={`whitespace-nowrap text-[5rem] font-bold sm:text-center sm:text-[3.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
               >
                 {language === 'ko' ? '일의 우선순위를' : 'Manage your work'}
                 <br />
                 {language === 'ko' ? '관리하세요' : 'priorities'}
               </p>
               <p
-                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray4'}`}
+                className={`whitespace-nowrap text-[1.6rem] sm:text-center ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray4'}`}
               >
                 {language === 'ko'
                   ? '대시보드를 생성해 우선순위를 나누고'
@@ -146,14 +155,14 @@ export default function Home() {
                 Point 2
               </p>
               <p
-                className={`text-[5rem] font-bold sm:text-[3.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+                className={`whitespace-nowrap text-[5rem] font-bold sm:text-center sm:text-[3.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
               >
-                {language === 'ko' ? '해야할 일을' : 'Business registration'}
+                {language === 'ko' ? '해야할 일을' : 'Try registering'}
                 <br />
-                {language === 'ko' ? '등록하세요' : 'to be done'}
+                {language === 'ko' ? '등록하세요' : 'for work'}
               </p>
               <p
-                className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray4'}`}
+                className={`text-[1.6rem] sm:text-center ${theme === 'normal' ? 'text-var-black2' : 'text-var-gray4'}`}
               >
                 {language === 'ko' ? '처리할 업무를 직접 등록해' : 'Sign up for tasks'}
                 <br />
