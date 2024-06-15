@@ -22,6 +22,7 @@ const CustomInput = forwardRef((props, ref: React.ForwardedRef<HTMLInputElement>
     <input
       {...props}
       ref={ref}
+      autoComplete="off"
       type="text"
       placeholder="날짜를 입력해 주세요"
       className={`input-layout w-[100%] pl-[4.6rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1 text-var-gray3'}`}
