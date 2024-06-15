@@ -73,6 +73,7 @@ export default function TagInput({
         <input
           id={id}
           value={text}
+          autoComplete="off"
           placeholder="입력 후 Enter"
           maxLength={20}
           onChange={handleChange}

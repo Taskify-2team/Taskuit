@@ -152,7 +152,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
         <div className="mb-[1.6rem] flex items-center gap-[2rem]">
           <ProgressChip progress={columnTitle} />
           <div className="h-[2rem] w-[0.1rem] bg-var-gray3" />
-          <ul className="flex gap-[0.6rem]">
+          <ul className="flex flex-wrap gap-[0.6rem]">
             {tags && tags.map((tag) => <TagChip key={tag.text} tag={tag} />)}
           </ul>
         </div>
