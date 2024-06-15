@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import themeIcon from '@/public/icons/brightness_89411.svg'
+import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import translateIcon from '@/public/icons/translateIcon.svg'
+import translateIconWhite from '@/public/icons/translateIconWhite.svg'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
@@ -43,12 +45,12 @@ export default function LightHeader() {
       </Link>
       <div className="flex items-center gap-[3.6rem] sm:gap-[2rem]">
         <HeaderButton
-          buttonIcon={translateIcon}
+          buttonIcon={theme === 'normal' ? translateIcon : translateIconWhite}
           buttonName={language === 'ko' ? '언어' : 'Language'}
           handleOnClick={handleSetLanguage}
         />
         <HeaderButton
-          buttonIcon={themeIcon}
+          buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
           buttonName={language === 'ko' ? '테마' : 'Theme'}
           handleOnClick={handleSetTheme}
         />
