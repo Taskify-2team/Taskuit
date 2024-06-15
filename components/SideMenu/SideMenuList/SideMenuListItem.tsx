@@ -30,7 +30,7 @@ export default function SideMenuListItem({
         >
           {title}
         </div>
-        <div className="ml-[-1.2rem] shrink-0 sm:hidden">
+        <div className="ml-[-1.2rem] shrink-0 pr-[0.5rem] sm:hidden">
           {createdByMe && <Image src={crownicon} alt="크라운 아이콘" />}
         </div>
       </div>

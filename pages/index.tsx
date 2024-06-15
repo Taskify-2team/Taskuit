@@ -11,7 +11,7 @@ import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 const pointCard =
   'sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col'
-const pointCardContent = 'sm:h-[25rem] sm:w-[25rem] sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]'
+const pointCardContent = 'sm:h-[25rem]  sm:gap-[2rem] md:h-[35rem] md:gap-[3rem]'
 const pointCardImage =
   'sm:top-[5rem] sm:h-[24.8rem] sm:w-[29.3rem] md:left-[9.4rem] md:top-[5rem] md:h-[43.5rem] md:w-[52rem]'
 function MainSmallCard({
@@ -78,7 +78,7 @@ export default function Home() {
             {language === 'ko' ? '쉬운 일정 관리' : 'Easy management'}
           </h1>
           <span className="font-[logo] text-[8rem] font-bold text-primary-violet sm:text-[4.2rem] md:text-[6rem]">
-            Taskuit!
+            Taskuit
           </span>
         </div>
         <div>
@@ -110,10 +110,10 @@ export default function Home() {
         </Link>
         <div className="flex w-full flex-col items-center gap-[9rem]">
           <div
-            className={`flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-gray2' : 'bg-var-black3'} p-[5rem] ${pointCard}`}
+            className={`flex h-[60rem] w-[120rem] justify-center gap-[13rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-gray2' : 'bg-var-black3'} items-center py-[5rem] ${pointCard}`}
           >
             <div
-              className={`flex h-[50rem] w-[33rem] flex-col justify-center gap-[5rem] ${pointCardContent}`}
+              className={`flex h-[50rem] flex-col justify-center gap-[5rem] ${pointCardContent}`}
             >
               <p
                 className={`text-[3rem] font-bold sm:text-center ${theme === 'normal' ? 'text-primary-violet' : 'text-var-gray4'}`}
@@ -144,7 +144,7 @@ export default function Home() {
             </div>
           </div>
           <div
-            className={`flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-gray2' : 'bg-var-black3'} p-[5rem] ${pointCard}`}
+            className={`flex h-[60rem] w-[120rem] flex-row-reverse justify-center gap-[13rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-gray2' : 'bg-var-black3'} items-center py-[5rem] ${pointCard}`}
           >
             <div
               className={`flex h-[49.7rem] w-[33rem] flex-col justify-center gap-[5rem] ${pointCardContent}`}

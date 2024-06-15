@@ -172,7 +172,7 @@ export default function DashBoardHeader() {
             </div>
           )}
           <div
-            className="relative flex cursor-pointer items-center border-l-2 border-var-gray3 pl-[3.2rem] sm:border-none sm:pl-0"
+            className={`relative flex cursor-pointer items-center border-l pl-[3.2rem] sm:border-none sm:pl-0 ${theme === 'normal' ? 'border-var-gray3' : 'border-var-gray4'}`}
             onClick={toggleDropdown}
             ref={dropdownRef}
           >
