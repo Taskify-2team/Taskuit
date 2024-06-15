@@ -32,7 +32,7 @@ export default function TagChip({ tag, idx, setMyTagBody, onDelete }: TagChipPro
       className="relative w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem] text-[1.2rem]"
       style={{ backgroundColor: `rgba(${r},${g},${b}, 0.18)` }}
     >
-      <div className="text-[1.2rem]" style={{ color: tag.color }}>
+      <div className="w-full text-[1.2rem]" style={{ color: tag.color }}>
         {tag.text}
       </div>
       {onDelete && (
