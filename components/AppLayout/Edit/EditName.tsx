@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { putDashBoard } from '@/service/dashboards'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -18,7 +18,6 @@ export default function EditName() {
     color: '',
   })
   const router = useRouter()
-  const inputRef = useRef<HTMLInputElement>()
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
   const { dashboardBody, pending } = useEditBoard(Number(dashboardId))

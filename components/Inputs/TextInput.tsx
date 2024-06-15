@@ -34,7 +34,7 @@ export default function TextInput({
         className={`input-layout ${isReadOnly ? 'text-var-gray4 focus:border-var-gray3' : ''} ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1 text-var-gray3'}`}
         readOnly={isReadOnly}
         ref={ref}
-        maxLength={id === 'title' || id === 'name' ? 20 : 100}
+        maxLength={id === 'title' || id === 'name' || id === 'columnName' ? 20 : 100}
       />
     </InputLayout>
   )
