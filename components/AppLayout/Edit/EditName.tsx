@@ -6,6 +6,8 @@ import { openToast } from '@/store/reducers/toastReducer'
 import useEditBoard from '@/hooks/useEditBoard'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
+import TextCounter from '@/components/TextCounter/TextCounter'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { ShortButton } from '../..'
 import ColorSelector from '../../ColorSelector/ColorSelector'
 import CircleChip from '../../Chips/CircleChip'
@@ -19,8 +21,9 @@ export default function EditName() {
   const router = useRouter()
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
-  const { dashboardBody, setDashBoardBody, pending } = useEditBoard(Number(dashboardId))
+  const { dashboardBody, pending } = useEditBoard(Number(dashboardId))
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleColor = (colorName: string) => {
     setEditBoardBody({
@@ -39,11 +42,7 @@ export default function EditName() {
     }
     dispatch(openToast('successEditBoard'))
     await putDashBoard(Number(dashboardId), editBoardBody)
-    setDashBoardBody({ ...dashboardBody, ...editBoardBody })
-    setEditBoardBody({
-      ...editBoardBody,
-      title: '',
-    })
+    router.push(`/dashboard/${dashboardId}`)
   }
 
   useEffect(() => {
@@ -83,9 +82,9 @@ export default function EditName() {
         >
           <label
             htmlFor="name"
-            className={`flex flex-col gap-[1rem] text-[1.8rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
+            className={`relative flex flex-col gap-[1rem] text-[1.8rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            대시보드 이름
+            {language === 'ko' ? '대시보드 이름' : 'Dashboard name'}
             <input
               placeholder={dashboardBody.title}
               id="name"
@@ -96,10 +95,17 @@ export default function EditName() {
                   title: e.target.value,
                 })
               }
+              maxLength={20}
+              value={editBoardBody.title}
             />
+            <TextCounter text={editBoardBody.title} length={20} />
           </label>
           <div className="flex flex-row-reverse">
-            <ShortButton color="purple" text="변경" onClick={handleEditBoard} />
+            <ShortButton
+              color="purple"
+              text={language === 'ko' ? '변경' : 'Edit'}
+              onClick={handleEditBoard}
+            />
           </div>
         </form>
       </div>

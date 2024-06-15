@@ -7,6 +7,7 @@ import { getColumnList, postColumn } from '@/service/columns'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import TextCounter from '@/components/TextCounter/TextCounter'
 
 export interface AddColumnProps {
   dashboardId: number
@@ -45,14 +46,17 @@ export default function AddColumn({ dashboardId }: AddColumnProps) {
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
         {language === 'ko' ? '새 컬럼 생성' : 'Create new column'}
       </h3>
-      <TextInput
-        id="columnName"
-        label={language === 'ko' ? '이름' : 'Name'}
-        name="columnName"
-        value={columnBody.title}
-        onChange={handleInputValue}
-        placeholder={language === 'ko' ? '새로운 프로젝트' : 'New project'}
-      />
+      <div className="relative">
+        <TextInput
+          id="columnName"
+          label={language === 'ko' ? '이름' : 'Name'}
+          name="columnName"
+          value={columnBody.title}
+          onChange={handleInputValue}
+          placeholder={language === 'ko' ? '새로운 프로젝트' : 'New project'}
+        />
+        <TextCounter text={columnBody.title} length={20} />
+      </div>
       <div className="flex gap-[1rem] self-end">
         <ShortButton
           color="white"

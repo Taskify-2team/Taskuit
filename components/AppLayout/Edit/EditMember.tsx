@@ -7,6 +7,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { PaginationButton, ShortButton, UserInfo } from '../..'
 import Loading from '../../Loading/Loading'
 
@@ -18,6 +19,7 @@ export default function EditMember() {
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
   const { pending, requestFunction } = useAsync(getMemberList)
 
   const handleNext = () => {
@@ -59,13 +61,13 @@ export default function EditMember() {
           <p
             className={`text-center text-[2rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            멤버
+            {language === 'ko' ? '멤버' : 'Member'}
           </p>
           <div className="flex items-center justify-end gap-[1.6rem]">
             <div
               className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
             >
-              {totalPage} 페이지중 {currentPage}
+              {totalPage} {language === 'ko' ? '페이지중' : 'pages'} {currentPage}
             </div>
             <PaginationButton
               currentPage={currentPage}
@@ -76,7 +78,7 @@ export default function EditMember() {
           </div>
         </div>
         <div className="flex flex-col">
-          <p className="text-[1.6rem] text-var-gray4">이름</p>
+          <p className="text-[1.6rem] text-var-gray4">{language === 'ko' ? '이름' : 'Name'}</p>
           <div className="flex flex-col">
             {memberList.map((item) => (
               <div
@@ -85,7 +87,11 @@ export default function EditMember() {
               >
                 <UserInfo profileImageUrl={item.profileImageUrl} nickname={item.nickname} />
                 {!item.isOwner && (
-                  <ShortButton color="white" text="삭제" onClick={() => deleteMember(item.id)} />
+                  <ShortButton
+                    color="white"
+                    text={language === 'ko' ? '삭제' : 'Delete'}
+                    onClick={() => deleteMember(item.id)}
+                  />
                 )}
               </div>
             ))}

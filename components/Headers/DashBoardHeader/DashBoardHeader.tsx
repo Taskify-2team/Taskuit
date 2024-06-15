@@ -11,6 +11,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { useAppDispatch } from '@/hooks/useApp'
 import themeIconWhite from '@/public/icons/brightnessWhite.svg'
 import translateIcon from '@/public/icons/translateIcon.svg'
+import translateIconWhite from '@/public/icons/translateIconWhite.svg'
 import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
 import settingIconWhite from '@/public/icons/settingiconWhite.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
@@ -125,7 +126,7 @@ export default function DashBoardHeader() {
           className={`flex gap-[1.6rem] sm:fixed sm:bottom-0 sm:left-0 sm:z-[100] sm:h-[100vh] sm:w-[6.7rem] sm:flex-col sm:items-center sm:justify-end sm:gap-[1rem] sm:border-r-[0.1rem] sm:pb-[1.5rem] ${theme === 'normal' ? 'sm:border-var-gray3 sm:bg-var-white' : 'sm:border-var-black3 sm:bg-var-black2'}`}
         >
           <HeaderButton
-            buttonIcon={translateIcon}
+            buttonIcon={theme === 'normal' ? translateIcon : translateIconWhite}
             buttonName={language === 'ko' ? '언어' : 'Language'}
             handleOnClick={handleSetLanguage}
           />
