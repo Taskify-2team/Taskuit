@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
@@ -31,7 +31,8 @@ export default function AddDashBoard() {
     })
   }
 
-  const submitAddDashBoard = async () => {
+  const submitAddDashBoard = async (e: FormEvent) => {
+    e.preventDefault()
     const result = await requestFunction(dashBoardBody)
     if (!result) return
     dispatch(closeModal())
