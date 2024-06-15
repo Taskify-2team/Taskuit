@@ -8,6 +8,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
 import useAsync from '@/hooks/useAsync'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { PaginationButton, ShortButton } from '../..'
 import EmptyInvite from '../MyDashboard/EmptyInvite'
 import Loading from '../../Loading/Loading'
@@ -20,6 +21,7 @@ export default function EditInvitation() {
   const { dashboardId } = router.query
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
   const { pending, requestFunction } = useAsync(getDashBoardInvitation)
 
   const handleCancel = async (id: number) => {
@@ -64,13 +66,13 @@ export default function EditInvitation() {
           <p
             className={`text-center text-[2rem] font-bold ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            초대 내역
+            {language === 'ko' ? '초대 내역' : 'Invited List'}
           </p>
           <div className="flex items-center justify-end gap-[1.6rem] sm:relative">
             <div
               className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
             >
-              {totalPage} 페이지중 {currentPage}
+              {totalPage} {language === 'ko' ? '페이지중' : 'pages'} {currentPage}
             </div>
             <PaginationButton
               currentPage={currentPage}
@@ -79,7 +81,7 @@ export default function EditInvitation() {
               handlePrev={handlePrev}
             />
             <ShortButton
-              text="초대하기"
+              text={language === 'ko' ? '초대하기' : 'Invite'}
               color="purple"
               onClick={() => {
                 dispatch(
@@ -113,7 +115,9 @@ export default function EditInvitation() {
             </div>
           </div>
         ) : (
-          <EmptyInvite>초대한 멤버가 없습니다!</EmptyInvite>
+          <EmptyInvite>
+            {language === 'ko' ? '초대한 멤버가 없습니다!' : 'No invited members!'}
+          </EmptyInvite>
         )}
       </div>
     </>

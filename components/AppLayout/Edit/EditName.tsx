@@ -7,6 +7,7 @@ import useEditBoard from '@/hooks/useEditBoard'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
 import TextCounter from '@/components/TextCounter/TextCounter'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { ShortButton } from '../..'
 import ColorSelector from '../../ColorSelector/ColorSelector'
 import CircleChip from '../../Chips/CircleChip'
@@ -22,6 +23,7 @@ export default function EditName() {
   const dispatch = useAppDispatch()
   const { dashboardBody, pending } = useEditBoard(Number(dashboardId))
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleColor = (colorName: string) => {
     setEditBoardBody({
@@ -82,7 +84,7 @@ export default function EditName() {
             htmlFor="name"
             className={`relative flex flex-col gap-[1rem] text-[1.8rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            대시보드 이름
+            {language === 'ko' ? '대시보드 이름' : 'Dashboard name'}
             <input
               placeholder={dashboardBody.title}
               id="name"
@@ -99,7 +101,11 @@ export default function EditName() {
             <TextCounter text={editBoardBody.title} length={20} />
           </label>
           <div className="flex flex-row-reverse">
-            <ShortButton color="purple" text="변경" onClick={handleEditBoard} />
+            <ShortButton
+              color="purple"
+              text={language === 'ko' ? '변경' : 'Edit'}
+              onClick={handleEditBoard}
+            />
           </div>
         </form>
       </div>

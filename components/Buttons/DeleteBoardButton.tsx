@@ -1,3 +1,4 @@
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ButtonHTMLAttributes } from 'react'
 
@@ -5,6 +6,7 @@ interface DeleteButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export default function DeleteBoardButton({ onClick }: DeleteButtonProps) {
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   return (
     <button
@@ -12,7 +14,7 @@ export default function DeleteBoardButton({ onClick }: DeleteButtonProps) {
       onClick={onClick}
       type="button"
     >
-      대시보드 삭제하기
+      {language === 'ko' ? '대시보드 삭제하기' : 'Delete Dashboard'}
     </button>
   )
 }
