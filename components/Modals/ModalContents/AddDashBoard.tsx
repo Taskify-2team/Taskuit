@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { TextInput, ShortButton } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { closeModal } from '@/store/reducers/modalReducer'
@@ -13,6 +13,7 @@ import TextCounter from '@/components/TextCounter/TextCounter'
 
 export default function AddDashBoard() {
   const dispatch = useAppDispatch()
+  const [isDisabled, setDisabled] = useState(true)
   const { requestFunction } = useAsync(postDashboard)
   const [dashBoardBody, setDashBoardBody] = useState({
     title: '',
@@ -35,6 +36,10 @@ export default function AddDashBoard() {
     dispatch(openMyToast({ text: '대시보드를 생성했습니다', warn: false }))
     router.push(`/dashboard/${result.data.id}`)
   }
+
+  useEffect(() => {
+    setDisabled(!dashBoardBody.title)
+  }, [dashBoardBody])
 
   return (
     <form
@@ -60,7 +65,7 @@ export default function AddDashBoard() {
       <ColorSelector boardColor={dashBoardBody.color} handleClick={handleColor} />
       <div className="flex gap-[1.2rem] self-end">
         <ShortButton color="white" text="취소" onClick={() => dispatch(closeModal())} />
-        <ShortButton color="purple" text="생성" onClick={submitAddDashBoard} />
+        <ShortButton color="purple" text="생성" type="submit" isDisabled={isDisabled} />
       </div>
     </form>
   )
