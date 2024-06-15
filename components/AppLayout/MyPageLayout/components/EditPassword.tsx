@@ -2,6 +2,7 @@
 import { ShortButton, TextInput } from '@/components'
 import { useAppDispatch } from '@/hooks/useApp'
 import { PasswordBody } from '@/pages/mypage'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { openMyToast } from '@/store/reducers/myToastReducer'
 import { openToast } from '@/store/reducers/toastReducer'
@@ -23,6 +24,7 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
   const [isDisabled, setDisabled] = useState(true)
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleInitPasswordValue = () => {
     setNewPasswordBody({
@@ -77,7 +79,7 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
       <h3
         className={`mb-[3.2rem] text-[2.4rem] font-bold sm:mb-[2.4rem] sm:text-[2rem] ${theme === 'normal' ? 'text-var-black' : 'text-var-gray3'}`}
       >
-        비밀번호 변경
+        {language === 'ko' ? '비밀번호 변경' : 'Change Password'}
       </h3>
       <div className="mb-[2.4rem] flex flex-col gap-[2rem]">
         <TextInput
@@ -85,28 +87,33 @@ export default function EditPassword({ error, result, onSubmit }: EditPasswordPr
           name="currentPassword"
           value={newPasswordBody.password}
           onChange={handleCurrentPasswordValue}
-          label="현재 비밀번호"
-          placeholder="현재 비밀번호 입력"
+          label={language === 'ko' ? '현재 비밀번호' : 'Current Password'}
+          placeholder={language === 'ko' ? '현재 비밀번호 입력' : 'Enter current password'}
         />
         <TextInput
           id="nextPassword"
           name="newPassword"
           value={newPasswordBody.newPassword}
           onChange={handleNewPasswordValue}
-          label="새 비밀번호"
-          placeholder="새 비밀번호 입력"
+          label={language === 'ko' ? '새 비밀번호' : 'New Password'}
+          placeholder={language === 'ko' ? '새 비밀번호 입력' : 'Enter New password'}
         />
         <TextInput
           id="checkNextPassword"
           name="checkNewPassword"
           value={passwordCheck}
           onChange={handlePasswordCheckValue}
-          label="새 비밀번호 확인"
-          placeholder="새 비밀번호 입력"
+          label={language === 'ko' ? '새 비밀번호 확인' : 'Check new Password'}
+          placeholder={language === 'ko' ? '새 비밀번호 입력' : 'Enter New password'}
         />
       </div>
       <div className="self-end">
-        <ShortButton color="purple" type="submit" isDisabled={isDisabled} text="변경" />
+        <ShortButton
+          color="purple"
+          type="submit"
+          isDisabled={isDisabled}
+          text={language === 'ko' ? '변경' : 'Change'}
+        />
       </div>
     </form>
   )
