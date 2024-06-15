@@ -11,6 +11,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { openToast } from '@/store/reducers/toastReducer'
 import AuthThemeButton from '@/components/AuthThemeButton/AuthThemeButton'
 import { LogInFormValueType } from '@/types/auth'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -26,6 +27,7 @@ export default function LoginForm() {
   const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleLoginSuccess = (accessToken: string) => {
     localStorage.setItem('accessToken', accessToken)
@@ -77,7 +79,7 @@ export default function LoginForm() {
           </p>
         </Link>
         <p className={`text-[2rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
-          오늘도 만나서 반가워요!
+          {language === 'ko' ? '오늘도 만나서 반가워요!' : 'Nice to meet you again today!'}
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,17 +89,17 @@ export default function LoginForm() {
               name="id"
               control={control}
               rules={{
-                required: '이메일을 입력해주세요.',
+                required: `${language === 'ko' ? '이메일을 입력해주세요' : 'Please enter your email'}`,
                 pattern: {
                   value: EMAIL_REGREX,
-                  message: '이메일 형식으로 작성해 주세요.',
+                  message: `${language === 'ko' ? '이메일 형식을 작성해주세요' : 'Please fill out the e-mail format'}`,
                 },
               }}
               render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="email"
-                  placeholder="이메일"
-                  label="이메일"
+                  placeholder={language === 'ko' ? '이메일' : 'Email'}
+                  label={language === 'ko' ? '이메일' : 'Email'}
                   type="text"
                   value={value}
                   onChange={onChange}
@@ -113,17 +115,17 @@ export default function LoginForm() {
               name="password"
               control={control}
               rules={{
-                required: '비밀번호를 입력해주세요',
+                required: `${language === 'ko' ? '비밀번호를 입력해주세요' : 'Please enter your password'}`,
                 minLength: {
                   value: 8,
-                  message: '8자 이상 입력해주세요.',
+                  message: `${language === 'ko' ? '8자 이상 입력해주세요' : 'Please enter at least 8 characters'}`,
                 },
               }}
               render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <AuthInput
                   id="password"
-                  placeholder="비밀번호"
-                  label="비밀번호"
+                  placeholder={language === 'ko' ? '비밀번호' : 'Password'}
+                  label={language === 'ko' ? '비밀번호' : 'Password'}
                   type="password"
                   value={value}
                   onChange={onChange}
@@ -146,19 +148,19 @@ export default function LoginForm() {
               isSubmitting
             }
           >
-            로그인
+            {language === 'ko' ? '로그인' : 'Login'}
           </LongButton>
         </div>
       </form>
       <div className="mt-[1.6rem] flex gap-[1rem]">
         <span className={`text-[1.6rem] ${theme === 'normal' ? 'text-black' : 'text-white'}`}>
-          회원이 아니신가요?
+          {language === 'ko' ? '회원이 아니신가요?' : `Not a member yet?`}
         </span>
         <Link
           href="/signup"
           className={`text-[1.6rem] underline ${theme === 'normal' ? 'text-primary-violet' : 'text-var-blue'}`}
         >
-          회원가입하기
+          {language === 'ko' ? '회원가입하기' : 'Sign up for membership'}
         </Link>
       </div>
       <AuthThemeButton theme={theme} handleSetTheme={handleSetTheme} />
