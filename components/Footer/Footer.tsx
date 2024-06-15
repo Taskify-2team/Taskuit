@@ -62,7 +62,7 @@ export default function Footer() {
       <div className="flex gap-[3.2rem]">
         <Link href="/">
           <p
-            className={`text-[1.6rem] font-normal ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+            className={`text-[1.6rem] font-normal ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'} whitespace-nowrap`}
           >
             Privacy Policy
           </p>
