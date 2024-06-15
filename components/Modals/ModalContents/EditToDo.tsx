@@ -9,6 +9,7 @@ import {
   Textarea,
   ShortButton,
 } from '@/components'
+import TextCounter from '@/components/TextCounter/TextCounter'
 import { useAppDispatch, useAppSelector } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { getCardList, updateCard } from '@/service/cards'
@@ -164,15 +165,18 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
           />
         </div>
       </div>
-      <TextInput
-        id="title"
-        label={language === 'ko' ? '제목' : 'Title'}
-        name="title"
-        value={newCardBody?.title}
-        onChange={handleInputValue}
-        placeholder={language === 'ko' ? '제목을 입력해 주세요.' : 'Please enter a title.'}
-        isRequired
-      />
+      <div className="relative">
+        <TextInput
+          id="title"
+          label={language === 'ko' ? '제목' : 'Title'}
+          name="title"
+          value={newCardBody?.title}
+          onChange={handleInputValue}
+          placeholder={language === 'ko' ? '제목을 입력해 주세요.' : 'Please enter a title.'}
+          isRequired
+        />
+        <TextCounter text={String(newCardBody.title)} length={20} />
+      </div>
       <Textarea
         id="description"
         label={language === 'ko' ? '설명' : 'Description'}

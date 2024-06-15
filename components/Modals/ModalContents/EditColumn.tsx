@@ -1,4 +1,5 @@
 import { ShortButton, TextInput } from '@/components'
+import TextCounter from '@/components/TextCounter/TextCounter'
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { deleteColumn, updateColumn } from '@/service/columns'
@@ -55,12 +56,15 @@ export default function EditColumn({ columnId, columnTitle }: EditColumnProps) {
       <h3 className={`text-[2.4rem] font-bold ${theme === 'dark' && 'text-var-white'}`}>
         {language === 'ko' ? '칼럼 관리' : 'Edit Column'}
       </h3>
-      <TextInput
-        id="name"
-        label={language === 'ko' ? '이름' : 'Name'}
-        value={newColumnName.title}
-        onChange={handelChange}
-      />
+      <div className="relative">
+        <TextInput
+          id="name"
+          label={language === 'ko' ? '이름' : 'Name'}
+          value={newColumnName.title}
+          onChange={handelChange}
+        />
+        <TextCounter text={newColumnName.title} length={20} />
+      </div>
       <div className="flex items-end justify-between">
         <button
           type="button"
