@@ -52,7 +52,7 @@ export default function Footer() {
 
   return (
     <div
-      className={`flex h-[10rem] w-full items-center justify-between px-[14rem] sm:mt-[3rem] sm:flex-col sm:gap-[1.2rem] md:px-[4rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
+      className={`flex h-[10rem] w-full items-center justify-between px-[14rem] sm:h-full sm:flex-col sm:gap-[1.2rem] md:px-[4rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'}`}
     >
       <p
         className={`text-[1.6rem] font-normal ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}

@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import themeIcon from '@/public/icons/brightness_89411.svg'
+import translateIcon from '@/public/icons/translateIcon.svg'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import HeaderButton from '../DashBoardHeader/buttons/HeaderButton'
 
 export default function LightHeader() {
   const [isLogoFontVisible, setIsLogoFontVisible] = useState(true)
   const { handleSetTheme, theme } = useLoadTheme()
+  const { language, handleSetLanguage } = useLoadLanguage()
 
   useEffect(() => {
     const updateLogoFont = () => {
@@ -38,13 +41,18 @@ export default function LightHeader() {
           )}
         </div>
       </Link>
-      <div className="flex gap-[3.6rem] sm:gap-[2rem]">
+      <div className="flex items-center gap-[3.6rem] sm:gap-[2rem]">
+        <HeaderButton
+          buttonIcon={translateIcon}
+          buttonName="언어"
+          handleOnClick={handleSetLanguage}
+        />
         <HeaderButton buttonIcon={themeIcon} buttonName="테마" handleOnClick={handleSetTheme} />
         <Link href="/login">
-          <p className="text-[1.6rem]">로그인</p>
+          <p className="text-[1.6rem]">{language === 'ko' ? '로그인' : 'Login'}</p>
         </Link>
         <Link href="/signup">
-          <p className="text-[1.6rem]">회원가입</p>
+          <p className="text-[1.6rem]">{language === 'ko' ? '회원가입' : 'Singup'}</p>
         </Link>
       </div>
     </div>
