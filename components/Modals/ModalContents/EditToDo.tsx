@@ -69,6 +69,12 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   }
 
   const handleFileInputValue = (file: File | null) => {
+    if (file === null) {
+      setNewCardBody((prev) => ({
+        ...prev,
+        imageUrl: null,
+      }))
+    }
     setImageFile(file)
   }
 
