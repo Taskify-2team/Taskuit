@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { Assignee } from '@/types/dashboard'
 import { Member } from '@/types/member'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import InputLayout from './InputLayout'
 import UserInfo from '../UserInfo/UserInfo'
 
@@ -46,6 +47,7 @@ export default function DropDownInputMenu({
   const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const initializeSelectMenu = () => {
     setSelectMenu({
@@ -184,7 +186,7 @@ export default function DropDownInputMenu({
           value={selectMenu.nickname}
           onChange={handleInputChange}
           className={`w-full text-[1.6rem] outline-none sm:text-[1.4rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black1'}`}
-          placeholder="이름을 입력해 주세요"
+          placeholder={language === 'ko' ? '이름을 입력해 주세요' : 'Input your name'}
         />
         <div className="absolute right-[1.5rem] size-[1rem]">
           <Image

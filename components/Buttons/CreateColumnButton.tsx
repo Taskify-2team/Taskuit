@@ -2,9 +2,11 @@ import Image from 'next/image'
 import addLogo from '@/public/icons/addLogo.svg'
 import { ButtonHTMLAttributes } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 export default function CreateColumnButton({ onClick }: ButtonHTMLAttributes<HTMLButtonElement>) {
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   return (
     <button
@@ -15,7 +17,7 @@ export default function CreateColumnButton({ onClick }: ButtonHTMLAttributes<HTM
       <p
         className={`text-nowrap text-[1.8rem] font-bold ${theme === 'normal' ? 'text-var-black' : 'text-var-white'}`}
       >
-        새로운 컬럼 추가하기
+        {language === 'ko' ? '새로운 컬럼 추가하기' : 'Adding a new Column'}
       </p>
       <div className="relative h-[2.2rem] w-[2.2rem] rounded-[0.4rem] border-var-gray3 bg-var-violet p-[0.3rem]">
         <Image src={addLogo} alt="더하기 이미지" fill />

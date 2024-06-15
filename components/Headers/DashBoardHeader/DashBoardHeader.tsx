@@ -10,6 +10,7 @@ import { openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { useAppDispatch } from '@/hooks/useApp'
 import themeIconWhite from '@/public/icons/brightnessWhite.svg'
+import translateIcon from '@/public/icons/translateIcon.svg'
 import inviteIconWhite from '@/public/icons/inviteiconWhite.svg'
 import settingIconWhite from '@/public/icons/settingiconWhite.svg'
 import themeIcon from '@/public/icons/brightness_89411.svg'
@@ -20,6 +21,7 @@ import { Member, UserInfoData } from '@/types/header'
 import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
 import Loading from '@/components/Loading/Loading'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import Dropdown from '../HeaderDropDown'
 
 export default function DashBoardHeader() {
@@ -34,6 +36,7 @@ export default function DashBoardHeader() {
   const [createdByMe, setCreatedByMe] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
+  const { language, handleSetLanguage } = useLoadLanguage()
 
   const { pending, requestFunction: fetchData } = useAsync(async () => {
     try {
@@ -53,9 +56,9 @@ export default function DashBoardHeader() {
             setCreatedByMe(dashboardInfo.createdByMe)
           }
         } else if (router.pathname === '/mydashboard') {
-          currentTitle = '내 대시보드'
+          currentTitle = `${language === 'ko' ? '내 대시보드' : 'My Dashboard'}`
         } else if (router.pathname === '/mypage') {
-          currentTitle = '마이페이지'
+          currentTitle = `${language === 'ko' ? '마이페이지' : 'My Page'}`
         }
       } else {
         router.push('/login')
@@ -122,8 +125,13 @@ export default function DashBoardHeader() {
           className={`flex gap-[1.6rem] sm:fixed sm:bottom-0 sm:left-0 sm:z-[100] sm:h-[100vh] sm:w-[6.7rem] sm:flex-col sm:items-center sm:justify-end sm:gap-[1rem] sm:border-r-[0.1rem] sm:pb-[1.5rem] ${theme === 'normal' ? 'sm:border-var-gray3 sm:bg-var-white' : 'sm:border-var-black3 sm:bg-var-black2'}`}
         >
           <HeaderButton
+            buttonIcon={translateIcon}
+            buttonName={language === 'ko' ? '언어' : 'Language'}
+            handleOnClick={handleSetLanguage}
+          />
+          <HeaderButton
             buttonIcon={theme === 'normal' ? themeIcon : themeIconWhite}
-            buttonName="테마"
+            buttonName={language === 'ko' ? '테마' : 'Theme'}
             handleOnClick={handleSetTheme}
           />
           {isButtonVisible && (
@@ -132,13 +140,12 @@ export default function DashBoardHeader() {
                 <div className="flex gap-[1.6rem] sm:flex-col sm:gap-[1rem]">
                   <HeaderButton
                     buttonIcon={theme === 'normal' ? settingIcon : settingIconWhite}
-                    buttonName="관리"
+                    buttonName={language === 'ko' ? '관리' : 'Setting'}
                     handleOnClick={handleManageClick}
                   />
-
                   <HeaderButton
                     buttonIcon={theme === 'normal' ? inviteIcon : inviteIconWhite}
-                    buttonName="초대하기"
+                    buttonName={language === 'ko' ? '초대하기' : 'Invite'}
                     handleOnClick={() =>
                       dispatch(
                         openModal({

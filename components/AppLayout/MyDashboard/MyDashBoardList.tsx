@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { openModal } from '@/store/reducers/modalReducer'
 import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { BoardButton, CreateBoardButton, PaginationButton } from '../..'
 import Loading from '../../Loading/Loading'
 
@@ -16,6 +17,7 @@ export default function MyDashBoardList() {
   const { theme } = useLoadTheme()
   const dispatch = useAppDispatch()
   const { pending, requestFunction } = useAsync(getDashBoard)
+  const { language } = useLoadLanguage()
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
@@ -54,7 +56,7 @@ export default function MyDashBoardList() {
           <div
             className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-white'}`}
           >
-            {dashBoardPage} 페이지중 {currentPage}
+            {dashBoardPage} {language === 'ko' ? '페이지중' : 'pages'} {currentPage}
           </div>
           <PaginationButton
             currentPage={currentPage}

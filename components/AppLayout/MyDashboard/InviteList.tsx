@@ -10,6 +10,7 @@ import useDebounce from '@/hooks/useDebounce'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { ModalPortal } from '@/Portal'
 import { useRouter } from 'next/router'
+import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { ShortButton } from '../..'
 import EmptyInvite from './EmptyInvite'
 import Loading from '../../Loading/Loading'
@@ -24,6 +25,7 @@ export default function InviteList() {
   const dispatch = useAppDispatch()
   const { deBounceValue } = useDebounce(inviteTitle, 200)
   const { theme } = useLoadTheme()
+  const { language } = useLoadLanguage()
 
   const handleLoadList = async () => {
     const data = await requestFunction(cursorId, deBounceValue)
@@ -80,7 +82,7 @@ export default function InviteList() {
           }}
         >
           <input
-            placeholder="검색"
+            placeholder={language === 'ko' ? '검색' : 'Search'}
             className={`h-[4rem] w-full rounded-[0.6rem] border border-solid ${theme === 'normal' ? 'border-var-gray3' : 'border-var-black1 bg-var-black1'} px-[4.8rem] py-[1rem] text-[1.6rem]`}
             onChange={handleInputChange}
           />
@@ -94,9 +96,9 @@ export default function InviteList() {
         </form>
       </div>
       <div className="grid grid-cols-3 text-center sm:hidden">
-        <p className="text-[1.6rem] text-var-gray4">이름</p>
-        <p className="text-[1.6rem] text-var-gray4">초대자</p>
-        <p className="text-[1.6rem] text-var-gray4">수락 여부</p>
+        <p className="text-[1.6rem] text-var-gray4">{language === 'ko' ? '이름' : 'name'}</p>
+        <p className="text-[1.6rem] text-var-gray4">{language === 'ko' ? '초대자' : 'inviter'}</p>
+        <p className="text-[1.6rem] text-var-gray4">{language === 'ko' ? '수락 여부' : 'Accept'}</p>
       </div>
       {invitationList[0] ? (
         <div className="max-h-[25rem] overflow-auto">
@@ -127,7 +129,7 @@ export default function InviteList() {
               </div>
               <div className="flex justify-center gap-[1rem] sm:mb-[1.6rem] sm:mt-[0.6rem] sm:w-full sm:justify-stretch">
                 <ShortButton
-                  text="수락"
+                  text={language === 'ko' ? '수락' : 'Accept'}
                   color="purple"
                   onClick={() => {
                     dispatch(openToast('acceptInvite'))
@@ -136,7 +138,7 @@ export default function InviteList() {
                   isGrowInMo
                 />
                 <ShortButton
-                  text="거절"
+                  text={language === 'ko' ? '거절' : 'Refuse'}
                   color="white"
                   onClick={() => {
                     dispatch(openToast('refuseInvite'))
@@ -150,7 +152,11 @@ export default function InviteList() {
           <div ref={obsRef} />
         </div>
       ) : (
-        <EmptyInvite>초대받은 대시보드가 없습니다!</EmptyInvite>
+        <EmptyInvite>
+          {language === 'ko'
+            ? '초대받은 대시보드가 없습니다!'
+            : 'No dashboards you are invited to!'}
+        </EmptyInvite>
       )}
     </>
   )
