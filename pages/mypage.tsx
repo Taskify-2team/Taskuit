@@ -1,4 +1,5 @@
-import { AppLayout, MyPageLayout, EditProfile, EditPassword } from '@/components'
+import { AppLayout, MyPageLayout, EditProfile, EditPassword, BackButton } from '@/components'
+
 import { useAppDispatch } from '@/hooks/useApp'
 import useAsync from '@/hooks/useAsync'
 import { updatePassword } from '@/service/auth'
@@ -85,6 +86,7 @@ export default function MyPage() {
   return (
     <AppLayout>
       <MyPageLayout
+        BackButton={<BackButton />}
         EditProfile={
           <EditProfile
             error={updateUserProfileError}

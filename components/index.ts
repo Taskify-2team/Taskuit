@@ -75,6 +75,7 @@ export {
 }
 
 /** Button Components */
+import BackButton from './Buttons/BackButton'
 import BoardButton from './Buttons/BoardButton'
 import HeaderButton from './Headers/DashBoardHeader/buttons/HeaderButton'
 import CreateBoardButton from './Buttons/CreateBoardButton'
@@ -86,6 +87,7 @@ import PaginationButton from './Buttons/PaginationButton'
 import ShortButton from './Buttons/ShortButton'
 
 export {
+  BackButton,
   BoardButton,
   HeaderButton,
   CreateBoardButton,
