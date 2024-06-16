@@ -26,8 +26,7 @@ export default function MyPage() {
   })
   const [imageFile, setImageFile] = useState<File | null>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
-  const { error: postProfileImageError, requestFunction: postProfileImageReq } =
-    useAsync(postProfileImage)
+  const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
   const {
     error: updateUserProfileError,
     result: updateUserProfileResult,
@@ -90,7 +89,6 @@ export default function MyPage() {
         BackButton={<BackButton />}
         EditProfile={
           <EditProfile
-            imageError={postProfileImageError}
             error={updateUserProfileError}
             result={updateUserProfileResult}
             onSubmit={handleEditProfileSubmit}
