@@ -55,7 +55,7 @@ export default function EditMember() {
         </ModalPortal>
       )}
       <div
-        className={`flex w-[62rem] max-w-full flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
+        className={`flex w-[62rem] max-w-full flex-col gap-[2.7rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem] sm:p-[2rem]`}
       >
         <div className="flex items-center justify-between">
           <p
@@ -65,7 +65,7 @@ export default function EditMember() {
           </p>
           <div className="flex items-center justify-end gap-[1.6rem]">
             <div
-              className={`text-[1.6rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
+              className={`text-[1.6rem] sm:text-[1.3rem] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
             >
               {totalPage} {language === 'ko' ? '페이지중' : 'pages'} {currentPage}
             </div>
