@@ -13,9 +13,15 @@ export default function ModalLayout() {
   useEffect(() => {
     if (modalName) {
       document.body.style.overflow = 'hidden'
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dispatch(closeModal())
+      })
     }
     return () => {
       document.body.style.overflow = 'unset'
+      document.removeEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dispatch(closeModal())
+      })
     }
   }, [modalName])
 
