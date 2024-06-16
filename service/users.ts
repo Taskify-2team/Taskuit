@@ -17,7 +17,7 @@ export const getUserInfo = async () => {
 export const postProfileImage = async (imageFile: File) => {
   const formData = new FormData()
   formData.append('image', imageFile)
-  const response = await axios.post(`/users/me/image`, imageFile)
+  const response = await axios.post(`/users/me/image`, formData)
   return response
 }
 
