@@ -26,9 +26,11 @@ export default function DashBoardColumnHeader({
   const [isMyDashBoard, setIsMyDashBoard] = useState(false)
   const { theme } = useLoadTheme()
   const [iconColor, setIconColor] = useState(false)
+  const [color, setColor] = useState('#fff')
 
   const handleLoadDashBoard = useCallback(async () => {
     const result = await requestFunction(Number(dashboardId))
+    setColor(result.color)
     setIsMyDashBoard(result.createdByMe)
   }, [dashboardId, requestFunction])
 
@@ -39,7 +41,7 @@ export default function DashBoardColumnHeader({
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
       <div className="flex max-w-[calc(100%-3rem)] items-center gap-[0.8rem]">
-        <CircleChip color="#5534DA" />
+        <CircleChip color={color} />
         <h3
           className={`ellipsis mr-[0.4rem] w-[calc(100%-4rem)] text-[1.8rem] font-[700] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
         >
