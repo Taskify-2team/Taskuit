@@ -43,13 +43,13 @@ export default function DashBoardColumn({
   }, [columnId, getCardList, cursorId])
 
   const getTagsData = useCallback(async () => {
-    if (dbId) {
-      const result = await getTagListRequest({ userId: dbId, columnId })
+    if (columnId) {
+      const result = await getTagListRequest(columnId)
       if (!result) return
 
       setTagList(result)
     }
-  }, [getTagListRequest, dbId])
+  }, [getTagListRequest, columnId])
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {

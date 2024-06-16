@@ -30,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       case 'GET': {
-        const foundTag = await Tag.find({ user: userId, columnId })
+        const foundTag = await Tag.find({ columnId })
         res.status(200).send({ data: foundTag })
         break
       }

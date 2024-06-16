@@ -7,8 +7,8 @@ export interface Tag {
   color: string
 }
 
-export const getTagList = async ({ userId, columnId }: { userId: string; columnId: number }) => {
-  const { data } = await TAG_URL.get(`/tags?userId=${userId}&columnId=${columnId}`)
+export const getTagList = async (columnId: number) => {
+  const { data } = await TAG_URL.get(`/tags?columnId=${columnId}`)
   return camelcaseKeys(data.data, { deep: true })
 }
 

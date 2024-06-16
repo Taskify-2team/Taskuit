@@ -11,8 +11,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (req.method) {
       case 'DELETE': {
-        await Tag.findByIdAndDelete(id)
-        res.status(204).end()
+        const foundAuthorId = req.query.userId
+        const idMatch = await Tag.find({ user: foundAuthorId })
+        if (idMatch) {
+          await Tag.findByIdAndDelete(id)
+          res.status(204).end()
+        } else {
+          res.status(404).send({ message: '삭제 권한이 없습니다.' })
+        }
         break
       }
 
