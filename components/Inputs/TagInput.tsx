@@ -66,7 +66,7 @@ export default function TagInput({
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
       <div
-        className={`input-layout flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1'}`}
+        className={`input-layout z-20 flex flex-wrap gap-x-[1.0rem] gap-y-[0.5rem] ${theme === 'dark' && 'border-var-black1 bg-var-black1'}`}
       >
         {myTagBody &&
           myTagBody.length > 0 &&
