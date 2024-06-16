@@ -9,6 +9,7 @@ import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useDispatch } from 'react-redux'
 import { getDashBoard } from '@/service/dashboards'
 import { DashBoardProps } from '@/types/sidemenu'
+import { useRouter } from 'next/router'
 import { openModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import PaginationButton from '../Buttons/PaginationButton'
@@ -19,6 +20,7 @@ export default function SideMenu() {
   const [currentPage, setCurrentPage] = useState(1)
   const [dashBoardPage, setDashBoardPage] = useState(0)
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +34,7 @@ export default function SideMenu() {
     }
 
     fetchData()
-  }, [currentPage, dispatch])
+  }, [currentPage, dispatch, router])
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
