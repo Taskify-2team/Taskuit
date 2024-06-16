@@ -23,6 +23,7 @@ import { deleteCardItem, orderingCardList } from '@/store/reducers/cardReducer'
 import { closeModal } from '@/store/reducers/modalReducer'
 import { openToast } from '@/store/reducers/toastReducer'
 import { Card, UpdateCard } from '@/types/dashboard'
+import { Member } from '@/types/header'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
@@ -41,7 +42,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
   const { requestFunction: updateTagsRequest } = useAsync(updateTags)
   const { theme } = useLoadTheme()
   const { dbId } = useDbId()
-  const [members, setMembers] = useState([])
+  const [members, setMembers] = useState<Member[]>([])
   const [imageFile, setImageFile] = useState<File | null>()
   const [assigneeUserId, setAssigneeUserId] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true)
@@ -56,13 +57,16 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
     imageUrl: card.imageUrl || null,
   })
   const [myTagBody, setMyTagBody] = useState<Tag[]>(tags)
+  const [page, setPage] = useState(1)
+  const [totalMember, setTotalMember] = useState(0)
   const { dashboardId } = router.query
   const { language } = useLoadLanguage()
 
   const getMembersRequest = useCallback(async () => {
-    const result = await getMembers(0, Number(dashboardId))
-    setMembers(result.members)
-  }, [dashboardId, getMembers])
+    const result = await getMembers(page, Number(dashboardId))
+    setMembers((prev) => [...prev, ...result.members])
+    setTotalMember(result.totalCount)
+  }, [dashboardId, getMembers, page])
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewCardBody({
@@ -132,7 +136,7 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
 
   useEffect(() => {
     getMembersRequest()
-  }, [getMembersRequest])
+  }, [getMembersRequest, page])
 
   return (
     <form
@@ -161,6 +165,8 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
             currentManager={card.assignee}
             memberList={members}
             setManager={setAssigneeUserId}
+            setPage={setPage}
+            totalMember={totalMember}
             isRequired
           />
         </div>
