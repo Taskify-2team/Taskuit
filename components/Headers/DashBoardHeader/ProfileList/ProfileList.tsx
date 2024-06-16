@@ -37,7 +37,7 @@ export default function ProfileList({ theme, members, totalCount, LogInId }: Pro
 
   if (members && members.length > 1) {
     return (
-      <div className="cursor-pointer" ref={ref}>
+      <div className="cursor-pointer sm:mt-[1.5rem]" ref={ref}>
         <div
           className="ml-[2rem] flex w-[rem] items-center justify-center sm:ml-0 sm:w-fit sm:flex-col"
           onClick={toggleDropdown}

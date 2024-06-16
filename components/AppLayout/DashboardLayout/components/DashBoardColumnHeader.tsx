@@ -38,7 +38,7 @@ export default function DashBoardColumnHeader({
 
   return (
     <div className="mb-[0.9rem] flex items-center justify-between">
-      <div className="flex w-[calc(100%-3rem)] items-center gap-[0.8rem]">
+      <div className="flex max-w-[calc(100%-3rem)] items-center gap-[0.8rem]">
         <CircleChip color="#5534DA" />
         <h3
           className={`ellipsis mr-[0.4rem] w-[calc(100%-4rem)] text-[1.8rem] font-[700] ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
