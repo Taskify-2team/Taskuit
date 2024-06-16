@@ -57,7 +57,7 @@ export default function EditName() {
         </ModalPortal>
       )}
       <div
-        className={`flex w-[62rem] max-w-full flex-col gap-[3.4rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem]`}
+        className={`flex w-[62rem] max-w-full flex-col gap-[3.4rem] rounded-[0.8rem] ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2'} p-[2.8rem] sm:p-[2rem]`}
       >
         <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-[2rem]">
           <div className="flex items-center justify-between gap-[1rem]">
