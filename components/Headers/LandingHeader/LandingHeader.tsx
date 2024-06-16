@@ -31,7 +31,7 @@ export default function LightHeader() {
 
   return (
     <div
-      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2 text-white'} pl-[1.6rem] sm:px-[2.4rem] sm:py-[1.6rem] md:pr-[4rem] lg:pr-[8rem]`}
+      className={`flex h-[7rem] w-full items-center justify-between ${theme === 'normal' ? 'bg-var-white' : 'bg-var-black2 text-white'} sm:px-[2.4rem] sm:py-[1.6rem] md:px-[4rem] lg:px-[8rem]`}
     >
       <Link href="/">
         <div className="flex items-center gap-[1rem]">
@@ -43,7 +43,7 @@ export default function LightHeader() {
           )}
         </div>
       </Link>
-      <div className="flex items-center gap-[1.6rem] sm:gap-[2rem]">
+      <div className="flex items-center gap-[1.6rem] sm:gap-[1rem]">
         <HeaderButton
           buttonIcon={theme === 'normal' ? translateIcon : translateIconWhite}
           buttonName={language === 'ko' ? '언어' : 'Language'}
@@ -54,7 +54,7 @@ export default function LightHeader() {
           buttonName={language === 'ko' ? '테마' : 'Theme'}
           handleOnClick={handleSetTheme}
         />
-        <Link href="/login" className="mx-[2rem]">
+        <Link href="/login" className="mx-[2rem] sm:ml-[1rem] sm:mr-0">
           <p className="text-[1.6rem]">{language === 'ko' ? '로그인' : 'Login'}</p>
         </Link>
         <Link href="/signup">
