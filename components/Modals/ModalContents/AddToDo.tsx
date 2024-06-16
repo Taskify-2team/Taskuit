@@ -178,12 +178,14 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         myTagBody={myTagBody}
         setMyTagBody={setMyTagBody}
       />
-      <ImageInput
-        id="image"
-        label={language === 'ko' ? '이미지' : 'Image'}
-        size="s"
-        onChange={handleFileInputValue}
-      />
+      <div className="flex">
+        <ImageInput
+          id="image"
+          label={language === 'ko' ? '이미지' : 'Image'}
+          size="s"
+          onChange={handleFileInputValue}
+        />
+      </div>
       <div className="flex gap-[1rem] self-end">
         <ShortButton
           color="white"
