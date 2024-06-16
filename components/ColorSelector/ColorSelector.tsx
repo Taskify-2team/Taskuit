@@ -67,7 +67,7 @@ export default function ColorSelector({ boardColor, handleClick }: ColorSelector
         )}
       </div>
       {togglePicker && (
-        <div className="absolute top-[5rem]" ref={pickerRef}>
+        <div className="absolute top-[5rem] z-50" ref={pickerRef}>
           <ColorPicker
             color={pickColor}
             onChange={setPickColor}
