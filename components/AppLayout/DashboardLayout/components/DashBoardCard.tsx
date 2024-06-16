@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-no-useless-fragment */
 import { Card } from '@/types/dashboard'
 import Image from 'next/image'
@@ -7,6 +8,8 @@ import { DashBoardCardInfo, TagChip } from '@/components'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { Tag } from '@/service/tag'
 import LoadingTag from '@/components/Loading/LoadingTag'
+import LoadingBox from '@/components/Loading/LoadingBox'
+import { useState } from 'react'
 
 interface DashBoardCardProps {
   card: Card
@@ -27,6 +30,7 @@ export default function DashBoardCard({
 }: DashBoardCardProps) {
   const dispatch = useAppDispatch()
   const { theme } = useLoadTheme()
+  const [isImageLoading, setImageLoading] = useState(!!card.imageUrl)
 
   const handleOpenModal = () =>
     dispatch(
@@ -45,8 +49,10 @@ export default function DashBoardCard({
       onDragStart={() => dragStart(card, columnId, tagList)}
       onDragEnd={() => drop()}
     >
+      {isImageLoading && <LoadingBox theme={theme} />}
       {card.imageUrl && (
         <Image
+          onLoad={() => setImageLoading(false)}
           width={400}
           height={400}
           src={card.imageUrl}
