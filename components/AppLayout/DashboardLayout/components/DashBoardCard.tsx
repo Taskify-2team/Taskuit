@@ -54,7 +54,7 @@ export default function DashBoardCard({
         <Image
           onLoad={() => setImageLoading(false)}
           width={400}
-          height={400}
+          height={0}
           src={card.imageUrl}
           alt="카드 이미지"
           className="mb-[1.2rem] animate-slideDown rounded-[0.6rem] object-cover"

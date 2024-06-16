@@ -21,6 +21,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import { deleteCardItem } from '@/store/reducers/cardReducer'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import LoadingBox from '@/components/Loading/LoadingBox'
 
 export interface ToDoDetailProps {
   card: Card
@@ -34,6 +35,7 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
   const [cursorId, setCursorId] = useState<number>(0)
   const [commentList, setCommentList] = useState<Comment[]>([])
   const [openKebab, setOpenKebab] = useState(false)
+  const [isImageLoading, setImageLoading] = useState(!!card.imageUrl)
   const { requestFunction: getCommentsRequest, pending } = useAsync(getComments)
   const { requestFunction: deleteCardRequest } = useAsync(deleteDashBoardCard)
   const { theme } = useLoadTheme()
@@ -167,13 +169,15 @@ export default function DetailToDo({ card, columnTitle, tags }: ToDoDetailProps)
         >
           {card.description}
         </p>
+        {isImageLoading && <LoadingBox theme={theme} />}
         {card.imageUrl && (
           <Image
+            onLoad={() => setImageLoading(false)}
             className="mb-[2.4rem] w-full rounded-[0.6rem]"
             src={card.imageUrl}
             alt="이미지"
             width={450}
-            height={500}
+            height={0}
             objectFit="cover"
             layout="responsive"
           />
