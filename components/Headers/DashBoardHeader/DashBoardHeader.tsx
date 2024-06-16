@@ -136,7 +136,7 @@ export default function DashBoardHeader() {
             handleOnClick={handleSetTheme}
           />
           {isButtonVisible && (
-            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:flex-col sm:items-center sm:gap-[2.7rem] sm:pr-0">
+            <div className="flex gap-[1.6rem] pr-[1.5rem] sm:mt-[1.5rem] sm:flex-col sm:items-center sm:gap-[2.7rem] sm:pr-0">
               {createdByMe && (
                 <div className="flex gap-[1.6rem] sm:flex-col sm:gap-[1rem]">
                   <HeaderButton
