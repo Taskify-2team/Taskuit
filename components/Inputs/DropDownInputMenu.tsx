@@ -24,6 +24,8 @@ interface DropDownInputMenuProps {
   currentManager?: Assignee
   memberList: Member[]
   setManager: Dispatch<SetStateAction<number>>
+  setPage: Dispatch<SetStateAction<number>>
+  totalMember: number
   isRequired?: boolean
 }
 
@@ -33,6 +35,8 @@ export default function DropDownInputMenu({
   setManager,
   currentManager,
   memberList: initMemberList = [],
+  setPage,
+  totalMember,
   isRequired,
 }: DropDownInputMenuProps) {
   const [selectMenu, setSelectMenu] = useState({
@@ -46,6 +50,7 @@ export default function DropDownInputMenu({
   const dropDownElement = useRef<HTMLDivElement>(null)
   const menuElement = useRef<HTMLDivElement[]>([])
   const inputElement = useRef<HTMLInputElement>(null)
+  const obsRef = useRef(null)
   const { theme } = useLoadTheme()
   const { language } = useLoadLanguage()
 
@@ -135,6 +140,13 @@ export default function DropDownInputMenu({
     }
   }
 
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    const target = entries[0]
+    if (target.isIntersecting) {
+      setPage((prev) => prev + 1)
+    }
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick)
     return () => {
@@ -151,6 +163,15 @@ export default function DropDownInputMenu({
   useEffect(() => {
     setMenuList(initMemberList)
   }, [initMemberList])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
+    if (obsRef.current && totalMember !== menuList.length) observer.observe(obsRef.current)
+    return () => {
+      observer.disconnect()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showMenuList, menuList])
 
   return (
     <InputLayout id={id} label={label} isRequired={isRequired}>
@@ -198,7 +219,7 @@ export default function DropDownInputMenu({
         </div>
         {showMenuList && (
           <div
-            className={`absolute left-0 top-[5rem] z-50 flex w-full animate-slideDown flex-col overflow-hidden rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
+            className={`absolute left-0 top-[5rem] z-50 flex h-[19rem] w-full animate-slideDown flex-col overflow-scroll rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
           >
             {menuList?.map((menuItem, i) => (
               <div
@@ -226,6 +247,7 @@ export default function DropDownInputMenu({
                 <UserInfo profileImageUrl={menuItem.profileImageUrl} nickname={menuItem.nickname} />
               </div>
             ))}
+            <div ref={obsRef} />
           </div>
         )}
       </div>

@@ -23,6 +23,7 @@ import { useDbId } from '@/store/context/DbIdContext'
 import { Tag, postTag } from '@/service/tag'
 import TextCounter from '@/components/TextCounter/TextCounter'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { Member } from '@/types/header'
 
 export interface AddToDoProps {
   columnId: number
@@ -39,7 +40,7 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const { requestFunction: getMembers } = useAsync(getMemberList)
   const { requestFunction: postTagRequest } = useAsync(postTag)
   const { dashboardId } = router.query
-  const [members, setMembers] = useState([])
+  const [members, setMembers] = useState<Member[]>([])
   const [isDisabled, setIsDisabled] = useState(true)
   const [assigneeUserId, setAssigneeUserId] = useState(0)
   const [dueDate, setDueDate] = useState('')
@@ -54,6 +55,9 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     tags: [],
   })
   const [myTagBody, setMyTagBody] = useState<Tag[]>([])
+  const [page, setPage] = useState(1)
+  const [totalMember, setTotalMember] = useState(0)
+
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setCardBody({
       ...cardBody,
@@ -63,9 +67,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
   const { language } = useLoadLanguage()
 
   const getMembersRequest = useCallback(async () => {
-    const result = await getMembers(0, Number(dashboardId))
-    setMembers(result.members)
-  }, [dashboardId, getMembers])
+    const result = await getMembers(page, Number(dashboardId))
+    setMembers((prev) => [...prev, ...result.members])
+    setTotalMember(result.totalCount)
+  }, [dashboardId, getMembers, page])
 
   const handleFileInputValue = (file: File | null) => {
     setImageFile(file)
@@ -134,6 +139,8 @@ export default function AddToDo({ columnId }: AddToDoProps) {
         label={language === 'ko' ? '담당자' : 'Manager'}
         memberList={members}
         setManager={setAssigneeUserId}
+        setPage={setPage}
+        totalMember={totalMember}
         isRequired
       />
       <div className="relative">
