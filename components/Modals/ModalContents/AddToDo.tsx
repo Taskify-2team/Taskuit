@@ -81,8 +81,10 @@ export default function AddToDo({ columnId }: AddToDoProps) {
     let postResult
     if (imageFile) {
       imageResult = await postImage({ columnId, imageFile })
-      const { imageUrl } = imageResult
-      postResult = await postToDo({ ...cardBody, imageUrl })
+      if (imageResult) {
+        const { imageUrl } = imageResult.data
+        postResult = await postToDo({ ...cardBody, imageUrl })
+      }
     } else {
       postResult = await postToDo(cardBody)
     }
