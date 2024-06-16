@@ -26,7 +26,8 @@ export default function MyPage() {
   })
   const [imageFile, setImageFile] = useState<File | null>()
   const { requestFunction: getUserInfoReq } = useAsync(getUserInfo)
-  const { requestFunction: postProfileImageReq } = useAsync(postProfileImage)
+  const { error: postProfileImageError, requestFunction: postProfileImageReq } =
+    useAsync(postProfileImage)
   const {
     error: updateUserProfileError,
     result: updateUserProfileResult,
@@ -57,10 +58,8 @@ export default function MyPage() {
     let profileimageUrl
 
     if (imageFile) {
-      const formData = new FormData()
-      formData.append('image', imageFile)
-      const res = await postProfileImageReq(formData)
-      profileimageUrl = res?.profileImageUrl
+      const res = await postProfileImageReq(imageFile)
+      profileimageUrl = res?.data.profileImageUrl
     } else if (imageFile === null) {
       profileimageUrl = null
     }
@@ -91,6 +90,7 @@ export default function MyPage() {
         BackButton={<BackButton />}
         EditProfile={
           <EditProfile
+            imageError={postProfileImageError}
             error={updateUserProfileError}
             result={updateUserProfileResult}
             onSubmit={handleEditProfileSubmit}

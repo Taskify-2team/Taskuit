@@ -11,6 +11,7 @@ import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 interface EditProfileProps {
   error: AxiosError<any> | null
+  imageError: AxiosError<any> | null
   result: AxiosResponse | null
   onSubmit: (e: FormEvent, nickname: string) => Promise<void>
   imageFile?: File | null
@@ -20,6 +21,7 @@ interface EditProfileProps {
 
 export default function EditProfile({
   error,
+  imageError,
   result,
   onSubmit,
   imageFile,
