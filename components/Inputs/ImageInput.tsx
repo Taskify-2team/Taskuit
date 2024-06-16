@@ -5,6 +5,8 @@ import addButton from '@/public/icons/addLogo.svg'
 import plusIcon from '@/public/icons/editFill.svg'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useLoadTheme } from '@/store/context/ThemeContext'
+import { useAppDispatch } from '@/hooks/useApp'
+import { openToast } from '@/store/reducers/toastReducer'
 import InputLayout from './InputLayout'
 
 interface ImageInputProps {
@@ -29,13 +31,18 @@ export default function ImageInput({
   const inputRef = useRef<HTMLInputElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
   const { theme } = useLoadTheme()
+  const dispatch = useAppDispatch()
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (!file) return
-
-    setPreview(URL.createObjectURL(file))
-    onChange(file)
+    if (file) {
+      if (file.size > 4 * 1024 * 1024) {
+        dispatch(openToast('fileTooLarge'))
+      } else {
+        setPreview(URL.createObjectURL(file))
+        onChange(file)
+      }
+    }
   }
 
   const handleDeleteFile = () => {

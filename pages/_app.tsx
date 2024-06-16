@@ -24,12 +24,12 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Provider store={store}>
         <TotalProvider>
-          <ModalPortal>
-            <ModalLayout />
-          </ModalPortal>
           <ToastPortal>
             <MyToastLayout />
           </ToastPortal>
+          <ModalPortal>
+            <ModalLayout />
+          </ModalPortal>
           <ToastPortal>
             <ToastLayout />
           </ToastPortal>
