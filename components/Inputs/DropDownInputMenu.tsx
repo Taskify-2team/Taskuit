@@ -219,7 +219,7 @@ export default function DropDownInputMenu({
         </div>
         {showMenuList && (
           <div
-            className={`absolute left-0 top-[5rem] z-50 flex h-[19rem] w-full animate-slideDown flex-col overflow-scroll rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
+            className={`absolute left-0 top-[5rem] z-50 flex max-h-[19rem] w-full animate-slideDown flex-col overflow-scroll rounded-md border border-solid ${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-black1 bg-var-black1'} py-[0.65rem] shadow-lg`}
           >
             {menuList?.map((menuItem, i) => (
               <div
