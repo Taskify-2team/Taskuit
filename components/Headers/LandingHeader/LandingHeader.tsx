@@ -43,7 +43,7 @@ export default function LightHeader() {
           )}
         </div>
       </Link>
-      <div className="flex items-center gap-[3.6rem] sm:gap-[2rem]">
+      <div className="flex items-center gap-[1.6rem] sm:gap-[2rem]">
         <HeaderButton
           buttonIcon={theme === 'normal' ? translateIcon : translateIconWhite}
           buttonName={language === 'ko' ? '언어' : 'Language'}
@@ -54,7 +54,7 @@ export default function LightHeader() {
           buttonName={language === 'ko' ? '테마' : 'Theme'}
           handleOnClick={handleSetTheme}
         />
-        <Link href="/login">
+        <Link href="/login" className="mx-[2rem]">
           <p className="text-[1.6rem]">{language === 'ko' ? '로그인' : 'Login'}</p>
         </Link>
         <Link href="/signup">
