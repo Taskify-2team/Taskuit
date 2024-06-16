@@ -5,6 +5,7 @@ import useAsync from '@/hooks/useAsync'
 import { updatePassword } from '@/service/auth'
 import { getUserInfo, postProfileImage, updateUserProfile } from '@/service/users'
 import { closeModal } from '@/store/reducers/modalReducer'
+import { useRouter } from 'next/router'
 import { FormEvent, useEffect, useState } from 'react'
 
 export interface ProfileBody {
@@ -38,6 +39,7 @@ export default function MyPage() {
     requestFunction: updatePasswordRequest,
   } = useAsync(updatePassword)
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
   const handleUserInfo = async () => {
     const res = await getUserInfoReq()
@@ -58,6 +60,7 @@ export default function MyPage() {
 
     if (imageFile) {
       const res = await postProfileImageReq(imageFile)
+      router.reload()
       profileimageUrl = res?.data.profileImageUrl
     } else if (imageFile === null) {
       profileimageUrl = null
