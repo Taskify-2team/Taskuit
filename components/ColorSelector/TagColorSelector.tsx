@@ -18,6 +18,11 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
     { color: '#D549B6' },
     { color: '#4981D5' },
     { color: '#86D549' },
+    { color: '#1A57C9' },
+    { color: '#d6173a' },
+    { color: '#760dde' },
+    { color: '#ffa500' },
+    { color: '#e876ea' },
   ]
 
   const handleOutsideClick = (e: MouseEvent) => {
@@ -45,7 +50,7 @@ export default function TagColorSelector({ idx, onClose, setMyTagBody }: TagColo
   return (
     <ul
       ref={colorPickerRef}
-      className={`${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-gray5 bg-var-black1'} flex animate-slideDown gap-[1.2rem] rounded-[0.6rem] border p-[1rem] shadow-lg`}
+      className={`${theme === 'normal' ? 'border-var-gray3 bg-var-white' : 'border-var-gray5 bg-var-black1'} absolute bottom-[-11.5rem] left-0 grid animate-slideDown cursor-default grid-cols-[2rem_2rem_2rem] gap-[1.2rem] rounded-[0.6rem] border p-[1rem] shadow-lg`}
     >
       {tagColor.map((color, i) => (
         <li

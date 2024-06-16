@@ -63,7 +63,7 @@ export default function ImageInput({
         <button
           type="button"
           onClick={handleDeleteFile}
-          className={`${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-gray3' : 'bg-var-black3 hover:bg-var-black4'} absolute right-[-1rem] top-[2.5rem] z-20 rounded-full p-[0.5rem]`}
+          className={`${theme === 'normal' ? 'bg-var-gray2 hover:bg-var-gray3' : 'bg-var-black3 hover:bg-var-black4'} absolute right-[-1rem] top-[2.5rem] z-10 rounded-full p-[0.5rem]`}
         >
           <div className={`${size === 'm' ? 'size-[1.5rem]' : 'size-[1rem]'} relative`}>
             <Image fill src={cancelButton} alt="이미지 삭제 버튼" />

@@ -30,11 +30,6 @@ export const postTag = async ({
   return camelcaseKeys(data.data, { deep: true })
 }
 
-export const getDbUserId = async ({ userId }: { userId: number }) => {
-  const { data } = await TAG_URL.post(`/users?userId=${userId}`)
-  return camelcaseKeys(data.data, { deep: true })
-}
-
 export const updateTags = async ({
   userId,
   columnId,
@@ -50,5 +45,10 @@ export const updateTags = async ({
     tags,
     cardId,
   })
+  return camelcaseKeys(data.data, { deep: true })
+}
+
+export const getDbUserId = async ({ userId }: { userId: number }) => {
+  const { data } = await TAG_URL.post(`/users?userId=${userId}`)
   return camelcaseKeys(data.data, { deep: true })
 }
