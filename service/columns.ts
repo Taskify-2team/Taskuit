@@ -22,7 +22,7 @@ export const postCardImage = async (params: { columnId: number; imageFile: File 
   const formData = new FormData()
   formData.append('image', params.imageFile)
   const response = await axios.post(`/columns/${params.columnId}/card-image`, formData)
-  return response.data
+  return response
 }
 
 export const deleteColumn = async (columnId: number) => {

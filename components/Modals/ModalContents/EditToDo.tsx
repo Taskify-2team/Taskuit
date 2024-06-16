@@ -89,12 +89,14 @@ export default function EditToDo({ columnTitle, card, tags }: EditToDoProps) {
     e.preventDefault()
     if (imageFile && newCardBody.columnId) {
       const imageResult = await updateCardImage({ columnId: newCardBody?.columnId, imageFile })
-      await dispatch(
-        updateCard({
-          newCardBody: { ...newCardBody, imageUrl: imageResult.imageUrl },
-          cardId: card.id,
-        }),
-      )
+      if (imageResult) {
+        await dispatch(
+          updateCard({
+            newCardBody: { ...newCardBody, imageUrl: imageResult.data.imageUrl },
+            cardId: card.id,
+          }),
+        )
+      }
     } else {
       await dispatch(updateCard({ newCardBody, cardId: card.id }))
     }

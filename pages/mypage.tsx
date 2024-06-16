@@ -57,10 +57,8 @@ export default function MyPage() {
     let profileimageUrl
 
     if (imageFile) {
-      const formData = new FormData()
-      formData.append('image', imageFile)
-      const res = await postProfileImageReq(formData)
-      profileimageUrl = res?.profileImageUrl
+      const res = await postProfileImageReq(imageFile)
+      profileimageUrl = res?.data.profileImageUrl
     } else if (imageFile === null) {
       profileimageUrl = null
     }
