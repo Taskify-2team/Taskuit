@@ -16,12 +16,12 @@
  ┣ 📜tsconfig.json
 📦components
  ┣ 📂AppLayout
- ┃ ┣ 📂DashboardLayout
- ┃ ┣ 📂Edit
- ┃ ┣ 📂LandingPageLayout
- ┃ ┣ 📂MyDashboard
- ┃ ┣ 📂MyPageLayout
- ┃ ┗ 📜AppLayout.tsx
+   ┣ 📂DashboardLayout
+   ┣ 📂Edit
+   ┣ 📂LandingPageLayout
+   ┣ 📂MyDashboard
+   ┣ 📂MyPageLayout
+   ┗ 📜AppLayout.tsx
  ┣ 📂AuthThemeButton
  ┣ 📂Buttons
  ┣ 📂Chips
@@ -38,12 +38,12 @@
  ┗ 📜index.ts
 📦db
  ┣ 📂config
- ┃ ┗ 📜index.ts
+   ┗ 📜index.ts
  ┣ 📂middlewares
- ┃ ┗ 📜cors.ts
+   ┗ 📜cors.ts
  ┗ 📂models
- ┃ ┣ 📜tag.ts
- ┃ ┗ 📜user.ts
+   ┣ 📜tag.ts
+   ┗ 📜user.ts
 📦hooks
  ┣ 📜useApp.ts
  ┣ 📜useAsync.ts
@@ -55,10 +55,10 @@
  ┗ 📜favicon.ico
 📦pages
  ┣ 📂api
- ┃ ┣ 📂tags
- ┃ ┗ 📂users
+   ┣ 📂tags
+   ┗ 📂users
  ┣ 📂dashboard
- ┃ ┗ 📂[dashboardId]
+   ┗ 📂[dashboardId]
  ┣ 📜404.tsx
  ┣ 📜_app.tsx
  ┣ 📜_document.tsx
@@ -73,15 +73,15 @@
  ┣ // ...
 📦store
  ┣ 📂context
- ┃ ┣ 📂Provider
- ┃ ┃ ┗ 📜TotalProvider.tsx
- ┃ ┣ 📜DbIdContext.ts
- ┃ ┣ 📜LanguageContext.ts
- ┃ ┣ // ...
+   ┣ 📂Provider
+     ┗ 📜TotalProvider.tsx
+   ┣ 📜DbIdContext.ts
+   ┣ 📜LanguageContext.ts
+   ┣ // ...
  ┣ 📂reducers
- ┃ ┣ 📜cardReducer.ts
- ┃ ┣ 📜columnReducer.ts
- ┃ ┣ // ...
+   ┣ 📜cardReducer.ts
+   ┣ 📜columnReducer.ts
+   ┣ // ...
  ┗ 📜store.ts
 📦styles
  ┣ 📜datepicker.css
