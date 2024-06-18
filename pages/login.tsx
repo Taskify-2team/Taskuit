@@ -12,6 +12,7 @@ import { openToast } from '@/store/reducers/toastReducer'
 import AuthThemeButton from '@/components/AuthThemeButton/AuthThemeButton'
 import { LogInFormValueType } from '@/types/auth'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { signIn } from 'next-auth/react'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -58,9 +59,14 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LogInFormValueType) => {
     try {
-      const response = await LoginAccess(data.id, data.password)
-      const { accessToken } = response.data
-      handleLoginSuccess(accessToken)
+      signIn('credentials', {
+        id: data.id,
+        password: data.password,
+        // callbackUrl: '/mydashboard',
+      })
+      // const response = await LoginAccess(data.id, data.password)
+      // const { accessToken } = response.data
+      // handleLoginSuccess(accessToken)
     } catch (error: unknown) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handleLoginError(error as AxiosError<any>)

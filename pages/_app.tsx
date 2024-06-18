@@ -5,6 +5,7 @@ import ToastLayout from '@/components/Toasts/ToastLayout'
 import TotalProvider from '@/store/context/Provider/TotalProvider'
 import store from '@/store/store'
 import '@/styles/globals.css'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
@@ -16,26 +17,28 @@ declare global {
   }
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
         <title>Taskuit</title>
       </Head>
-      <Provider store={store}>
-        <TotalProvider>
-          <ToastPortal>
-            <MyToastLayout />
-          </ToastPortal>
-          <ModalPortal>
-            <ModalLayout />
-          </ModalPortal>
-          <ToastPortal>
-            <ToastLayout />
-          </ToastPortal>
-          <Component {...pageProps} />
-        </TotalProvider>
-      </Provider>
+      <SessionProvider session={session}>
+        <Provider store={store}>
+          <TotalProvider>
+            <ToastPortal>
+              <MyToastLayout />
+            </ToastPortal>
+            <ModalPortal>
+              <ModalLayout />
+            </ModalPortal>
+            <ToastPortal>
+              <ToastLayout />
+            </ToastPortal>
+            <Component {...pageProps} />
+          </TotalProvider>
+        </Provider>
+      </SessionProvider>
     </>
   )
 }
