@@ -60,8 +60,8 @@ export default function MyPage() {
 
     if (imageFile) {
       const res = await postProfileImageReq(imageFile)
-      router.reload()
       profileimageUrl = res?.data.profileImageUrl
+      router.reload()
     } else if (imageFile === null) {
       profileimageUrl = null
     }
@@ -74,7 +74,6 @@ export default function MyPage() {
 
   const handleUpdatePasswordSubmit = async (e: FormEvent, newPasswordBody: PasswordBody) => {
     e.preventDefault()
-
     await updatePasswordRequest(newPasswordBody)
   }
 
