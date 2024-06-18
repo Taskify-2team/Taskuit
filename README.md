@@ -1,3 +1,103 @@
+# 폴더 구조
+
+``` ┣ 📜.env.local
+ ┣ 📜.eslintrc.json
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜Portal.tsx
+ ┣ 📜README.md
+ ┣ 📜next-env.d.ts
+ ┣ 📜next.config.mjs
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜postcss.config.mjs
+ ┣ 📜request.http
+ ┣ 📜tailwind.config.ts
+ ┣ 📜tsconfig.json
+📦components
+ ┣ 📂AppLayout
+ ┃ ┣ 📂DashboardLayout
+ ┃ ┣ 📂Edit
+ ┃ ┣ 📂LandingPageLayout
+ ┃ ┣ 📂MyDashboard
+ ┃ ┣ 📂MyPageLayout
+ ┃ ┗ 📜AppLayout.tsx
+ ┣ 📂AuthThemeButton
+ ┣ 📂Buttons
+ ┣ 📂Chips
+ ┣ 📂ColorSelector
+ ┣ 📂Footer
+ ┣ 📂Headers
+ ┣ 📂Inputs
+ ┣ 📂Loading
+ ┣ 📂Modals
+ ┣ 📂SideMenu
+ ┣ 📂TextCounter
+ ┣ 📂Toasts
+ ┣ 📂UserInfo
+ ┗ 📜index.ts
+📦db
+ ┣ 📂config
+ ┃ ┗ 📜index.ts
+ ┣ 📂middlewares
+ ┃ ┗ 📜cors.ts
+ ┗ 📂models
+ ┃ ┣ 📜tag.ts
+ ┃ ┗ 📜user.ts
+📦hooks
+ ┣ 📜useApp.ts
+ ┣ 📜useAsync.ts
+ ┣ 📜useDebounce.ts
+ ┗ 📜useEditBoard.ts
+📦public
+ ┣ 📂icons
+ ┣ 📂images
+ ┗ 📜favicon.ico
+📦pages
+ ┣ 📂api
+ ┃ ┣ 📂tags
+ ┃ ┗ 📂users
+ ┣ 📂dashboard
+ ┃ ┗ 📂[dashboardId]
+ ┣ 📜404.tsx
+ ┣ 📜_app.tsx
+ ┣ 📜_document.tsx
+ ┣ 📜index.tsx
+ ┣ 📜login.tsx
+ ┣ 📜mydashboard.tsx
+ ┣ 📜mypage.tsx
+ ┗ 📜signup.tsx
+📦service
+ ┣ 📜auth.ts
+ ┣ 📜cards.ts
+ ┣ // ...
+📦store
+ ┣ 📂context
+ ┃ ┣ 📂Provider
+ ┃ ┃ ┗ 📜TotalProvider.tsx
+ ┃ ┣ 📜DbIdContext.ts
+ ┃ ┣ 📜LanguageContext.ts
+ ┃ ┣ // ...
+ ┣ 📂reducers
+ ┃ ┣ 📜cardReducer.ts
+ ┃ ┣ 📜columnReducer.ts
+ ┃ ┣ // ...
+ ┗ 📜store.ts
+📦styles
+ ┣ 📜datepicker.css
+ ┗ 📜globals.css
+📦types
+ ┣ 📜auth.ts
+ ┣ 📜dashboard.ts
+ ┣ // ...
+📦types
+ ┣ 📜auth.ts
+ ┣ 📜dashboard.ts
+ ┗ // ...
+```
+
+<br>
+
 ## 공통
 
 - [x] 제시된 폰트, 컬러 시스템을 설정해 주세요.
