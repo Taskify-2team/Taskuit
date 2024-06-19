@@ -16,7 +16,8 @@ export default NextAuth({
         const response = await LoginAccess(id, password)
         const data = response.data
         if (data) {
-          return data
+          const user = data
+          return user
         } else {
           return null
         }
@@ -24,19 +25,21 @@ export default NextAuth({
     }),
   ],
 
+  secret: process.env.NEXTAUTH_SECRET,
+
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24,
   },
 
   callbacks: {
-    async jwt({ user, token }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.accessToken = user.accessToken
+        token.accessToken = user?.accessToken
       }
       return token
     },
-    async session({ token, session }) {
+    async session({ session, token }) {
       session.accessToken = token.accessToken
       return session
     },

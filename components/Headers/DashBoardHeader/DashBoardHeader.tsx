@@ -24,6 +24,8 @@ import { ModalPortal } from '@/Portal'
 import Loading from '@/components/Loading/Loading'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
 import Dropdown from '../HeaderDropDown'
+import { useSession } from 'next-auth/react'
+import { getToken } from 'next-auth/jwt'
 
 export default function DashBoardHeader() {
   const [title, setTitle] = useState<string>('')
@@ -38,9 +40,11 @@ export default function DashBoardHeader() {
   const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
   const { language, handleSetLanguage } = useLoadLanguage()
+  const { status, data } = useSession()
 
   const { pending, requestFunction: fetchData } = useAsync(async () => {
     try {
+      // const accessToken = session?.accessToken
       const accessToken = localStorage.getItem('accessToken')
       let currentTitle = ''
 
@@ -62,7 +66,7 @@ export default function DashBoardHeader() {
           currentTitle = `${language === 'ko' ? '마이페이지' : 'My Page'}`
         }
       } else {
-        router.push('/login')
+        //router.push('/login')
       }
 
       setTitle(currentTitle)
@@ -100,7 +104,7 @@ export default function DashBoardHeader() {
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
-  }, [router])
+  }, [router, status])
 
   return (
     <>

@@ -62,7 +62,6 @@ export default function LoginForm() {
       signIn('credentials', {
         id: data.id,
         password: data.password,
-        // callbackUrl: '/mydashboard',
       })
       // const response = await LoginAccess(data.id, data.password)
       // const { accessToken } = response.data
