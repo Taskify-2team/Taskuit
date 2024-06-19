@@ -30,7 +30,7 @@ export default function TotalProvider({ children }: { children: ReactNode }) {
       setDbId(result.id)
     }
     if (userId) {
-      loadDbId()
+      //loadDbId()
     }
   }, [userId])
 

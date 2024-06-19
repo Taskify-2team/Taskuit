@@ -1,8 +1,17 @@
 import { LoginAccess } from '@/service/auth'
-import NextAuth from 'next-auth'
+import NextAuth, { Session, User } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-export default NextAuth({
+class CustomError_Class extends Error {
+  response?: {
+    data?: {
+      message: string
+    }
+  }
+}
+
+export const authOption = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -11,14 +20,15 @@ export default NextAuth({
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials) return
-        const { id, password } = credentials
-        const response = await LoginAccess(id, password)
-        const data = response.data
-        if (data) {
-          const user = data
-          return user
-        } else {
+        if (!credentials) return null
+        try {
+          const { id, password } = credentials
+          const response = await LoginAccess(id, password)
+          return response.data
+        } catch (error) {
+          if (error instanceof CustomError_Class) {
+            throw new Error(error?.response?.data?.message)
+          }
           return null
         }
       },
@@ -29,26 +39,26 @@ export default NextAuth({
     signIn: '/login',
   },
 
-  secret: process.env.NEXTAUTH_SECRET,
-
   session: {
-    strategy: 'jwt',
     maxAge: 60 * 60 * 24,
   },
 
   callbacks: {
-    async jwt({ token, user }) {
-      console.log(user)
+    async jwt({ token, user }: { token: JWT; user: User }) {
+      const copyToken = { ...token }
       if (user) {
-        token.accessToken = user?.accessToken
-        token.id = user?.user?.id
+        copyToken.accessToken = user?.accessToken
+        copyToken.id = user?.user?.id
       }
-      return token
+      return copyToken
     },
-    async session({ session, token }) {
-      session.user.id = token.id
-      session.accessToken = token.accessToken
-      return session
+    async session({ session, token }: { session: Session; token: JWT }) {
+      const copySession = { ...session }
+      copySession.user.id = token.id
+      copySession.accessToken = token.accessToken
+      return copySession
     },
   },
-})
+}
+
+export default NextAuth(authOption)

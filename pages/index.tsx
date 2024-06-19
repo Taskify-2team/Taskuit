@@ -1,6 +1,6 @@
 import { LandingPageLayout } from '@/components'
 import Image from 'next/image'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import mainSectionImage1 from '@/public/images/mainSectionImage1.png'
 import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
 import mainImage from '@/public/images/mainImage.png'
