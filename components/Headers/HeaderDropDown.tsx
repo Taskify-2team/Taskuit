@@ -9,8 +9,7 @@ interface DropdownProps {
 function Dropdown({ theme }: DropdownProps) {
   const router = useRouter()
   const handleLogout = () => {
-    localStorage.removeItem('accessToken')
-    router.push('/login')
+    router.replace('/')
   }
   const { language } = useLoadLanguage()
 

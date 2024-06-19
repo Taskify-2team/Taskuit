@@ -24,7 +24,6 @@ INSTANCE_URL.interceptors.request.use(
     }
     if (session) {
       const accessToken = session.accessToken
-      // const accessToken = localStorage.getItem('accessToken')
       config.headers.Authorization = `Bearer ${accessToken}`
     }
     return config

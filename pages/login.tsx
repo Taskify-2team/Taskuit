@@ -62,10 +62,8 @@ export default function LoginForm() {
       signIn('credentials', {
         id: data.id,
         password: data.password,
+        callbackUrl: '/mydashboard',
       })
-      // const response = await LoginAccess(data.id, data.password)
-      // const { accessToken } = response.data
-      // handleLoginSuccess(accessToken)
     } catch (error: unknown) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handleLoginError(error as AxiosError<any>)
