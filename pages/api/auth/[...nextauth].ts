@@ -25,6 +25,10 @@ export default NextAuth({
     }),
   ],
 
+  pages: {
+    signIn: '/login',
+  },
+
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
@@ -34,12 +38,15 @@ export default NextAuth({
 
   callbacks: {
     async jwt({ token, user }) {
+      console.log(user)
       if (user) {
         token.accessToken = user?.accessToken
+        token.id = user?.user?.id
       }
       return token
     },
     async session({ session, token }) {
+      session.user.id = token.id
       session.accessToken = token.accessToken
       return session
     },

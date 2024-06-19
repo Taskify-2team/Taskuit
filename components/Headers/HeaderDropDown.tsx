@@ -1,4 +1,5 @@
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -9,7 +10,7 @@ interface DropdownProps {
 function Dropdown({ theme }: DropdownProps) {
   const router = useRouter()
   const handleLogout = () => {
-    router.replace('/')
+    signOut()
   }
   const { language } = useLoadLanguage()
 

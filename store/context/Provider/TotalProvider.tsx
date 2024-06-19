@@ -5,22 +5,24 @@ import { UserContext } from '../UserIdContext'
 import { LanguageContext } from '../LanguageContext'
 import { ThemeContext } from '../ThemeContext'
 import { DbIdContext } from '../DbIdContext'
+import { useSession } from 'next-auth/react'
 
 export default function TotalProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState(0)
   const [dbId, setDbId] = useState('')
   const [language, setLanguage] = useState('ko')
   const [theme, setTheme] = useState('normal')
+  const { status } = useSession()
 
   useEffect(() => {
     const loadUser = async () => {
       const result = await getUserInfo()
       setUserId(result.id)
     }
-    if (localStorage.getItem('accessToken')) {
+    if (status === 'authenticated') {
       loadUser()
     }
-  }, [])
+  }, [status])
 
   useEffect(() => {
     const loadDbId = async () => {

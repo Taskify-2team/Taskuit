@@ -3,6 +3,7 @@ import { useAppDispatch } from '@/hooks/useApp'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { closeModal } from '@/store/reducers/modalReducer'
+import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 
 export default function MyDashBoard() {

@@ -24,8 +24,7 @@ import { ModalPortal } from '@/Portal'
 import Loading from '@/components/Loading/Loading'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
 import Dropdown from '../HeaderDropDown'
-import { useSession } from 'next-auth/react'
-import { getToken } from 'next-auth/jwt'
+import { getSession, useSession } from 'next-auth/react'
 
 export default function DashBoardHeader() {
   const [title, setTitle] = useState<string>('')
@@ -40,13 +39,15 @@ export default function DashBoardHeader() {
   const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
   const { language, handleSetLanguage } = useLoadLanguage()
-  const { status, data } = useSession()
 
   const { pending, requestFunction: fetchData } = useAsync(async () => {
     try {
-      // const accessToken = session?.accessToken
-      const accessToken = localStorage.getItem('accessToken')
       let currentTitle = ''
+      let accessToken
+      const session = await getSession()
+      if (session) {
+        accessToken = session.accessToken
+      }
 
       if (accessToken) {
         if (router.pathname.startsWith('/dashboard/')) {
@@ -104,7 +105,7 @@ export default function DashBoardHeader() {
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
-  }, [router, status])
+  }, [router])
 
   return (
     <>

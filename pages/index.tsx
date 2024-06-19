@@ -6,7 +6,6 @@ import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
 import mainImage from '@/public/images/mainImage.png'
 import Link from 'next/link'
 import { useLoadTheme } from '@/store/context/ThemeContext'
-import { useRouter } from 'next/router'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
 
 const pointCard =
@@ -54,14 +53,7 @@ function MainSmallCard({
 
 export default function Home() {
   const { theme } = useLoadTheme()
-  const router = useRouter()
   const { language } = useLoadLanguage()
-
-  useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      router.replace('/mydashboard')
-    }
-  }, [router])
 
   return (
     <LandingPageLayout>
