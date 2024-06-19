@@ -1,3 +1,9 @@
+
+# Taskuit - 일정 관리 서비스
+
+![thumb](https://github.com/Taskify-2team/Taskuit/assets/105799083/2c21f849-b4d6-4c3c-b4e9-bb354a77c26a)
+
+
 # 폴더 구조
 
 ``` ┣ 📜.env.local
