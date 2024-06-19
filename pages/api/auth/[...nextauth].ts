@@ -3,14 +3,6 @@ import NextAuth, { Session, User } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-class CustomError_Class extends Error {
-  response?: {
-    data?: {
-      message: string
-    }
-  }
-}
-
 export const authOption = {
   providers: [
     CredentialsProvider({
@@ -25,11 +17,8 @@ export const authOption = {
           const { id, password } = credentials
           const response = await LoginAccess(id, password)
           return response.data
-        } catch (error) {
-          if (error instanceof CustomError_Class) {
-            throw new Error(error?.response?.data?.message)
-          }
-          return null
+        } catch (error: any) {
+          throw new Error(error.response.data.message)
         }
       },
     }),
