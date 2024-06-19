@@ -3,8 +3,47 @@
 
 ![thumb](https://github.com/Taskify-2team/Taskuit/assets/105799083/2c21f849-b4d6-4c3c-b4e9-bb354a77c26a)
 
+<br />
 
-# 폴더 구조
+## 프로젝트 소개
+- 일정 관리 서비스를 제공하는 플랫폼인 'Taskuit'입니다.
+- 대시보드를 생성하여 멤버를 초대하고 일정을 관리할 수 있어요.
+
+<br />
+
+## 배포 사이트
+https://taskuit.vercel.app/
+
+<br />
+
+## 개발 환경
+
+### 1. 기술 스택
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"><img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"><img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"><img src="https://img.shields.io/badge/reacthookform-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"><img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"><img src="https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=white"><img src="https://img.shields.io/badge/mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white"><img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"><img src="https://img.shields.io/badge/reactdatepicker-eeeeee?style=for-the-badge&logoColor=white"><img src="https://img.shields.io/badge/reactcolorpicker-6a009b?style=for-the-badge&logoColor=white">
+
+### 2. 협업 툴
+
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+
+### 3. 서비스 배포 환경
+
+<img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+
+### 4. 디자인 시안
+
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
+### 5. 코드 컨벤션
+
+<a href="https://github.com/Taskify-2team/Taskuit/wiki/%EC%BD%94%EB%93%9C-%EC%BB%A8%EB%B2%A4%EC%85%98">코드 컨벤션</a>
+
+### 6. 커밋 컨벤션
+
+<a href="https://github.com/Taskify-2team/Taskuit/wiki/%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98">커밋 컨벤션</a>
+
+
+## 폴더 구조
 
 ``` ┣ 📜.env.local
  ┣ 📜.eslintrc.json
