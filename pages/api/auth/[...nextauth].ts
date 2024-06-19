@@ -3,6 +3,14 @@ import NextAuth, { Session, User } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
+class CustomError extends Error {
+  response?: {
+    data: {
+      message: string
+    }
+  }
+}
+
 export const authOption = {
   providers: [
     CredentialsProvider({
@@ -17,12 +25,16 @@ export const authOption = {
           const { id, password } = credentials
           const response = await LoginAccess(id, password)
           return response.data
-        } catch (error: any) {
-          throw new Error(error.response.data.message)
+        } catch (error) {
+          const customError = error as CustomError
+          const message = customError.response?.data.message
+          throw new Error(message)
         }
       },
     }),
   ],
+
+  secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
     signIn: '/login',

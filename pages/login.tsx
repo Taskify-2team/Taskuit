@@ -50,7 +50,6 @@ export default function LoginForm() {
       password: data.password,
       redirect: false,
     })
-    console.log(result)
     if (result?.ok) {
       router.push('/mydashboard')
     } else if (result?.error) {
