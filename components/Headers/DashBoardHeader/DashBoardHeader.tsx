@@ -23,6 +23,7 @@ import useAsync from '@/hooks/useAsync'
 import { ModalPortal } from '@/Portal'
 import Loading from '@/components/Loading/Loading'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { getSession } from 'next-auth/react'
 import Dropdown from '../HeaderDropDown'
 
 export default function DashBoardHeader() {
@@ -41,8 +42,12 @@ export default function DashBoardHeader() {
 
   const { pending, requestFunction: fetchData } = useAsync(async () => {
     try {
-      const accessToken = localStorage.getItem('accessToken')
       let currentTitle = ''
+      let accessToken
+      const session = await getSession()
+      if (session) {
+        accessToken = session.accessToken
+      }
 
       if (accessToken) {
         if (router.pathname.startsWith('/dashboard/')) {
@@ -61,8 +66,6 @@ export default function DashBoardHeader() {
         } else if (router.pathname === '/mypage') {
           currentTitle = `${language === 'ko' ? '마이페이지' : 'My Page'}`
         }
-      } else {
-        router.push('/login')
       }
 
       setTitle(currentTitle)

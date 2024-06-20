@@ -1,10 +1,7 @@
 import { AuthInput, LongButton } from '@/components'
-import { LoginAccess } from '@/service/auth'
-import { AxiosError, isAxiosError } from 'axios'
 import Image from 'next/image'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import Link from 'next/link'
-import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import logo from '@/public/images/taskuitLogo_main.png'
 import { useAppDispatch } from '@/hooks/useApp'
@@ -12,6 +9,8 @@ import { openToast } from '@/store/reducers/toastReducer'
 import AuthThemeButton from '@/components/AuthThemeButton/AuthThemeButton'
 import { LogInFormValueType } from '@/types/auth'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const EMAIL_REGREX = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+$/
 
@@ -24,46 +23,37 @@ export default function LoginForm() {
   } = useForm<LogInFormValueType>({
     mode: 'onBlur',
   })
-  const [loginError, setLoginError] = useState<string>('')
   const dispatch = useAppDispatch()
   const { handleSetTheme, theme } = useLoadTheme()
   const { language } = useLoadLanguage()
-
-  const handleLoginSuccess = (accessToken: string) => {
-    localStorage.setItem('accessToken', accessToken)
-    window.location.href = '/mydashboard'
-  }
+  const router = useRouter()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleLoginError = (error: AxiosError<any>) => {
-    if (!isAxiosError(error)) {
-      setLoginError('서버에서 오류가 발생했습니다.')
-      return
-    }
-
-    const errorMessage = error.response?.data?.message
-    if (errorMessage === '존재하지 않는 유저입니다.') {
+  const handleLoginError = (error: string) => {
+    if (error === '존재하지 않는 유저입니다.') {
       setError('id', {
         type: 'manual',
-        message: errorMessage,
+        message: error,
       })
     } else {
       setError('password', {
         type: 'manual',
-        message: errorMessage,
+        message: error,
       })
       dispatch(openToast('wrongCurrentPassword'))
     }
   }
 
   const onSubmit = async (data: LogInFormValueType) => {
-    try {
-      const response = await LoginAccess(data.id, data.password)
-      const { accessToken } = response.data
-      handleLoginSuccess(accessToken)
-    } catch (error: unknown) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      handleLoginError(error as AxiosError<any>)
+    const result = await signIn('credentials', {
+      id: data.id,
+      password: data.password,
+      redirect: false,
+    })
+    if (result?.ok) {
+      router.push('/mydashboard')
+    } else if (result?.error) {
+      handleLoginError(result.error)
     }
   }
 
@@ -135,9 +125,6 @@ export default function LoginForm() {
                 />
               )}
             />
-          </div>
-          <div className="mb-[0.5rem] h-[2rem]">
-            {loginError && <div className="text-[1.4rem] text-var-red">{loginError}</div>}
           </div>
           <LongButton
             type="submit"

@@ -1,16 +1,14 @@
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 interface DropdownProps {
   theme: string
 }
 
 function Dropdown({ theme }: DropdownProps) {
-  const router = useRouter()
   const handleLogout = () => {
-    localStorage.removeItem('accessToken')
-    router.push('/login')
+    signOut()
   }
   const { language } = useLoadLanguage()
 
