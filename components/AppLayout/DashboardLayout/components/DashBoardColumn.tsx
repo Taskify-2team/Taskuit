@@ -75,6 +75,7 @@ export default function DashBoardColumn({
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { threshold: 0 })
     if (obsRef.current && cardListStatus !== 'pending' && cursorId) observer.observe(obsRef.current)
+
     return () => {
       observer.disconnect()
     }
