@@ -52,7 +52,7 @@ https://taskuit.vercel.app/
   - 페이지 : Dashboard 페이지
   - 반응형 작업
 - 기능
-  - 카드, 댓글 무한 스크롤
+  - 카드 및 댓글 무한 스크롤, date 피커, card 상세모달 구현
 <br />
 
 ### 👒 이진욱
@@ -79,6 +79,7 @@ https://taskuit.vercel.app/
   - 페이지 : mydashboard, dashboardEdit 페이지, 랜딩 페이지
 - 기능
   - 컬러 피커, 드래그앤 드롭, 드래그 사이드 스크롤, 테마/언어 변경
+<br />
   
 ## 폴더 구조
 
