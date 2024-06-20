@@ -263,6 +263,18 @@ https://taskuit.vercel.app/
 - '수정하기' 버튼을 누르면 할 일 수정 모달이 나타납니다.
 - '삭제하기' 버튼을 누르면 해당 카드가 삭제됩니다
 
+## 태그 색상 커스텀
+
+<img width="393" alt="스크린샷 2024-06-20 16 10 41" src="https://github.com/Taskify-2team/Taskuit/assets/70879978/8a987d7f-bb65-4c38-ba21-b4540892ff8d">
+
+- 할일 카드의 색상을 원하는대로 선택할 수 있습니다.
+
+## 사진 업로드
+
+<img width="429" alt="스크린샷 2024-06-20 16 12 38" src="https://github.com/Taskify-2team/Taskuit/assets/70879978/788b11d3-2515-45a9-8a9e-97e596d6cb62">
+
+- 할일 카드의 추가할 사진, 프로필 사진에 사용할 사진을 업로드 할때 4메가 이상의 용량이 제한됩니다. 
+
 ## 할 일 생성, 수정 모달(/dashboard/{dashboardid})
 
 | <img width="1920" alt="스크린샷 2024-06-19 오전 11 44 55" src="https://github.com/Taskify-2team/Taskuit/assets/105799083/6e0b2cce-0c77-4ec3-ab8f-e1448a41edde"> | <img width="1920" alt="스크린샷 2024-06-19 오전 11 47 58" src="https://github.com/Taskify-2team/Taskuit/assets/105799083/f57c5419-7481-4f77-9c9f-d3a772624f61"> |
