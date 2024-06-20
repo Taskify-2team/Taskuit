@@ -72,6 +72,13 @@ https://taskuit.vercel.app/
   - 사이드메뉴 페이지네이션, Auth 리액트 훅폼, ProfileList 드롭다운 페이지네이션
  
 <br />
+
+### 🖥️ 박상준
+- UI
+  - 공통 컴포넌트 : Button
+  - 페이지 : mydashboard, dashboardEdit 페이지
+- 기능
+  - 컬러 피커, 드래그앤 드롭, 드래그 사이드 스크롤, 테마/언어 변경
   
 ## 폴더 구조
 
