@@ -273,7 +273,7 @@ https://taskuit.vercel.app/
 
 <img width="429" alt="스크린샷 2024-06-20 16 12 38" src="https://github.com/Taskify-2team/Taskuit/assets/70879978/788b11d3-2515-45a9-8a9e-97e596d6cb62">
 
-- 할일 카드의 추가할 사진, 프로필 사진에 사용할 사진을 업로드 할때 4메가 이상의 용량이 제한됩니다. 
+- 할일 카드의 추가할 사진, 프로필 사진에 사용할 사진을 업로드 할때 용량이 4메가 이하로 제한하여 불필요한 리퀘스트를 막게 하였습니다.
 
 ## 할 일 생성, 수정 모달(/dashboard/{dashboardid})
 
