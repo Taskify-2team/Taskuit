@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
+import { CARD_REQUEST_SIZE } from '@/constants/number'
 import { getCardList, updateCard } from '@/service/cards'
 import { Card } from '@/types/dashboard'
 import { createSlice } from '@reduxjs/toolkit'
@@ -48,15 +49,18 @@ const cardSlice = createSlice({
           columnId = card.columnId
           if (!state.cardList[columnId]) {
             state.cardList[columnId] = []
-            state.cardList[columnId] = [...state.cardList[columnId], card]
           }
           const foundIndex = state.cardList[columnId].findIndex((v: Card) => v.id === card.id)
           if (foundIndex === -1) {
-            state.cardList[columnId] = [...state.cardList[columnId], card]
+            state.cardList[columnId].push(card)
           } else {
             state.cardList[columnId][foundIndex] = card
           }
-          state.cursorId[columnId] = action.payload.cursorId || null
+          if (action.payload.totalCount === CARD_REQUEST_SIZE) {
+            state.cursorId[columnId] = null
+          } else {
+            state.cursorId[columnId] = action.payload.cursorId || null
+          }
           state.totalCount[columnId] = action.payload.totalCount || '0'
         })
       })
@@ -71,13 +75,12 @@ const cardSlice = createSlice({
         const { columnId } = action.payload
         if (!state.cardList[columnId]) {
           state.cardList[columnId] = []
-          state.cardList[columnId] = [...state.cardList[columnId], action.payload]
         }
         const foundIndex = state.cardList[columnId].findIndex(
           (v: Card) => v.id === action.payload.id,
         )
         if (foundIndex === -1) {
-          state.cardList[columnId] = [...state.cardList[columnId], action.payload]
+          state.cardList[columnId].push(action.payload)
         } else {
           state.cardList[columnId][foundIndex] = action.payload
         }
