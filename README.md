@@ -76,7 +76,7 @@ https://taskuit.vercel.app/
 ### 🖥️ 박상준
 - UI
   - 공통 컴포넌트 : Button
-  - 페이지 : mydashboard, dashboardEdit 페이지
+  - 페이지 : mydashboard, dashboardEdit 페이지, 랜딩 페이지
 - 기능
   - 컬러 피커, 드래그앤 드롭, 드래그 사이드 스크롤, 테마/언어 변경
   
@@ -307,3 +307,5 @@ https://taskuit.vercel.app/
 - [x] 모든 input이 채워지면 '변경' 버튼이 활성화 됩니다.
 - [x] '변경' 버튼을 눌렀을때 현재 비밀번호 값이 틀리면 “현재 비밀번호가 틀립니다” 경고창이 나타납니다.
 - [x] 정확한 현재 비밀번호 값을 입력하고 '변경' 버튼을 누르면 비밀번호가 변경이 됩니다.
+
+
