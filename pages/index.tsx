@@ -1,12 +1,14 @@
 import { LandingPageLayout } from '@/components'
 import Image from 'next/image'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import mainSectionImage1 from '@/public/images/mainSectionImage1.png'
 import mainSectionImage2 from '@/public/images/mainSectionImage2.png'
 import mainImage from '@/public/images/mainImage.png'
 import Link from 'next/link'
 import { useLoadTheme } from '@/store/context/ThemeContext'
 import { useLoadLanguage } from '@/store/context/LanguageContext'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const pointCard =
   'sm:h-[68.6rem] sm:w-[34.3rem] sm:flex-col sm:gap-[10rem] md:h-[97.2rem] md:w-[66.4rem] md:flex-col'
@@ -23,6 +25,14 @@ function MainSmallCard({
   image: string
 }) {
   const { theme } = useLoadTheme()
+  const { data, status } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (data) {
+      router.replace('/mydashboard')
+    }
+  }, [status])
 
   return (
     <div className="h-full w-[37.8rem] overflow-hidden rounded-[0.8rem] sm:w-[34.3rem]">
