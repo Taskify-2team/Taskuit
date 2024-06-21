@@ -41,7 +41,7 @@ export const authOption = {
   },
 
   session: {
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60,
   },
 
   callbacks: {
