@@ -57,7 +57,7 @@ export default function Footer() {
       <p
         className={`text-[1.6rem] font-normal ${theme === 'normal' ? 'text-var-black4' : 'text-var-gray3'}`}
       >
-        @FTF-Coding
+        @FTF-Codings
       </p>
       <div className="flex gap-[3.2rem]">
         <Link href="/">
